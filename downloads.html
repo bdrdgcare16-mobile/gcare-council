@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Downloads - G Care Council</title>
+  <link rel="stylesheet" href="./css/download.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="top-header">
+    <div class="logo-box left-logo">
+      <img src="assets/images/gcare-logo.png" alt="G Care Logo" />
+    </div>
+
+    <div class="title-box">
+      <h1>G Care Council</h1>
+      <p>(As Auspicious Agency of Gandhi Foundation)</p>
+    </div>
+
+    <div class="logo-box right-logo">
+      <img src="assets/images/gandhi-logo.png" alt="Gandhi Foundation Logo" />
+    </div>
+  </header>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul class="menu">
+      <li><a href="index.html">HOME</a></li>
+
+      <li class="dropdown">
+        <a href="about.html">ABOUT</a>
+        <ul class="submenu">
+          <li><a href="chairman.html">Chairman Messages</a></li>
+          <li><a href="advisory.html">Advisory Committee</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="community-colleges.html">COMMUNITY COLLEGE</a>
+        <ul class="submenu">
+          <li><a href="training-centers.html">Training Centers</a></li>
+        </ul>
+      </li>
+
+      <li><a href="affiliation.html">AFFILIATION</a></li>
+
+      <li class="dropdown">
+        <a href="programmes.html">PROGRAMMES</a>
+        <ul class="submenu">
+          <li><a href="programmes.html#nursing">Nursing Course</a></li>
+          <li><a href="programmes.html#engineering">Engineering Courses</a></li>
+          <li><a href="programmes.html#paramedical">Paramedical Course</a></li>
+          <li><a href="programmes.html#computer">Computer & IT</a></li>
+          <li><a href="programmes.html#teachers">Teachers Education</a></li>
+          <li><a href="programmes.html#science">Home Science</a></li>
+          <li><a href="programmes.html#skill">Skill Development Course</a></li>
+        </ul>
+      </li>
+
+      <li><a href="services.html">SERVICES</a></li>
+
+      <li class="dropdown active-menu">
+        <a href="downloads.html">DOWNLOADS</a>
+        <ul class="submenu" id="navDownloadList">
+          <li><a href="assets/forms/Student-Admission-Form.pdf" download="Student-Admission-Form.pdf">Student Admission Form</a></li>
+          <li><a href="assets/forms/internship-form.pdf" download="Internship-Form.pdf">Internship Form</a></li>
+          <li><a href="assets/forms/registration-form.pdf" download="Registration-Form.pdf">Registration Form</a></li>
+          <li><a href="assets/forms/bonafide-form.pdf" download="Bonafide-Form.pdf">Bonafide Form</a></li>
+          <li><a href="assets/forms/exam-form.pdf" download="Examination-Form.pdf">Examination Form</a></li>
+        </ul>
+      </li>
+
+      <li><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="downloads-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <h2>Downloads</h2>
+      <div class="hero-line"></div>
+      <p>
+        A professional section for accessing official forms and documents
+      </p>
+    </div>
+  </section>
+
+  <!-- Downloads Section -->
+  <section class="downloads-section">
+    <div class="downloads-container">
+      <!-- Top Panel -->
+      <div class="downloads-top-panel reveal">
+        <!-- Dropdown Selector -->
+        <div class="filter-box">
+          <label for="formFilter">Select Form Category</label>
+          <select id="formFilter" class="form-dropdown">
+            <option value="all">All Forms</option>
+          </select>
+        </div>
+
+        <!-- Selected Form Highlight -->
+        <div class="selected-form-box" id="selectedFormBox">
+          <div class="selected-form-info">
+            <span class="selected-label">Selected Form</span>
+            <h4 id="selectedFormTitle">Select a form from dropdown</h4>
+            <p id="selectedFormDescription">Choose a form to view details and actions</p>
+          </div>
+          <div class="selected-form-actions" id="selectedFormActions" style="display: none;">
+            <a href="#" download class="secondary-btn" id="selectedDownloadBtn">Download</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="downloads-grid" id="downloadsGrid">
+        <!-- Dynamically populated by JavaScript -->
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" id="noResults" style="display: none;">
+        <p>No forms found matching your selection.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-column footer-about">
+        <h3>G Care Council</h3>
+        <p class="footer-tagline">(As Auspicious Agency of Gandhi Foundation)</p>
+        <p class="footer-text">
+          A premier federation of 425 non-profit organizations
+          driving skill development, primary healthcare, and
+          community empowerment across India.
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>QUICK LINKS</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-text-link">Home</a></li>
+          <li><a href="about.html" class="footer-text-link">About Us</a></li>
+          <li><a href="community-colleges.html" class="footer-text-link">Community Colleges</a></li>
+          <li><a href="affiliation.html" class="footer-text-link">Affiliation</a></li>
+          <li><a href="programmes.html" class="footer-text-link">Programmes</a></li>
+          <li><a href="services.html" class="footer-text-link">Services</a></li>
+          <li><a href="downloads.html" class="footer-text-link">Downloads</a></li>
+          <li><a href="gallery.html" class="footer-text-link">Gallery</a></li>
+          <li><a href="contact.html" class="footer-text-link">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>FOLLOW US</h4>
+        <div class="social-list">
+          <a href="#" class="social-btn"><span class="social-icon">📘</span><span>Facebook</span></a>
+          <a href="#" class="social-btn"><span class="social-icon">📷</span><span>Instagram</span></a>
+          <a href="#" class="social-btn"><span class="social-icon">🐦</span><span>Twitter</span></a>
+          <a href="#" class="social-btn"><span class="social-icon">▶</span><span>YouTube</span></a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>ADDRESS</h4>
+        <ul class="contact-list">
+          <li><span class="contact-icon">📍</span><span>No: 33 RL Tower Gandhipuram (GH Opposite) Thiruvallur,Pincode - 602001</span></li>
+          <li><span class="contact-icon">📞</span><span>+91 99941 40160</span></li>
+          <li><span class="contact-icon">✉</span><span>gskill2020@gmail.com</span></li>
+          <li><span class="contact-icon">🌐</span><span>www.gcarecouncil.in</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- <div class="footer-bottom">
+      <p>&copy; 2026 G Care Council. All Rights Reserved.</p>
+    </div> -->
+  </footer>
+
+  <script src="./js/download.js"></script>
+</body>
+</html>

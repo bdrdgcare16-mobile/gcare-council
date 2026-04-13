@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact - G Care Council</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <header class="top-header">
+    <div class="logo-box left-logo">
+      <img src="assets/images/gcare-logo.png" alt="G Care Logo" />
+    </div>
+
+    <div class="title-box">
+      <h1>G Care Council</h1>
+      <p>(As Auspicious Agency of Gandhi Foundation)</p>
+    </div>
+
+    <div class="logo-box right-logo">
+      <img src="assets/images/gandhi-logo.png" alt="Gandhi Foundation Logo" />
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <ul class="menu">
+      <li><a href="index.html">HOME</a></li>
+
+      <li class="dropdown">
+        <a href="about.html">ABOUT</a>
+        <ul class="submenu">
+          <li><a href="chairman.html">Chairman Messages</a></li>
+          <li><a href="advisory.html">Advisory Committee</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="community-colleges.html">COMMUNITY COLLEGE</a>
+        <ul class="submenu">
+          <li><a href="training-centers.html">Training Centers</a></li>
+        </ul>
+      </li>
+
+      <li><a href="affiliation.html">AFFILIATION</a></li>
+
+      <li class="dropdown">
+        <a href="programmes.html">PROGRAMMES</a>
+        <ul class="submenu">
+          <li><a href="programmes.html#nursing">Nursing Course</a></li>
+          <li><a href="programmes.html#engineering">Engineering Courses</a></li>
+          <li><a href="programmes.html#paramedical">Paramedical Course</a></li>
+          <li><a href="programmes.html#computer">Computer & IT</a></li>
+          <li><a href="programmes.html#teachers">Teachers Education</a></li>
+          <li><a href="programmes.html#science">Home Science</a></li>
+          <li><a href="programmes.html#skill">Skill Development Course</a></li>
+        </ul>
+      </li>
+
+      <li><a href="services.html">SERVICES</a></li>
+
+      <li class="dropdown">
+        <a href="downloads.html">DOWNLOADS</a>
+        <ul class="submenu">
+          <li><a href="downloads.html#student">Student Admission Form</a></li>
+          <li><a href="downloads.html#registration">Registration Form</a></li>
+          <li><a href="downloads.html#internship">Internship Form</a></li>
+          <li><a href="downloads.html#report">Internship Report Form</a></li>
+        </ul>
+      </li>
+
+      <li><a href="gallery.html">GALLERY</a></li>
+
+      <li class="active-menu"><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-banner">
+    <h2>Contact Us</h2>
+  </section>
+
+  <section class="contact-main-section">
+    <div class="contact-container">
+      <div class="contact-two-column">
+        <div class="contact-info-section">
+          <div class="contact-info-content">
+            <h3 class="office-title">Head Office</h3>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-location-dot"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Address</h4>
+                <p>
+                  No: 33 RL Tower Gandhipuram (GH Opposite) Thiruvallur,
+                  Pincode - 602001
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Mobile</h4>
+                <p>
+                  +91 99941 40160
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Email</h4>
+                <p>
+                  <a href="mailto:gskill2020@gmail.com" class="email-link">gskill2020@gmail.com</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="enquiry-form-section">
+          <div class="enquiry-form-content">
+            <h3 class="enquire-title">Enquire Us</h3>
+
+            <form class="enquiry-form" id="enquiryForm">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" autocomplete="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="Enter your mobile number"
+                  maxlength="10"
+                  pattern="[0-9]{10}"
+                  autocomplete="tel"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" autocomplete="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" autocomplete="street-address" required />
+              </div>
+
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Enter your city" autocomplete="address-level2" required />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Enter your message" rows="5" required></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Submit</button>
+            </form>
+
+            <div id="formResponse" class="form-response" style="display: none;"></div>
+
+            <div class="otp-section" id="otpSection" style="display: none;">
+              <div class="otp-fields">
+                <div class="form-group">
+                  <label for="mobileOtpInput">Enter Mobile OTP</label>
+                  <input type="tel" id="mobileOtpInput" name="mobileOtpInput" placeholder="Enter OTP sent to your mobile" maxlength="6" />
+                </div>
+
+                <div class="form-group">
+                  <label for="emailOtpInput">Enter Email OTP</label>
+                  <input type="tel" id="emailOtpInput" name="emailOtpInput" placeholder="Enter OTP sent to your email" maxlength="6" />
+                </div>
+              </div>
+
+              <button type="button" class="verify-btn" id="verifyBtn" style="display: none;">Verify</button>
+            </div>
+
+            <div class="verification-messages" id="verificationMessages" style="display: none;">
+              <div class="verification-info" id="verificationInfo"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2024 G Care Council. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

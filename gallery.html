@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - G Care Council</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/gallery.css" />
+</head>
+<body>
+  <header class="top-header">
+    <div class="logo-box left-logo">
+      <img src="assets/images/gcare-logo.png" alt="G Care Logo" />
+    </div>
+
+    <div class="title-box">
+      <h1>G Care Council</h1>
+      <p>(As Auspicious Agency of Gandhi Foundation)</p>
+    </div>
+
+    <div class="logo-box right-logo">
+      <img src="assets/images/gandhi-logo.png" alt="Gandhi Foundation Logo" />
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <ul class="menu">
+      <li><a href="index.html">HOME</a></li>
+
+      <li class="dropdown">
+        <a href="about.html">ABOUT</a>
+        <ul class="submenu">
+          <li><a href="chairman.html">Chairman Messages</a></li>
+          <li><a href="advisory.html">Advisory Committee</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="community-colleges.html">COMMUNITY COLLEGE</a>
+        <ul class="submenu">
+          <li><a href="training-centers.html">Training Centers</a></li>
+        </ul>
+      </li>
+
+      <li><a href="affiliation.html">AFFILIATION</a></li>
+
+      <li class="dropdown">
+        <a href="programmes.html">PROGRAMMES</a>
+        <ul class="submenu">
+          <li><a href="programmes.html#nursing">Nursing Course</a></li>
+          <li><a href="programmes.html#engineering">Engineering Courses</a></li>
+          <li><a href="programmes.html#paramedical">Paramedical Course</a></li>
+          <li><a href="programmes.html#computer">Computer & IT</a></li>
+          <li><a href="programmes.html#teachers">Teachers Education</a></li>
+          <li><a href="programmes.html#science">Home Science</a></li>
+          <li><a href="programmes.html#skill">Skill Development Course</a></li>
+        </ul>
+      </li>
+
+      <li><a href="services.html">SERVICES</a></li>
+
+      <li class="dropdown">
+        <a href="downloads.html">DOWNLOADS</a>
+        <ul class="submenu">
+          <li><a href="downloads.html#student">Student Admission Form</a></li>
+          <li><a href="downloads.html#registration">Registration Form</a></li>
+          <li><a href="downloads.html#internship">Internship Form</a></li>
+          <li><a href="downloads.html#report">Internship Report Form</a></li>
+        </ul>
+      </li>
+
+      <li class="active-menu"><a href="gallery.html">GALLERY</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-banner">
+    <div class="page-banner-inner">
+      <h2>Gallery</h2>
+      <p>Explore branch-wise moments and activities from G Care Council.</p>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="branch-nav">
+      <div class="gallery-buttons-wrapper">
+        <div class="branch-buttons">
+          <button class="gallery-btn active" data-branch="all">All</button>
+          <button class="gallery-btn" data-branch="kanchipuram">Kanchipuram</button>
+          <button class="gallery-btn" data-branch="thiruthani">Thiruthani</button>
+          <button class="gallery-btn" data-branch="pudur">Pudur</button>
+          <button class="gallery-btn" data-branch="thiruvallur">Thiruvallur</button>
+          <button class="gallery-btn" data-branch="poonamallee">Poonamallee</button>
+          <button class="gallery-btn" data-branch="nemilicherry">Nemilicherry</button>
+          <button class="gallery-btn" data-branch="ennore">Ennore</button>
+          <button class="gallery-btn" data-branch="saalai">Saalai</button>
+          <button class="gallery-btn" data-branch="nagapattinam">Nagapattinam</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Images will be inserted dynamically -->
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>

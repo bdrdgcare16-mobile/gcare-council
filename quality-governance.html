@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Assurance & Institutional Governance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #222;
+            line-height: 1.7;
+        }
+
+        /* Quality Assurance & Institutional Governance Section */
+        .quality-governance-section {
+            background: linear-gradient(to bottom, #5f95b8 0%, #b57982 100%);
+            padding: 80px 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .quality-governance-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: #ffffff;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Two Column Layout */
+        .two-column-layout {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .column {
+            flex: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .column.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Content Blocks */
+        .content-block {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .content-block.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .block-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .block-subtitle {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .arrow-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .list-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bullet-arrow {
+            color: #00ced1;
+            font-size: 18px;
+            margin-right: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .list-text {
+            color: #ffffff;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            font-weight: 400;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .two-column-layout {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .section-title {
+                font-size: 36px;
+                margin-bottom: 25px;
+            }
+            
+            .section-subtitle {
+                font-size: 16px;
+                margin-bottom: 40px;
+            }
+            
+            .list-item {
+                font-size: 15px;
+                margin-bottom: 12px;
+            }
+            
+            .bullet-arrow {
+                font-size: 16px;
+                margin-right: 10px;
+            }
+            
+            .block-title {
+                font-size: 20px;
+            }
+            
+            .block-subtitle {
+                font-size: 15px;
+            }
+            
+            .content-block {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quality-governance-section {
+                padding: 60px 18px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 25px;
+            }
+            
+            .section-subtitle {
+                font-size: 16px;
+                margin-bottom: 40px;
+                max-width: 700px;
+            }
+            
+            .two-column-layout {
+                gap: 30px;
+            }
+            
+            .list-item {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .bullet-arrow {
+                font-size: 14px;
+                margin-right: 8px;
+            }
+            
+            .block-title {
+                font-size: 18px;
+            }
+            
+            .block-subtitle {
+                font-size: 14px;
+            }
+            
+            .content-block {
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quality-governance-section {
+                padding: 50px 15px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .section-subtitle {
+                font-size: 15px;
+                margin-bottom: 35px;
+            }
+            
+            .two-column-layout {
+                gap: 25px;
+            }
+            
+            .list-item {
+                font-size: 13px;
+                line-height: 1.6;
+            }
+            
+            .bullet-arrow {
+                font-size: 13px;
+                margin-right: 8px;
+            }
+            
+            .block-title {
+                font-size: 16px;
+            }
+            
+            .block-subtitle {
+                font-size: 13px;
+            }
+            
+            .content-block {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Quality Assurance & Institutional Governance Section -->
+    <section class="quality-governance-section">
+        <div class="quality-governance-container">
+            <h2 class="section-title">Quality Assurance & Institutional Governance</h2>
+            
+            <p class="section-subtitle">
+                GCC maintains a robust Quality Assurance Framework to ensure excellence, credibility, and scalability of its programs.
+            </p>
+            
+            <div class="two-column-layout">
+                <div class="column left-column">
+                    <div class="content-block">
+                        <h3 class="block-title">Multifaceted Quality System</h3>
+                        <p class="block-subtitle">Evaluation across:</p>
+                        <ul class="arrow-list">
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Policy & Governance</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Infrastructure & Delivery Mechanisms</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Curriculum & Pedagogy</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Outcomes & Impact Metrics</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h3 class="block-title">Dynamic & Adaptive Framework</h3>
+                        <ul class="arrow-list">
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Continuous curriculum updates</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Integration of emerging technologies</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Alignment with evolving industry standards</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h3 class="block-title">Industry-Oriented Approach</h3>
+                        <ul class="arrow-list">
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Sector-specific course design</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Employer engagement in curriculum validation</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Placement-linked training models</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="column right-column">
+                    <div class="content-block">
+                        <h3 class="block-title">Stakeholder-Centric Governance</h3>
+                        <p class="block-subtitle">Balanced representation of:</p>
+                        <ul class="arrow-list">
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Students</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Trainers and Institutions</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Industry Partners</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Government Bodies</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Civil Society</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h3 class="block-title">Multifunctional Quality Culture</h3>
+                        <ul class="arrow-list">
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Institutional benchmarking</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Continuous improvement roadmap</span>
+                            </li>
+                            <li class="list-item">
+                                <span class="bullet-arrow">➤</span>
+                                <span class="list-text">Certification credibility and standardization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Scroll Animation for Quality & Governance Section
+            const qualityGovernanceObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const qualityGovernanceObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        // Add staggered animation for content blocks
+                        const contentBlocks = entry.target.querySelectorAll('.content-block');
+                        contentBlocks.forEach((block, index) => {
+                            setTimeout(() => {
+                                block.classList.add('fade-in');
+                            }, index * 150);
+                        });
+                    }
+                });
+            }, qualityGovernanceObserverOptions);
+
+            // Observe the quality-governance section
+            const qualityGovernanceSection = document.querySelector('.quality-governance-section');
+            if (qualityGovernanceSection) {
+                qualityGovernanceObserver.observe(qualityGovernanceSection);
+            }
+        });
+    </script>
+</body>
+</html>
