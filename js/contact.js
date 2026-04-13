@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let pendingFormData = null;
   let isSubmitting = false;
 
-  const API_BASE_URL = "http://localhost:3000/api/contact";
+  const API_BASE_URL = "https://backend-2kz6.onrender.com/api/contact";
 
   if (!enquiryForm) {
     console.error("Enquiry form not found");
