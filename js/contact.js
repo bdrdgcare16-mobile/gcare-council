@@ -6,14 +6,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const verifyBtn = document.getElementById("verifyBtn");
   const verificationMessages = document.getElementById("verificationMessages");
   const verificationInfo = document.getElementById("verificationInfo");
+  const submitBtn = document.querySelector(".submit-btn");
 
   const DEMO_MOBILE_OTP = "123456";
   const DEMO_EMAIL_OTP = "654321";
+  const API_BASE_URL = "https://backend-2kz6.onrender.com/api/contact";
 
   let pendingFormData = null;
   let isSubmitting = false;
-
-  const API_BASE_URL = "https://backend-2kz6.onrender.com/api/contact";
 
   if (!enquiryForm) {
     console.error("Enquiry form not found");
@@ -51,6 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
     hideMessage();
     pendingFormData = null;
     isSubmitting = false;
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit";
+    }
   }
 
   function validateForm(data) {
@@ -118,18 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     pendingFormData = formData;
-
-    const submitBtn = enquiryForm.querySelector(".submit-btn");
-    const originalText = submitBtn ? submitBtn.textContent : "Submit";
-
     isSubmitting = true;
 
     if (submitBtn) {
-      submitBtn.textContent = "Sending OTP...";
       submitBtn.disabled = true;
+      submitBtn.textContent = "Sending OTP...";
     }
 
-    setTimeout(function () {
+    setTimeout(() => {
       if (otpSection) otpSection.style.display = "block";
 
       showMessage(
@@ -142,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       if (submitBtn) {
-        submitBtn.textContent = originalText;
         submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
       }
 
       isSubmitting = false;
@@ -210,35 +211,25 @@ document.addEventListener("DOMContentLoaded", function () {
           );
 
           try {
-            const payload = {
-              fullName: pendingFormData.fullName,
-              mobile: pendingFormData.mobile,
-              email: pendingFormData.email,
-              address: pendingFormData.address,
-              city: pendingFormData.city,
-              message: pendingFormData.message
-            };
-
             const response = await fetch(API_BASE_URL, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
               },
-              body: JSON.stringify(payload)
+              body: JSON.stringify(pendingFormData)
             });
 
-            let result = null;
             const contentType = response.headers.get("content-type");
+            let result;
 
             if (contentType && contentType.includes("application/json")) {
               result = await response.json();
             } else {
-              const text = await response.text();
-              throw new Error(`Unexpected server response: ${text}`);
+              throw new Error("Server did not return valid JSON.");
             }
 
             if (!response.ok) {
-              throw new Error(result.error || result.message || "Failed to submit contact form");
+              throw new Error(result.error || result.message || "Failed to submit contact form.");
             }
 
             showMessage(
@@ -250,10 +241,11 @@ document.addEventListener("DOMContentLoaded", function () {
               `
             );
 
-            setTimeout(function () {
+            setTimeout(() => {
               resetFullForm();
             }, 2500);
           } catch (error) {
+            console.error("Backend submission failed:", error);
             showMessage(
               "verification-error",
               `
@@ -296,9 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
 
-          if (verifyBtn) {
-            verifyBtn.style.display = "none";
-          }
+          verifyBtn.style.display = "none";
         }
 
         this.textContent = originalText;
@@ -318,6 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
         city: document.getElementById("city")?.value.trim() || "",
         message: document.getElementById("message")?.value.trim() || ""
       };
+
       validateForm(formData);
     });
   });

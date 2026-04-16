@@ -8,22 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       branch: "Tiruthani",
       address:
-        "No. 141, Kongusami Nayudu Palli Street,<br>Tiruthani – 631209."
+        "No. 141, Kengusami Naidu Palli Street, Tiruttani – 631209."
     },
     {
       branch: "Kanchipuram",
       address:
-        "No. 57, Sekkupettai, Kavarai Street, (Bus Stand Backside),<br>Periya Kanchipuram – 631502"
+        "No. 57, Seikupetai, Kavarai Street, (Behind Bus Stand), Periya Kanchipuram – 631602."
     },
     {
       branch: "Ennore",
       address:
-        "No. 37, Anna Sathya Nagar, Ennore market backside,<br>Ennore, Chennai – 57"
+        "No. 37, Annai Sathya Nagar, Ennore Market Backside, Ennore, Chennai – 600057."
     },
     {
-      branch: "Nimmilcerry",
+      branch: "Nemilicherry",
       address:
-        "No. 33, C.T.H. Road, Nemmilcerry, Near CSI Temple,<br>Thiruninravur, Pincode - 602024."
+        "No. 33, C.T.H. Road,Nemilicherry,Near CSI Church,Thiruninravur – 602 024."
     },
     {
       branch: "Poonamallee",
@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "No:170, First Floor, Public Office Road, Opp to Municipal Middle School,<br>Kadanpadi, Nagapattinam-611001"
     },
     {
-      branch: "Saalai",
+      branch: "Salai",
       address:
-        "No. 235/7, Shop 14, J.K. Valaagam, Sholingar Road, Saalai Sandhippu,<br>Arakkonam Taluk, Ranipet District – 631 004"
+        "No. 235/7, Shop No. 14, JK Valagam, Sholinghur Road, Salai Sandhippu, Arakkonam Taluk, Ranipet District – 631004."
     },
     {
       branch: "Pudur",

@@ -1,811 +1,4 @@
-// /* ===== PROFESSIONAL PROGRAMMES PAGE JAVASCRIPT ===== */
-
-// const programmesData = {
-//   nursing: {
-//     id: "nursing",
-//     name: "Nursing Course",
-//     title: "Nursing Course",
-//     subtitle: "Healthcare Excellence Through Professional Training",
-//     description:
-//       "Professional nursing education designed to prepare students for healthcare services, hospital assistance, and patient care responsibilities. This programme combines theoretical understanding, basic clinical exposure, and professional discipline to support strong career readiness in healthcare environments.",
-//     duration: "1 Year",
-//     eligibility: "10+2 with Science",
-//     certification: "Nursing Assistant Certificate",
-//     highlights: [
-//       "Comprehensive healthcare training",
-//       "Hands-on clinical experience",
-//       "Patient care techniques",
-//       "Medical ethics and professionalism"
-//     ],
-//     syllabus: [
-//       "Fundamentals of Nursing",
-//       "Anatomy and Physiology",
-//       "Patient Care Management",
-//       "Medical Terminology",
-//       "Clinical Practices",
-//       "Healthcare Ethics"
-//     ],
-//     careerOpportunities: [
-//       "Nursing Assistant",
-//       "Hospital Staff Nurse",
-//       "Patient Care Coordinator",
-//       "Healthcare Provider"
-//     ],
-//     subcourses: []
-//   },
-//   engineering: {
-//     id: "engineering",
-//     name: "Engineering Courses",
-//     title: "Engineering Courses",
-//     subtitle: "Building Technical Excellence for Modern Industries",
-//     description:
-//       "Comprehensive engineering programmes covering multiple disciplines with focus on practical skills, theoretical knowledge, and industry readiness. Students gain expertise in core engineering principles, modern technologies, and professional practices.",
-//     duration: "2 Years",
-//     eligibility: "10+2 with PCM",
-//     certification: "Engineering Diploma",
-//     highlights: [
-//       "Multi-disciplinary approach",
-//       "Industry-relevant curriculum",
-//       "Practical workshop training",
-//       "Career placement support"
-//     ],
-//     syllabus: [
-//       "Engineering Mathematics",
-//       "Technical Drawing",
-//       "Workshop Practices",
-//       "Computer Applications",
-//       "Project Management",
-//       "Industrial Training"
-//     ],
-//     careerOpportunities: [
-//       "Junior Engineer",
-//       "Technical Supervisor",
-//       "Project Assistant",
-//       "Quality Control Engineer"
-//     ],
-//     subcourses: [
-//       {
-//         id: "civil",
-//         name: "Civil Engineering",
-//         title: "Civil Engineering",
-//         subtitle: "Building Infrastructure for Tomorrow",
-//         description: "Focus on construction, design, and infrastructure development with modern engineering practices.",
-//         duration: "2 Years",
-//         eligibility: "10+2 with PCM",
-//         certification: "Civil Engineering Diploma",
-//         highlights: [
-//           "Construction technology",
-//           "Structural design",
-//           "Project management",
-//           "Surveying techniques"
-//         ],
-//         syllabus: [
-//           "Construction Materials",
-//           "Structural Analysis",
-//           "Surveying and Leveling",
-//           "Building Design",
-//           "Project Management",
-//           "Safety Engineering"
-//         ],
-//         careerOpportunities: [
-//           "Site Engineer",
-//           "Construction Supervisor",
-//           "Structural Designer",
-//           "Project Manager"
-//         ],
-//         images: ["civil1.jpg", "civil2.jpg", "civil3.jpg"]
-//       },
-//       {
-//         id: "mechanical",
-//         name: "Mechanical Engineering",
-//         title: "Mechanical Engineering",
-//         subtitle: "Powering Industrial Innovation",
-//         description: "Comprehensive study of machines, tools, and mechanical systems with practical applications.",
-//         duration: "2 Years",
-//         eligibility: "10+2 with PCM",
-//         certification: "Mechanical Engineering Diploma",
-//         highlights: [
-//           "Machine design",
-//           "Manufacturing processes",
-//           "Thermal engineering",
-//           "CAD/CAM applications"
-//         ],
-//         syllabus: [
-//           "Machine Design",
-//           "Thermodynamics",
-//           "Manufacturing Technology",
-//           "CAD/CAM",
-//           "Fluid Mechanics",
-//           "Industrial Engineering"
-//         ],
-//         careerOpportunities: [
-//           "Mechanical Engineer",
-//           "Maintenance Engineer",
-//           "Design Engineer",
-//           "Production Supervisor"
-//         ],
-//         images: ["mech1.jpg", "mech2.jpg", "mech3.jpg"]
-//       },
-//       {
-//         id: "electrical",
-//         name: "Electrical Engineering",
-//         title: "Electrical Engineering",
-//         subtitle: "Powering the Future with Electrical Innovation",
-//         description: "Study of electrical systems, power generation, and modern electrical technologies.",
-//         duration: "2 Years",
-//         eligibility: "10+2 with PCM",
-//         certification: "Electrical Engineering Diploma",
-//         highlights: [
-//           "Power systems",
-//           "Control systems",
-//           "Electrical machines",
-//           "Renewable energy"
-//         ],
-//         syllabus: [
-//           "Electrical Machines",
-//           "Wiring Practice",
-//           "Power Systems",
-//           "Control Basics",
-//           "Lab Work"
-//         ]
-//       }
-//     ]
-//   },
-
-//   paramedical: {
-//     id: "paramedical",
-//     name: "Paramedical Course",
-//     title: "Paramedical Course",
-//     subtitle: "Healthcare Support Excellence Through Specialized Training",
-//     description:
-//       "Comprehensive paramedical education focusing on diagnostic support, patient assistance, and healthcare technology. Students gain expertise in medical diagnostics, laboratory procedures, and patient care support systems.",
-//     duration: "1 Year",
-//     eligibility: "10+2 with Science",
-//     certification: "Paramedical Certificate",
-//     highlights: [
-//       "Diagnostic technology training",
-//       "Laboratory procedures",
-//       "Patient care support",
-//       "Medical equipment handling"
-//     ],
-//     syllabus: [
-//       "Medical Diagnostics",
-//       "Laboratory Techniques",
-//       "Patient Care Support",
-//       "Medical Equipment",
-//       "Healthcare Safety",
-//       "Clinical Procedures",
-//       "Clinical training support",
-//       "Modern equipment exposure",
-//       "Medical fundamentals",
-//       "Career-oriented structure"
-//     ],
-//     careerOpportunities: [
-//       "Lab Technician",
-//       "X-Ray Technician",
-//       "Pharmacy Assistant",
-//       "Diagnostic Centre Support Staff"
-//     ],
-//     images: [
-//       "assets/images/programmes/paramedical-1.jpg",
-//       "assets/images/programmes/paramedical-2.jpg",
-//       "assets/images/programmes/paramedical-3.jpg"
-//     ],
-//     syllabus: [
-//       "Medical Fundamentals",
-//       "Diagnostic Support Basics",
-//       "Patient Handling",
-//       "Clinical Procedures",
-//       "Laboratory Awareness",
-//       "Practical Internship"
-//     ],
-//     subcourses: [
-//       {
-//         id: "xray",
-//         name: "X-Ray",
-//         title: "X-Ray Technician",
-//         subtitle: "Diagnostic Imaging Excellence",
-//         description:
-//           "Professional training for diagnostic imaging support with patient positioning, equipment handling, and radiation safety procedures.",
-//         duration: "1 Year",
-//         eligibility: "10+2 with Science",
-//         certification: "X-Ray Technician Certificate",
-//         highlights: [
-//           "Radiology basics",
-//           "Equipment operation",
-//           "Imaging support training"
-//         ],
-//         careerOpportunities: [
-//           "X-Ray Technician",
-//           "Radiology Assistant",
-//           "Diagnostic Centre Staff"
-//         ],
-//         images: [
-//           "assets/images/programmes/xray-1.jpg",
-//           "assets/images/programmes/xray-2.jpg",
-//           "assets/images/programmes/xray-3.jpg"
-//         ],
-//         syllabus: [
-//           "Radiology Basics",
-//           "X-Ray Equipment",
-//           "Patient Positioning",
-//           "Radiation Safety",
-//           "Image Handling",
-//           "Practical Training"
-//         ]
-//       },
-//       {
-//         id: "lab-technician",
-//         name: "Lab Technician",
-//         title: "Lab Technician",
-//         subtitle: "Clinical Laboratory Excellence",
-//         description:
-//           "Training in sample handling, blood testing, laboratory process support, and basic diagnostic procedures using standard lab protocols.",
-//         duration: "1 Year",
-//         eligibility: "10+2 with Science",
-//         certification: "Lab Technician Certificate",
-//         highlights: [
-//           "Laboratory procedures",
-//           "Diagnostic support skills",
-//           "Testing workflow practice"
-//         ],
-//         careerOpportunities: [
-//           "Lab Technician",
-//           "Pathology Assistant",
-//           "Medical Lab Staff"
-//         ],
-//         images: [
-//           "assets/images/programmes/lab-1.jpg",
-//           "assets/images/programmes/lab-2.jpg",
-//           "assets/images/programmes/lab-3.jpg"
-//         ],
-//         syllabus: [
-//           "Blood Testing",
-//           "Urine Analysis",
-//           "Lab Equipment Handling",
-//           "Microbiology Basics",
-//           "Sample Processing",
-//           "Practical Training"
-//         ]
-//       },
-//       {
-//         id: "d-pharm",
-//         name: "D.Pharm",
-//         title: "Diploma in Pharmacy",
-//         subtitle: "Pharmaceutical Sciences and Practice",
-//         description:
-//           "Pharmacy-focused training for medicine dispensing, pharmacy operations, drug handling, and patient interaction support.",
-//         duration: "2 Years",
-//         eligibility: "10+2 with PCM / PCB",
-//         certification: "Diploma in Pharmacy",
-//         highlights: [
-//           "Pharmacy practice",
-//           "Medicine handling",
-//           "Drug classification basics"
-//         ],
-//         careerOpportunities: [
-//           "Pharmacy Assistant",
-//           "Medical Store Executive",
-//           "Pharmaceutical Support Staff"
-//         ],
-//         images: [
-//           "assets/images/programmes/pharmacy-1.jpg",
-//           "assets/images/programmes/pharmacy-2.jpg",
-//           "assets/images/programmes/pharmacy-3.jpg"
-//         ],
-//         syllabus: [
-//           "Pharmacology Basics",
-//           "Drug Classification",
-//           "Dispensing Procedures",
-//           "Pharmacy Law Basics",
-//           "Patient Counselling",
-//           "Practical Training"
-//         ]
-//       }
-//     ]
-//   },
-
-//   computer: {
-//     id: "computer",
-//     name: "Computer & IT",
-//     title: "Computer & IT",
-//     subtitle: "Digital Skills for the Modern Workplace",
-//     description:
-//       "Practical computer education focused on software usage, office productivity, internet skills, and basic technical understanding.",
-//     duration: "6 Months",
-//     eligibility: "Basic Computer Knowledge",
-//     certification: "IT Skills Certificate",
-//     highlights: [
-//       "Office applications",
-//       "Digital productivity",
-//       "Basic hardware awareness",
-//       "Job-oriented training"
-//     ],
-//     careerOpportunities: [
-//       "Computer Operator",
-//       "Office Assistant",
-//       "IT Support Trainee",
-//       "Data Entry Executive"
-//     ],
-//     images: [
-//       "assets/images/programmes/computer-1.jpg",
-//       "assets/images/programmes/computer-2.jpg",
-//       "assets/images/programmes/computer-3.jpg"
-//     ],
-//     syllabus: [
-//       "Computer Fundamentals",
-//       "MS Office Tools",
-//       "Internet and Email",
-//       "Typing Practice",
-//       "Basic Hardware",
-//       "Practical Assignments"
-//     ],
-//     subcourses: []
-//   },
-
-//   teachers: {
-//     id: "teachers",
-//     name: "Teachers Education",
-//     title: "Teachers Education",
-//     subtitle: "Shaping Future Educators",
-//     description:
-//       "Teacher training designed to improve classroom communication, instructional methods, child understanding, and educational professionalism.",
-//     duration: "1 Year",
-//     eligibility: "Graduation",
-//     certification: "Diploma in Teacher Education",
-//     highlights: [
-//       "Teaching methodology",
-//       "Classroom management",
-//       "Child psychology basics",
-//       "Practice teaching"
-//     ],
-//     careerOpportunities: [
-//       "Primary Teacher",
-//       "Tutor",
-//       "Academic Coordinator",
-//       "Learning Facilitator"
-//     ],
-//     images: [
-//       "assets/images/programmes/teachers-1.jpg",
-//       "assets/images/programmes/teachers-2.jpg",
-//       "assets/images/programmes/teachers-3.jpg"
-//     ],
-//     syllabus: [
-//       "Teaching Fundamentals",
-//       "Educational Psychology",
-//       "Classroom Management",
-//       "Lesson Planning",
-//       "Teaching Practice",
-//       "Assessment Methods"
-//     ],
-//     subcourses: []
-//   },
-
-//   science: {
-//     id: "science",
-//     name: "Home Science",
-//     title: "Home Science",
-//     subtitle: "Science for Better Living",
-//     description:
-//       "Applied learning in nutrition, family welfare, lifestyle science, and home resource management for practical and professional development.",
-//     duration: "1 Year",
-//     eligibility: "10+2 with Science",
-//     certification: "Diploma in Home Science",
-//     highlights: [
-//       "Nutrition awareness",
-//       "Family resource management",
-//       "Applied life science"
-//     ],
-//     careerOpportunities: [
-//       "Nutrition Assistant",
-//       "Community Worker",
-//       "Wellness Support Executive"
-//     ],
-//     images: [
-//       "assets/images/programmes/homescience-1.jpg",
-//       "assets/images/programmes/homescience-2.jpg",
-//       "assets/images/programmes/homescience-3.jpg"
-//     ],
-//     syllabus: [
-//       "Food and Nutrition",
-//       "Human Development",
-//       "Family Resource Management",
-//       "Textile Basics",
-//       "Home Management",
-//       "Field Work"
-//     ],
-//     subcourses: []
-//   },
-
-//   skill: {
-//     id: "skill",
-//     name: "Skill Development Course",
-//     title: "Skill Development Course",
-//     subtitle: "Enhancing Employability Through Practical Skills",
-//     description:
-//       "Short-term programmes focused on communication, work readiness, professionalism, and employability improvement.",
-//     duration: "3 Months",
-//     eligibility: "Basic Education",
-//     certification: "Skill Development Certificate",
-//     highlights: [
-//       "Short duration learning",
-//       "Workplace readiness",
-//       "Communication improvement",
-//       "Practical outcomes"
-//     ],
-//     careerOpportunities: [
-//       "Office Assistant",
-//       "Customer Support Executive",
-//       "Sales Trainee",
-//       "Team Support Staff"
-//     ],
-//     images: [
-//       "assets/images/programmes/skills-1.jpg",
-//       "assets/images/programmes/skills-2.jpg",
-//       "assets/images/programmes/skills-3.jpg"
-//     ],
-//     syllabus: [
-//       "Communication Skills",
-//       "Workplace Etiquette",
-//       "Basic Computer Usage",
-//       "Interview Skills",
-//       "Career Guidance",
-//       "Practical Sessions"
-//     ],
-//     subcourses: []
-//   },
-
-//   beautician: {
-//     id: "beautician",
-//     name: "Beautician Course",
-//     title: "Beautician Course",
-//     subtitle: "Professional Beauty and Wellness Training",
-//     description:
-//       "Beauty and wellness training focused on skincare, makeup techniques, client interaction, and salon support services.",
-//     duration: "6 Months",
-//     eligibility: "10th Pass",
-//     certification: "Beautician Certificate",
-//     highlights: [
-//       "Beauty therapy basics",
-//       "Makeup application",
-//       "Client service training",
-//       "Salon-oriented learning"
-//     ],
-//     careerOpportunities: [
-//       "Beautician",
-//       "Makeup Artist",
-//       "Salon Assistant",
-//       "Wellness Consultant"
-//     ],
-//     images: [
-//       "assets/images/programmes/beautician-1.jpg",
-//       "assets/images/programmes/beautician-2.jpg",
-//       "assets/images/programmes/beautician-3.jpg"
-//     ],
-//     syllabus: [
-//       "Beauty Fundamentals",
-//       "Skin Care",
-//       "Makeup Techniques",
-//       "Hair Care Basics",
-//       "Client Handling",
-//       "Practical Training"
-//     ],
-//     subcourses: []
-//   },
-
-//   tailoring: {
-//     id: "tailoring",
-//     name: "Tailoring Course",
-//     title: "Tailoring Course",
-//     subtitle: "Professional Garment Design and Stitching Training",
-//     description:
-//       "Structured training in stitching, measurement, pattern cutting, garment construction, and design basics.",
-//     duration: "6 Months",
-//     eligibility: "8th Pass",
-//     certification: "Tailoring Certificate",
-//     highlights: [
-//       "Garment creation",
-//       "Pattern cutting",
-//       "Fabric understanding",
-//       "Practical tailoring"
-//     ],
-//     careerOpportunities: [
-//       "Tailor",
-//       "Boutique Assistant",
-//       "Garment Worker",
-//       "Fashion Support Designer"
-//     ],
-//     images: [
-//       "assets/images/programmes/tailoring-1.jpg",
-//       "assets/images/programmes/tailoring-2.jpg",
-//       "assets/images/programmes/tailoring-3.jpg"
-//     ],
-//     syllabus: [
-//       "Measurement Techniques",
-//       "Pattern Making",
-//       "Fabric Knowledge",
-//       "Stitching Methods",
-//       "Garment Construction",
-//       "Practical Work"
-//     ],
-//     subcourses: []
-//   }
-// };
-
-// // Initialize the page
-// document.addEventListener("DOMContentLoaded", function () {
-//   populateProgrammeTabs();
-//   displayProgramme("nursing");
-//   setupEventListeners();
-// });
-
-// // Populate programme tabs
-// function populateProgrammeTabs() {
-//   const programmeTabs = document.getElementById("programmeTabs");
-//   if (!programmeTabs) return;
-
-//   programmeTabs.innerHTML = "";
-
-//   Object.keys(programmesData).forEach((key) => {
-//     const programme = programmesData[key];
-//     const tab = document.createElement("div");
-//     tab.className = "programme-tab";
-//     tab.dataset.programme = key;
-//     tab.textContent = programme.name;
-//     programmeTabs.appendChild(tab);
-//   });
-// }
-
-// // Populate categories grid
-// function populateCategoriesGrid() {
-//   const categoriesGrid = document.getElementById("categoriesGrid");
-//   if (!categoriesGrid) return;
-
-//   categoriesGrid.innerHTML = "";
-
-//   Object.keys(programmesData).forEach((key) => {
-//     const programme = programmesData[key];
-//     const card = document.createElement("div");
-//     card.className = "category-card";
-//     card.dataset.programme = key;
-    
-//     const icon = getProgrammeIcon(key);
-    
-//     card.innerHTML = `
-//       <div class="category-icon">${icon}</div>
-//       <h3 class="category-name">${programme.name}</h3>
-//       <p class="category-description">${programme.description.substring(0, 120)}...</p>
-//     `;
-    
-//     categoriesGrid.appendChild(card);
-//   });
-// }
-
-// // Get programme icon
-// function getProgrammeIcon(key) {
-//   const icons = {
-//     nursing: "N",
-//     engineering: "E",
-//     paramedical: "P",
-//     computer: "IT",
-//     teachers: "T",
-//     science: "HS",
-//     skill: "S",
-//     beautician: "B",
-//     tailoring: "TL"
-//   };
-//   return icons[key] || "P";
-// }
-
-// // Setup event listeners
-// function setupEventListeners() {
-//   document.addEventListener("click", function (e) {
-//     const programmeTab = e.target.closest(".programme-tab");
-//     const dropLink = e.target.closest("#programmesDropdown a");
-
-//     if (programmeTab) {
-//       e.preventDefault();
-//       displayProgramme(programmeTab.dataset.programme);
-//       updateActiveTab(programmeTab.dataset.programme);
-//       return;
-//     }
-
-//     if (dropLink) {
-//       e.preventDefault();
-//       const programmeKey = dropLink.dataset.programme;
-//       const subcourseId = dropLink.dataset.subcourse;
-
-//       if (subcourseId) {
-//         displaySubcourse(programmeKey, subcourseId);
-//       } else {
-//         displayProgramme(programmeKey);
-//       }
-//       updateActiveTab(programmeKey);
-//     }
-//   });
-// }
-
-// // Update active programme tab
-// function updateActiveTab(programmeKey) {
-//   document.querySelectorAll(".programme-tab").forEach((tab) => {
-//     tab.classList.toggle("active", tab.dataset.programme === programmeKey);
-//   });
-// }
-
-// // Display main programme
-// function displayProgramme(programmeKey) {
-//   const programme = programmesData[programmeKey];
-//   if (!programme) return;
-
-//   renderProgrammeShowcase(programme);
-//   renderSyllabusSection(programme);
-//   renderCareerSection(programme);
-//   renderSpecializationSection(programme);
-// }
-
-// // Display subcourse
-// function displaySubcourse(programmeKey, subcourseId) {
-//   const programme = programmesData[programmeKey];
-//   if (!programme) return;
-
-//   const subcourse = programme.subcourses.find((item) => item.id === subcourseId);
-//   if (!subcourse) return;
-
-//   renderProgrammeShowcase(subcourse);
-//   renderSyllabusSection(subcourse);
-//   renderCareerSection(subcourse);
-//   renderSpecializationSection(programme);
-// }
-
-// // Render programme showcase
-// function renderProgrammeShowcase(data) {
-//   const programmeShowcase = document.getElementById("programmeShowcase");
-//   if (!programmeShowcase) return;
-
-//   programmeShowcase.innerHTML = `
-//     <div class="programme-header">
-//       <h1 class="programme-title">${data.title}</h1>
-//       <p class="programme-subtitle">${data.subtitle}</p>
-//     </div>
-//     <div class="programme-content">
-//       <div class="programme-info">
-//         <p class="programme-description">${data.description}</p>
-//         <div class="programme-highlights">
-//           <div class="highlight-item">
-//             <div class="highlight-label">Duration</div>
-//             <div class="highlight-value">${data.duration}</div>
-//           </div>
-//           <div class="highlight-item">
-//             <div class="highlight-label">Eligibility</div>
-//             <div class="highlight-value">${data.eligibility}</div>
-//           </div>
-//           <div class="highlight-item">
-//             <div class="highlight-label">Certification</div>
-//             <div class="highlight-value">${data.certification}</div>
-//           </div>
-//           <div class="highlight-item">
-//             <div class="highlight-label">Key Highlights</div>
-//             <div class="highlight-value">
-//               <ul style="margin: 0; padding-left: 16px;">
-//                 ${data.highlights.map(item => `<li style="margin-bottom: 4px;">${item}</li>`).join("")}
-//               </ul>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//       <div class="programme-sidebar">
-//         <h3 class="sidebar-title">Course Overview</h3>
-//         <div class="sidebar-image">
-//           ${data.title} Image
-//         </div>
-//         <div style="text-align: center; color: #64748b; font-family: Arial, sans-serif; font-size: 1rem;">
-//           Professional training with modern facilities and experienced faculty
-//         </div>
-//       </div>
-//     </div>
-//   `;
-// }
-
-// // Render syllabus section
-// function renderSyllabusSection(data) {
-//   const syllabusSection = document.getElementById("syllabusSection");
-//   if (!syllabusSection) return;
-
-//   syllabusSection.innerHTML = `
-//     <div class="info-block">
-//       <div class="info-block-header">
-//         <div class="info-block-icon">S</div>
-//         <h2 class="info-block-title">Course Syllabus</h2>
-//       </div>
-//       <div class="syllabus-grid">
-//         ${data.syllabus.map((item, index) => `
-//           <div class="syllabus-item">
-//             <div class="syllabus-number">${index + 1}</div>
-//             <h3 class="syllabus-name">${item}</h3>
-//           </div>
-//         `).join("")}
-//       </div>
-//     </div>
-//   `;
-// }
-
-// // Render career section
-// function renderCareerSection(data) {
-//   const careerSection = document.getElementById("careerSection");
-//   if (!careerSection) return;
-
-//   careerSection.innerHTML = `
-//     <div class="info-block">
-//       <div class="info-block-header">
-//         <div class="info-block-icon">C</div>
-//         <h2 class="info-block-title">Career Opportunities</h2>
-//       </div>
-//       <div class="career-grid">
-//         ${data.careerOpportunities.map((item) => `
-//           <div class="career-item">
-//             <div class="career-icon">C</div>
-//             <h3 class="career-title">${item}</h3>
-//           </div>
-//         `).join("")}
-//       </div>
-//     </div>
-//   `;
-// }
-
-// // Render specialization section
-// function renderSpecializationSection(programme) {
-//   const specializationSection = document.getElementById("specializationSection");
-//   if (!specializationSection) return;
-
-//   if (!programme.subcourses || !programme.subcourses.length) {
-//     specializationSection.innerHTML = "";
-//     return;
-//   }
-
-//   specializationSection.innerHTML = `
-//     <div class="info-block">
-//       <div class="info-block-header">
-//         <div class="info-block-icon">S</div>
-//         <h2 class="info-block-title">Specializations</h2>
-//       </div>
-//       <div class="specializations-grid">
-//         ${programme.subcourses.map((subcourse) => `
-//           <div class="specialization-card">
-//             <div class="specialization-image">
-//               ${subcourse.name}
-//             </div>
-//             <div class="specialization-content">
-//               <h3 class="specialization-title">${subcourse.name}</h3>
-//               <p class="specialization-description">${subcourse.description}</p>
-//               <div class="specialization-details">
-//                 <div class="specialization-detail">
-//                   <div class="detail-label">Duration</div>
-//                   <div class="detail-value">${subcourse.duration}</div>
-//                 </div>
-//                 <div class="specialization-detail">
-//                   <div class="detail-label">Eligibility</div>
-//                   <div class="detail-value">${subcourse.eligibility}</div>
-//                 </div>
-//                 <div class="specialization-detail">
-//                   <div class="detail-label">Certification</div>
-//                   <div class="detail-value">${subcourse.certification}</div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         `).join("")}
-//       </div>
-//     </div>
-//   `;
-// }
-
-
-
-
-
-
-
-/* ===== PROFESSIONAL PROGRAMMES PAGE JAVASCRIPT ===== */
+// const defaultProgrammeImage = "../assets/images/programmes/default-main.jpg";
 
 const programmesData = {
   nursing: {
@@ -837,6 +30,11 @@ const programmesData = {
       "Hospital Staff Nurse",
       "Patient Care Coordinator",
       "Healthcare Provider"
+    ],
+    images: [
+      "./assets/programmes/nursing1.jpeg",
+      "./assets/programmes/nursing2.jpeg",
+      "./assets/programmes/nursing3.jpeg"
     ],
     subcourses: []
   },
@@ -871,6 +69,11 @@ const programmesData = {
       "Project Assistant",
       "Quality Control Engineer"
     ],
+    images: [
+      "./assets/programmes/engineering1.jpeg",
+      "./assets/programmes/engineering2.jpeg",
+      "./assets/programmes/engineering3.jpeg"
+    ],
     subcourses: [
       {
         id: "civil",
@@ -901,7 +104,7 @@ const programmesData = {
           "Structural Designer",
           "Project Manager"
         ],
-        images: ["civil1.jpg", "civil2.jpg", "civil3.jpg"]
+        image: "./assets/programmes/civil1.jpeg"
       },
       {
         id: "mechanical",
@@ -932,7 +135,7 @@ const programmesData = {
           "Design Engineer",
           "Production Supervisor"
         ],
-        images: ["mech1.jpg", "mech2.jpg", "mech3.jpg"]
+        image: "./assets/programmes/mechanical1.jpeg"
       },
       {
         id: "electrical",
@@ -961,7 +164,8 @@ const programmesData = {
           "Maintenance Assistant",
           "Control Panel Technician",
           "Power Systems Assistant"
-        ]
+        ],
+        image: "./assets/programmes/eee1.jpeg"
       }
     ]
   },
@@ -997,9 +201,9 @@ const programmesData = {
       "Diagnostic Centre Support Staff"
     ],
     images: [
-      "assets/images/programmes/paramedical-1.jpg",
-      "assets/images/programmes/paramedical-2.jpg",
-      "assets/images/programmes/paramedical-3.jpg"
+      "./assets/programmes/paramedical1.jpeg",
+      "./assets/programmes/paramedical2.jpeg",
+      "./assets/programmes/paramedical3.jpeg"
     ],
     subcourses: [
       {
@@ -1022,11 +226,6 @@ const programmesData = {
           "Radiology Assistant",
           "Diagnostic Centre Staff"
         ],
-        images: [
-          "assets/images/programmes/xray-1.jpg",
-          "assets/images/programmes/xray-2.jpg",
-          "assets/images/programmes/xray-3.jpg"
-        ],
         syllabus: [
           "Radiology Basics",
           "X-Ray Equipment",
@@ -1034,7 +233,8 @@ const programmesData = {
           "Radiation Safety",
           "Image Handling",
           "Practical Training"
-        ]
+        ],
+        image: "./assets/programmes/x-ray1.jpeg"
       },
       {
         id: "lab-technician",
@@ -1056,11 +256,6 @@ const programmesData = {
           "Pathology Assistant",
           "Medical Lab Staff"
         ],
-        images: [
-          "assets/images/programmes/lab-1.jpg",
-          "assets/images/programmes/lab-2.jpg",
-          "assets/images/programmes/lab-3.jpg"
-        ],
         syllabus: [
           "Blood Testing",
           "Urine Analysis",
@@ -1068,7 +263,8 @@ const programmesData = {
           "Microbiology Basics",
           "Sample Processing",
           "Practical Training"
-        ]
+        ],
+        image: "./assets/programmes/lab1.jpeg"
       },
       {
         id: "d-pharm",
@@ -1090,11 +286,6 @@ const programmesData = {
           "Medical Store Executive",
           "Pharmaceutical Support Staff"
         ],
-        images: [
-          "assets/images/programmes/pharmacy-1.jpg",
-          "assets/images/programmes/pharmacy-2.jpg",
-          "assets/images/programmes/pharmacy-3.jpg"
-        ],
         syllabus: [
           "Pharmacology Basics",
           "Drug Classification",
@@ -1102,7 +293,8 @@ const programmesData = {
           "Pharmacy Law Basics",
           "Patient Counselling",
           "Practical Training"
-        ]
+        ],
+        image: "./assets/programmes/D.pharm.jpeg"
       }
     ]
   },
@@ -1129,11 +321,6 @@ const programmesData = {
       "IT Support Trainee",
       "Data Entry Executive"
     ],
-    images: [
-      "assets/images/programmes/computer-1.jpg",
-      "assets/images/programmes/computer-2.jpg",
-      "assets/images/programmes/computer-3.jpg"
-    ],
     syllabus: [
       "Computer Fundamentals",
       "MS Office Tools",
@@ -1141,6 +328,11 @@ const programmesData = {
       "Typing Practice",
       "Basic Hardware",
       "Practical Assignments"
+    ],
+    images: [
+      "./assets/programmes/computer1.jpeg",
+      "./assets/programmes/computer2.jpeg",
+      "./assets/programmes/computer3.jpeg"
     ],
     subcourses: []
   },
@@ -1167,11 +359,6 @@ const programmesData = {
       "Academic Coordinator",
       "Learning Facilitator"
     ],
-    images: [
-      "assets/images/programmes/teachers-1.jpg",
-      "assets/images/programmes/teachers-2.jpg",
-      "assets/images/programmes/teachers-3.jpg"
-    ],
     syllabus: [
       "Teaching Fundamentals",
       "Educational Psychology",
@@ -1179,6 +366,11 @@ const programmesData = {
       "Lesson Planning",
       "Teaching Practice",
       "Assessment Methods"
+    ],
+    images: [
+      "./assets/programmes/teacher1.jpeg",
+      "./assets/programmes/teacher2.jpeg",
+      "./assets/programmes/teacher3.jpeg"
     ],
     subcourses: []
   },
@@ -1203,11 +395,6 @@ const programmesData = {
       "Community Worker",
       "Wellness Support Executive"
     ],
-    images: [
-      "assets/images/programmes/homescience-1.jpg",
-      "assets/images/programmes/homescience-2.jpg",
-      "assets/images/programmes/homescience-3.jpg"
-    ],
     syllabus: [
       "Food and Nutrition",
       "Human Development",
@@ -1215,6 +402,11 @@ const programmesData = {
       "Textile Basics",
       "Home Management",
       "Field Work"
+    ],
+    images: [
+      "./assets/programmes/homescience1.jpeg",
+      "./assets/programmes/homescience2.jpeg",
+      "./assets/programmes/homescience3.jpeg"
     ],
     subcourses: []
   },
@@ -1241,11 +433,6 @@ const programmesData = {
       "Sales Trainee",
       "Team Support Staff"
     ],
-    images: [
-      "assets/images/programmes/skills-1.jpg",
-      "assets/images/programmes/skills-2.jpg",
-      "assets/images/programmes/skills-3.jpg"
-    ],
     syllabus: [
       "Communication Skills",
       "Workplace Etiquette",
@@ -1253,6 +440,11 @@ const programmesData = {
       "Interview Skills",
       "Career Guidance",
       "Practical Sessions"
+    ],
+    images: [
+      "./assets/programmes/skill1.jpeg",
+      "./assets/programmes/skill2.jpeg",
+      "./assets/programmes/skill3.jpeg"
     ],
     subcourses: [
       {
@@ -1283,7 +475,8 @@ const programmesData = {
           "Site Support Staff",
           "Industrial Helper",
           "Operations Trainee"
-        ]
+        ],
+        image: "./assets/programmes/mining1.jpeg"
       },
       {
         id: "rubber-chemical-plastic",
@@ -1313,7 +506,8 @@ const programmesData = {
           "Machine Helper",
           "Packaging Staff",
           "Factory Support Worker"
-        ]
+        ],
+        image: "./assets/programmes/rubber1.jpeg"
       },
       {
         id: "media-entertainment",
@@ -1343,7 +537,8 @@ const programmesData = {
           "Media Support Staff",
           "Content Assistant",
           "Studio Coordinator"
-        ]
+        ],
+        image: "./assets/programmes/media1.jpeg"
       },
       {
         id: "yoga-wellness",
@@ -1373,7 +568,8 @@ const programmesData = {
           "Wellness Support Staff",
           "Community Wellness Trainer",
           "Fitness Centre Assistant"
-        ]
+        ],
+        image: "./assets/programmes/yoga1.jpeg"
       },
       {
         id: "beauty-wellness",
@@ -1403,7 +599,8 @@ const programmesData = {
           "Beauty Support Staff",
           "Spa Assistant",
           "Wellness Centre Trainee"
-        ]
+        ],
+        image: "./assets/programmes/beauty1.jpeg"
       },
       {
         id: "healthcare-sector",
@@ -1433,7 +630,8 @@ const programmesData = {
           "Patient Support Staff",
           "Ward Assistant",
           "Clinic Helper"
-        ]
+        ],
+        image: "./assets/programmes/healthcare1.jpeg"
       },
       {
         id: "handicrafts-carpet",
@@ -1463,7 +661,8 @@ const programmesData = {
           "Production Worker",
           "Design Support Staff",
           "Self-employed Artisan"
-        ]
+        ],
+        image: "./assets/programmes/handicraft1.jpeg"
       },
       {
         id: "banking-bfsi",
@@ -1493,7 +692,8 @@ const programmesData = {
           "Customer Support Executive",
           "Back Office Staff",
           "Financial Service Trainee"
-        ]
+        ],
+        image: "./assets/programmes/banking1.jpeg"
       },
       {
         id: "electronics-sector",
@@ -1523,7 +723,8 @@ const programmesData = {
           "Assembly Line Support",
           "Technical Helper",
           "Production Trainee"
-        ]
+        ],
+        image: "./assets/programmes/electronics1.jpeg"
       },
       {
         id: "food-industry",
@@ -1553,7 +754,8 @@ const programmesData = {
           "Packaging Staff",
           "Production Helper",
           "Quality Support Worker"
-        ]
+        ],
+        image: "./assets/programmes/food1.jpeg"
       },
       {
         id: "agriculture-sector",
@@ -1583,96 +785,23 @@ const programmesData = {
           "Agriculture Support Worker",
           "Field Helper",
           "Rural Livelihood Trainee"
-        ]
+        ],
+        image: "./assets/programmes/agriculture1.jpeg"
       }
     ]
   },
 
-  beautician: {
-    id: "beautician",
-    name: "Beautician Course",
-    title: "Beautician Course",
-    subtitle: "Professional Beauty and Wellness Training",
-    description:
-      "Beauty and wellness training focused on skincare, makeup techniques, client interaction, and salon support services.",
-    duration: "6 Months",
-    eligibility: "10th Pass",
-    certification: "Beautician Certificate",
-    highlights: [
-      "Beauty therapy basics",
-      "Makeup application",
-      "Client service training",
-      "Salon-oriented learning"
-    ],
-    careerOpportunities: [
-      "Beautician",
-      "Makeup Artist",
-      "Salon Assistant",
-      "Wellness Consultant"
-    ],
-    images: [
-      "assets/images/programmes/beautician-1.jpg",
-      "assets/images/programmes/beautician-2.jpg",
-      "assets/images/programmes/beautician-3.jpg"
-    ],
-    syllabus: [
-      "Beauty Fundamentals",
-      "Skin Care",
-      "Makeup Techniques",
-      "Hair Care Basics",
-      "Client Handling",
-      "Practical Training"
-    ],
-    subcourses: []
-  },
-
-  tailoring: {
-    id: "tailoring",
-    name: "Tailoring Course",
-    title: "Tailoring Course",
-    subtitle: "Professional Garment Design and Stitching Training",
-    description:
-      "Structured training in stitching, measurement, pattern cutting, garment construction, and design basics.",
-    duration: "6 Months",
-    eligibility: "8th Pass",
-    certification: "Tailoring Certificate",
-    highlights: [
-      "Garment creation",
-      "Pattern cutting",
-      "Fabric understanding",
-      "Practical tailoring"
-    ],
-    careerOpportunities: [
-      "Tailor",
-      "Boutique Assistant",
-      "Garment Worker",
-      "Fashion Support Designer"
-    ],
-    images: [
-      "assets/images/programmes/tailoring-1.jpg",
-      "assets/images/programmes/tailoring-2.jpg",
-      "assets/images/programmes/tailoring-3.jpg"
-    ],
-    syllabus: [
-      "Measurement Techniques",
-      "Pattern Making",
-      "Fabric Knowledge",
-      "Stitching Methods",
-      "Garment Construction",
-      "Practical Work"
-    ],
-    subcourses: []
-  }
 };
 
-// Initialize the page
 document.addEventListener("DOMContentLoaded", function () {
   populateProgrammeTabs();
-  displayProgramme("nursing");
   setupEventListeners();
+  setupFooterInteractions();
+  loadProgrammeFromHash();
 });
 
-// Populate programme tabs
+window.addEventListener("hashchange", loadProgrammeFromHash);
+
 function populateProgrammeTabs() {
   const programmeTabs = document.getElementById("programmeTabs");
   if (!programmeTabs) return;
@@ -1689,7 +818,6 @@ function populateProgrammeTabs() {
   });
 }
 
-// Setup event listeners
 function setupEventListeners() {
   document.addEventListener("click", function (e) {
     const programmeTab = e.target.closest(".programme-tab");
@@ -1697,35 +825,72 @@ function setupEventListeners() {
 
     if (programmeTab) {
       e.preventDefault();
-      displayProgramme(programmeTab.dataset.programme);
-      updateActiveTab(programmeTab.dataset.programme);
+      const programmeKey = programmeTab.dataset.programme;
+      window.location.hash = programmeKey;
+      displayProgramme(programmeKey);
+      updateActiveTab(programmeKey);
       return;
     }
 
     if (dropLink) {
-      e.preventDefault();
       const programmeKey = dropLink.dataset.programme;
       const subcourseId = dropLink.dataset.subcourse;
 
-      if (subcourseId) {
-        displaySubcourse(programmeKey, subcourseId);
-      } else {
-        displayProgramme(programmeKey);
+      if (programmeKey && subcourseId) {
+        dropLink.href = `programmes.html#${programmeKey}/${subcourseId}`;
+      } else if (programmeKey) {
+        dropLink.href = `programmes.html#${programmeKey}`;
       }
-
-      updateActiveTab(programmeKey);
     }
   });
 }
 
-// Update active programme tab
+function loadProgrammeFromHash() {
+  const hash = window.location.hash.replace("#", "").trim();
+
+  if (!hash) {
+    displayProgramme("nursing");
+    updateActiveTab("nursing");
+    return;
+  }
+
+  if (hash.includes("/")) {
+    const [programmeKey, subcourseId] = hash.split("/");
+    displaySubcourse(programmeKey, subcourseId);
+    updateActiveTab(programmeKey);
+    return;
+  }
+
+  displayProgramme(hash);
+  updateActiveTab(hash);
+}
+
+function setupFooterInteractions() {
+  const quickLinks = document.querySelectorAll(".footer-text-link");
+  const socialButtons = document.querySelectorAll(".social-btn");
+
+  quickLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      quickLinks.forEach((item) => item.classList.remove("clicked"));
+      this.classList.add("clicked");
+    });
+  });
+
+  socialButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      socialButtons.forEach((item) => item.classList.remove("clicked"));
+      this.classList.add("clicked");
+    });
+  });
+}
+
 function updateActiveTab(programmeKey) {
   document.querySelectorAll(".programme-tab").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.programme === programmeKey);
   });
 }
 
-// Display main programme
 function displayProgramme(programmeKey) {
   const programme = programmesData[programmeKey];
   if (!programme) return;
@@ -1736,13 +901,15 @@ function displayProgramme(programmeKey) {
   renderSpecializationSection(programme);
 }
 
-// Display subcourse
 function displaySubcourse(programmeKey, subcourseId) {
   const programme = programmesData[programmeKey];
   if (!programme || !programme.subcourses) return;
 
   const subcourse = programme.subcourses.find((item) => item.id === subcourseId);
-  if (!subcourse) return;
+  if (!subcourse) {
+    displayProgramme(programmeKey);
+    return;
+  }
 
   renderProgrammeShowcase(subcourse);
   renderSyllabusSection(subcourse);
@@ -1750,7 +917,64 @@ function displaySubcourse(programmeKey, subcourseId) {
   renderSpecializationSection(programme);
 }
 
-// Render programme showcase
+function renderProgrammeImages(data) {
+  // Check if this is a specific course that should show only one image
+  const singleImageCourses = [
+    'civil', 'mechanical', 'electrical', // Engineering subcourses
+    'xray', 'lab-technician', 'd-pharm', // Paramedical subcourses
+    'mining-sector', 'rubber-chemical-plastic', 'media-entertainment', 'yoga-wellness', 
+    'beauty-wellness', 'healthcare-sector', 'handicrafts-carpet', 'banking-bfsi', 
+    'electronics-sector', 'food-industry', 'agriculture-sector' // Skill Development subcourses
+  ];
+  
+  const isSingleImageCourse = singleImageCourses.includes(data.id);
+  
+  if (isSingleImageCourse) {
+    // Show only one image for specific courses
+    const image = data.image || "./assets/programmes/default-1.jpeg";
+    return `
+      <div class="course-single-image-container">
+        <img src="${image}" alt="${data.title}">
+      </div>
+    `;
+  } else {
+    // Show 3 images for other courses
+    const images = getProgrammeImages(data);
+    return `
+      <div class="course-image-gallery">
+        ${images.map((image, index) => `
+          <div class="course-large-image">
+            <img src="${image}" alt="${data.title} - Image ${index + 1}">
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+}
+
+function getProgrammeImages(data) {
+  // If course has images array, use it
+  if (data.images && data.images.length >= 3) {
+    return data.images.slice(0, 3);
+  }
+  
+  // If subcourse has single image, create 3 images from it
+  if (data.image) {
+    return [
+      data.image,
+      data.image.replace('.jpeg', '-2.jpeg'),
+      data.image.replace('.jpeg', '-3.jpeg')
+    ];
+  }
+  
+  // Fallback default images
+  return [
+    "./assets/programmes/default-1.jpeg",
+    "./assets/programmes/default-2.jpeg",
+    "./assets/programmes/default-3.jpeg"
+  ];
+}
+
 function renderProgrammeShowcase(data) {
   const programmeShowcase = document.getElementById("programmeShowcase");
   if (!programmeShowcase) return;
@@ -1760,46 +984,45 @@ function renderProgrammeShowcase(data) {
       <h1 class="programme-title">${data.title}</h1>
       <p class="programme-subtitle">${data.subtitle}</p>
     </div>
+
     <div class="programme-content">
       <div class="programme-info">
         <p class="programme-description">${data.description}</p>
+
         <div class="programme-highlights">
           <div class="highlight-item">
             <div class="highlight-label">Duration</div>
             <div class="highlight-value">${data.duration}</div>
           </div>
+
           <div class="highlight-item">
             <div class="highlight-label">Eligibility</div>
             <div class="highlight-value">${data.eligibility}</div>
           </div>
+
           <div class="highlight-item">
             <div class="highlight-label">Certification</div>
             <div class="highlight-value">${data.certification}</div>
           </div>
+
           <div class="highlight-item">
             <div class="highlight-label">Key Highlights</div>
             <div class="highlight-value">
-              <ul style="margin: 0; padding-left: 16px;">
-                ${(data.highlights || []).map(item => `<li style="margin-bottom: 4px;">${item}</li>`).join("")}
+              <ul>
+                ${(data.highlights || []).map(item => `<li>${item}</li>`).join("")}
               </ul>
             </div>
           </div>
         </div>
       </div>
+
       <div class="programme-sidebar">
-        <h3 class="sidebar-title">Course Overview</h3>
-        <div class="sidebar-image">
-          ${data.title} Image
-        </div>
-        <div style="text-align: center; color: #64748b; font-family: Arial, sans-serif; font-size: 1rem;">
-          Professional training with modern facilities and experienced faculty
-        </div>
+        ${renderProgrammeImages(data)}
       </div>
     </div>
   `;
 }
 
-// Render syllabus section
 function renderSyllabusSection(data) {
   const syllabusSection = document.getElementById("syllabusSection");
   if (!syllabusSection) return;
@@ -1810,6 +1033,7 @@ function renderSyllabusSection(data) {
         <div class="info-block-icon">S</div>
         <h2 class="info-block-title">Course Syllabus</h2>
       </div>
+
       <div class="syllabus-grid">
         ${(data.syllabus || []).map((item, index) => `
           <div class="syllabus-item">
@@ -1822,7 +1046,6 @@ function renderSyllabusSection(data) {
   `;
 }
 
-// Render career section
 function renderCareerSection(data) {
   const careerSection = document.getElementById("careerSection");
   if (!careerSection) return;
@@ -1833,6 +1056,7 @@ function renderCareerSection(data) {
         <div class="info-block-icon">C</div>
         <h2 class="info-block-title">Career Opportunities</h2>
       </div>
+
       <div class="career-grid">
         ${(data.careerOpportunities || []).map((item) => `
           <div class="career-item">
@@ -1845,7 +1069,10 @@ function renderCareerSection(data) {
   `;
 }
 
-// Render specialization section
+function getSpecializationImage(subcourse) {
+  return subcourse.image || defaultProgrammeImage;
+}
+
 function renderSpecializationSection(programme) {
   const specializationSection = document.getElementById("specializationSection");
   if (!specializationSection) return;
@@ -1861,24 +1088,29 @@ function renderSpecializationSection(programme) {
         <div class="info-block-icon">S</div>
         <h2 class="info-block-title">Specializations</h2>
       </div>
+
       <div class="specializations-grid">
         ${programme.subcourses.map((subcourse) => `
           <div class="specialization-card">
-            <div class="specialization-image">
-              ${subcourse.name}
+            <div class="specialization-image" style="background-image: url('${getSpecializationImage(subcourse)}');">
+              <span>${subcourse.name}</span>
             </div>
+
             <div class="specialization-content">
               <h3 class="specialization-title">${subcourse.name}</h3>
               <p class="specialization-description">${subcourse.description}</p>
+
               <div class="specialization-details">
                 <div class="specialization-detail">
                   <div class="detail-label">Duration</div>
                   <div class="detail-value">${subcourse.duration}</div>
                 </div>
+
                 <div class="specialization-detail">
                   <div class="detail-label">Eligibility</div>
                   <div class="detail-value">${subcourse.eligibility}</div>
                 </div>
+
                 <div class="specialization-detail">
                   <div class="detail-label">Certification</div>
                   <div class="detail-value">${subcourse.certification}</div>
