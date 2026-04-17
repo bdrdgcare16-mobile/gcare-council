@@ -104,7 +104,7 @@ const programmesData = {
           "Structural Designer",
           "Project Manager"
         ],
-        image: "./assets/programmes/civil.jpeg"
+        image: "./assets/programmes/civili1.jpeg"
       },
       {
         id: "mechanical",
@@ -135,7 +135,7 @@ const programmesData = {
           "Design Engineer",
           "Production Supervisor"
         ],
-        image: "./assets/programmes/mechanical.jpeg"
+        image: "./assets/programmes/machanical.jpeg"
       },
       {
         id: "electrical",
