@@ -104,7 +104,7 @@ const programmesData = {
           "Structural Designer",
           "Project Manager"
         ],
-        image: "./assets/programmes/civil1.jpeg"
+        image: "./assets/programmes/civil.jpeg"
       },
       {
         id: "mechanical",
@@ -135,7 +135,7 @@ const programmesData = {
           "Design Engineer",
           "Production Supervisor"
         ],
-        image: "./assets/programmes/mechanical1.jpeg"
+        image: "./assets/programmes/mechanical.jpeg"
       },
       {
         id: "electrical",
@@ -165,7 +165,7 @@ const programmesData = {
           "Control Panel Technician",
           "Power Systems Assistant"
         ],
-        image: "./assets/programmes/eee1.jpeg"
+        image: "./assets/programmes/eee.jpeg"
       }
     ]
   },
@@ -264,7 +264,7 @@ const programmesData = {
           "Sample Processing",
           "Practical Training"
         ],
-        image: "./assets/programmes/lab1.jpeg"
+        image: "./assets/programmes/lab.jpeg"
       },
       {
         id: "d-pharm",
@@ -507,7 +507,7 @@ const programmesData = {
           "Packaging Staff",
           "Factory Support Worker"
         ],
-        image: "./assets/programmes/rubber1.jpeg"
+        image: "./assets/programmes/rubber.jpeg"
       },
       {
         id: "media-entertainment",
@@ -538,7 +538,7 @@ const programmesData = {
           "Content Assistant",
           "Studio Coordinator"
         ],
-        image: "./assets/programmes/media1.jpeg"
+        image: "./assets/programmes/media.jpeg"
       },
       {
         id: "yoga-wellness",
@@ -569,7 +569,7 @@ const programmesData = {
           "Community Wellness Trainer",
           "Fitness Centre Assistant"
         ],
-        image: "./assets/programmes/yoga1.jpeg"
+        image: "./assets/programmes/yoga.jpeg"
       },
       {
         id: "beauty-wellness",
@@ -600,7 +600,7 @@ const programmesData = {
           "Spa Assistant",
           "Wellness Centre Trainee"
         ],
-        image: "./assets/programmes/beauty1.jpeg"
+        image: "./assets/programmes/beauty.jpeg"
       },
       {
         id: "healthcare-sector",
@@ -631,7 +631,7 @@ const programmesData = {
           "Ward Assistant",
           "Clinic Helper"
         ],
-        image: "./assets/programmes/healthcare1.jpeg"
+        image: "./assets/programmes/health.jpeg"
       },
       {
         id: "handicrafts-carpet",
@@ -662,7 +662,7 @@ const programmesData = {
           "Design Support Staff",
           "Self-employed Artisan"
         ],
-        image: "./assets/programmes/handicraft1.jpeg"
+        image: "./assets/programmes/hand.jpeg"
       },
       {
         id: "banking-bfsi",
@@ -693,7 +693,7 @@ const programmesData = {
           "Back Office Staff",
           "Financial Service Trainee"
         ],
-        image: "./assets/programmes/banking1.jpeg"
+        image: "./assets/programmes/bank.jpeg"
       },
       {
         id: "electronics-sector",
@@ -724,7 +724,7 @@ const programmesData = {
           "Technical Helper",
           "Production Trainee"
         ],
-        image: "./assets/programmes/electronics1.jpeg"
+        image: "./assets/programmes/electronic.jpeg"
       },
       {
         id: "food-industry",
@@ -755,7 +755,7 @@ const programmesData = {
           "Production Helper",
           "Quality Support Worker"
         ],
-        image: "./assets/programmes/food1.jpeg"
+        image: "./assets/programmes/food.jpeg"
       },
       {
         id: "agriculture-sector",
@@ -786,7 +786,7 @@ const programmesData = {
           "Field Helper",
           "Rural Livelihood Trainee"
         ],
-        image: "./assets/programmes/agriculture1.jpeg"
+        image: "./assets/programmes/agri.jpeg"
       }
     ]
   },
