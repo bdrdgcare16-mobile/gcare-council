@@ -234,7 +234,7 @@ const programmesData = {
           "Image Handling",
           "Practical Training"
         ],
-        image: "./assets/programmes/x-ray1.jpeg"
+        image: "./assets/programmes/x-ray.jpeg"
       },
       {
         id: "lab-technician",
@@ -476,7 +476,7 @@ const programmesData = {
           "Industrial Helper",
           "Operations Trainee"
         ],
-        image: "./assets/programmes/mining1.jpeg"
+        image: "./assets/programmes/mining.jpeg"
       },
       {
         id: "rubber-chemical-plastic",
