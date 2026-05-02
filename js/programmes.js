@@ -8,8 +8,8 @@ const programmesData = {
     subtitle: "Healthcare Excellence Through Professional Training",
     description:
       "Professional nursing education designed to prepare students for healthcare services, hospital assistance, and patient care responsibilities. This programme combines theoretical understanding, basic clinical exposure, and professional discipline to support strong career readiness in healthcare environments.",
-    duration: "1 Year",
-    eligibility: "10+2 with Science",
+    duration: "4 Year",
+    eligibility: "10,+2 with Science",
     certification: "Nursing Assistant Certificate",
     highlights: [
       "Comprehensive healthcare training",
@@ -36,7 +36,43 @@ const programmesData = {
       "./assets/programmes/nursing2.jpeg",
       "./assets/programmes/nursing3.jpeg"
     ],
-    subcourses: []
+    subcourses: [
+      {
+        id: "diploma-nursing",
+        name: "Diploma Nursing",
+        title: "Diploma in Nursing",
+        subtitle: "Advanced Nursing Education for Healthcare Excellence",
+        description: "Comprehensive diploma programme in nursing focusing on advanced patient care, clinical practices, medical ethics, and professional healthcare standards. This course prepares students for diverse nursing roles in hospitals, clinics, and healthcare facilities.",
+        duration: "3 Years",
+        eligibility: "10+2 with Science (PCB)",
+        certification: "Diploma in Nursing",
+        highlights: [
+          "Advanced clinical training",
+          "Comprehensive patient care",
+          "Medical and surgical nursing",
+          "Professional healthcare standards"
+        ],
+        syllabus: [
+          "Advanced Nursing Fundamentals",
+          "Medical-Surgical Nursing",
+          "Pediatric Nursing",
+          "Obstetric and Gynecological Nursing",
+          "Community Health Nursing",
+          "Psychiatric Nursing",
+          "Nursing Research and Statistics",
+          "Nursing Management and Leadership"
+        ],
+        careerOpportunities: [
+          "Staff Nurse",
+          "Nursing Supervisor",
+          "Clinical Nurse Specialist",
+          "Nurse Educator",
+          "Community Health Nurse",
+          "Private Duty Nurse"
+        ],
+        image: "./assets/programmes/diploma.jpeg"
+      }
+    ]
   },
 
   engineering: {
@@ -797,6 +833,7 @@ document.addEventListener("DOMContentLoaded", function () {
   populateProgrammeTabs();
   setupEventListeners();
   setupFooterInteractions();
+  setupModalListeners();
   loadProgrammeFromHash();
 });
 
@@ -822,47 +859,86 @@ function setupEventListeners() {
   document.addEventListener("click", function (e) {
     const programmeTab = e.target.closest(".programme-tab");
     const dropLink = e.target.closest("#programmesDropdown a");
+    
+    // Check if clicking on the main PROGRAMMES menu item
+    const programmesMenu = e.target.closest('.dropdown.active-menu > a');
+    if (programmesMenu && programmesMenu.textContent.trim() === "PROGRAMMES") {
+      e.preventDefault();
+      // Clear hash and show all courses
+      window.location.hash = "";
+      return;
+    }
+    
+    // Also check direct match
+    if (e.target.matches('.dropdown.active-menu > a') && e.target.textContent.trim() === "PROGRAMMES") {
+      e.preventDefault();
+      window.location.hash = "";
+      return;
+    }
 
     if (programmeTab) {
       e.preventDefault();
       const programmeKey = programmeTab.dataset.programme;
       window.location.hash = programmeKey;
-      displayProgramme(programmeKey);
-      updateActiveTab(programmeKey);
       return;
     }
 
     if (dropLink) {
+      e.preventDefault();
       const programmeKey = dropLink.dataset.programme;
       const subcourseId = dropLink.dataset.subcourse;
 
       if (programmeKey && subcourseId) {
-        dropLink.href = `programmes.html#${programmeKey}/${subcourseId}`;
+        window.location.hash = `${programmeKey}/${subcourseId}`;
       } else if (programmeKey) {
-        dropLink.href = `programmes.html#${programmeKey}`;
+        window.location.hash = programmeKey;
       }
     }
   });
+}
+
+function scrollToCoursesSection() {
+  const coursesSection = document.querySelector(".courses-section");
+  if (coursesSection) {
+    setTimeout(() => {
+      coursesSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 150);
+  } else {
+    // Fallback: scroll to top if courses section not found
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }, 150);
+  }
 }
 
 function loadProgrammeFromHash() {
   const hash = window.location.hash.replace("#", "").trim();
 
   if (!hash) {
-    displayProgramme("nursing");
-    updateActiveTab("nursing");
+    // Show all courses when no hash
+    renderFilteredCourses();
+    updateActiveTab(null);
+    scrollToCoursesSection();
     return;
   }
 
   if (hash.includes("/")) {
     const [programmeKey, subcourseId] = hash.split("/");
-    displaySubcourse(programmeKey, subcourseId);
+    renderFilteredCourses(programmeKey, subcourseId);
     updateActiveTab(programmeKey);
+    scrollToCoursesSection();
     return;
   }
 
-  displayProgramme(hash);
+  renderFilteredCourses(hash);
   updateActiveTab(hash);
+  scrollToCoursesSection();
 }
 
 function setupFooterInteractions() {
@@ -889,11 +965,35 @@ function updateActiveTab(programmeKey) {
   document.querySelectorAll(".programme-tab").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.programme === programmeKey);
   });
+  
+  // Also update dropdown active state
+  document.querySelectorAll("#programmesDropdown a").forEach((link) => {
+    const linkProgramme = link.dataset.programme;
+    const linkSubcourse = link.dataset.subcourse;
+    
+    if (!programmeKey) {
+      // Show all courses - no active state
+      link.classList.remove("active");
+    } else if (linkSubcourse) {
+      // Subcourse link - check if it matches current hash
+      const currentHash = window.location.hash.replace("#", "");
+      link.classList.toggle("active", currentHash === `${linkProgramme}/${linkSubcourse}`);
+    } else {
+      // Main programme link
+      link.classList.toggle("active", linkProgramme === programmeKey);
+    }
+  });
 }
 
 function displayProgramme(programmeKey) {
   const programme = programmesData[programmeKey];
   if (!programme) return;
+
+  // Show specialization section for main programmes
+  const specializationSection = document.getElementById("specializationSection");
+  if (specializationSection) {
+    specializationSection.style.display = "block";
+  }
 
   renderProgrammeShowcase(programme);
   renderSyllabusSection(programme);
@@ -911,10 +1011,15 @@ function displaySubcourse(programmeKey, subcourseId) {
     return;
   }
 
+  // Hide specialization section when subcourse is selected
+  const specializationSection = document.getElementById("specializationSection");
+  if (specializationSection) {
+    specializationSection.style.display = "none";
+  }
+
   renderProgrammeShowcase(subcourse);
   renderSyllabusSection(subcourse);
   renderCareerSection(subcourse);
-  renderSpecializationSection(programme);
 }
 
 function renderProgrammeImages(data) {
@@ -1021,6 +1126,15 @@ function renderProgrammeShowcase(data) {
       </div>
     </div>
   `;
+
+  // Add fade-in animation
+  programmeShowcase.style.opacity = '0';
+  programmeShowcase.style.transform = 'translateY(20px)';
+  setTimeout(() => {
+    programmeShowcase.style.transition = 'all 0.6s ease';
+    programmeShowcase.style.opacity = '1';
+    programmeShowcase.style.transform = 'translateY(0)';
+  }, 100);
 }
 
 function renderSyllabusSection(data) {
@@ -1071,6 +1185,215 @@ function renderCareerSection(data) {
 
 function getSpecializationImage(subcourse) {
   return subcourse.image || defaultProgrammeImage;
+}
+
+function renderFilteredCourses(programmeKey = null, subcourseId = null) {
+  const coursesGrid = document.getElementById("coursesGrid");
+  if (!coursesGrid) return;
+
+  let filteredCourses = [];
+  let courseNumber = 1;
+
+  // If no programmeKey specified, show all courses
+  if (!programmeKey) {
+    // Add all main courses and subcourses
+    Object.keys(programmesData).forEach(key => {
+      const programme = programmesData[key];
+      filteredCourses.push({
+        ...programme,
+        courseNumber: courseNumber++,
+        isMainCourse: true,
+        fee: "₹25,000 - ₹50,000"
+      });
+
+      if (programme.subcourses && programme.subcourses.length > 0) {
+        programme.subcourses.forEach(subcourse => {
+          filteredCourses.push({
+            ...subcourse,
+            courseNumber: courseNumber++,
+            isMainCourse: false,
+            parentProgramme: key,
+            fee: "₹15,000 - ₹35,000"
+          });
+        });
+      }
+    });
+  } else if (subcourseId) {
+    // Show only specific subcourse
+    const programme = programmesData[programmeKey];
+    if (programme && programme.subcourses) {
+      const subcourse = programme.subcourses.find(sub => sub.id === subcourseId);
+      if (subcourse) {
+        filteredCourses.push({
+          ...subcourse,
+          courseNumber: courseNumber++,
+          isMainCourse: false,
+          parentProgramme: programmeKey,
+          fee: "₹15,000 - ₹35,000"
+        });
+      }
+    }
+  } else {
+    // Show only specific programme and its subcourses
+    const programme = programmesData[programmeKey];
+    if (programme) {
+      // Only show parent course if it has no subcourses
+      if (!programme.subcourses || programme.subcourses.length === 0) {
+        filteredCourses.push({
+          ...programme,
+          courseNumber: courseNumber++,
+          isMainCourse: true,
+          fee: "₹25,000 - ₹50,000"
+        });
+      }
+
+      // Show subcourses if they exist
+      if (programme.subcourses && programme.subcourses.length > 0) {
+        programme.subcourses.forEach(subcourse => {
+          filteredCourses.push({
+            ...subcourse,
+            courseNumber: courseNumber++,
+            isMainCourse: false,
+            parentProgramme: programmeKey,
+            fee: "₹15,000 - ₹35,000"
+          });
+        });
+      }
+    }
+  }
+
+  coursesGrid.innerHTML = filteredCourses.map(course => renderCourseCard(course)).join("");
+}
+
+function renderCourseCard(course) {
+  const image = course.image || course.images?.[0] || "./assets/programmes/default-1.jpeg";
+  let tags;
+  
+  if (course.isMainCourse) {
+    tags = [course.name];
+  } else {
+    // All subcourses: Show only subcourse name, remove parent pills
+    tags = [course.name];
+  }
+  
+  return `
+    <div class="course-card" data-course-id="${course.id}">
+      <img class="course-card-image" src="${image}" alt="${course.title}">
+      
+      <div class="course-card-content">
+        <div class="course-card-tags">
+          ${tags.map(tag => `<span class="course-card-tag">${tag}</span>`).join('')}
+        </div>
+        
+        <div class="course-card-header">
+          <div class="course-card-number">Course ${course.courseNumber}</div>
+          <h3 class="course-card-title">${course.title}</h3>
+          <div class="course-card-duration">${course.duration}</div>
+        </div>
+        
+        <p class="course-card-description">${course.description}</p>
+        
+        <div class="course-card-details">
+          <div class="course-card-detail">
+            <div class="course-card-detail-label">Eligibility</div>
+            <div class="course-card-detail-value">${course.eligibility}</div>
+          </div>
+          
+          <div class="course-card-detail">
+            <div class="course-card-detail-label">Annual Fee</div>
+            <div class="course-card-detail-value">${course.fee}</div>
+          </div>
+        </div>
+        
+        <div class="course-card-action">
+          <button class="course-card-button" onclick="openCourseModal('${course.id}', ${course.isMainCourse}, '${course.parentProgramme || ''}')">
+            View Full Details →
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function getParentProgrammeName(programmeKey) {
+  const programme = programmesData[programmeKey];
+  return programme ? programme.name : '';
+}
+
+function setupModalListeners() {
+  const modal = document.getElementById("courseModal");
+  const overlay = document.getElementById("modalOverlay");
+  const closeBtn = document.getElementById("modalClose");
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeCourseModal);
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", closeCourseModal);
+  }
+
+  // Close modal with Escape key
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeCourseModal();
+    }
+  });
+}
+
+function openCourseModal(courseId, isMainCourse, parentProgramme) {
+  const modal = document.getElementById("courseModal");
+  let course;
+
+  if (isMainCourse) {
+    course = programmesData[courseId];
+  } else {
+    const programme = programmesData[parentProgramme];
+    course = programme.subcourses.find(sub => sub.id === courseId);
+  }
+
+  if (!course) return;
+
+  // Populate modal content
+  document.getElementById("modalHeroImage").src = course.image || course.images?.[0] || "./assets/programmes/default-1.jpeg";
+  document.getElementById("modalTitle").textContent = course.title;
+  document.getElementById("modalSubtitle").textContent = course.subtitle;
+  document.getElementById("modalCourseNumber").textContent = `Course ${course.courseNumber || 'N/A'}`;
+  document.getElementById("modalDuration").textContent = course.duration;
+  document.getElementById("modalEligibility").textContent = course.eligibility;
+  document.getElementById("modalFee").textContent = course.fee || "₹25,000 - ₹50,000";
+  document.getElementById("modalDescription").textContent = course.description;
+  document.getElementById("modalEligibilityDetail").textContent = course.eligibility;
+
+  // Populate syllabus
+  const syllabusContainer = document.getElementById("modalSyllabus");
+  if (course.syllabus && course.syllabus.length > 0) {
+    syllabusContainer.innerHTML = course.syllabus.map((item, index) => 
+      `<div class="modal-syllabus-item" data-index="${index + 1}">${item}</div>`
+    ).join('');
+  } else {
+    syllabusContainer.innerHTML = '<p>No syllabus information available.</p>';
+  }
+
+  // Populate career opportunities
+  const careerContainer = document.getElementById("modalCareer");
+  if (course.careerOpportunities && course.careerOpportunities.length > 0) {
+    careerContainer.innerHTML = course.careerOpportunities.map(item => 
+      `<div class="modal-career-item">${item}</div>`
+    ).join('');
+  } else {
+    careerContainer.innerHTML = '<p>No career information available.</p>';
+  }
+
+  // Show modal
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCourseModal() {
+  const modal = document.getElementById("courseModal");
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
 }
 
 function renderSpecializationSection(programme) {

@@ -49,7 +49,12 @@
       <li class="dropdown active-menu">
         <a href="programmes.html">PROGRAMMES</a>
         <ul class="submenu" id="programmesDropdown">
-          <li><a href="programmes.html#nursing" data-programme="nursing">Nursing Course</a></li>
+          <li class="has-submenu">
+            <a href="programmes.html#nursing" data-programme="nursing">Nursing Course</a>
+            <ul class="nested-submenu">
+              <li><a href="programmes.html#nursing/diploma-nursing" data-programme="nursing" data-subcourse="diploma-nursing">Diploma Nursing</a></li>
+            </ul>
+          </li>
 
           <li class="has-submenu">
             <a href="programmes.html#engineering" data-programme="engineering">Engineering Courses</a>
@@ -89,9 +94,6 @@
               <li><a href="programmes.html#skill/agriculture-sector" data-programme="skill" data-subcourse="agriculture-sector">Agriculture Sector</a></li>
             </ul>
           </li>
-
-          <!-- <li><a href="programmes.html#beautician" data-programme="beautician">Beautician Course</a></li>
-          <li><a href="programmes.html#tailoring" data-programme="tailoring">Tailoring Course</a></li> -->
         </ul>
       </li>
 
@@ -143,31 +145,69 @@
     </div>
   </section>
 
-  <section class="programme-nav">
+  <section class="courses-section">
     <div class="container">
-      <div class="nav-header">
-        <h2 class="nav-title">Explore Our Programmes</h2>
-        <p class="nav-subtitle">Choose the course that matches your academic and career goals</p>
-      </div>
-      <div class="programme-tabs" id="programmeTabs"></div>
+      <div class="courses-grid" id="coursesGrid"></div>
     </div>
   </section>
 
-  <section class="featured-programme">
-    <div class="container">
-      <div class="programme-showcase" id="programmeShowcase"></div>
-    </div>
-  </section>
-
-  <section class="programme-details">
-    <div class="container">
-      <div class="details-grid">
-        <div class="detail-section" id="syllabusSection"></div>
-        <div class="detail-section" id="careerSection"></div>
-        <div class="detail-section" id="specializationSection"></div>
+  <!-- Course Detail Modal -->
+  <div class="course-modal" id="courseModal">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body">
+        <div class="modal-hero">
+          <img class="modal-hero-image" id="modalHeroImage" src="" alt="">
+          <div class="modal-hero-overlay">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+          </div>
+        </div>
+        
+        <div class="modal-details">
+          <div class="modal-info-grid">
+            <div class="modal-info-item">
+              <span class="modal-info-label">Course Number</span>
+              <span class="modal-info-value" id="modalCourseNumber"></span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Duration</span>
+              <span class="modal-info-value" id="modalDuration"></span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Eligibility</span>
+              <span class="modal-info-value" id="modalEligibility"></span>
+            </div>
+            <div class="modal-info-item">
+              <span class="modal-info-label">Annual Fee</span>
+              <span class="modal-info-value" id="modalFee"></span>
+            </div>
+          </div>
+          
+          <div class="modal-section">
+            <h3 class="modal-section-title">Course Overview</h3>
+            <p class="modal-description" id="modalDescription"></p>
+          </div>
+          
+          <div class="modal-section">
+            <h3 class="modal-section-title">Eligibility Criteria</h3>
+            <p class="modal-eligibility-detail" id="modalEligibilityDetail"></p>
+          </div>
+          
+          <div class="modal-section">
+            <h3 class="modal-section-title">Course Syllabus</h3>
+            <div class="modal-syllabus" id="modalSyllabus"></div>
+          </div>
+          
+          <div class="modal-section">
+            <h3 class="modal-section-title">Career Opportunities</h3>
+            <div class="modal-career" id="modalCareer"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <footer class="gcc-footer">
     <div class="gcc-footer-container">
