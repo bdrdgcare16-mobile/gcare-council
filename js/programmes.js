@@ -1213,7 +1213,7 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
             courseNumber: courseNumber++,
             isMainCourse: false,
             parentProgramme: key,
-            fee: "₹15,000 - ₹35,000"
+            fee: "₹24,000"
           });
         });
       }
@@ -1255,7 +1255,7 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
             courseNumber: courseNumber++,
             isMainCourse: false,
             parentProgramme: programmeKey,
-            fee: "₹15,000 - ₹35,000"
+            fee: "₹27,000"
           });
         });
       }
