@@ -155,6 +155,7 @@
   <div class="course-modal" id="courseModal">
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal-content">
+      <button class="modal-back-arrow" id="modalBackArrow" title="Back to Courses">←</button>
       <button class="modal-close" id="modalClose">&times;</button>
       <div class="modal-body">
         <div class="modal-hero">
@@ -209,6 +210,23 @@
     </div>
   </div>
 
+  <!-- Syllabus Details Page -->
+  <div class="syllabus-page" id="syllabusPage">
+    <div class="syllabus-container">
+      <div class="syllabus-header">
+        <button class="syllabus-back-btn" id="syllabusBackBtn">
+          ← Back to Course Details
+        </button>
+        <div class="syllabus-header-content">
+          <h2 class="syllabus-course-title" id="syllabusCourseTitle"></h2>
+          <p class="syllabus-course-subtitle" id="syllabusCourseSubtitle"></p>
+        </div>
+      </div>
+      
+      <div class="syllabus-content" id="syllabusContent"></div>
+    </div>
+  </div>
+
   <footer class="gcc-footer">
     <div class="gcc-footer-container">
       <div class="footer-column footer-brand">
@@ -259,6 +277,24 @@
 
   <script src="js/script.js"></script>
   <script src="js/programmes.js"></script>
+  <script>
+    // Footer social button click effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const socialButtons = document.querySelectorAll('.social-btn');
+      socialButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          // Only prevent default for social buttons, not quick links
+          if (this.classList.contains('social-btn')) {
+            e.preventDefault();
+          }
+          // Remove clicked class from all buttons
+          socialButtons.forEach(btn => btn.classList.remove('clicked'));
+          // Add clicked class to clicked button
+          this.classList.add('clicked');
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

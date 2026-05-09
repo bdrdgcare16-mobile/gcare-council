@@ -25,6 +25,65 @@ const programmesData = {
       "Clinical Practices",
       "Healthcare Ethics"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Fundamentals of Nursing",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Introduction to Nursing",
+                "Nursing Ethics and Professionalism",
+                "Communication Skills in Healthcare",
+                "Basic Patient Care Procedures"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Infection Control",
+                "Vital Signs Monitoring",
+                "Patient Safety",
+                "Documentation and Record Keeping"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Anatomy and Physiology",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Human Body Structure",
+                "Skeletal System",
+                "Muscular System",
+                "Nervous System Basics"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Cardiovascular System",
+                "Respiratory System",
+                "Digestive System",
+                "Excretory System"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Basic Nursing Procedures",
+        "Patient Care Demonstration",
+        "First Aid Training",
+        "Clinical Rotation Practice",
+        "Medical Equipment Handling"
+      ]
+    },
     careerOpportunities: [
       "Nursing Assistant",
       "Hospital Staff Nurse",
@@ -62,6 +121,65 @@ const programmesData = {
           "Nursing Research and Statistics",
           "Nursing Management and Leadership"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Advanced Nursing Fundamentals",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Advanced Patient Assessment",
+                    "Critical Care Nursing",
+                    "Emergency Nursing Procedures",
+                    "Advanced Life Support"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Pharmacology in Nursing",
+                    "Pain Management",
+                    "Wound Care Management",
+                    "IV Therapy Administration"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Medical-Surgical Nursing",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Pre-operative Care",
+                    "Post-operative Care",
+                    "Surgical Wound Management",
+                    "Anesthesia Nursing"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Gastrointestinal Surgery",
+                    "Cardiovascular Surgery",
+                    "Orthopedic Surgery",
+                    "Neurosurgery Nursing"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Advanced Clinical Procedures",
+            "Surgical Nursing Practice",
+            "ICU/CCU Training",
+            "Emergency Response Drills",
+            "Medical Administration"
+          ]
+        },
         careerOpportunities: [
           "Staff Nurse",
           "Nursing Supervisor",
@@ -99,6 +217,65 @@ const programmesData = {
       "Project Management",
       "Industrial Training"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Engineering Mathematics",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Calculus and Differential Equations",
+                "Linear Algebra",
+                "Probability and Statistics",
+                "Complex Numbers"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Integration Techniques",
+                "Vector Calculus",
+                "Fourier Series",
+                "Numerical Methods"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Technical Drawing",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Engineering Graphics Basics",
+                "Orthographic Projections",
+                "Isometric Views",
+                "Sectional Views"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Assembly Drawings",
+                "Machine Drawing",
+                "CAD Fundamentals",
+                "Blueprint Reading"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Engineering Workshop Practice",
+        "CAD/CAM Laboratory",
+        "Surveying Practical",
+        "Material Testing Lab",
+        "Project Work"
+      ]
+    },
     careerOpportunities: [
       "Junior Engineer",
       "Technical Supervisor",
@@ -113,12 +290,33 @@ const programmesData = {
     subcourses: [
       {
         id: "civil",
-        name: "Civil Engineering",
-        title: "Civil Engineering",
-        subtitle: "Building Infrastructure for Tomorrow",
-        description: "Focus on construction, design, and infrastructure development with modern engineering practices.",
-        duration: "2 Years",
-        eligibility: "10+2 with PCM",
+        name: "Dip.in.Civil Engineering",
+        title: "Dip.in.Civil Engineering",
+        subtitle: "Building Infrastructure",
+        description: "Diploma in Civil Engineering is a diploma level engineering course that specializes in the design, construction, and maintenance of physical and naturally-built environment, such as roads, bridges, canals, dams and buildings. A Civil Engineer is responsible for all building structures- comprising the planning, design, budgeting, construction management, developing national wide transport systems, water supply networks, surveying and analysis-and civil engineers should except to use all these skills regardless of their specialization. Civil engineering is a rapidly advancing industry, constantly adapting to contemporary developments and concerns, such as pollution, water shortages and sustainable energies",
+        careerOpportunities: [
+          "CAD Engineer",
+          "Construction Jobs",
+          "Architects",
+          "Structural Engineer",
+          "Design Engineer",
+          "Draughtsman",
+          "Geotechnical Engineer",
+          "Water Resources Engineer"
+        ],
+        careerProspectsIntro: "There are several jobs available after completing Diploma in Civil. This includes",
+        careerProspects: [
+          "CAD Engineer",
+          "Construction Jobs",
+          "Architects",
+          "Structural Engineer",
+          "Design Engineer",
+          "Draughtsman",
+          "Geotechnical Engineer",
+          "Water Resources Engineer"
+        ],
+        duration: "1 Years",
+        eligibility: "A Pass in 10th Standard",
         certification: "Civil Engineering Diploma",
         highlights: [
           "Construction technology",
@@ -134,6 +332,65 @@ const programmesData = {
           "Project Management",
           "Safety Engineering"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Basic Civil Engineering",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Civil Engineering",
+                    "Building Materials",
+                    "Types of Construction",
+                    "Construction Technology"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Surveying Basics",
+                    "Levelling Methods",
+                    "Measurement Techniques",
+                    "Modern Surveying Equipment"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Structural Engineering",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Structural Analysis Basics",
+                    "Load Distribution",
+                    "Beam Design",
+                    "Column Design"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Foundation Design",
+                    "Steel Structures",
+                    "Concrete Technology",
+                    "Earthquake Resistant Design"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Surveying Practical",
+            "Building Drawing Practice",
+            "Construction Material Testing",
+            "Structural Design Lab",
+            "Site Visit Training"
+          ]
+        },
         careerOpportunities: [
           "Site Engineer",
           "Construction Supervisor",
@@ -144,12 +401,12 @@ const programmesData = {
       },
       {
         id: "mechanical",
-        name: "Mechanical Engineering",
-        title: "Mechanical Engineering",
+        name: "Dip.in.Mechanical Engineering",
+        title: "Dip.in.Mechanical Engineering",
         subtitle: "Powering Industrial Innovation",
-        description: "Comprehensive study of machines, tools, and mechanical systems with practical applications.",
-        duration: "2 Years",
-        eligibility: "10+2 with PCM",
+        description: "Diploma in Mechanical programme teaches the students a basic understanding and knowledge of how heavy tools and machinery work. A student pursuing a mechanical engineering programme will acquire knowledge about designing automobiles, electric motors, aircraft and other heavy vehicles. Mechanical engineers design everything from new batteries and athletic equipment to medical devices and from personal computers, air conditioners, and automobile engines to electric power plants. These engineers also design machines that produce these innovations. The scope of mechanical engineering in India and abroad is huge because every aspect of our lives is touched by mechanical engineering in one way or the other.",
+        duration: "1 Years",
+        eligibility: "A Pass in 10th Standard",
         certification: "Mechanical Engineering Diploma",
         highlights: [
           "Machine design",
@@ -165,22 +422,89 @@ const programmesData = {
           "Fluid Mechanics",
           "Industrial Engineering"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Basic Mechanical Engineering",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Mechanical Engineering",
+                    "Engineering Materials",
+                    "Manufacturing Processes",
+                    "Machine Tools"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Thermodynamics Basics",
+                    "Heat Transfer",
+                    "Fluid Mechanics",
+                    "Energy Systems"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Machine Design",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Design Principles",
+                    "Mechanical Drawings",
+                    "Gear Design",
+                    "Bearing Selection"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "CAD/CAM Applications",
+                    "CNC Programming",
+                    "3D Modeling",
+                    "Product Design"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Machine Shop Practice",
+            "CAD/CAM Laboratory",
+            "Thermal Engineering Lab",
+            "Fluid Mechanics Practical",
+            "Project Fabrication"
+          ]
+        },
         careerOpportunities: [
           "Mechanical Engineer",
           "Maintenance Engineer",
           "Design Engineer",
           "Production Supervisor"
         ],
+        careerProspectsIntro: "Some of the best scopes after finishing Diploma in Mechanical are:",
+        careerProspects: [
+          "Quality Control Engineer",
+          "Production Supervisor",
+          "Maintenance Engineer",
+          "Automotive Engineer",
+          "Assistant Executive Engineer"
+        ],
         image: "./assets/programmes/machanical.jpeg"
       },
       {
         id: "electrical",
-        name: "Electrical Engineering",
-        title: "Electrical Engineering",
+        name: "Dip.in.Electrical Engineering",
+        title: "Dip.in.Electrical Engineering",
         subtitle: "Powering the Future with Electrical Innovation",
-        description: "Study of electrical systems, power generation, and modern electrical technologies.",
-        duration: "2 Years",
-        eligibility: "10+2 with PCM",
+        description: "This branch of engineering focuses on electricity, electronics, and electromagnetism. After the commercialization of the electric telegraph and electrical power supply in the late nineteenth century, the area became a recognized vocation. In addition to electricity, it now encompasses electronics and control systems and signal processing, and telecommunications. The electrical engineering sector provides excellent career prospects.",
+        duration: "1 Years",
+        eligibility: "A Pass in 10th Standard",
         certification: "Electrical Engineering Diploma",
         highlights: [
           "Power systems",
@@ -195,11 +519,78 @@ const programmesData = {
           "Control Basics",
           "Lab Work"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Basic Electrical Engineering",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Electrical Engineering",
+                    "Basic Circuit Theory",
+                    "Ohm's Law and Kirchhoff's Laws",
+                    "Electrical Measurements"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "AC and DC Circuits",
+                    "Transformers",
+                    "Electrical Machines Basics",
+                    "Power Generation"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Electrical Machines and Control",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "DC Machines",
+                    "AC Machines",
+                    "Motor Control",
+                    "Generator Operations"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Power Systems",
+                    "Transmission Lines",
+                    "Distribution Systems",
+                    "Electrical Safety"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Electrical Wiring Practice",
+            "Machine Lab Practical",
+            "Power System Laboratory",
+            "Control System Lab",
+            "Industrial Training"
+          ]
+        },
         careerOpportunities: [
           "Electrical Technician",
           "Maintenance Assistant",
           "Control Panel Technician",
           "Power Systems Assistant"
+        ],
+        careerProspectsIntro: "There are a lot of career opportunities after one finishes Diploma in Electrical. This includes",
+        careerProspects: [
+          "Electrical Engineer",
+          "Electrical Design Engineer",
+          "Telecommunications Engineer",
+          "Micro Electrical Engineer",
+          "Electrical Service Engineer"
         ],
         image: "./assets/programmes/eee.jpeg"
       }
@@ -230,6 +621,65 @@ const programmesData = {
       "Laboratory Awareness",
       "Practical Internship"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Medical Fundamentals",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Introduction to Paramedical Sciences",
+                "Human Anatomy Basics",
+                "Medical Terminology",
+                "Healthcare Ethics"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Physiology Basics",
+                "Pathology Fundamentals",
+                "Microbiology Basics",
+                "First Aid and Emergency Care"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Diagnostic Support",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Diagnostic Equipment Basics",
+                "Patient Preparation",
+                "Sample Collection",
+                "Laboratory Procedures"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Radiography Basics",
+                "ECG and EKG Procedures",
+                "Ultrasound Fundamentals",
+                "Diagnostic Report Analysis"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Diagnostic Equipment Operation",
+        "Patient Care Assistance",
+        "Laboratory Procedures",
+        "Emergency Response Training",
+        "Clinical Internship"
+      ]
+    },
     careerOpportunities: [
       "Lab Technician",
       "X-Ray Technician",
@@ -270,15 +720,73 @@ const programmesData = {
           "Image Handling",
           "Practical Training"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Radiography Fundamentals",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Radiography",
+                    "Radiation Physics",
+                    "X-Ray Equipment Operation",
+                    "Radiation Safety Principles"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Patient Positioning Techniques",
+                    "Image Quality Control",
+                    "Contrast Studies",
+                    "Radiation Protection"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Advanced Radiography",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Special Radiographic Procedures",
+                    "CT Scan Basics",
+                    "MRI Fundamentals",
+                    "Ultrasound Principles"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Digital Radiography",
+                    "PACS Systems",
+                    "Quality Assurance",
+                    "Professional Ethics"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "X-Ray Equipment Operation",
+            "Patient Positioning Practice",
+            "Radiation Safety Drills",
+            "Image Processing Lab",
+            "Clinical Radiography"
+          ]
+        },
         image: "./assets/programmes/x-ray.jpeg"
       },
       {
         id: "lab-technician",
-        name: "Lab Technician",
-        title: "Lab Technician",
+        name: "Dip.in.Lab Technician",
+        title: "Dip.in.Lab Technician",
         subtitle: "Clinical Laboratory Excellence",
-        description:
-          "Training in sample handling, blood testing, laboratory process support, and basic diagnostic procedures using standard lab protocols.",
+        description:"The Diploma in Medical Lab Technician (DMLT) is a one-year program designed to train individuals in the essential skills and knowledge required to perform laboratory tests and procedures that assist in the diagnosis and treatment of diseases. This course equips students with expertise in areas such as blood analysis, microbiology, immunology and biochemistry.",
         duration: "1 Year",
         eligibility: "10+2 with Science",
         certification: "Lab Technician Certificate",
@@ -292,6 +800,15 @@ const programmesData = {
           "Pathology Assistant",
           "Medical Lab Staff"
         ],
+        careerProspectsIntro: "Upon completion of the DMLT program, graduates are well-equipped to pursue careers in hospitals, clinics, diagnostic laboratories, research institutions, and pharmaceutical companies. They may work as Medical Lab Technicians, performing tests, analysing results, and preparing reports. Students may also find opportunities in quality control, research, and education sectors. The demand for qualified Medical Lab Technicians is consistently increasing, making this a promising career path with excellent job security and growth potential.",
+        careerProspects: [
+          "Medical Lab Technician",
+          "Pathology Assistant",
+          "Diagnostic Lab Staff",
+          "Quality Control Technician",
+          "Research Assistant",
+          "Pharmaceutical Lab Technician"
+        ],
         syllabus: [
           "Blood Testing",
           "Urine Analysis",
@@ -300,6 +817,65 @@ const programmesData = {
           "Sample Processing",
           "Practical Training"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Clinical Laboratory Technology",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Laboratory Medicine",
+                    "Laboratory Safety",
+                    "Sample Collection Techniques",
+                    "Quality Control in Lab"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Hematology Basics",
+                    "Blood Banking Fundamentals",
+                    "Clinical Chemistry",
+                    "Microbiology Techniques"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Advanced Laboratory Procedures",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Advanced Hematology",
+                    "Immunology and Serology",
+                    "Histopathology Basics",
+                    "Molecular Diagnostics"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Laboratory Management",
+                    "Automation in Lab",
+                    "Research Methodology",
+                    "Professional Ethics"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Blood Sample Collection",
+            "Urine Analysis Procedures",
+            "Microscopy Practice",
+            "Biochemistry Tests",
+            "Laboratory Internship"
+          ]
+        },
         image: "./assets/programmes/lab.jpeg"
       },
       {
@@ -330,6 +906,65 @@ const programmesData = {
           "Patient Counselling",
           "Practical Training"
         ],
+        syllabusDetails: {
+          papers: [
+            {
+              paperTitle: "Paper I",
+              subject: "Pharmaceutical Sciences",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Introduction to Pharmacy",
+                    "Pharmacology Basics",
+                    "Drug Classification",
+                    "Pharmaceutical Chemistry"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Dosage Forms",
+                    "Drug Interactions",
+                    "Adverse Drug Reactions",
+                    "Pharmacokinetics"
+                  ]
+                }
+              ]
+            },
+            {
+              paperTitle: "Paper II",
+              subject: "Pharmacy Practice",
+              units: [
+                {
+                  unitTitle: "Unit I",
+                  topics: [
+                    "Dispensing Procedures",
+                    "Prescription Handling",
+                    "Patient Counselling",
+                    "Community Pharmacy"
+                  ]
+                },
+                {
+                  unitTitle: "Unit II",
+                  topics: [
+                    "Hospital Pharmacy",
+                    "Drug Store Management",
+                    "Pharmacy Law and Ethics",
+                    "First Aid and Emergency"
+                  ]
+                }
+              ]
+            }
+          ],
+          practicals: [
+            "Dispensing Practice",
+            "Compounding Procedures",
+            "Drug Store Management",
+            "Patient Counselling Sessions",
+            "Pharmacy Internship"
+          ]
+        },
         image: "./assets/programmes/D.pharm.jpeg"
       }
     ]
@@ -365,6 +1000,65 @@ const programmesData = {
       "Basic Hardware",
       "Practical Assignments"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Computer Fundamentals",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Introduction to Computers",
+                "Computer Hardware Components",
+                "Operating Systems",
+                "Software Basics"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "File Management",
+                "Computer Security",
+                "Internet Basics",
+                "Email Communication"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Office Applications",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Microsoft Word",
+                "Document Formatting",
+                "Templates and Styles",
+                "Mail Merge"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Microsoft Excel",
+                "Spreadsheet Formulas",
+                "Charts and Graphs",
+                "Data Analysis"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Typing Practice",
+        "MS Office Lab",
+        "Internet Applications",
+        "Hardware Assembly",
+        "Project Work"
+      ]
+    },
     images: [
       "./assets/programmes/computer1.jpeg",
       "./assets/programmes/computer2.jpeg",
@@ -378,8 +1072,7 @@ const programmesData = {
     name: "Teachers Education",
     title: "Teachers Education",
     subtitle: "Shaping Future Educators",
-    description:
-      "Teacher training designed to improve classroom communication, instructional methods, child understanding, and educational professionalism.",
+    description:"Indian Association of Teacher Educators (IATE), the oldest and leading professional body of teacher educators of India was established on 25th Nov, 1950",
     duration: "1 Year",
     eligibility: "Graduation",
     certification: "Diploma in Teacher Education",
@@ -395,6 +1088,15 @@ const programmesData = {
       "Academic Coordinator",
       "Learning Facilitator"
     ],
+    careerProspectsIntro: "Objectives of the Association are:",
+    careerProspects: [
+      "To develop and promote teacher education",
+      "To provide a forum for discussion and deliberations on issues and problems related to education in general and teacher education in particular",
+      "To conduct workshops, seminars, conferences etc. on teacher education and related areas",
+      "To publish journals, monographs and other literatures on teacher education",
+      "To co-operate with organizations working in area of teacher education",
+      "Tamilnadu Council for Open and Distance Learning is a member organisation of Indian Association of Teachers Educators (IATE) and is actively working towards creating better teachers for future"
+    ],
     syllabus: [
       "Teaching Fundamentals",
       "Educational Psychology",
@@ -403,6 +1105,65 @@ const programmesData = {
       "Teaching Practice",
       "Assessment Methods"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Educational Foundations",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Introduction to Education",
+                "Educational Philosophy",
+                "Educational Psychology",
+                "Learning Theories"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Child Development",
+                "Cognitive Development",
+                "Social Development",
+                "Emotional Development"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Teaching Methodology",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Teaching Methods",
+                "Lesson Planning",
+                "Classroom Management",
+                "Teaching Aids"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Assessment Techniques",
+                "Educational Technology",
+                "Inclusive Education",
+                "Professional Ethics"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Teaching Practice",
+        "Classroom Observation",
+        "Lesson Plan Preparation",
+        "Educational Technology Lab",
+        "Internship"
+      ]
+    },
     images: [
       "./assets/programmes/teacher1.jpeg",
       "./assets/programmes/teacher2.jpeg",
@@ -439,6 +1200,65 @@ const programmesData = {
       "Home Management",
       "Field Work"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Food and Nutrition",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Nutrition Basics",
+                "Food Groups",
+                "Balanced Diet",
+                "Meal Planning"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Food Preservation",
+                "Cooking Methods",
+                "Food Safety",
+                "Kitchen Management"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Human Development",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Child Development",
+                "Adolescent Psychology",
+                "Family Dynamics",
+                "Life Skills"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Family Resource Management",
+                "Home Economics",
+                "Textile Science",
+                "Interior Design Basics"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Cooking Practical",
+        "Nutrition Assessment",
+        "Home Management Projects",
+        "Textile Work",
+        "Community Outreach"
+      ]
+    },
     images: [
       "./assets/programmes/homescience1.jpeg",
       "./assets/programmes/homescience2.jpeg",
@@ -477,6 +1297,65 @@ const programmesData = {
       "Career Guidance",
       "Practical Sessions"
     ],
+    syllabusDetails: {
+      papers: [
+        {
+          paperTitle: "Paper I",
+          subject: "Professional Development",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Communication Skills",
+                "Verbal and Non-Verbal Communication",
+                "Business Writing",
+                "Presentation Skills"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Workplace Etiquette",
+                "Professional Behavior",
+                "Team Work",
+                "Time Management"
+              ]
+            }
+          ]
+        },
+        {
+          paperTitle: "Paper II",
+          subject: "Career Readiness",
+          units: [
+            {
+              unitTitle: "Unit I",
+              topics: [
+                "Resume Building",
+                "Interview Techniques",
+                "Job Search Strategies",
+                "Networking Skills"
+              ]
+            },
+            {
+              unitTitle: "Unit II",
+              topics: [
+                "Basic Computer Skills",
+                "Digital Literacy",
+                "Online Professionalism",
+                "Career Planning"
+              ]
+            }
+          ]
+        }
+      ],
+      practicals: [
+        "Communication Exercises",
+        "Mock Interviews",
+        "Computer Practice",
+        "Team Projects",
+        "Workplace Simulation"
+      ]
+    },
     images: [
       "./assets/programmes/skill1.jpeg",
       "./assets/programmes/skill2.jpeg",
@@ -612,7 +1491,7 @@ const programmesData = {
         name: "Beauty and Wellness",
         title: "Beauty and Wellness",
         subtitle: "Salon and Wellness Industry Skill Development",
-        description: "Professional grooming, personal care, client handling, and wellness service support training for entry-level beauty industry roles.",
+        description: "A Diploma in Beautician is a one-year program that provides students with hands-on training and theoretical knowledge in various aspects of beauty therapy and skincare. The program covers topics such as skincare treatments, makeup application, hair styling, nail care, spa therapies, and salon management. Students learn about different beauty products, tools, and techniques used in the industry, as well as the importance of hygiene and safety practices in a salon setting.",
         duration: "3 to 6 Months",
         eligibility: "Basic Education",
         certification: "Skill Development Sector Certificate",
@@ -630,11 +1509,139 @@ const programmesData = {
           "Service Assistance",
           "Practical Training"
         ],
+        syllabusDetails: {
+          courseInfo: {
+            title: "Diploma in Beautician / Beauty & Wellness",
+            duration: "1 Year",
+            eligibility: "10th / 12th Pass",
+            certification: "Diploma in Beautician / Beauty & Wellness"
+          },
+          modules: [
+            {
+              moduleTitle: "Module 1 – Basic Beauty Therapy",
+              subjects: [
+                "Introduction to Beauty Therapy",
+                "Professional Ethics & Grooming",
+                "Skin Anatomy and Skin Types",
+                "Personal Hygiene and Salon Safety",
+                "Communication Skills"
+              ],
+              practicals: [
+                "Salon Setup Practice",
+                "Client Consultation",
+                "Hygiene Procedures"
+              ]
+            },
+            {
+              moduleTitle: "Module 2 – Skin Care & Facial Treatments",
+              subjects: [
+                "Basic Facials",
+                "Advanced Facial Techniques",
+                "Bleach and Cleanup",
+                "Acne and Pigmentation Care",
+                "Facial Machines Basics"
+              ],
+              practicals: [
+                "Fruit Facial",
+                "Gold Facial",
+                "Cleanup Procedure",
+                "Face Massage Techniques"
+              ]
+            },
+            {
+              moduleTitle: "Module 3 – Hair Care & Hair Styling",
+              subjects: [
+                "Hair Structure and Hair Types",
+                "Hair Spa Treatment",
+                "Hair Cutting Techniques",
+                "Hair Coloring Basics",
+                "Hair Straightening & Curling"
+              ],
+              practicals: [
+                "Layer Cut",
+                "U Cut",
+                "Hair Spa",
+                "Blow Dry",
+                "Hair Styling"
+              ]
+            },
+            {
+              moduleTitle: "Module 4 – Makeup Techniques",
+              subjects: [
+                "Basic Makeup",
+                "Bridal Makeup",
+                "Party Makeup",
+                "HD Makeup Introduction",
+                "Cosmetic Product Knowledge"
+              ],
+              practicals: [
+                "Bridal Makeup Practice",
+                "Saree Draping",
+                "Eye Makeup",
+                "Contouring and Highlighting"
+              ]
+            },
+            {
+              moduleTitle: "Module 5 – Nail & Hand Care",
+              subjects: [
+                "Manicure Techniques",
+                "Pedicure Techniques",
+                "Nail Art Basics",
+                "Nail Extension Introduction"
+              ],
+              practicals: [
+                "Spa Manicure",
+                "Spa Pedicure",
+                "Basic Nail Art"
+              ]
+            },
+            {
+              moduleTitle: "Module 6 – Spa & Wellness",
+              subjects: [
+                "Body Massage Basics",
+                "Aroma Therapy",
+                "Spa Treatments",
+                "Wellness Therapy"
+              ],
+              practicals: [
+                "Body Massage",
+                "Spa Therapy Session",
+                "Relaxation Techniques"
+              ]
+            }
+          ],
+          additionalSubjects: [
+            "Entrepreneurship Development",
+            "Customer Handling",
+            "Salon Management",
+            "Marketing Basics",
+            "Beauty Product Knowledge"
+          ],
+          careerOpportunities: [
+            "Beautician",
+            "Bridal Makeup Artist",
+            "Hair Stylist",
+            "Salon Manager",
+            "Spa Therapist",
+            "Nail Technician",
+            "Beauty Trainer",
+            "Freelance Makeup Artist"
+          ]
+        },
         careerOpportunities: [
           "Salon Assistant",
           "Beauty Support Staff",
           "Spa Assistant",
           "Wellness Centre Trainee"
+        ],
+        careerProspectsIntro: "Graduates of a Diploma in Beautician program have a range of career opportunities available to them in beauty and wellness industry. Some potential career paths include:",
+        careerProspects: [
+          "Beauty Therapist: Providing a variety of beauty treatments and services to clients, such as facials, body massages, waxing, and manicures/pedicures",
+          "Makeup Artist: Creating makeup looks for special events, photoshoots, film and television productions, fashion shows, and bridal clients",
+          "Nail Technician: Providing nail care services such as manicures, pedicures, and nail enhancements like acrylics and gels",
+          "Hair Stylist: Offering hair cutting, styling, colouring, and treatment services to clients in a salon setting",
+          "Spa Therapist: Performing a range of spa treatments, such as body wraps, scrubs, massages, and hydrotherapy, to promote relaxation and rejuvenation",
+          "Salon Manager: Overseeing day-to-day operations of a beauty salon, including staff management, client bookings, inventory management, and marketing strategies"
         ],
         image: "./assets/programmes/beauty.jpeg"
       },
@@ -1171,11 +2178,11 @@ function renderCareerSection(data) {
         <h2 class="info-block-title">Career Opportunities</h2>
       </div>
 
-      <div class="career-grid">
+      <div class="career-opportunities-grid">
         ${(data.careerOpportunities || []).map((item) => `
-          <div class="career-item">
-            <div class="career-icon">C</div>
-            <h3 class="career-title">${item}</h3>
+          <div class="career-item unified-career-item">
+            <span class="career-icon-box">💼</span>
+            <span class="career-text">${item}</span>
           </div>
         `).join("")}
       </div>
@@ -1324,13 +2331,35 @@ function setupModalListeners() {
   const modal = document.getElementById("courseModal");
   const overlay = document.getElementById("modalOverlay");
   const closeBtn = document.getElementById("modalClose");
+  const backArrowBtn = document.getElementById("modalBackArrow");
+  const syllabusBackBtn = document.getElementById("syllabusBackBtn");
 
   if (closeBtn) {
     closeBtn.addEventListener("click", closeCourseModal);
   }
 
+  if (backArrowBtn) {
+    backArrowBtn.addEventListener("click", function() {
+      closeCourseModal();
+      // Scroll to courses section
+      const coursesSection = document.querySelector(".courses-section");
+      if (coursesSection) {
+        setTimeout(() => {
+          coursesSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 300);
+      }
+    });
+  }
+
   if (overlay) {
     overlay.addEventListener("click", closeCourseModal);
+  }
+
+  if (syllabusBackBtn) {
+    syllabusBackBtn.addEventListener("click", closeSyllabusPage);
   }
 
   // Close modal with Escape key
@@ -1338,7 +2367,16 @@ function setupModalListeners() {
     if (e.key === "Escape" && modal.classList.contains("active")) {
       closeCourseModal();
     }
+    if (e.key === "Escape" && document.getElementById("syllabusPage").classList.contains("active")) {
+      closeSyllabusPage();
+    }
   });
+}
+
+function closeSyllabusPage() {
+  const syllabusPage = document.getElementById("syllabusPage");
+  syllabusPage.classList.remove("active");
+  syllabusPage.style.display = "none";
 }
 
 function openCourseModal(courseId, isMainCourse, parentProgramme) {
@@ -1362,27 +2400,45 @@ function openCourseModal(courseId, isMainCourse, parentProgramme) {
   document.getElementById("modalDuration").textContent = course.duration;
   document.getElementById("modalEligibility").textContent = course.eligibility;
   document.getElementById("modalFee").textContent = course.fee || "₹25,000 - ₹50,000";
-  document.getElementById("modalDescription").textContent = course.description;
+  
+  // Build description with Career Prospects if available
+  let descriptionContent = course.description;
+  if (course.careerProspectsIntro && course.careerProspects && course.careerProspects.length > 0) {
+    descriptionContent += '\n\n<strong>Career Prospects:</strong> ' + course.careerProspectsIntro + '\n\n';
+    descriptionContent += course.careerProspects.map(item => '• ' + item).join('\n');
+  }
+  document.getElementById("modalDescription").innerHTML = descriptionContent;
   document.getElementById("modalEligibilityDetail").textContent = course.eligibility;
 
   // Populate syllabus
   const syllabusContainer = document.getElementById("modalSyllabus");
-  if (course.syllabus && course.syllabus.length > 0) {
-    syllabusContainer.innerHTML = course.syllabus.map((item, index) => 
-      `<div class="modal-syllabus-item" data-index="${index + 1}">${item}</div>`
-    ).join('');
-  } else {
-    syllabusContainer.innerHTML = '<p>No syllabus information available.</p>';
-  }
+  syllabusContainer.innerHTML = `
+    <div class="modal-syllabus-center">
+      <button class="view-syllabus-btn" id="viewSyllabusBtn">
+        View Syllabus
+      </button>
+    </div>
+  `;
 
   // Populate career opportunities
   const careerContainer = document.getElementById("modalCareer");
   if (course.careerOpportunities && course.careerOpportunities.length > 0) {
-    careerContainer.innerHTML = course.careerOpportunities.map(item => 
-      `<div class="modal-career-item">${item}</div>`
+    careerContainer.innerHTML = (course.careerOpportunities || []).map(item => 
+      `<div class="modal-career-item unified-career-item">
+        <span class="career-icon-box">💼</span>
+        <span class="career-text">${item}</span>
+      </div>`
     ).join('');
   } else {
     careerContainer.innerHTML = '<p>No career information available.</p>';
+  }
+
+  // Add event listener for View Syllabus button
+  const viewSyllabusBtn = document.getElementById("viewSyllabusBtn");
+  if (viewSyllabusBtn) {
+    viewSyllabusBtn.onclick = function () {
+      openSyllabusPage(course.id);
+    };
   }
 
   // Show modal
@@ -1394,6 +2450,264 @@ function closeCourseModal() {
   const modal = document.getElementById("courseModal");
   modal.classList.remove("active");
   document.body.style.overflow = "";
+}
+
+function openSyllabusPage(courseId) {
+  const syllabusPages = {
+    nursing: "nursing-syllabus.html",
+    "diploma-nursing": "diploma-nursing-syllabus.html",
+    engineering: "engineering-syllabus.html",
+    civil: "civil-syllabus.html",
+    mechanical: "mechanical-syllabus.html",
+    electrical: "electrical-syllabus.html",
+    paramedical: "paramedical-syllabus.html",
+    xray: "xray-syllabus.html",
+    "lab-technician": "lab-technician-syllabus.html",
+    "d-pharm": "dpharm-syllabus.html",
+    computer: "computer-syllabus.html",
+    teachers: "teachers-syllabus.html",
+    science: "home-science-syllabus.html",
+    skill: "skill-development-syllabus.html",
+    "mining-sector": "mining-sector-syllabus.html",
+    "rubber-chemical-plastic": "rubber-chemical-plastic-syllabus.html",
+    "media-entertainment": "media-entertainment-syllabus.html",
+    "yoga-wellness": "yoga-wellness-syllabus.html",
+    "beauty-wellness": "beautician-syllabus.html",
+    "healthcare-sector": "healthcare-sector-syllabus.html",
+    "handicrafts-carpet": "handicrafts-carpet-syllabus.html",
+    "banking-bfsi": "banking-bfsi-syllabus.html",
+    "electronics-sector": "electronics-sector-syllabus.html",
+    "food-industry": "food-industry-syllabus.html",
+    "agriculture-sector": "agriculture-sector-syllabus.html"
+  };
+
+  const page = syllabusPages[courseId];
+
+  if (page) {
+    window.location.href = page;
+    return;
+  }
+
+  console.warn("No syllabus page mapped for:", courseId);
+}
+
+
+function renderSyllabusPage(course) {
+  const syllabusContent = document.getElementById("syllabusContent");
+  const syllabusDetails = course.syllabusDetails;
+  
+  if (!syllabusDetails) {
+    syllabusContent.innerHTML = '<p class="no-syllabus">No detailed syllabus information available.</p>';
+    return;
+  }
+  
+  let html = '';
+  
+  // Render course info section (for beautician course)
+  if (syllabusDetails.courseInfo) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="course-info-section">';
+    html += '<div class="course-info-header">';
+    html += '<h2 class="course-title-main">COURSE TITLE</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += `<div class="course-info-content">
+      <h3 class="course-name">${syllabusDetails.courseInfo.title}</h3>
+      <div class="course-details-grid">
+        <div class="course-detail-item">
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">${syllabusDetails.courseInfo.duration}</span>
+        </div>
+        <div class="course-detail-item">
+          <span class="detail-label">Eligibility:</span>
+          <span class="detail-value">${syllabusDetails.courseInfo.eligibility}</span>
+        </div>
+        <div class="course-detail-item">
+          <span class="detail-label">Certification:</span>
+          <span class="detail-value">${syllabusDetails.courseInfo.certification}</span>
+        </div>
+        <div class="course-detail-item">
+          <span class="detail-label">Placement:</span>
+          <span class="detail-value">95% Placement Assistance</span>
+        </div>
+      </div>
+    </div>`;
+    html += '</div>';
+  }
+  
+  // Render modules (for beautician course)
+  if (syllabusDetails.modules && syllabusDetails.modules.length > 0) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="module-section-header">';
+    html += '<h2 class="section-title-main">MODULE / SUBJECT SECTIONS</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += '<div class="modules-container">';
+    
+    syllabusDetails.modules.forEach((module, index) => {
+      html += `
+        <div class="module-card">
+          <div class="module-header">
+            <h3 class="module-title">${module.moduleTitle}</h3>
+          </div>
+          <div class="module-content">
+            <div class="module-subjects">
+              <h4 class="module-section-title">Subjects:</h4>
+              <ul class="subjects-list">
+                ${module.subjects.map(subject => `<li>${subject}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="module-practicals">
+              <h4 class="module-section-title">Practicals:</h4>
+              <ul class="practicals-list">
+                ${module.practicals.map(practical => `<li>${practical}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add divider between modules (except after last one)
+      if (index < syllabusDetails.modules.length - 1) {
+        html += '<div class="module-divider"></div>';
+      }
+    });
+    
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  // Render additional subjects
+  if (syllabusDetails.additionalSubjects && syllabusDetails.additionalSubjects.length > 0) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="additional-section-header">';
+    html += '<h2 class="section-title-main">Additional Subjects</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += '<div class="additional-subjects-container">';
+    
+    syllabusDetails.additionalSubjects.forEach(subject => {
+      html += `<div class="additional-subject-item">${subject}</div>`;
+    });
+    
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  // Render career opportunities - Use dynamic data from course.careerOpportunities
+  if (course.careerOpportunities && course.careerOpportunities.length > 0) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="career-section-header">';
+    html += '<h2 class="section-title-main">CAREER OPPORTUNITIES</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += '<div class="career-opportunities-grid">';
+    
+    course.careerOpportunities.forEach(career => {
+      html += `<div class="career-item unified-career-item">
+        <span class="career-icon-box">💼</span>
+        <span class="career-text">${career}</span>
+      </div>`;
+    });
+    
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  // Render papers (for other courses)
+  if (syllabusDetails.papers && syllabusDetails.papers.length > 0) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="module-section-header">';
+    html += '<h2 class="section-title-main">COURSE PAPERS</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += '<div class="papers-grid">';
+    
+    syllabusDetails.papers.forEach((paper, index) => {
+      html += `
+        <div class="paper-card">
+          <div class="paper-header">
+            <h4 class="paper-title">${paper.paperTitle}</h4>
+            <p class="paper-subject">${paper.subject}</p>
+          </div>
+          <div class="paper-units">
+            ${paper.units.map(unit => `
+              <div class="unit-section">
+                <h5 class="unit-title">${unit.unitTitle}</h5>
+                <ul class="topics-list">
+                  ${unit.topics.map(topic => `<li>${topic}</li>`).join('')}
+                </ul>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  // Render practicals (for other courses)
+  if (syllabusDetails.practicals && syllabusDetails.practicals.length > 0) {
+    html += '<div class="syllabus-section">';
+    html += '<div class="career-section-header">';
+    html += '<h2 class="section-title-main">PRACTICAL TRAINING</h2>';
+    html += '<div class="divider-line"></div>';
+    html += '</div>';
+    html += '<div class="practicals-grid">';
+    html += '<ul class="practicals-list">';
+    
+    syllabusDetails.practicals.forEach(practical => {
+      html += `<li>${practical}</li>`;
+    });
+    
+    html += '</ul>';
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  syllabusContent.innerHTML = html;
+}
+
+// Function to get course structure type based on course ID
+function getCourseStructure(courseId) {
+  const engineeringCourses = ['civil', 'mechanical', 'electrical'];
+  const moduleCourses = ['computer', 'teachers', 'science', 'skill'];
+  const trainingCourses = ['mining-sector', 'rubber-chemical-plastic', 'media-entertainment', 'yoga-wellness', 'healthcare-sector', 'handicrafts-carpet', 'banking-bfsi', 'electronics-sector', 'food-industry', 'agriculture-sector'];
+  const paperCourses = ['nursing', 'diploma-nursing', 'xray', 'lab-technician', 'd-pharm'];
+  
+  if (engineeringCourses.includes(courseId)) {
+    return 'paper'; // Engineering should show Paper I, Paper II
+  } else if (moduleCourses.includes(courseId)) {
+    return 'module';
+  } else if (trainingCourses.includes(courseId)) {
+    return 'training';
+  } else if (paperCourses.includes(courseId)) {
+    return 'paper';
+  } else {
+    return 'paper'; // default
+  }
+}
+
+// Function to update paper/module/semester titles based on course type
+function updateCourseStructure(courseId, syllabusDetails) {
+  const structureType = getCourseStructure(courseId);
+  
+  if (syllabusDetails.papers) {
+    syllabusDetails.papers.forEach((paper, index) => {
+      if (structureType === 'semester') {
+        paper.paperTitle = `Semester ${index + 1}`;
+      } else if (structureType === 'module') {
+        paper.paperTitle = `Module ${index + 1}`;
+      } else if (structureType === 'training') {
+        paper.paperTitle = `Training Module ${index + 1}`;
+      }
+      // For paper courses, keep as "Paper I", "Paper II"
+    });
+  }
+  
+  return syllabusDetails;
 }
 
 function renderSpecializationSection(programme) {
