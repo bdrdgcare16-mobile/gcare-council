@@ -1951,7 +1951,7 @@ body {
 /* DROPDOWN */
 .submenu {
   position: absolute;
-  min-width: 300px;
+  min-width: 250px;
   padding: 8px 0;
   border: 1px solid rgba(12, 93, 165, 0.12);
   border-radius: 0 0 18px 18px;
@@ -2005,9 +2005,9 @@ body {
   position: absolute;
   top: 0;
   left: 100%;
-  min-width: 300px;
+  min-width: 250px;
   max-width: 340px;
-  max-height: 300px;
+  max-height: 250px;
   background: #f3f5f7;
   border-radius: 18px;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);

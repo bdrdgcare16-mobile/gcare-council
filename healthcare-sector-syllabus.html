@@ -6,6 +6,7 @@
   <title>Healthcare Sector Syllabus - G Care Council</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/programmes.css">
+  <link rel="stylesheet" href="css/syllabus.css">
 </head>
 <body>
   <header class="top-header">
@@ -233,126 +234,7 @@
   </footer>
 
   <script src="js/script.js"></script>
-  <script src="js/syllabus.js"></script>
-  <style>
-    .course-info-section {
-      position: relative;
-    }
-
-    .course-title-back-btn {
-      position: absolute;
-      left: 40px;
-      top: 48px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: none;
-      background: #0068a8;
-      color: #ffffff;
-      font-size: 1.6rem;
-      font-weight: 800;
-      cursor: pointer;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 24px rgba(0, 104, 168, 0.35);
-    }
-
-    .course-title-back-btn:hover {
-      background: #00558a;
-      transform: translateX(-3px);
-    }
-
-    @media (max-width: 768px) {
-      .course-title-back-btn {
-        left: 20px;
-        top: 28px;
-        width: 42px;
-        height: 42px;
-        font-size: 1.4rem;
-      }
-    }
-  </style>
-  <script>
-    // Footer social button click effect
-    document.addEventListener('DOMContentLoaded', function() {
-      const socialButtons = document.querySelectorAll('.social-btn');
-      socialButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          // Only prevent default for social buttons, not quick links
-          if (this.classList.contains('social-btn')) {
-            e.preventDefault();
-          }
-          // Remove clicked class from all buttons
-          socialButtons.forEach(btn => btn.classList.remove('clicked'));
-          // Add clicked class to clicked button
-          this.classList.add('clicked');
-        });
-      });
-    });
-  </script>
-  <style>
-    .career-opportunities-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .career-item.unified-career-item,
-    .modal-career-item.unified-career-item {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-      gap: 14px !important;
-      min-height: 68px !important;
-      padding: 16px 20px !important;
-      border-radius: 16px !important;
-      background: #ffffff !important;
-      border: 1px solid #dce7f1 !important;
-      color: #003b63 !important;
-      font-size: 1rem !important;
-      font-weight: 700 !important;
-      box-shadow: 0 8px 24px rgba(12, 93, 165, 0.08) !important;
-      overflow: hidden !important;
-    }
-
-    .career-icon-box {
-      width: 38px !important;
-      height: 38px !important;
-      min-width: 38px !important;
-      border-radius: 10px !important;
-      background: #0068a8 !important;
-      color: #ffffff !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 16px !important;
-      line-height: 1 !important;
-      flex-shrink: 0 !important;
-      margin: 0 !important;
-      position: static !important;
-      transform: none !important;
-      box-shadow: none !important;
-      background-image: none !important;
-    }
-
-    .career-icon-box::before,
-    .career-icon-box::after {
-      display: none !important;
-      content: none !important;
-    }
-
-    .career-text {
-      flex: 1 !important;
-      display: block !important;
-      color: inherit !important;
-      line-height: 1.4 !important;
-      white-space: normal !important;
-      overflow: visible !important;
-      text-align: left !important;
-    }
-  </style>
+  <script src="js/programmes.js"></script>
   <script src="js/syllabus.js"></script>
 </body>
 </html>

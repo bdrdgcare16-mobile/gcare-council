@@ -1829,7 +1829,263 @@ const programmesData = {
           "Field Helper",
           "Rural Livelihood Trainee"
         ],
-        image: "./assets/programmes/agri.jpeg"
+        image: "./assets/programmes/agri.jpeg",
+        subcategories: [
+          {
+            id: "seed-courses",
+            name: "Seed Courses",
+            title: "Seed Courses",
+            subtitle: "Professional Seed Handling and Processing Training",
+            description: "Comprehensive training programs focused on seed handling, processing, quality control, and management in the agricultural seed industry.",
+            courses: [
+              {
+                id: "seed-handling",
+                name: "Seed Handling",
+                title: "Seed Handling",
+                subtitle: "Fundamentals of Seed Management",
+                description: "Basic training in seed identification, collection, cleaning, storage, and quality awareness for agricultural seed management.",
+                duration: "3 Months",
+                eligibility: "Basic Education",
+                certification: "Seed Handling Certificate",
+                highlights: [
+                  "Seed identification techniques",
+                  "Seed cleaning methods",
+                  "Storage best practices",
+                  "Quality awareness training"
+                ],
+                syllabus: [
+                  "Introduction to Seeds",
+                  "Seed Types and Varieties",
+                  "Seed Collection and Cleaning",
+                  "Seed Storage Basics",
+                  "Seed Quality Awareness"
+                ],
+                syllabusDetails: {
+                  modules: [
+                    {
+                      title: "Module I: Seed Fundamentals",
+                      subjects: [
+                        "Introduction to Seeds",
+                        "Seed Types and Varieties",
+                        "Seed Collection and Cleaning",
+                        "Seed Storage Basics",
+                        "Seed Quality Awareness"
+                      ],
+                      practicals: [
+                        "Seed identification practice",
+                        "Seed cleaning practice",
+                        "Seed storage method practice"
+                      ]
+                    }
+                  ]
+                },
+                careerOpportunities: [
+                  "Seed Handling Assistant",
+                  "Seed Storage Worker",
+                  "Agriculture Field Helper",
+                  "Farm Support Worker"
+                ],
+                image: "./assets/programmes/agri.jpeg"
+              },
+              {
+                id: "seed-handling-package",
+                name: "Seed Handling Package",
+                title: "Seed Handling Package",
+                subtitle: "Advanced Seed Packaging Operations",
+                description: "Training in seed packaging materials, labeling, batch management, and dispatch operations for seed distribution.",
+                duration: "3 Months",
+                eligibility: "Basic Education",
+                certification: "Seed Packaging Certificate",
+                highlights: [
+                  "Packaging material knowledge",
+                  "Labeling and batch management",
+                  "Storage and dispatch processes",
+                  "Safety and hygiene standards"
+                ],
+                syllabus: [
+                  "Seed Packaging Materials",
+                  "Labelling and Batch Details",
+                  "Packing Machine Basics",
+                  "Storage and Dispatch Process",
+                  "Safety and Hygiene"
+                ],
+                syllabusDetails: {
+                  modules: [
+                    {
+                      title: "Module I: Packaging Operations",
+                      subjects: [
+                        "Seed Packaging Materials",
+                        "Labelling and Batch Details",
+                        "Packing Machine Basics",
+                        "Storage and Dispatch Process",
+                        "Safety and Hygiene"
+                      ],
+                      practicals: [
+                        "Seed packing practice",
+                        "Label checking",
+                        "Batch arrangement"
+                      ]
+                    }
+                  ]
+                },
+                careerOpportunities: [
+                  "Seed Packaging Assistant",
+                  "Packing Line Worker",
+                  "Dispatch Support Staff",
+                  "Quality Checking Helper"
+                ],
+                image: "./assets/programmes/agri.jpeg"
+              },
+              {
+                id: "seed-processing-technician",
+                name: "Seed Processing Technician",
+                title: "Seed Processing Technician",
+                subtitle: "Technical Seed Processing Operations",
+                description: "Advanced training in seed processing methods, machine operation, quality testing, and treatment procedures.",
+                duration: "6 Months",
+                eligibility: "10+2 Education",
+                certification: "Seed Processing Technician Certificate",
+                highlights: [
+                  "Processing methods training",
+                  "Machine operation skills",
+                  "Quality testing procedures",
+                  "Seed treatment techniques"
+                ],
+                syllabus: [
+                  "Seed Processing Methods",
+                  "Seed Cleaning Machines",
+                  "Grading and Sorting",
+                  "Moisture Testing",
+                  "Seed Treatment Basics"
+                ],
+                syllabusDetails: {
+                  modules: [
+                    {
+                      title: "Module I: Processing Technology",
+                      subjects: [
+                        "Seed Processing Methods",
+                        "Seed Cleaning Machines",
+                        "Grading and Sorting",
+                        "Moisture Testing",
+                        "Seed Treatment Basics"
+                      ],
+                      practicals: [
+                        "Machine operation basics",
+                        "Seed grading practice",
+                        "Moisture testing practice"
+                      ]
+                    }
+                  ]
+                },
+                careerOpportunities: [
+                  "Seed Processing Technician",
+                  "Quality Control Assistant",
+                  "Seed Plant Operator",
+                  "Agriculture Technician"
+                ],
+                image: "./assets/programmes/agri.jpeg"
+              },
+              {
+                id: "seed-processing-plant-supervisor",
+                name: "Seed Processing Plant Supervisor",
+                title: "Seed Processing Plant Supervisor",
+                subtitle: "Plant Management and Supervision",
+                description: "Leadership training for seed processing plant operations, team supervision, quality control, and production management.",
+                duration: "6 Months",
+                eligibility: "Graduation or Diploma",
+                certification: "Plant Supervisor Certificate",
+                highlights: [
+                  "Plant operations management",
+                  "Team supervision skills",
+                  "Quality control processes",
+                  "Production planning expertise"
+                ],
+                syllabus: [
+                  "Seed Plant Operations",
+                  "Team Supervision",
+                  "Quality Control Process",
+                  "Production Planning",
+                  "Safety and Documentation"
+                ],
+                syllabusDetails: {
+                  modules: [
+                    {
+                      title: "Module I: Plant Management",
+                      subjects: [
+                        "Seed Plant Operations",
+                        "Team Supervision",
+                        "Quality Control Process",
+                        "Production Planning",
+                        "Safety and Documentation"
+                      ],
+                      practicals: [
+                        "Workflow monitoring",
+                        "Record maintenance",
+                        "Quality inspection"
+                      ]
+                    }
+                  ]
+                },
+                careerOpportunities: [
+                  "Seed Plant Supervisor",
+                  "Production Supervisor",
+                  "Quality Supervisor",
+                  "Agriculture Operations Coordinator"
+                ],
+                image: "./assets/programmes/agri.jpeg"
+              },
+              {
+                id: "seed-processing-worker",
+                name: "Seed Processing Worker",
+                title: "Seed Processing Worker",
+                subtitle: "Basic Seed Processing Operations",
+                description: "Fundamental training in seed processing operations, cleaning, sorting, packing support, and workplace safety.",
+                duration: "3 Months",
+                eligibility: "Basic Education",
+                certification: "Seed Processing Worker Certificate",
+                highlights: [
+                  "Basic processing skills",
+                  "Cleaning and sorting training",
+                  "Packing support operations",
+                  "Workplace safety knowledge"
+                ],
+                syllabus: [
+                  "Basic Seed Processing",
+                  "Cleaning and Sorting",
+                  "Packing Support",
+                  "Loading and Unloading",
+                  "Workplace Safety"
+                ],
+                syllabusDetails: {
+                  modules: [
+                    {
+                      title: "Module I: Processing Basics",
+                      subjects: [
+                        "Basic Seed Processing",
+                        "Cleaning and Sorting",
+                        "Packing Support",
+                        "Loading and Unloading",
+                        "Workplace Safety"
+                      ],
+                      practicals: [
+                        "Seed sorting practice",
+                        "Packing support",
+                        "Cleaning process practice"
+                      ]
+                    }
+                  ]
+                },
+                careerOpportunities: [
+                  "Seed Processing Worker",
+                  "Packing Worker",
+                  "Plant Helper",
+                  "Agriculture Support Worker"
+                ],
+                image: "./assets/programmes/agri.jpeg"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -2478,7 +2734,12 @@ function openSyllabusPage(courseId) {
     "banking-bfsi": "banking-bfsi-syllabus.html",
     "electronics-sector": "electronics-sector-syllabus.html",
     "food-industry": "food-industry-syllabus.html",
-    "agriculture-sector": "agriculture-sector-syllabus.html"
+    "agriculture-sector": "agriculture-sector-syllabus.html",
+    "seed-handling": "seed-handling-syllabus.html",
+    "seed-handling-package": "seed-handling-package-syllabus.html",
+    "seed-processing-technician": "seed-processing-technician-syllabus.html",
+    "seed-processing-plant-supervisor": "seed-processing-plant-supervisor-syllabus.html",
+    "seed-processing-worker": "seed-processing-worker-syllabus.html"
   };
 
   const page = syllabusPages[courseId];
