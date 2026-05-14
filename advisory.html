@@ -44,16 +44,54 @@
 
       <li><a href="affiliation.html">AFFILIATION</a></li>
 
-      <li class="dropdown">
+        <li class="dropdown active-menu">
         <a href="programmes.html">PROGRAMMES</a>
-        <ul class="submenu">
-          <li><a href="programmes.html#nursing">Nursing Course</a></li>
-          <li><a href="programmes.html#engineering">Engineering Courses</a></li>
-          <li><a href="programmes.html#paramedical">Paramedical Course</a></li>
-          <li><a href="programmes.html#computer">Computer & IT</a></li>
-          <li><a href="programmes.html#teachers">Teachers Education</a></li>
-          <li><a href="programmes.html#science">Home Science</a></li>
-          <li><a href="programmes.html#skill">Skill Development Course</a></li>
+        <ul class="submenu" id="programmesDropdown">
+          <li class="has-submenu">
+            <a href="programmes.html#nursing" data-programme="nursing">Nursing Course</a>
+            <ul class="nested-submenu">
+              <li><a href="programmes.html#nursing/diploma-nursing" data-programme="nursing" data-subcourse="diploma-nursing">Diploma Nursing</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a href="programmes.html#engineering" data-programme="engineering">Engineering Courses</a>
+            <ul class="nested-submenu">
+              <li><a href="programmes.html#engineering/civil" data-programme="engineering" data-subcourse="civil">Civil Engineering</a></li>
+              <li><a href="programmes.html#engineering/mechanical" data-programme="engineering" data-subcourse="mechanical">Mechanical Engineering</a></li>
+              <li><a href="programmes.html#engineering/electrical" data-programme="engineering" data-subcourse="electrical">Electrical Engineering</a></li>
+            </ul>
+          </li>
+
+          <li class="has-submenu">
+            <a href="programmes.html#paramedical" data-programme="paramedical">Paramedical Course</a>
+            <ul class="nested-submenu">
+              <li><a href="programmes.html#paramedical/xray" data-programme="paramedical" data-subcourse="xray">X-Ray</a></li>
+              <li><a href="programmes.html#paramedical/lab-technician" data-programme="paramedical" data-subcourse="lab-technician">Lab</a></li>
+              <li><a href="programmes.html#paramedical/d-pharm" data-programme="paramedical" data-subcourse="d-pharm">D.Pharm</a></li>
+            </ul>
+          </li>
+
+          <li><a href="programmes.html#computer" data-programme="computer">Computer & IT</a></li>
+          <li><a href="programmes.html#teachers" data-programme="teachers">Teachers Education</a></li>
+          <li><a href="programmes.html#science" data-programme="science">Home Science</a></li>
+
+          <li class="has-submenu">
+            <a href="programmes.html#skill" data-programme="skill">Skill Development Course</a>
+            <ul class="nested-submenu">
+              <li><a href="programmes.html#skill/mining-sector" data-programme="skill" data-subcourse="mining-sector">Mining Sector</a></li>
+              <li><a href="programmes.html#skill/rubber-chemical-plastic" data-programme="skill" data-subcourse="rubber-chemical-plastic">Rubber / Chemical / Plastic</a></li>
+              <li><a href="programmes.html#skill/media-entertainment" data-programme="skill" data-subcourse="media-entertainment">Media and Entertainment</a></li>
+              <li><a href="programmes.html#skill/yoga-wellness" data-programme="skill" data-subcourse="yoga-wellness">Yoga / Wellness</a></li>
+              <li><a href="programmes.html#skill/beauty-wellness" data-programme="skill" data-subcourse="beauty-wellness">Beauty and Wellness</a></li>
+              <li><a href="programmes.html#skill/healthcare-sector" data-programme="skill" data-subcourse="healthcare-sector">Healthcare Sector</a></li>
+              <li><a href="programmes.html#skill/handicrafts-carpet" data-programme="skill" data-subcourse="handicrafts-carpet">Handicrafts and Carpet</a></li>
+              <li><a href="programmes.html#skill/banking-bfsi" data-programme="skill" data-subcourse="banking-bfsi">Banking / BFSI</a></li>
+              <li><a href="programmes.html#skill/electronics-sector" data-programme="skill" data-subcourse="electronics-sector">Electronics Sector</a></li>
+              <li><a href="programmes.html#skill/food-industry" data-programme="skill" data-subcourse="food-industry">Food Industry</a></li>
+              <li><a href="programmes.html#skill/agriculture-sector" data-programme="skill" data-subcourse="agriculture-sector">Agriculture Sector</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
 
@@ -63,7 +101,6 @@
         <a href="downloads.html">DOWNLOADS</a>
         <ul class="submenu">
           <li><a href="downloads.html#student">Student Admission Form</a></li>
-          <li><a href="downloads.html#registration">Registration Form</a></li>
           <li><a href="downloads.html#internship">Internship Form</a></li>
           <li><a href="downloads.html#report">Internship Report Form</a></li>
         </ul>
