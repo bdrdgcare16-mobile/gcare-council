@@ -1816,7 +1816,7 @@ const programmesData = {
           "Field Helper",
           "Rural Livelihood Trainee"
         ],
-        image: "./assets/programmes/agri.jpeg",
+        image: "./assets/programmes/agriculture.jpeg",
       }
     ]  
   },
