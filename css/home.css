@@ -408,13 +408,14 @@
   top: 0;
   left: 100%;
   min-width: 300px;
-  max-width: 340px;
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: #f3f5f7;
-  border-radius: 18px;
+  border-radius: 0 18px 18px 0;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
   z-index: 10000;
   display: none;
-  overflow: hidden;
 }
 
 .has-submenu:hover > .nested-submenu {
