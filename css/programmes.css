@@ -32,7 +32,6 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color: var(--text-dark);
   background:
     radial-gradient(circle at top left, rgba(43, 130, 207, 0.06), transparent 26%),
@@ -46,7 +45,6 @@ body {
   margin: 0 auto;
 }
 
-/* HERO */
 .hero {
   position: relative;
   overflow: hidden;
@@ -56,16 +54,6 @@ body {
   box-shadow: 0 10px 40px rgba(12, 93, 165, 0.15);
 }
 
-/* .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 15% 18%, rgba(255,255,255,0.14) 0%, transparent 18%),
-    radial-gradient(circle at 80% 22%, rgba(255,255,255,0.12) 0%, transparent 16%),
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: auto, auto, 42px 42px, 42px 42px;
-} */
 
 .hero-grid {
   position: relative;
@@ -83,20 +71,6 @@ body {
 .hero-text-block {
   color: var(--white);
 }
-
-/* .hero-tag {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.22);
-  backdrop-filter: blur(8px);
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-} */
 
 .hero-main-title {
   margin: 0 0 24px;
@@ -193,7 +167,6 @@ body {
   box-shadow: 0 16px 34px rgba(12, 93, 165, 0.16);
 }
 
-/* PROGRAMME NAV */
 .programme-nav {
   padding: 78px 0 44px;
   background: linear-gradient(180deg, #ffffff 0%, #f5f9fd 100%);
@@ -255,7 +228,6 @@ body {
   box-shadow: 0 18px 36px rgba(12, 93, 165, 0.2);
 }
 
-/* COURSES SECTION */
 .courses-section {
   padding: 60px 0 80px;
   background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
@@ -418,7 +390,6 @@ body {
   box-shadow: 0 8px 24px rgba(12, 93, 165, 0.25);
 }
 
-/* MODAL STYLES */
 .course-modal {
   position: fixed;
   top: 0;
@@ -700,7 +671,6 @@ body {
   font-size: 18px;
 }
 
-/* SYLLABUS PAGE STYLES */
 .syllabus-page {
   position: fixed;
   top: 0;
@@ -1033,7 +1003,6 @@ body {
   border: 1px solid var(--border-soft);
 }
 
-/* MODULE-BASED SYLLABUS STYLES */
 .modules-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -1165,7 +1134,6 @@ body {
   box-shadow: 0 15px 30px rgba(12, 93, 165, 0.25);
 }
 
-/* STRUCTURED SYLLABUS STYLES */
 .course-info-section {
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   border: 1px solid var(--border-soft);
@@ -1668,7 +1636,6 @@ body {
   line-height: 1.6;
 }
 
-/* RIGHT 3-IMAGE PANEL */
 .programme-sidebar {
   padding: 32px 24px;
   background: linear-gradient(180deg, #edf5fc 0%, #e4eef8 100%);
@@ -1676,8 +1643,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* 3 LARGE STACKED IMAGES LAYOUT */
 .course-image-gallery {
   display: flex;
   flex-direction: column;
@@ -1686,7 +1651,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 .course-large-image {
   width: 100%;
   height: 260px;
@@ -1695,7 +1659,6 @@ body {
   box-shadow: 0 12px 32px rgba(12, 93, 165, 0.18);
   transition: var(--transition);
 }
-
 .course-large-image img {
   width: 100%;
   height: 100%;
@@ -1708,8 +1671,6 @@ body {
   transform: scale(1.02);
   box-shadow: 0 16px 40px rgba(12, 93, 165, 0.22);
 }
-
-/* SINGLE IMAGE CONTAINER FOR SPECIFIC COURSES */
 .course-single-image-container {
   width: 100%;
   height: 480px;
@@ -1732,7 +1693,6 @@ body {
   box-shadow: 0 16px 40px rgba(12, 93, 165, 0.22);
 }
 
-/* DETAILS */
 .programme-details {
   padding: 60px 0 100px;
   background: linear-gradient(180deg, #ffffff 0%, #f1f7fc 100%);
@@ -1842,7 +1802,6 @@ body {
   line-height: 1.5;
 }
 
-/* SPECIALIZATION */
 .specializations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -1947,8 +1906,6 @@ body {
   font-weight: 600;
   line-height: 1.4;
 }
-
-/* DROPDOWN */
 .submenu {
   position: absolute;
   min-width: 250px;
@@ -2001,10 +1958,25 @@ body {
   color: var(--primary);
 }
 
+.has-submenu {
+  position: relative;
+}
+
+.has-submenu::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 100%;
+  background: transparent;
+}
+
 .nested-submenu {
   position: absolute;
   top: 0;
   left: 100%;
+  margin-left: -5px;
   min-width: 250px;
   max-width: 340px;
   max-height: 250px;
@@ -2066,7 +2038,6 @@ body {
   background: linear-gradient(90deg, rgba(12, 93, 165, 0.06) 0%, rgba(43, 130, 207, 0.08) 100%);
 }
 
-/* FOOTER */
 .gcc-footer {
   padding: 62px 0 58px;
   color: #ffffff;
@@ -2089,16 +2060,15 @@ body {
 }
 
 .footer-column h3 {
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .footer-column h4 {
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
   margin-bottom: 22px;
 }
 
@@ -2106,18 +2076,15 @@ body {
 .footer-contact li,
 .footer-links li a,
 .footer-text-link {
-  font-size: 0.95rem;
-  line-height: 1.9;
+  line-height: 1.85;
 }
 
 .footer-brand {
   max-width: 320px;
 }
-
 .footer-subtitle {
   color: #ffffff !important;
-  font-size: 0.9rem !important;
-  margin-bottom: 14px;
+  font-size: 0.92rem !important;
 }
 
 .footer-column p,
@@ -2136,7 +2103,6 @@ body {
 .footer-contact li {
   margin-bottom: 4px;
 }
-
 .footer-text-link {
   color: #ffffff;
   text-decoration: none;
@@ -2146,29 +2112,24 @@ body {
   align-items: center;
   gap: 6px;
 }
-
 .footer-text-link:hover {
   color: #ffd56b;
   transform: translateX(3px);
 }
-
 .footer-text-link.clicked {
   color: #ffd56b !important;
 }
-
 .link-arrow {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
   line-height: 1;
 }
-
 .social-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
 .social-btn {
   display: flex;
   align-items: center;
@@ -2186,14 +2147,12 @@ body {
   width: 100%;
   max-width: 288px;
 }
-
 .social-btn:hover,
 .social-btn.clicked {
   color: #00152d;
   border-color: #ffd56b;
   background: #ffd56b;
 }
-
 .social-btn:hover .social-icon,
 .social-btn.clicked .social-icon,
 .social-btn:hover span,
@@ -2214,14 +2173,11 @@ body {
   color: #ffffff;
   line-height: 1.9;
 }
-
 .contact-icon {
   min-width: 16px;
   font-size: 0.95rem;
   line-height: 1.9;
 }
-
-/* RESPONSIVE */
 @media (max-width: 1200px) {
   .hero-grid,
   .programme-content {
@@ -2537,8 +2493,6 @@ body {
     height: 35px;
     font-size: 20px;
   }
-
-  /* Syllabus Page Responsive */
   .syllabus-container {
     margin: 10px;
     border-radius: 16px;
@@ -2601,7 +2555,7 @@ body {
     gap: 15px;
   }
 
-  /* Module-based responsive */
+ 
   .modules-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -2630,7 +2584,7 @@ body {
     gap: 15px;
   }
 
-  /* Structured syllabus responsive */
+
   .course-info-section {
     padding: 25px 20px;
     margin-bottom: 30px;
@@ -2703,7 +2657,6 @@ body {
   }
 }
 
-/* Fixed back button for syllabus pages */
 .syllabus-fixed-back-btn {
   position: fixed;
   left: 24px;
@@ -2747,7 +2700,6 @@ body {
   }
 }
 
-/* Super back button for syllabus pages - maximum z-index fix */
 .syllabus-super-back-btn {
   position: fixed !important;
   left: 20px !important;
@@ -2794,7 +2746,6 @@ body {
   }
 }
 
-/* Ensure containers don't block the button */
 body {
   overflow-x: hidden;
 }
@@ -2852,10 +2803,6 @@ body {
   color: #ffffff !important;
   border-color: #0068a8 !important;
 }
-
-
-
-/* Practical Training Bullet List Design */
 .practical-bullet-list {
   max-width: 900px;
   margin: 0 auto;
@@ -2883,15 +2830,12 @@ body {
   font-weight: 800;
 }
 
-/* Career Opportunities Icon Fix */
 .career-opportunities-grid .unified-career-item,
 .modal-career .unified-career-item {
   display: flex !important;
   align-items: center !important;
   gap: 14px !important;
 }
-
-/* Back Button Design Fix */
 .syllabus-back-button,
 .syllabus-fixed-back-btn,
 .syllabus-super-back-btn,
@@ -2925,7 +2869,6 @@ body {
   transform: translateX(-3px) !important;
 }
 
-/* Footer Social Button Click Effect */
 .social-btn:hover,
 .social-btn.clicked {
   color: #00152d;

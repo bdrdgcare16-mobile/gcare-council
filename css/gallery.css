@@ -1,21 +1,9 @@
-/* =========================
-   Gallery Page - Professional
-   White + Blue + Gray Theme
-========================= */
-
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(to bottom, #ffffff 0%, #f4f7fb 55%, #e5ebf2 100%);
-  min-height: 100vh;
-  color: #1f2d3d;
-}
-
-/* =========================
-   Banner
-========================= */
-
-.page-banner {
+/* margin: 0; */
+  /* padding: 0; */
+  /* background: linear-gradient(to bottom, #ffffff 0%, #f4f7fb 55%, #e5ebf2 100%); */
+  /* min-height: 100vh; */
+  /* color: #1f2d3d; */
+  .page-banner {
   background: linear-gradient(135deg, #0f5ea8 0%, #156fbe 100%);
   padding: 70px 20px 75px;
   text-align: center;
@@ -55,9 +43,6 @@ body {
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* =========================
-   Gallery Section
-========================= */
 
 .gallery-section {
   max-width: 1360px;
@@ -65,9 +50,6 @@ body {
   padding: 40px 20px 70px;
 }
 
-/* =========================
-   Branch Buttons
-========================= */
 
 .branch-nav {
   margin-bottom: 34px;
@@ -124,9 +106,6 @@ body {
   box-shadow: 0 10px 24px rgba(15, 94, 168, 0.24);
 }
 
-/* =========================
-   Gallery Grid
-========================= */
 
 .gallery-grid {
   display: grid;
@@ -189,9 +168,6 @@ body {
   color: rgba(255, 255, 255, 0.88);
 }
 
-/* =========================
-   Empty State
-========================= */
 
 .no-images {
   grid-column: 1 / -1;
@@ -216,10 +192,6 @@ body {
   line-height: 1.7;
 }
 
-/* =========================
-   Animation
-========================= */
-
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -227,9 +199,6 @@ body {
   }
 }
 
-/* =========================
-   Responsive
-========================= */
 
 @media (max-width: 1200px) {
   .gallery-grid {

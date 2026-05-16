@@ -24,14 +24,6 @@
 html {
   scroll-behavior: smooth;
 }
-
-body {
-  font-family: "Times New Roman", serif;
-  color: var(--text-dark);
-  background: var(--light-gray);
-}
-
-/* Header */
 .top-header {
   background: var(--white);
   display: flex;
@@ -113,7 +105,6 @@ body {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Main Dropdown */
 .submenu {
   display: none;
   position: absolute;
@@ -160,7 +151,6 @@ body {
   color: #0068a8;
 }
 
-/* Nested Submenu */
 .has-submenu {
   position: relative;
 }
@@ -225,7 +215,6 @@ body {
   color: #0a4174;
 }
 
-/* Nested submenu scrollbar */
 .nested-submenu::-webkit-scrollbar {
   width: 8px;
 }
@@ -240,7 +229,6 @@ body {
   border-radius: 10px;
 }
 
-/* Footer */
 .footer {
   background: #163c68;
   color: var(--white);
@@ -253,7 +241,6 @@ body {
   letter-spacing: 0.2px;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
   .top-header {
     flex-direction: column;

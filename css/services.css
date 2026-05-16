@@ -8,7 +8,6 @@
   --text-soft: #566678;
 }
 
-/* Services Hero Banner */
 .services-hero {
   position: relative;
   height: 220px;
@@ -42,7 +41,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Main */
 .services-main {
   background: linear-gradient(180deg, #f6f6f6 0%, #eceff2 100%);
   padding: 76px 20px 90px;
@@ -125,7 +123,7 @@
   line-height: 1;
 }
 
-/* Reveal */
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -137,7 +135,6 @@
   transform: translateY(0);
 }
 
-/* Footer */
 .site-footer {
   background: linear-gradient(180deg, var(--footer-dark) 0%, var(--footer-dark-deep) 100%);
   color: #ffffff;
@@ -162,16 +159,13 @@
 }
 
 .footer-about h3 {
-  font-size: 1.05rem;
+  font-size:24px;
   font-weight: 700;
   margin-bottom: 10px;
   font-family: "Times New Roman", serif;
 }
 
 .footer-tagline {
-  color: #ffffff;
-  font-size: 0.72rem;
-  margin-bottom: 14px;
   font-style: normal;
 }
 
@@ -243,12 +237,11 @@
 }
 
 .social-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
+   background: #f2cf4a;
+   color: #111111;
 }
 
 .social-btn.active-social {
-  background: #f2cf4a;
-  color: #111111;
   border-color: #f2cf4a;
   font-weight: 700;
 }
@@ -288,8 +281,6 @@
   font-size: 0.9rem;
   font-family: "Times New Roman", serif;
 }
-
-/* Responsive */
 @media (max-width: 1000px) {
   .services-feature-card {
     grid-template-columns: 1fr;

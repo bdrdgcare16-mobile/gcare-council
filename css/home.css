@@ -232,15 +232,15 @@
 }
 
 .footer-brand h3 {
-  font-size: 1.05rem;
+  font-size: 24px;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .footer-subtitle {
-  color: #ffffff;
-  font-size: 0.72rem;
-  margin-bottom: 14px;
+  /* color: #ffffff;
+  font-size: 0.72rem; */
+  /* margin-bottom: 14px; */
   font-style: normal;
 }
 
@@ -295,7 +295,8 @@
 }
 
 .social-btn:hover {
-  background: #132b4b;
+  background: #ffd84d;
+  color: #111111;
 }
 
 .social-btn.active {
