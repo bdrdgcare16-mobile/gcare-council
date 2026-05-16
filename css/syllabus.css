@@ -1,6 +1,4 @@
-/* Syllabus Page Styles - Consolidated from all syllabus HTML files */
 
-/* Course Info Header Styles */
 .course-info-header {
   position: relative;
   text-align: center;
@@ -11,7 +9,6 @@
   position: relative;
 }
 
-/* Course Title Back Button */
 .course-title-back-btn {
   position: absolute;
   left: 40px;
@@ -37,7 +34,7 @@
   transform: translateX(-3px);
 }
 
-/* Placement Badge */
+
 .placement-badge {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 56%, var(--primary-light) 100%);
   color: white;
@@ -57,7 +54,7 @@
   100% { transform: scale(1); }
 }
 
-/* Social Button Styles */
+
 .social-btn {
   display: flex;
   align-items: center;
@@ -88,7 +85,7 @@
   color: #00152d;
 }
 
-/* Practical Bullet List */
+
 .practical-bullet-list {
   background: white;
   border-radius: 16px;
@@ -134,7 +131,7 @@
   color: var(--primary);
 }
 
-/* Career Timeline */
+
 .career-timeline {
   background: white;
   border-radius: 16px;
@@ -143,7 +140,6 @@
   border: 1px solid var(--border-soft);
 }
 
-/* Career Opportunities Grid */
 .career-opportunities-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -204,7 +200,7 @@
   text-align: left !important;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .course-title-back-btn {
     left: 20px;
