@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Online Student Admission Form - G Care Council</title>
+
+  <link rel="stylesheet" href="css/admission-online.css" />
+</head>
+
+<body>
+  <header class="top-header">
+    <div class="logo-box">
+      <img src="assets/images/gcare-logo.png" alt="G Care Logo" />
+    </div>
+
+    <div class="title-box">
+      <h1>G Care Council</h1>
+      <p>(As Auspicious Agency of Gandhi Foundation)</p>
+    </div>
+
+    <div class="logo-box">
+      <img src="assets/images/gandhi-logo.png" alt="Gandhi Foundation Logo" />
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="community-colleges.html">COMMUNITY COLLEGE</a>
+    <a href="affiliation.html">AFFILIATION</a>
+    <a href="programmes.html">PROGRAMMES</a>
+    <a href="services.html">SERVICES</a>
+    <a href="downloads.html" class="active">DOWNLOADS</a>
+    <a href="gallery.html">GALLERY</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <section class="form-hero">
+    <h2>Online Student Admission Form</h2>
+    <p>Please fill in the admission details. OTP verification will be required after form submission.</p>
+  </section>
+
+  <main class="form-wrapper">
+    <div class="back-bar">
+      <button type="button" class="back-btn" onclick="goBackToDownloads()">
+        <span>←</span>
+        Back to Downloads
+      </button>
+    </div>
+
+    <form id="admissionForm" class="admission-form">
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>1</span>
+          <h3>Course Details</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="applicationNo">Application No.</label>
+            <input type="text" id="applicationNo" name="applicationNo" readonly />
+          </div>
+
+          <div class="form-group course-field">
+            <label for="courseSearchInput">Admission Form For Course <b>*</b></label>
+
+            <div class="custom-course-dropdown">
+              <input type="text" id="courseSearchInput" placeholder="Select Course" readonly required />
+              <input type="hidden" id="courseName" name="courseName" required />
+
+              <div class="course-options" id="courseOptions">
+                <div class="course-group-title">Nursing Course</div>
+                <div class="course-option" data-value="Diploma Nursing">Diploma Nursing</div>
+
+                <div class="course-group-title">Engineering Courses</div>
+                <div class="course-option" data-value="Civil Engineering">Civil Engineering</div>
+                <div class="course-option" data-value="Mechanical Engineering">Mechanical Engineering</div>
+                <div class="course-option" data-value="Electrical Engineering">Electrical Engineering</div>
+
+                <div class="course-group-title">Paramedical Course</div>
+                <div class="course-option" data-value="X-Ray Technician">X-Ray Technician</div>
+                <div class="course-option" data-value="Lab Technician">Lab Technician</div>
+                <div class="course-option" data-value="D.Pharm">D.Pharm</div>
+
+                <div class="course-group-title">Computer & IT</div>
+                <div class="course-option" data-value="Computer & IT">Computer & IT</div>
+
+                <div class="course-group-title">Teachers Education</div>
+                <div class="course-option" data-value="Teachers Education">Teachers Education</div>
+
+                <div class="course-group-title">Home Science</div>
+                <div class="course-option" data-value="Home Science">Home Science</div>
+
+                <div class="course-group-title">Skill Development Course</div>
+                <div class="course-option" data-value="Mining Sector">Mining Sector</div>
+                <div class="course-option" data-value="Rubber / Chemical / Plastic">Rubber / Chemical / Plastic</div>
+                <div class="course-option" data-value="Media and Entertainment">Media and Entertainment</div>
+                <div class="course-option" data-value="Yoga / Wellness">Yoga / Wellness</div>
+                <div class="course-option" data-value="Beauty and Wellness">Beauty and Wellness</div>
+                <div class="course-option" data-value="Healthcare Sector">Healthcare Sector</div>
+                <div class="course-option" data-value="Handicrafts and Carpet">Handicrafts and Carpet</div>
+                <div class="course-option" data-value="Banking / BFSI">Banking / BFSI</div>
+                <div class="course-option" data-value="Electronics Sector">Electronics Sector</div>
+                <div class="course-option" data-value="Food Industry">Food Industry</div>
+                <div class="course-option" data-value="Agriculture Sector">Agriculture Sector</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>2</span>
+          <h3>Personal Details</h3>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group">
+            <label for="title">Title <b>*</b></label>
+            <select id="title" name="title" required>
+              <option value="">Select</option>
+              <option value="Mr">Mr</option>
+              <option value="Ms">Ms</option>
+              <option value="Mrs">Mrs</option>
+            </select>
+          </div>
+
+          <div class="form-group span-2">
+            <label for="fullName">Name in Full <b>*</b></label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="dob">Date of Birth <b>*</b></label>
+            <input type="date" id="dob" name="dob" required />
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Auto calculated" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender <b>*</b></label>
+            <select id="gender" name="gender" required>
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="hasAadhaar">Do you hold UID / Aadhaar Card? <b>*</b></label>
+            <select id="hasAadhaar" name="hasAadhaar" required>
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="aadhaarNumber">UID / Aadhaar Number</label>
+            <input type="text" id="aadhaarNumber" name="aadhaarNumber" maxlength="12"
+              placeholder="Enter 12 digit Aadhaar number" />
+          </div>
+
+          <div class="form-group span-2">
+            <label for="parentName">Parent's / Guardian's / Husband's Name <b>*</b></label>
+            <input type="text" id="parentName" name="parentName" placeholder="Enter parent / guardian name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nationality">Nationality <b>*</b></label>
+            <input type="text" id="nationality" name="nationality" placeholder="Enter nationality" required />
+          </div>
+
+          <div class="form-group">
+            <label for="caste">Caste <b>*</b></label>
+            <select id="caste" name="caste" required>
+              <option value="">Select</option>
+              <option value="General">General</option>
+              <option value="BC">BC</option>
+              <option value="OBC">OBC</option>
+              <option value="SC/ST">SC/ST</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="otherCaste">If Others, Specify</label>
+            <input type="text" id="otherCaste" name="otherCaste" placeholder="Enter caste details" />
+          </div>
+        </div>
+      </section>
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>3</span>
+          <h3>Address Details</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group full">
+            <label for="presentAddress">Present Address <b>*</b></label>
+            <textarea id="presentAddress" name="presentAddress" rows="3" placeholder="Enter present address"
+              required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="pinCode">Pin Code <b>*</b></label>
+            <input type="text" id="pinCode" name="pinCode" maxlength="6" placeholder="Enter 6 digit pin code"
+              required />
+            <small id="pinStatus" class="pin-status"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="state">State <b>*</b></label>
+            <input type="text" id="state" name="state" placeholder="State will fill automatically" required />
+          </div>
+
+          <div class="form-group">
+            <label for="district">District <b>*</b></label>
+            <input type="text" id="district" name="district" placeholder="District will fill automatically" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sameAddress">Present address same as permanent address? <b>*</b></label>
+            <select id="sameAddress" name="sameAddress" required>
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="permanentAddress">Permanent Address</label>
+            <textarea id="permanentAddress" name="permanentAddress" rows="3"
+              placeholder="Enter permanent address"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>4</span>
+          <h3>Contact Details</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="telephone">Telephone</label>
+            <input type="text" id="telephone" name="telephone" placeholder="Enter telephone number" />
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile <b>*</b></label>
+            <input type="text" id="mobile" name="mobile" maxlength="10" placeholder="Enter 10 digit mobile number"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label for="alternateOne">Alternate Contact Number 1</label>
+            <input type="text" id="alternateOne" name="alternateOne" maxlength="10"
+              placeholder="Enter alternate contact number" />
+          </div>
+
+          <div class="form-group">
+            <label for="alternateTwo">Alternate Contact Number 2</label>
+            <input type="text" id="alternateTwo" name="alternateTwo" maxlength="10"
+              placeholder="Enter alternate contact number" />
+          </div>
+
+          <div class="form-group full">
+            <label for="email">Email ID <b>*</b></label>
+            <input type="email" id="email" name="email" placeholder="Enter email address" required />
+          </div>
+        </div>
+      </section>
+
+      <section class="form-box">
+  <div class="box-title">
+    <span>6</span>
+    <h3>Education Details</h3>
+  </div>
+
+  <div class="education-scroll">
+    <div class="education-table">
+      <div class="edu-head">Academic <b>*</b></div>
+      <div class="edu-head">Qualification / Name of Course <b>*</b></div>
+      <div class="edu-head">University / Board <b>*</b></div>
+      <div class="edu-head">Subjects <b>*</b></div>
+      <div class="edu-head">Year of Passing <b>*</b></div>
+      <div class="edu-head">Grade / Percentage <b>*</b></div>
+
+      <select id="academicLevel" name="academicLevel" required>
+        <option value="">Select Academic</option>
+        <option value="8th Standard">8th Standard</option>
+        <option value="10th Standard">10th Standard</option>
+        <option value="12th Standard">12th Standard</option>
+      </select>
+
+      <input
+        type="text"
+        id="educationCourse"
+        name="educationCourse"
+        placeholder="Example: SSC / X / Matric"
+        required
+      />
+
+      <input
+        type="text"
+        id="educationBoard"
+        name="educationBoard"
+        placeholder="Example: State Board / CBSE / ICSE"
+        required
+      />
+
+      <input
+        type="text"
+        id="educationSubjects"
+        name="educationSubjects"
+        placeholder="Example: Tamil, English, Maths, Science, Social Science"
+        required
+      />
+
+      <input
+        type="text"
+        id="educationYear"
+        name="educationYear"
+        maxlength="4"
+        placeholder="Example: 2024"
+        required
+      />
+
+      <input
+        type="text"
+        id="educationGrade"
+        name="educationGrade"
+        placeholder="Example: 85% / A Grade"
+        required
+      />
+    </div>
+  </div>
+</section>
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>7</span>
+          <h3>Document Uploads</h3>
+        </div>
+
+        <div class="upload-grid">
+          <div class="upload-box">
+            <label for="photoUpload">Passport Size Photo <b>*</b></label>
+            <input type="file" id="photoUpload" name="photoUpload" accept=".jpg,.jpeg,.png" required />
+            <div class="preview" id="photoUploadPreview"></div>
+          </div>
+
+          <div class="upload-box">
+            <label for="aadhaarUpload">Aadhaar Card Upload <b>*</b></label>
+            <input type="file" id="aadhaarUpload" name="aadhaarUpload" accept=".pdf,.jpg,.jpeg,.png" required />
+            <div class="preview" id="aadhaarUploadPreview"></div>
+          </div>
+
+          <div class="upload-box">
+            <label for="educationCertificateUpload">Education Certificate Upload <b>*</b></label>
+            <input type="file" id="educationCertificateUpload" name="educationCertificateUpload"
+              accept=".pdf,.jpg,.jpeg,.png" required />
+            <div class="preview" id="educationCertificateUploadPreview"></div>
+          </div>
+
+          <div class="upload-box">
+            <label for="parentSignature">Parent / Guardian Signature Upload</label>
+            <input type="file" id="parentSignature" name="parentSignature" accept=".jpg,.jpeg,.png" />
+            <div class="preview" id="parentSignaturePreview"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-box">
+        <div class="box-title">
+          <span>8</span>
+          <h3>Declaration</h3>
+        </div>
+
+        <div class="declaration-list">
+          <label>
+            <input type="checkbox" required />
+            I / We have received information / copy of the prospectus and have read through it.
+          </label>
+
+          <label>
+            <input type="checkbox" required />
+            I / We agree to abide by all the terms and conditions.
+          </label>
+
+          <label>
+            <input type="checkbox" required />
+            I / We agree to follow the rules and regulations of the institution.
+          </label>
+
+          <label>
+            <input type="checkbox" required />
+            I / We declare that the candidate is fully qualified for admission to this course.
+          </label>
+
+          <label>
+            <input type="checkbox" required />
+            I / We declare that all the details provided are true and accurate.
+          </label>
+        </div>
+
+        <div class="grid-2 declaration-bottom">
+          <div class="form-group">
+            <label for="declarationDate">Date <b>*</b></label>
+            <input type="date" id="declarationDate" name="declarationDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="place">Place <b>*</b></label>
+            <input type="text" id="place" name="place" placeholder="Enter place" required />
+          </div>
+        </div>
+      </section>
+
+      <div class="button-row">
+  <button type="reset" class="reset-btn">Reset</button>
+  <button type="submit" class="submit-btn" id="submitApplicationBtn">
+    Submit Application
+  </button>
+</div>
+
+<section class="form-box otp-section" id="otpSection">
+  <div class="box-title">
+    <span>9</span>
+    <h3>OTP Verification</h3>
+  </div>
+
+  <div class="grid-2 otp-grid">
+    <div class="otp-card">
+      <label>Email OTP Verification <b>*</b></label>
+
+      <div class="otp-row">
+        <button type="button" class="otp-btn" id="sendEmailOtpBtn">
+          Send Email OTP
+        </button>
+
+        <input
+          type="text"
+          id="emailOtp"
+          maxlength="6"
+          placeholder="Enter email OTP"
+        />
+
+        <button type="button" class="otp-btn verify" id="verifyEmailOtpBtn">
+          Verify
+        </button>
+      </div>
+
+      <p class="otp-status" id="emailOtpStatus">
+        Email OTP not verified.
+      </p>
+    </div>
+
+    <div class="otp-card">
+      <label>Mobile OTP Verification <b>*</b></label>
+
+      <div class="otp-row">
+        <button type="button" class="otp-btn" id="sendMobileOtpBtn">
+          Send Mobile OTP
+        </button>
+
+        <input
+          type="text"
+          id="mobileOtp"
+          maxlength="6"
+          placeholder="Enter mobile OTP"
+        />
+
+        <button type="button" class="otp-btn verify" id="verifyMobileOtpBtn">
+          Verify
+        </button>
+      </div>
+
+      <p class="otp-status" id="mobileOtpStatus">
+        Mobile OTP not verified.
+      </p>
+    </div>
+  </div>
+
+  <div class="otp-final-row">
+    <button type="button" class="final-submit-btn" id="finalVerifySubmitBtn">
+      Verify OTP & Submit Final Application
+    </button>
+  </div>
+</section>
+
+    </form>
+  </main>
+
+  <script src="js/admission-online.js"></script>
+</body>
+
+</html>
