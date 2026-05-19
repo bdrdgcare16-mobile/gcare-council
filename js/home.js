@@ -127,12 +127,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const socialButtons = document.querySelectorAll(".social-btn");
 
   socialButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      e.preventDefault();
-      socialButtons.forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
-    });
+  button.addEventListener("click", function () {
+    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+    this.classList.add("active-social");
   });
+});
 
   const dropLinks = document.querySelectorAll("#programmesDropdown a[data-programme]");
 

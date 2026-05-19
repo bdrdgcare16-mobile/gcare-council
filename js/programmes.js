@@ -1938,12 +1938,11 @@ function setupFooterInteractions() {
   });
 
   socialButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      e.preventDefault();
-      socialButtons.forEach((item) => item.classList.remove("clicked"));
-      this.classList.add("clicked");
-    });
+  button.addEventListener("click", function () {
+    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+    this.classList.add("active-social");
   });
+});
 }
 function updateActiveTab(programmeKey) {
   document.querySelectorAll(".programme-tab").forEach((tab) => {

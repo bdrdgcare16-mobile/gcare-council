@@ -17,16 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Footer social button click effect
 document.addEventListener('DOMContentLoaded', function() {
   const socialButtons = document.querySelectorAll('.social-btn');
-  socialButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      // Only prevent default for social buttons, not quick links
-      if (this.classList.contains('social-btn')) {
-        e.preventDefault();
-      }
-      // Remove clicked class from all buttons
-      socialButtons.forEach(btn => btn.classList.remove('clicked'));
-      // Add clicked class to clicked button
-      this.classList.add('clicked');
-    });
+  socialButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+    this.classList.add("active-social");
   });
+});
 });

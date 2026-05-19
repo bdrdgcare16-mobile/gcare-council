@@ -211,11 +211,15 @@ const trainingCentersData = [
   }
 ];
 
+let selectedDistrict = "";
+
 function getDistrictAbbreviation(district) {
   const words = district.trim().split(" ");
+
   if (words.length > 1) {
     return words.map(word => word.charAt(0).toUpperCase()).join("").slice(0, 3);
   }
+
   return district.slice(0, 3).toUpperCase();
 }
 
@@ -273,23 +277,20 @@ function renderTrainingCenters(centers = trainingCentersData) {
 }
 
 function populateDistrictDropdown() {
-  const dropdown = document.getElementById("districtDropdown");
+  const dropdownMenu = document.getElementById("districtDropdownMenu");
   const districts = [...new Set(trainingCentersData.map(center => center.DISTRICT))];
 
   districts.sort((a, b) => a.localeCompare(b));
 
   districts.forEach(district => {
-    const option = document.createElement("option");
-    option.value = district;
-    option.textContent = district;
-    dropdown.appendChild(option);
+    const item = document.createElement("li");
+    item.textContent = district;
+    item.setAttribute("data-value", district);
+    dropdownMenu.appendChild(item);
   });
 }
 
 function filterByDistrict() {
-  const dropdown = document.getElementById("districtDropdown");
-  const selectedDistrict = dropdown.value;
-
   if (!selectedDistrict) {
     renderTrainingCenters(trainingCentersData);
     return;
@@ -299,23 +300,55 @@ function filterByDistrict() {
   renderTrainingCenters(filteredCenters);
 }
 
+function setupCustomDropdown() {
+  const dropdownWrapper = document.getElementById("districtDropdownWrapper");
+  const dropdownButton = document.getElementById("districtDropdownButton");
+  const dropdownMenu = document.getElementById("districtDropdownMenu");
+  const selectedDistrictText = document.getElementById("selectedDistrictText");
+
+  dropdownButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdownWrapper.classList.toggle("open");
+  });
+
+  dropdownMenu.addEventListener("click", function (event) {
+    const clickedItem = event.target.closest("li");
+
+    if (!clickedItem) {
+      return;
+    }
+
+    selectedDistrict = clickedItem.getAttribute("data-value");
+    selectedDistrictText.textContent = clickedItem.textContent;
+
+    dropdownMenu.querySelectorAll("li").forEach(item => {
+      item.classList.remove("active");
+    });
+
+    clickedItem.classList.add("active");
+    dropdownWrapper.classList.remove("open");
+
+    filterByDistrict();
+  });
+
+  document.addEventListener("click", function () {
+    dropdownWrapper.classList.remove("open");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   populateDistrictDropdown();
+  setupCustomDropdown();
   renderTrainingCenters();
-
-  const dropdown = document.getElementById("districtDropdown");
-  dropdown.addEventListener("change", filterByDistrict);
 
   const socialButtons = document.querySelectorAll(".social-btn");
 
-  socialButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      socialButtons.forEach((btn) => btn.classList.remove("active-social"));
-      this.classList.add("active-social");
-    });
+ socialButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+    this.classList.add("active-social");
   });
+});
 
   const footerTextLinks = document.querySelectorAll(".footer-text-link");
 

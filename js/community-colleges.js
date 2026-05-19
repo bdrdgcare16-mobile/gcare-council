@@ -96,13 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const socialButtons = document.querySelectorAll(".social-btn");
 
   socialButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      socialButtons.forEach((btn) => btn.classList.remove("active-social"));
-      this.classList.add("active-social");
-    });
+  button.addEventListener("click", function () {
+    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+    this.classList.add("active-social");
   });
+});
 
   const footerTextLinks = document.querySelectorAll(".footer-text-link");
 
