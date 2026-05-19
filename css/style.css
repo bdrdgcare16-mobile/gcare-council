@@ -100,11 +100,6 @@ html {
   transition: var(--transition);
 }
 
-/* .menu > li > a:hover,
-.active-menu > a {
-  background: rgba(255, 255, 255, 0.12);
-} */
-
 .submenu {
   display: none;
   position: absolute;

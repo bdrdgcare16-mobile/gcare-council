@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Admin Login - G Care Council</title>
+
+  <link rel="stylesheet" href="css/admin-login.css" />
+</head>
+
+<body>
+  <main class="login-page">
+    <div class="login-card">
+      <div class="logo-row">
+        <img src="assets/images/gcare-logo.png" alt="G Care Logo" />
+      </div>
+
+      <h1>Admin Login</h1>
+      <p>Login to manage student admission forms.</p>
+
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminEmail">Email</label>
+          <input
+            type="email"
+            id="adminEmail"
+            name="adminEmail"
+            placeholder="Enter admin email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input
+            type="password"
+            id="adminPassword"
+            name="adminPassword"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+
+        <button type="submit">Login</button>
+
+        <p class="error-message" id="errorMessage"></p>
+      </form>
+
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </main>
+
+  <script src="js/admin-login.js"></script>
+</body>
+
+</html>
