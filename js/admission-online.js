@@ -14,7 +14,7 @@
 //   const educationCourse = document.getElementById("educationCourse");
 //   const educationSubjects = document.getElementById("educationSubjects");
 
-//   const API_BASE_URL = "http://localhost:3000/api";
+//   const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
 
 //   let isEmailOtpVerified = false;
 //   let isMobileOtpVerified = false;
@@ -364,59 +364,9 @@
 //     return true;
 //   }
 
-//   function fileToBase64(file) {
-//     return new Promise(function (resolve, reject) {
-//       if (!file) {
-//         resolve(null);
-//         return;
-//       }
-
-//       const reader = new FileReader();
-
-//       reader.onload = function () {
-//         resolve({
-//           name: file.name,
-//           type: file.type,
-//           data: reader.result
-//         });
-//       };
-
-//       reader.onerror = function () {
-//         reject("File reading failed.");
-//       };
-
-//       reader.readAsDataURL(file);
-//     });
-//   }
-
-//   async function getUploadedFiles() {
-//     const files = {};
-
-//     for (const fieldId of uploadFields) {
-//       const input = document.getElementById(fieldId);
-//       const file = input && input.files.length ? input.files[0] : null;
-
-//       files[fieldId] = await fileToBase64(file);
-//     }
-
-//     return files;
-//   }
-
 //   function getInputValue(name) {
 //     const input = form.querySelector(`[name="${name}"]`);
 //     return input ? input.value.trim() : "";
-//   }
-
-//   function saveApplication(applicationData) {
-//     const existingApplications =
-//       JSON.parse(localStorage.getItem("studentApplications")) || [];
-
-//     existingApplications.push(applicationData);
-
-//     localStorage.setItem(
-//       "studentApplications",
-//       JSON.stringify(existingApplications)
-//     );
 //   }
 
 //   function clearPreviews() {
@@ -631,51 +581,26 @@
 //         finalVerifySubmitBtn.disabled = true;
 //         finalVerifySubmitBtn.textContent = "Submitting...";
 
-//         const uploadedFiles = await getUploadedFiles();
+//         const formData = new FormData(form);
 
-//         const applicationData = {
-//           applicationNo: applicationNo.value,
-//           courseName: getInputValue("courseName"),
-//           title: getInputValue("title"),
-//           fullName: getInputValue("fullName"),
-//           dob: getInputValue("dob"),
-//           age: getInputValue("age"),
-//           gender: getInputValue("gender"),
-//           hasAadhaar: getInputValue("hasAadhaar"),
-//           aadhaarNumber: getInputValue("aadhaarNumber"),
-//           parentName: getInputValue("parentName"),
-//           nationality: getInputValue("nationality"),
-//           caste: getInputValue("caste"),
-//           otherCaste: getInputValue("otherCaste"),
-//           presentAddress: getInputValue("presentAddress"),
-//           pinCode: getInputValue("pinCode"),
-//           state: getInputValue("state"),
-//           district: getInputValue("district"),
-//           sameAddress: getInputValue("sameAddress"),
-//           permanentAddress: getInputValue("permanentAddress"),
-//           telephone: getInputValue("telephone"),
-//           mobile: getInputValue("mobile"),
-//           alternateOne: getInputValue("alternateOne"),
-//           alternateTwo: getInputValue("alternateTwo"),
-//           email: getInputValue("email"),
-//           academicLevel: getInputValue("academicLevel"),
-//           educationCourse: getInputValue("educationCourse"),
-//           educationBoard: getInputValue("educationBoard"),
-//           educationSubjects: getInputValue("educationSubjects"),
-//           educationYear: getInputValue("educationYear"),
-//           educationGrade: getInputValue("educationGrade"),
-//           declarationDate: getInputValue("declarationDate"),
-//           place: getInputValue("place"),
-//           status: "Pending",
-//           submittedAt: new Date().toLocaleString(),
-//           files: uploadedFiles
-//         };
+//         if (!formData.get("applicationNo")) {
+//           formData.set("applicationNo", applicationNo.value || generateApplicationNo());
+//         }
 
-//         saveApplication(applicationData);
+//         const response = await fetch(`${API_BASE_URL}/admissions`, {
+//           method: "POST",
+//           body: formData
+//         });
+
+//         const result = await response.json();
+
+//         if (!response.ok || !result.success) {
+//           throw new Error(result.message || "Failed to submit admission form.");
+//         }
 
 //         alert(
 //           "Application submitted successfully. Your Application No. is " +
-//             applicationNo.value +
+//             (result.data?.applicationNo || applicationNo.value) +
 //             "."
 //         );
 
@@ -699,7 +624,7 @@
 //         }
 //       } catch (error) {
 //         console.error("Final submit error:", error);
-//         alert("Something went wrong. Please try again.");
+//         alert("Failed to submit admission form. Please try again.");
 //       } finally {
 //         finalVerifySubmitBtn.disabled = false;
 //         finalVerifySubmitBtn.textContent = originalButtonText;
@@ -812,6 +737,7 @@
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("admissionForm");
   const applicationNo = document.getElementById("applicationNo");
@@ -847,10 +773,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return "GCARE" + year + random;
   }
 
-  function generateOtp() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
-
   function setupCourseDropdown() {
     const courseInput = document.getElementById("courseSearchInput");
     const courseValue = document.getElementById("courseName");
@@ -864,11 +786,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     courseOptions.addEventListener("click", function (event) {
       const selectedOption = event.target.closest(".course-option");
-
       if (!selectedOption) return;
 
       const selectedValue = selectedOption.getAttribute("data-value");
-
       courseInput.value = selectedValue;
       courseValue.value = selectedValue;
       courseOptions.classList.remove("show");
@@ -876,7 +796,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener("click", function (event) {
       const isInsideDropdown = event.target.closest(".custom-course-dropdown");
-
       if (!isInsideDropdown) {
         courseOptions.classList.remove("show");
       }
@@ -1016,7 +935,6 @@ document.addEventListener("DOMContentLoaded", function () {
         preview.innerHTML = "";
 
         const file = this.files[0];
-
         if (!file) return;
 
         const fileUrl = URL.createObjectURL(file);
@@ -1143,21 +1061,21 @@ document.addEventListener("DOMContentLoaded", function () {
       "educationCertificateUpload"
     );
 
-    if (!photoUpload.files.length) {
+    if (!photoUpload || !photoUpload.files.length) {
       alert("Please upload passport size photo.");
-      photoUpload.focus();
+      if (photoUpload) photoUpload.focus();
       return false;
     }
 
-    if (!aadhaarUpload.files.length) {
+    if (!aadhaarUpload || !aadhaarUpload.files.length) {
       alert("Please upload Aadhaar card.");
-      aadhaarUpload.focus();
+      if (aadhaarUpload) aadhaarUpload.focus();
       return false;
     }
 
-    if (!educationCertificateUpload.files.length) {
+    if (!educationCertificateUpload || !educationCertificateUpload.files.length) {
       alert("Please upload education certificate.");
-      educationCertificateUpload.focus();
+      if (educationCertificateUpload) educationCertificateUpload.focus();
       return false;
     }
 
@@ -1178,15 +1096,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  function getInputValue(name) {
-    const input = form.querySelector(`[name="${name}"]`);
-    return input ? input.value.trim() : "";
-  }
-
   function clearPreviews() {
     uploadFields.forEach(function (fieldId) {
       const preview = document.getElementById(fieldId + "Preview");
-
       if (preview) {
         preview.innerHTML = "";
       }
@@ -1289,9 +1201,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         isEmailOtpVerified = false;
+        emailOtpInput.value = "";
         emailOtpStatus.textContent = "Email OTP sent. Please check your email.";
         emailOtpStatus.classList.remove("success");
       } catch (error) {
+        console.error("Email OTP send error:", error);
         isEmailOtpVerified = false;
         emailOtpStatus.textContent =
           "Email OTP sending failed. Please check backend OTP API.";
@@ -1340,6 +1254,7 @@ document.addEventListener("DOMContentLoaded", function () {
         emailOtpStatus.textContent = "Email OTP verified successfully.";
         emailOtpStatus.classList.add("success");
       } catch (error) {
+        console.error("Email OTP verify error:", error);
         isEmailOtpVerified = false;
         emailOtpStatus.textContent = "Invalid email OTP.";
         emailOtpStatus.classList.remove("success");
@@ -1358,11 +1273,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      generatedMobileOtp = generateOtp();
+      generatedMobileOtp = "123456";
       isMobileOtpVerified = false;
+      mobileOtpInput.value = "";
 
-      mobileOtpStatus.textContent =
-        "Dummy mobile OTP sent. Testing OTP: " + generatedMobileOtp;
+      mobileOtpStatus.textContent = "Dummy mobile OTP sent. Use OTP: 123456";
       mobileOtpStatus.classList.remove("success");
     });
 
@@ -1398,7 +1313,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData(form);
 
         if (!formData.get("applicationNo")) {
-          formData.set("applicationNo", applicationNo.value || generateApplicationNo());
+          formData.set(
+            "applicationNo",
+            applicationNo.value || generateApplicationNo()
+          );
         }
 
         const response = await fetch(`${API_BASE_URL}/admissions`, {
@@ -1414,7 +1332,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         alert(
           "Application submitted successfully. Your Application No. is " +
-            (result.data?.applicationNo || applicationNo.value) +
+            (formData.get("applicationNo") || applicationNo.value) +
             "."
         );
 
@@ -1430,7 +1348,9 @@ document.addEventListener("DOMContentLoaded", function () {
           submitButton.textContent = "Submit Application";
         }
 
-        applicationNo.value = generateApplicationNo();
+        if (applicationNo) {
+          applicationNo.value = generateApplicationNo();
+        }
 
         if (pinStatus) {
           pinStatus.textContent = "";
@@ -1496,6 +1416,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function setupResetButton() {
+    if (!form) return;
+
     const resetButton = form.querySelector(".reset-btn");
 
     if (!resetButton) return;
@@ -1526,6 +1448,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function initialize() {
+    if (!form) return;
+
     if (applicationNo) {
       applicationNo.value = generateApplicationNo();
     }
