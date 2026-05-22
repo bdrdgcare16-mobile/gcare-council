@@ -360,6 +360,7 @@ textarea[readonly] {
   opacity: 1;
   font-size: 0.9rem;
 }
+
 .edu-head b {
   color: #c30000;
   margin-left: 4px;
@@ -482,70 +483,7 @@ textarea[readonly] {
   cursor: not-allowed;
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .grid-2,
-  .grid-3,
-  .upload-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .span-2 {
-    grid-column: auto;
-  }
-
-  .education-table {
-    grid-template-columns: 180px 280px 260px 380px 180px 220px;
-    min-width: 1500px;
-  }
-
-  .form-hero h2 {
-    font-size: 2.6rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .top-header {
-    padding: 14px 18px;
-  }
-
-  .logo-box {
-    width: 72px;
-    height: 58px;
-  }
-
-  .title-box h1 {
-    font-size: 2rem;
-  }
-
-  .navbar a {
-    padding: 13px 15px;
-    font-size: 0.85rem;
-  }
-
-  .form-wrapper {
-    padding: 35px 16px 70px;
-  }
-
-  .form-box {
-    padding: 22px 16px;
-  }
-
-  .back-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .button-row {
-    flex-direction: column;
-  }
-
-  .reset-btn,
-  .submit-btn {
-    width: 100%;
-  }
-}
-
+/* OTP Verification Section */
 .otp-section {
   display: none;
 }
@@ -614,6 +552,10 @@ textarea[readonly] {
   color: #178a3d;
 }
 
+.otp-status.error {
+  color: #c30000;
+}
+
 .otp-final-row {
   width: 100%;
   margin-top: 24px;
@@ -644,7 +586,81 @@ textarea[readonly] {
   cursor: not-allowed;
 }
 
+#emailOtp,
+#mobileOtp {
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+#emailOtp::selection,
+#mobileOtp::selection {
+  background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid-2,
+  .grid-3,
+  .upload-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .span-2 {
+    grid-column: auto;
+  }
+
+  .education-table {
+    grid-template-columns: 180px 280px 260px 380px 180px 220px;
+    min-width: 1500px;
+  }
+
+  .form-hero h2 {
+    font-size: 2.6rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .top-header {
+    padding: 14px 18px;
+  }
+
+  .logo-box {
+    width: 72px;
+    height: 58px;
+  }
+
+  .title-box h1 {
+    font-size: 2rem;
+  }
+
+  .navbar a {
+    padding: 13px 15px;
+    font-size: 0.85rem;
+  }
+
+  .form-wrapper {
+    padding: 35px 16px 70px;
+  }
+
+  .form-box {
+    padding: 22px 16px;
+  }
+
+  .back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .reset-btn,
+  .submit-btn {
+    width: 100%;
+  }
+
   .otp-row {
     grid-template-columns: 1fr;
   }

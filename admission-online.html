@@ -51,7 +51,6 @@
     </div>
 
     <form id="admissionForm" class="admission-form">
-
       <section class="form-box">
         <div class="box-title">
           <span>1</span>
@@ -282,70 +281,44 @@
       </section>
 
       <section class="form-box">
-  <div class="box-title">
-    <span>6</span>
-    <h3>Education Details</h3>
-  </div>
+        <div class="box-title">
+          <span>6</span>
+          <h3>Education Details</h3>
+        </div>
 
-  <div class="education-scroll">
-    <div class="education-table">
-      <div class="edu-head">Academic <b>*</b></div>
-      <div class="edu-head">Qualification / Name of Course <b>*</b></div>
-      <div class="edu-head">University / Board <b>*</b></div>
-      <div class="edu-head">Subjects <b>*</b></div>
-      <div class="edu-head">Year of Passing <b>*</b></div>
-      <div class="edu-head">Grade / Percentage <b>*</b></div>
+        <div class="education-scroll">
+          <div class="education-table">
+            <div class="edu-head">Academic <b>*</b></div>
+            <div class="edu-head">Qualification / Name of Course <b>*</b></div>
+            <div class="edu-head">University / Board <b>*</b></div>
+            <div class="edu-head">Subjects <b>*</b></div>
+            <div class="edu-head">Year of Passing <b>*</b></div>
+            <div class="edu-head">Grade / Percentage <b>*</b></div>
 
-      <select id="academicLevel" name="academicLevel" required>
-        <option value="">Select Academic</option>
-        <option value="8th Standard">8th Standard</option>
-        <option value="10th Standard">10th Standard</option>
-        <option value="12th Standard">12th Standard</option>
-      </select>
+            <select id="academicLevel" name="academicLevel" required>
+              <option value="">Select Academic</option>
+              <option value="8th Standard">8th Standard</option>
+              <option value="10th Standard">10th Standard</option>
+              <option value="12th Standard">12th Standard</option>
+            </select>
 
-      <input
-        type="text"
-        id="educationCourse"
-        name="educationCourse"
-        placeholder="Example: SSC / X / Matric"
-        required
-      />
+            <input type="text" id="educationCourse" name="educationCourse" placeholder="Example: SSC / X / Matric"
+              required />
 
-      <input
-        type="text"
-        id="educationBoard"
-        name="educationBoard"
-        placeholder="Example: State Board / CBSE / ICSE"
-        required
-      />
+            <input type="text" id="educationBoard" name="educationBoard" placeholder="Example: State Board / CBSE / ICSE"
+              required />
 
-      <input
-        type="text"
-        id="educationSubjects"
-        name="educationSubjects"
-        placeholder="Example: Tamil, English, Maths, Science, Social Science"
-        required
-      />
+            <input type="text" id="educationSubjects" name="educationSubjects"
+              placeholder="Example: Tamil, English, Maths, Science, Social Science" required />
 
-      <input
-        type="text"
-        id="educationYear"
-        name="educationYear"
-        maxlength="4"
-        placeholder="Example: 2024"
-        required
-      />
+            <input type="text" id="educationYear" name="educationYear" maxlength="4" placeholder="Example: 2024"
+              required />
 
-      <input
-        type="text"
-        id="educationGrade"
-        name="educationGrade"
-        placeholder="Example: 85% / A Grade"
-        required
-      />
-    </div>
-  </div>
-</section>
+            <input type="text" id="educationGrade" name="educationGrade" placeholder="Example: 85% / A Grade"
+              required />
+          </div>
+        </div>
+      </section>
 
       <section class="form-box">
         <div class="box-title">
@@ -428,81 +401,69 @@
       </section>
 
       <div class="button-row">
-  <button type="reset" class="reset-btn">Reset</button>
-  <button type="submit" class="submit-btn" id="submitApplicationBtn">
-    Submit Application
-  </button>
-</div>
-
-<section class="form-box otp-section" id="otpSection">
-  <div class="box-title">
-    <span>9</span>
-    <h3>OTP Verification</h3>
-  </div>
-
-  <div class="grid-2 otp-grid">
-    <div class="otp-card">
-      <label>Email OTP Verification <b>*</b></label>
-
-      <div class="otp-row">
-        <button type="button" class="otp-btn" id="sendEmailOtpBtn">
-          Send Email OTP
-        </button>
-
-        <input
-          type="text"
-          id="emailOtp"
-          maxlength="6"
-          placeholder="Enter email OTP"
-        />
-
-        <button type="button" class="otp-btn verify" id="verifyEmailOtpBtn">
-          Verify
+        <button type="reset" class="reset-btn">Reset</button>
+        <button type="submit" class="submit-btn" id="submitApplicationBtn">
+          Submit Application
         </button>
       </div>
 
-      <p class="otp-status" id="emailOtpStatus">
-        Email OTP not verified.
-      </p>
-    </div>
+      <section class="form-box otp-section" id="otpSection">
+        <div class="box-title">
+          <span>9</span>
+          <h3>OTP Verification</h3>
+        </div>
 
-    <div class="otp-card">
-      <label>Mobile OTP Verification <b>*</b></label>
+        <div class="grid-2 otp-grid">
+          <div class="otp-card">
+            <label>Email OTP Verification <b>*</b></label>
 
-      <div class="otp-row">
-        <button type="button" class="otp-btn" id="sendMobileOtpBtn">
-          Send Mobile OTP
-        </button>
+            <div class="otp-row">
+              <button type="button" class="otp-btn" id="sendEmailOtpBtn">
+                Send Email OTP
+              </button>
 
-        <input
-          type="text"
-          id="mobileOtp"
-          maxlength="6"
-          placeholder="Enter mobile OTP"
-        />
+              <input type="text" id="emailOtp" maxlength="6" placeholder="Enter email OTP" />
 
-        <button type="button" class="otp-btn verify" id="verifyMobileOtpBtn">
-          Verify
-        </button>
-      </div>
+              <button type="button" class="otp-btn verify" id="verifyEmailOtpBtn">
+                Verify
+              </button>
+            </div>
 
-      <p class="otp-status" id="mobileOtpStatus">
-        Mobile OTP not verified.
-      </p>
-    </div>
-  </div>
+            <p class="otp-status" id="emailOtpStatus">
+              Email OTP not verified.
+            </p>
+          </div>
 
-  <div class="otp-final-row">
-    <button type="button" class="final-submit-btn" id="finalVerifySubmitBtn">
-      Verify OTP & Submit Final Application
-    </button>
-  </div>
-</section>
+          <div class="otp-card">
+            <label>Mobile OTP Verification <b>*</b></label>
 
+            <div class="otp-row">
+              <button type="button" class="otp-btn" id="sendMobileOtpBtn">
+                Send Mobile OTP
+              </button>
+
+              <input type="text" id="mobileOtp" maxlength="6" placeholder="Enter mobile OTP" />
+
+              <button type="button" class="otp-btn verify" id="verifyMobileOtpBtn">
+                Verify
+              </button>
+            </div>
+
+            <p class="otp-status" id="mobileOtpStatus">
+              Mobile OTP not verified.
+            </p>
+          </div>
+        </div>
+
+        <div class="otp-final-row">
+          <button type="button" class="final-submit-btn" id="finalVerifySubmitBtn">
+            Verify OTP & Submit Final Application
+          </button>
+        </div>
+      </section>
     </form>
   </main>
 
-  <script src="js/admission-online.js"></script>
+<script src="js/admission-online.js?v=pincode-fixed-v3"></script>
 </body>
-
 </html>
