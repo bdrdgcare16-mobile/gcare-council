@@ -854,3 +854,139 @@ th {
     width: 100%;
   }
 }
+
+
+/* Uploaded Documents Landscape Layout */
+
+.file-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.file-card {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: #f8fbfe;
+  border: 1px dashed #9fbfd8;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.file-card h4 {
+  grid-column: 1 / -1;
+  color: #003b66;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.file-card img {
+  width: 180px;
+  height: 105px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #cfdde9;
+  margin-bottom: 0;
+  background: #ffffff;
+}
+
+.pdf-file-text {
+  width: 180px;
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #344b63;
+  background: #ffffff;
+  border: 1px solid #cfdde9;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 0;
+}
+
+.uploaded-file-name {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #344b63;
+  word-break: break-word;
+}
+
+.file-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0;
+}
+
+.view-file-btn,
+.file-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0074b7;
+  color: #ffffff;
+  border-radius: 9px;
+  padding: 9px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.view-file-btn:hover,
+.file-actions a:hover {
+  background: #005f99;
+}
+
+.download-file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #178a3d;
+  color: #ffffff;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 14px;
+  font-family: Arial, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.download-file-btn:hover {
+  background: #11692e;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .file-card {
+    grid-template-columns: 1fr;
+  }
+
+  .file-card img,
+  .pdf-file-text {
+    width: 100%;
+    height: 150px;
+  }
+
+  .file-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -87,6 +87,101 @@
   </div>
 
   <script src="js/admin-dashboard.js?v=download-fixed-v2"></script>
+</body>
+
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Admin Dashboard - G Care Council</title>
+
+  <link rel="stylesheet" href="css/admin-dashboard.css" />
+</head>
+
+<body>
+  <header class="admin-header">
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Manage submitted student admission forms</p>
+    </div>
+
+    <button type="button" id="logoutBtn">Logout</button>
+  </header>
+
+  <main class="dashboard-wrapper">
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>Total Forms</span>
+        <h2 id="totalCount">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <span>Pending</span>
+        <h2 id="pendingCount">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <span>Approved</span>
+        <h2 id="approvedCount">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <span>Rejected</span>
+        <h2 id="rejectedCount">0</h2>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-header">
+        <div>
+          <h2>Student Admission Forms</h2>
+          <p>View user-submitted details and uploaded files.</p>
+        </div>
+
+        <input type="text" id="searchInput" placeholder="Search by name, mobile, course..." />
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Application No.</th>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Submitted At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="applicationsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Application Details</h2>
+        <button type="button" id="closeModalBtn">×</button>
+      </div>
+
+      <div id="detailsContent"></div>
+    </div>
+  </div>
+
+  <script src="js/admin-dashboard.js?v=landscape-files-v1"></script>
 </body>
 
 </html>
