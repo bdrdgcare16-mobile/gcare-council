@@ -1,4 +1,3 @@
-
 // console.log("ADMISSION JS LOADED - EMAIL OTP AUTO SEND WITHOUT POPUP VERSION");
 
 // document.addEventListener("DOMContentLoaded", function () {
@@ -34,7 +33,7 @@
 //   const mobileInput = document.getElementById("mobile");
 //   const finalVerifySubmitBtn = document.getElementById("finalVerifySubmitBtn");
 
-// const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
+//  const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
 //   const DUMMY_MOBILE_OTP = "123456";
 
 //   let isEmailOtpVerified = false;
@@ -84,6 +83,7 @@
 //         type === "success"
 //           ? "Application submitted successfully."
 //           : "Please check the application submission status.";
+
 //       mobileOtpStatus.classList.remove("success");
 //       mobileOtpStatus.classList.remove("error");
 
@@ -173,6 +173,36 @@
 //   function setupPinCodeAutoFill() {
 //     if (!pinCode || !state || !district || !pinStatus) return;
 
+//     const fallbackPinData = {
+//       "604001": {
+//         state: "Tamil Nadu",
+//         district: "Viluppuram"
+//       },
+//       "632501": {
+//         state: "Tamil Nadu",
+//         district: "Ranipet"
+//       },
+//       "600001": {
+//         state: "Tamil Nadu",
+//         district: "Chennai"
+//       },
+//       "602001": {
+//         state: "Tamil Nadu",
+//         district: "Tiruvallur"
+//       },
+//       "631001": {
+//         state: "Tamil Nadu",
+//         district: "Ranipet"
+//       },
+//       "631102": {
+//         state: "Tamil Nadu",
+//         district: "Ranipet"
+//       }
+//     };
+
+//     state.removeAttribute("readonly");
+//     district.removeAttribute("readonly");
+
 //     pinCode.addEventListener("input", async function () {
 //       const enteredPin = this.value.trim();
 
@@ -181,7 +211,20 @@
 //       pinStatus.textContent = "";
 //       pinStatus.classList.remove("error");
 
-//       if (!/^[0-9]{6}$/.test(enteredPin)) return;
+//       state.removeAttribute("readonly");
+//       district.removeAttribute("readonly");
+
+//       if (!/^[0-9]{6}$/.test(enteredPin)) {
+//         return;
+//       }
+
+//       if (fallbackPinData[enteredPin]) {
+//         state.value = fallbackPinData[enteredPin].state;
+//         district.value = fallbackPinData[enteredPin].district;
+//         pinStatus.textContent = "State and district filled automatically.";
+//         pinStatus.classList.remove("error");
+//         return;
+//       }
 
 //       try {
 //         pinStatus.textContent = "Fetching state and district...";
@@ -189,6 +232,10 @@
 //         const response = await fetch(
 //           "https://api.postalpincode.in/pincode/" + enteredPin
 //         );
+
+//         if (!response.ok) {
+//           throw new Error("Pin code API failed.");
+//         }
 
 //         const data = await response.json();
 
@@ -203,15 +250,30 @@
 
 //           state.value = postOffice.State || "";
 //           district.value = postOffice.District || "";
+
 //           pinStatus.textContent = "State and district filled automatically.";
+//           pinStatus.classList.remove("error");
 //         } else {
-//           pinStatus.textContent = "Invalid pin code. Please check and enter again.";
+//           pinStatus.textContent =
+//             "Invalid pin code. Please enter state and district manually.";
 //           pinStatus.classList.add("error");
+
+//           state.value = "";
+//           district.value = "";
+//           state.removeAttribute("readonly");
+//           district.removeAttribute("readonly");
 //         }
 //       } catch (error) {
+//         console.error("Pin code fetch error:", error);
+
 //         pinStatus.textContent =
 //           "Unable to fetch details. Please enter state and district manually.";
 //         pinStatus.classList.add("error");
+
+//         state.value = "";
+//         district.value = "";
+//         state.removeAttribute("readonly");
+//         district.removeAttribute("readonly");
 //       }
 //     });
 //   }
@@ -988,7 +1050,8 @@
 // }
 
 
-console.log("ADMISSION JS LOADED - EMAIL OTP AUTO SEND WITHOUT POPUP VERSION");
+
+console.log("ADMISSION JS LOADED - REAL EMAIL OTP AND REAL MOBILE OTP VERSION");
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("admissionForm");
@@ -1023,8 +1086,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const mobileInput = document.getElementById("mobile");
   const finalVerifySubmitBtn = document.getElementById("finalVerifySubmitBtn");
 
- const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
-  const DUMMY_MOBILE_OTP = "123456";
+  const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
 
   let isEmailOtpVerified = false;
   let isMobileOtpVerified = false;
@@ -1521,6 +1583,26 @@ document.addEventListener("DOMContentLoaded", function () {
       submitButton.textContent = "Submit Application";
     }
 
+    if (sendEmailOtpBtn) {
+      sendEmailOtpBtn.disabled = false;
+      sendEmailOtpBtn.textContent = "Send Email OTP";
+    }
+
+    if (sendMobileOtpBtn) {
+      sendMobileOtpBtn.disabled = false;
+      sendMobileOtpBtn.textContent = "Send Mobile OTP";
+    }
+
+    if (verifyEmailOtpBtn) {
+      verifyEmailOtpBtn.disabled = false;
+      verifyEmailOtpBtn.textContent = "Verify";
+    }
+
+    if (verifyMobileOtpBtn) {
+      verifyMobileOtpBtn.disabled = false;
+      verifyMobileOtpBtn.textContent = "Verify";
+    }
+
     if (finalVerifySubmitBtn) {
       finalVerifySubmitBtn.disabled = false;
       finalVerifySubmitBtn.textContent = "Verify OTP & Submit Final Application";
@@ -1644,7 +1726,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const result = await readJsonResponse(
         response,
-        "Send OTP API returned an invalid response."
+        "Send email OTP API returned an invalid response."
       );
 
       if (!response.ok || !result.success) {
@@ -1712,7 +1794,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const result = await readJsonResponse(
         response,
-        "Verify OTP API returned an invalid response."
+        "Verify email OTP API returned an invalid response."
       );
 
       if (!response.ok || !result.success) {
@@ -1720,7 +1802,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       isEmailOtpVerified = true;
-
       setStatus(emailOtpStatus, "Email OTP verified successfully.", "success");
 
       return true;
@@ -1742,7 +1823,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function sendDummyMobileOtp() {
+  async function sendRealMobileOtp() {
     const mobile = mobileInput.value.trim();
 
     if (!/^[0-9]{10}$/.test(mobile)) {
@@ -1755,20 +1836,71 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    isMobileOtpVerified = false;
-    mobileOtpInput.value = "";
+    try {
+      sendMobileOtpBtn.disabled = true;
+      sendMobileOtpBtn.textContent = "Sending...";
+      setStatus(mobileOtpStatus, "Sending mobile OTP...", null);
 
-    setStatus(
-      mobileOtpStatus,
-      "Dummy mobile OTP sent. Please type 123456 manually.",
-      null
-    );
+      const response = await fetch(`${API_BASE_URL}/send-mobile-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mobile: mobile
+        })
+      });
 
-    return true;
+      const result = await readJsonResponse(
+        response,
+        "Send mobile OTP API returned an invalid response."
+      );
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to send mobile OTP.");
+      }
+
+      isMobileOtpVerified = false;
+      mobileOtpInput.value = "";
+
+      setStatus(
+        mobileOtpStatus,
+        "Mobile OTP sent successfully. Please check your phone.",
+        "success"
+      );
+
+      return true;
+    } catch (error) {
+      console.error("Mobile OTP send error:", error);
+
+      isMobileOtpVerified = false;
+
+      setStatus(
+        mobileOtpStatus,
+        error.message || "Mobile OTP sending failed. Please check backend API.",
+        "error"
+      );
+
+      return false;
+    } finally {
+      sendMobileOtpBtn.disabled = false;
+      sendMobileOtpBtn.textContent = "Resend Mobile OTP";
+    }
   }
 
-  function verifyDummyMobileOtp() {
+  async function verifyRealMobileOtp() {
+    const mobile = mobileInput.value.trim();
     const enteredOtp = mobileOtpInput.value.trim();
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+      setStatus(
+        mobileOtpStatus,
+        "Please enter a valid 10 digit mobile number first.",
+        "error"
+      );
+      mobileInput.focus();
+      return false;
+    }
 
     if (!/^[0-9]{6}$/.test(enteredOtp)) {
       setStatus(mobileOtpStatus, "Please type the 6 digit mobile OTP.", "error");
@@ -1776,15 +1908,50 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    if (enteredOtp === DUMMY_MOBILE_OTP) {
+    try {
+      verifyMobileOtpBtn.disabled = true;
+      verifyMobileOtpBtn.textContent = "Verifying...";
+
+      const response = await fetch(`${API_BASE_URL}/verify-mobile-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mobile: mobile,
+          otp: enteredOtp
+        })
+      });
+
+      const result = await readJsonResponse(
+        response,
+        "Verify mobile OTP API returned an invalid response."
+      );
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Invalid mobile OTP.");
+      }
+
       isMobileOtpVerified = true;
       setStatus(mobileOtpStatus, "Mobile OTP verified successfully.", "success");
-      return true;
-    }
 
-    isMobileOtpVerified = false;
-    setStatus(mobileOtpStatus, "Invalid mobile OTP. Please type 123456.", "error");
-    return false;
+      return true;
+    } catch (error) {
+      console.error("Mobile OTP verify error:", error);
+
+      isMobileOtpVerified = false;
+
+      setStatus(
+        mobileOtpStatus,
+        error.message || "Invalid mobile OTP.",
+        "error"
+      );
+
+      return false;
+    } finally {
+      verifyMobileOtpBtn.disabled = false;
+      verifyMobileOtpBtn.textContent = "Verify";
+    }
   }
 
   async function submitFinalApplication() {
@@ -1806,7 +1973,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       formData.set("emailOtpVerified", "true");
-      formData.set("mobileOtpType", "dummy");
+      formData.set("mobileOtpType", "fast2sms");
       formData.set("mobileOtpVerified", "true");
 
       const response = await fetch(`${API_BASE_URL}/admissions`, {
@@ -1913,12 +2080,12 @@ document.addEventListener("DOMContentLoaded", function () {
       await verifyEmailOtp();
     });
 
-    sendMobileOtpBtn.addEventListener("click", function () {
-      sendDummyMobileOtp();
+    sendMobileOtpBtn.addEventListener("click", async function () {
+      await sendRealMobileOtp();
     });
 
-    verifyMobileOtpBtn.addEventListener("click", function () {
-      verifyDummyMobileOtp();
+    verifyMobileOtpBtn.addEventListener("click", async function () {
+      await verifyRealMobileOtp();
     });
 
     finalVerifySubmitBtn.addEventListener("click", async function () {
@@ -1962,7 +2129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.textContent = "OTP Verification Required";
       }
 
-      sendDummyMobileOtp();
+      await sendRealMobileOtp();
       await sendEmailOtp();
     });
   }
