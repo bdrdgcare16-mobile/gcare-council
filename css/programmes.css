@@ -2046,14 +2046,28 @@ body {
   z-index: 50;
 }
 
-.social-list,
-.social-btn {
+.gcc-footer-container {
+  position: relative;
+  z-index: 51;
+  pointer-events: auto;
+}
+
+.footer-column {
+  position: relative;
+  z-index: 52;
+  pointer-events: auto;
+}
+
+.social-list {
   position: relative;
   z-index: 60;
   pointer-events: auto;
 }
 
 .social-btn {
+  position: relative;
+  z-index: 70;
+  pointer-events: auto !important;
   cursor: pointer;
 }
 
