@@ -1928,7 +1928,6 @@ function loadProgrammeFromHash() {
 
 function setupFooterInteractions() {
   const quickLinks = document.querySelectorAll(".footer-text-link");
-  const socialButtons = document.querySelectorAll(".social-btn");
 
   quickLinks.forEach((link) => {
     link.addEventListener("click", function () {
@@ -1937,13 +1936,10 @@ function setupFooterInteractions() {
     });
   });
 
-  socialButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
-    this.classList.add("active-social");
-  });
-});
+  // Social buttons are standard anchor links with target="_blank"
+  // No JavaScript interference needed - CSS handles hover states
 }
+
 function updateActiveTab(programmeKey) {
   document.querySelectorAll(".programme-tab").forEach((tab) => {
     tab.classList.toggle("active", tab.dataset.programme === programmeKey);

@@ -2042,6 +2042,40 @@ body {
   padding: 62px 0 58px;
   color: #ffffff;
   background: #00152d;
+  position: relative;
+  z-index: 50;
+}
+
+.social-list,
+.social-btn {
+  position: relative;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+.social-btn {
+  cursor: pointer;
+}
+
+.social-btn span {
+  pointer-events: none;
+}
+
+.social-btn:hover,
+.social-btn.clicked,
+.social-btn.active-social {
+  color: #00152d;
+  border-color: #ffd56b;
+  background: #ffd56b;
+}
+
+.social-btn:hover .social-icon,
+.social-btn.clicked .social-icon,
+.social-btn.active-social .social-icon,
+.social-btn:hover span,
+.social-btn.clicked span,
+.social-btn.active-social span {
+  color: #00152d;
 }
 
 .gcc-footer-container {
