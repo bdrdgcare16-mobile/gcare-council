@@ -597,7 +597,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
+  const API_BASE_URL = "https://gcarecouncil.in/api";
   const BASE_URL = API_BASE_URL.replace("/api", "");
 
   const applicationsTableBody = document.getElementById("applicationsTableBody");

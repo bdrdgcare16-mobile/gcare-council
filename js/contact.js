@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitBtn = document.querySelector(".submit-btn");
   const mobileInput = document.getElementById("mobile");
 
-  const API_BASE_URL = "https://backend-2kz6.onrender.com/api";
+  const API_BASE_URL = "https://gcarecouncil.in/api";
 
   let pendingFormData = null;
   let isEmailOtpVerified = false;
