@@ -547,9 +547,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   let pendingFormData = null;
-
   let emailOtpVerified = false;
-
   let mobileOtpVerified = false;
 
 
@@ -558,11 +556,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   if (!enquiryForm) {
-
-    console.error(
-      "Contact form not found."
-    );
-
+    console.error("Contact form not found.");
     return;
   }
 
@@ -572,7 +566,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   function showMessage(type, message) {
-
     if (
       !verificationMessages ||
       !verificationInfo
@@ -580,13 +573,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    verificationMessages.style.display =
-      "block";
-
+    verificationMessages.style.display = "block";
     verificationInfo.className = type;
-
-    verificationInfo.textContent =
-      message;
+    verificationInfo.textContent = message;
   }
 
 
@@ -595,7 +584,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   function hideMessage() {
-
     if (
       !verificationMessages ||
       !verificationInfo
@@ -603,13 +591,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    verificationMessages.style.display =
-      "none";
-
+    verificationMessages.style.display = "none";
     verificationInfo.textContent = "";
-
-    verificationInfo.className =
-      "verification-info";
+    verificationInfo.className = "verification-info";
   }
 
 
@@ -618,9 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   function getFormData() {
-
     return {
-
       fullName:
         fullNameInput.value.trim(),
 
@@ -638,7 +620,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       message:
         messageInput.value.trim()
-
     };
   }
 
@@ -649,153 +630,108 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateMainForm(data) {
 
-    // -------------------------
-    // FULL NAME
-    // -------------------------
-
     if (!data.fullName) {
-
       throw new Error(
         "Please enter your full name."
       );
     }
-
 
     if (
       !/^[A-Za-z][A-Za-z\s.'-]*$/.test(
         data.fullName
       )
     ) {
-
       throw new Error(
         "Full name should contain only letters, spaces, dots, apostrophes, or hyphens."
       );
     }
 
 
-    // -------------------------
-    // MOBILE
-    // -------------------------
-
     if (!data.mobile) {
-
       throw new Error(
         "Please enter your mobile number."
       );
     }
-
 
     if (
       !/^[6-9][0-9]{9}$/.test(
         data.mobile
       )
     ) {
-
       throw new Error(
         "Please enter a valid 10-digit Indian mobile number."
       );
     }
-
 
     if (
       /^(\d)\1{9}$/.test(
         data.mobile
       )
     ) {
-
       throw new Error(
         "Please enter a valid mobile number."
       );
     }
 
 
-    // -------------------------
-    // EMAIL
-    // -------------------------
-
     if (!data.email) {
-
       throw new Error(
         "Please enter your email address."
       );
     }
-
 
     if (
       !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(
         data.email
       )
     ) {
-
       throw new Error(
         "Please enter a valid email address."
       );
     }
 
 
-    // -------------------------
-    // ADDRESS
-    // -------------------------
-
     if (!data.address) {
-
       throw new Error(
         "Please enter your address."
       );
     }
 
-
     if (data.address.length < 5) {
-
       throw new Error(
         "Please enter a valid address."
       );
     }
 
 
-    // -------------------------
-    // CITY
-    // -------------------------
-
     if (!data.city) {
-
       throw new Error(
         "Please enter your city."
       );
     }
-
 
     if (
       !/^[A-Za-z\s.'-]+$/.test(
         data.city
       )
     ) {
-
       throw new Error(
         "Please enter a valid city name."
       );
     }
 
 
-    // -------------------------
-    // MESSAGE
-    // -------------------------
-
     if (!data.message) {
-
       throw new Error(
         "Please enter your message."
       );
     }
 
-
     if (data.message.length < 3) {
-
       throw new Error(
         "Message must contain at least 3 characters."
       );
     }
-
   }
 
 
@@ -807,32 +743,26 @@ document.addEventListener("DOMContentLoaded", function () {
     response,
     fallbackMessage
   ) {
-
     const contentType =
       response.headers.get(
         "content-type"
       ) || "";
-
 
     if (
       contentType.includes(
         "application/json"
       )
     ) {
-
       return await response.json();
     }
 
-
     const text =
       await response.text();
-
 
     console.error(
       "Non-JSON backend response:",
       text
     );
-
 
     throw new Error(
       fallbackMessage
@@ -845,40 +775,31 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   async function sendEmailOtp(data) {
-
     console.log(
       "Sending email OTP...",
       data.email
     );
 
-
     const response =
       await fetch(
         `${API_BASE_URL}/send-otp`,
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
           body: JSON.stringify({
-
             email:
               data.email,
 
             mobile:
               data.mobile
-
           })
-
         }
       );
-
 
     const result =
       await readApiResponse(
@@ -886,24 +807,20 @@ document.addEventListener("DOMContentLoaded", function () {
         "Unable to send email OTP."
       );
 
-
     console.log(
       "Email OTP API:",
       result
     );
 
-
     if (
       !response.ok ||
       result.success === false
     ) {
-
       throw new Error(
         result.message ||
         "Email OTP sending failed."
       );
     }
-
 
     return result;
   }
@@ -911,40 +828,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // =========================================================
   // SEND MOBILE OTP
+  // IMPORTANT FIX:
+  // NOW SENDS BOTH MOBILE + EMAIL
   // =========================================================
 
   async function sendMobileOtp(data) {
-
     console.log(
       "Sending mobile OTP...",
-      data.mobile
+      {
+        mobile: data.mobile,
+        email: data.email
+      }
     );
-
 
     const response =
       await fetch(
         `${API_BASE_URL}/send-mobile-otp`,
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
           body: JSON.stringify({
-
             mobile:
-              data.mobile
+              data.mobile,
 
+            email:
+              data.email
           })
-
         }
       );
-
 
     const result =
       await readApiResponse(
@@ -952,24 +868,20 @@ document.addEventListener("DOMContentLoaded", function () {
         "Unable to send mobile OTP."
       );
 
-
     console.log(
       "Mobile OTP API:",
       result
     );
 
-
     if (
       !response.ok ||
       result.success === false
     ) {
-
       throw new Error(
         result.message ||
         "Mobile OTP sending failed."
       );
     }
-
 
     return result;
   }
@@ -983,34 +895,26 @@ document.addEventListener("DOMContentLoaded", function () {
     data,
     otp
   ) {
-
     const response =
       await fetch(
         `${API_BASE_URL}/verify-otp`,
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
           body: JSON.stringify({
-
             email:
               data.email,
 
             otp:
               otp
-
           })
-
         }
       );
-
 
     const result =
       await readApiResponse(
@@ -1018,18 +922,15 @@ document.addEventListener("DOMContentLoaded", function () {
         "Unable to verify email OTP."
       );
 
-
     if (
       !response.ok ||
       result.success === false
     ) {
-
       throw new Error(
         result.message ||
         "Email OTP verification failed."
       );
     }
-
 
     return result;
   }
@@ -1037,40 +938,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // =========================================================
   // VERIFY MOBILE OTP
+  // IMPORTANT FIX:
+  // NOW SENDS MOBILE + EMAIL + OTP
   // =========================================================
 
   async function verifyMobileOtp(
     data,
     otp
   ) {
-
     const response =
       await fetch(
         `${API_BASE_URL}/verify-mobile-otp`,
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
           body: JSON.stringify({
-
             mobile:
               data.mobile,
 
+            email:
+              data.email,
+
             otp:
               otp
-
           })
-
         }
       );
-
 
     const result =
       await readApiResponse(
@@ -1078,18 +976,15 @@ document.addEventListener("DOMContentLoaded", function () {
         "Unable to verify mobile OTP."
       );
 
-
     if (
       !response.ok ||
       result.success === false
     ) {
-
       throw new Error(
         result.message ||
         "Mobile OTP verification failed."
       );
     }
-
 
     return result;
   }
@@ -1102,28 +997,22 @@ document.addEventListener("DOMContentLoaded", function () {
   async function submitContactForm(
     data
   ) {
-
     console.log(
       "Submitting contact form..."
     );
-
 
     const response =
       await fetch(
         `${API_BASE_URL}/contact`,
         {
-
           method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
           body: JSON.stringify({
-
             fullName:
               data.fullName,
 
@@ -1141,12 +1030,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             message:
               data.message
-
           })
-
         }
       );
-
 
     const result =
       await readApiResponse(
@@ -1154,24 +1040,20 @@ document.addEventListener("DOMContentLoaded", function () {
         "Unable to submit the contact form."
       );
 
-
     console.log(
       "Contact API:",
       result
     );
 
-
     if (
       !response.ok ||
       result.success === false
     ) {
-
       throw new Error(
         result.message ||
         "Contact form submission failed."
       );
     }
-
 
     return result;
   }
@@ -1182,39 +1064,22 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   function resetOtpState() {
-
     emailOtpVerified = false;
-
     mobileOtpVerified = false;
 
-
     if (emailOtpInput) {
-
       emailOtpInput.value = "";
-
     }
-
 
     if (mobileOtpInput) {
-
       mobileOtpInput.value = "";
-
     }
-
 
     if (verifyBtn) {
-
-      verifyBtn.style.display =
-        "none";
-
-      verifyBtn.disabled =
-        false;
-
-      verifyBtn.textContent =
-        "Verify OTP";
-
+      verifyBtn.style.display = "none";
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = "Verify OTP";
     }
-
   }
 
 
@@ -1223,96 +1088,79 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   function checkOtpInputs() {
-
     if (
       !emailOtpInput ||
       !mobileOtpInput ||
       !verifyBtn
     ) {
-
       return;
     }
-
 
     const emailOtp =
       emailOtpInput.value.trim();
 
-
     const mobileOtp =
       mobileOtpInput.value.trim();
-
 
     if (
       /^[0-9]{6}$/.test(emailOtp) &&
       /^[0-9]{6}$/.test(mobileOtp)
     ) {
-
-      verifyBtn.style.display =
-        "block";
-
+      verifyBtn.style.display = "block";
     } else {
-
-      verifyBtn.style.display =
-        "none";
-
+      verifyBtn.style.display = "none";
     }
-
   }
 
 
   // =========================================================
-  // OTP FIELD SETUP
+  // OTP INPUT SETUP
   // =========================================================
 
-  function setupOtpInput(
-    input
-  ) {
-
+  function setupOtpInput(input) {
     if (!input) {
-
       return;
     }
 
+    input.setAttribute(
+      "inputmode",
+      "numeric"
+    );
+
+    input.setAttribute(
+      "maxlength",
+      "6"
+    );
 
     input.addEventListener(
       "input",
       function () {
-
         this.value =
           this.value
             .replace(/[^0-9]/g, "")
             .slice(0, 6);
 
-
         checkOtpInputs();
-
       }
     );
-
 
     input.addEventListener(
       "paste",
       function (event) {
-
         event.preventDefault();
-
 
         const pasted =
           event.clipboardData
             .getData("text");
-
 
         this.value =
           pasted
             .replace(/[^0-9]/g, "")
             .slice(0, 6);
 
-
         checkOtpInputs();
-
       }
     );
-
   }
 
 
@@ -1320,33 +1168,27 @@ document.addEventListener("DOMContentLoaded", function () {
     emailOtpInput
   );
 
-
   setupOtpInput(
     mobileOtpInput
   );
 
 
   // =========================================================
-  // MOBILE - DIGITS ONLY
+  // MOBILE FIELD - DIGITS ONLY
   // =========================================================
 
   if (mobileInput) {
-
     mobileInput.addEventListener(
       "input",
       function () {
-
         this.value =
           this.value
             .replace(/[^0-9]/g, "")
             .slice(0, 10);
 
-
         resetOtpState();
-
       }
     );
-
   }
 
 
@@ -1355,16 +1197,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // =========================================================
 
   if (emailInput) {
-
     emailInput.addEventListener(
       "input",
       function () {
-
         resetOtpState();
-
       }
     );
-
   }
 
 
@@ -1378,13 +1216,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       event.preventDefault();
 
-
       hideMessage();
-
 
       const formData =
         getFormData();
-
 
       try {
 
@@ -1410,17 +1245,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // -----------------------------------------
-        // DISABLE SUBMIT
+        // DISABLE SUBMIT BUTTON
         // -----------------------------------------
 
         if (submitBtn) {
-
-          submitBtn.disabled =
-            true;
-
+          submitBtn.disabled = true;
           submitBtn.textContent =
             "Sending OTP...";
-
         }
 
 
@@ -1431,7 +1262,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // =========================================
-        // EMAIL OTP
+        // SEND EMAIL OTP
         // =========================================
 
         await sendEmailOtp(
@@ -1440,7 +1271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // =========================================
-        // MOBILE OTP
+        // SEND MOBILE OTP
         // =========================================
 
         await sendMobileOtp(
@@ -1449,25 +1280,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // =========================================
-        // SHOW OTP FORM
+        // SHOW OTP SECTION
         // =========================================
 
         if (otpSection) {
-
           otpSection.style.display =
             "block";
 
-
           otpSection.scrollIntoView({
-
             behavior:
               "smooth",
 
             block:
               "center"
-
           });
-
         }
 
 
@@ -1476,19 +1302,14 @@ document.addEventListener("DOMContentLoaded", function () {
           `OTP sent successfully to ${formData.email} and ${formData.mobile}. Please enter both OTPs.`
         );
 
-
       } catch (error) {
-
 
         console.error(
           "Send OTP error:",
           error
         );
 
-
-        pendingFormData =
-          null;
-
+        pendingFormData = null;
 
         showMessage(
           "verification-error",
@@ -1496,65 +1317,53 @@ document.addEventListener("DOMContentLoaded", function () {
           "Unable to send OTP. Please try again."
         );
 
-
       } finally {
 
-
         if (submitBtn) {
-
-          submitBtn.disabled =
-            false;
-
+          submitBtn.disabled = false;
           submitBtn.textContent =
             "Submit";
-
         }
 
       }
-
     }
   );
 
 
   // =========================================================
-  // VERIFY OTP
+  // VERIFY OTP BUTTON
   // =========================================================
 
   if (verifyBtn) {
-
     verifyBtn.addEventListener(
       "click",
       async function () {
-
 
         hideMessage();
 
 
         // -----------------------------------------
-        // CHECK DATA
+        // CHECK SAVED FORM DATA
         // -----------------------------------------
 
         if (!pendingFormData) {
-
           showMessage(
             "verification-error",
             "Please submit the contact form first."
           );
 
           return;
-
         }
 
 
         // -----------------------------------------
-        // GET OTP
+        // GET OTP VALUES
         // -----------------------------------------
 
         const emailOtp =
           emailOtpInput
             ? emailOtpInput.value.trim()
             : "";
-
 
         const mobileOtp =
           mobileOtpInput
@@ -1563,7 +1372,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // -----------------------------------------
-        // EMAIL OTP VALIDATION
+        // VALIDATE EMAIL OTP
         // -----------------------------------------
 
         if (
@@ -1571,19 +1380,17 @@ document.addEventListener("DOMContentLoaded", function () {
             emailOtp
           )
         ) {
-
           showMessage(
             "verification-error",
             "Please enter a valid 6-digit email OTP."
           );
 
           return;
-
         }
 
 
         // -----------------------------------------
-        // MOBILE OTP VALIDATION
+        // VALIDATE MOBILE OTP
         // -----------------------------------------
 
         if (
@@ -1591,30 +1398,24 @@ document.addEventListener("DOMContentLoaded", function () {
             mobileOtp
           )
         ) {
-
           showMessage(
             "verification-error",
             "Please enter a valid 6-digit mobile OTP."
           );
 
           return;
-
         }
 
 
         try {
 
-
-          verifyBtn.disabled =
-            true;
-
-
+          verifyBtn.disabled = true;
           verifyBtn.textContent =
             "Verifying...";
 
 
           // =======================================
-          // VERIFY EMAIL
+          // VERIFY EMAIL OTP
           // =======================================
 
           showMessage(
@@ -1622,19 +1423,16 @@ document.addEventListener("DOMContentLoaded", function () {
             "Verifying email OTP..."
           );
 
-
           await verifyEmailOtp(
             pendingFormData,
             emailOtp
           );
 
-
-          emailOtpVerified =
-            true;
+          emailOtpVerified = true;
 
 
           // =======================================
-          // VERIFY MOBILE
+          // VERIFY MOBILE OTP
           // =======================================
 
           showMessage(
@@ -1642,42 +1440,36 @@ document.addEventListener("DOMContentLoaded", function () {
             "Email OTP verified. Verifying mobile OTP..."
           );
 
-
           await verifyMobileOtp(
             pendingFormData,
             mobileOtp
           );
 
-
-          mobileOtpVerified =
-            true;
+          mobileOtpVerified = true;
 
 
           // =======================================
-          // CHECK BOTH VERIFIED
+          // VERIFY BOTH
           // =======================================
 
           if (
             !emailOtpVerified ||
             !mobileOtpVerified
           ) {
-
             throw new Error(
               "OTP verification failed."
             );
-
           }
 
 
           // =======================================
-          // SUBMIT CONTACT
+          // SUBMIT CONTACT FORM
           // =======================================
 
           showMessage(
             "verification-info",
             "OTP verified successfully. Submitting your enquiry..."
           );
-
 
           await submitContactForm(
             pendingFormData
@@ -1695,29 +1487,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
           // =======================================
-          // CLEAR CONTACT FORM
+          // RESET MAIN FORM
           // =======================================
 
           enquiryForm.reset();
 
 
           // =======================================
-          // CLEAR OTP
+          // CLEAR OTP INPUTS
           // =======================================
 
           if (emailOtpInput) {
-
-            emailOtpInput.value =
-              "";
-
+            emailOtpInput.value = "";
           }
 
-
           if (mobileOtpInput) {
-
-            mobileOtpInput.value =
-              "";
-
+            mobileOtpInput.value = "";
           }
 
 
@@ -1726,12 +1511,9 @@ document.addEventListener("DOMContentLoaded", function () {
           // =======================================
 
           if (otpSection) {
-
             otpSection.style.display =
               "none";
-
           }
-
 
           verifyBtn.style.display =
             "none";
@@ -1741,34 +1523,20 @@ document.addEventListener("DOMContentLoaded", function () {
           // RESET STATE
           // =======================================
 
-          pendingFormData =
-            null;
-
-
-          emailOtpVerified =
-            false;
-
-
-          mobileOtpVerified =
-            false;
+          pendingFormData = null;
+          emailOtpVerified = false;
+          mobileOtpVerified = false;
 
 
         } catch (error) {
-
 
           console.error(
             "Verify OTP error:",
             error
           );
 
-
-          emailOtpVerified =
-            false;
-
-
-          mobileOtpVerified =
-            false;
-
+          emailOtpVerified = false;
+          mobileOtpVerified = false;
 
           showMessage(
             "verification-error",
@@ -1776,22 +1544,15 @@ document.addEventListener("DOMContentLoaded", function () {
             "OTP verification failed. Please try again."
           );
 
-
         } finally {
 
-
-          verifyBtn.disabled =
-            false;
-
-
+          verifyBtn.disabled = false;
           verifyBtn.textContent =
             "Verify OTP";
 
         }
-
       }
     );
-
   }
 
 });
