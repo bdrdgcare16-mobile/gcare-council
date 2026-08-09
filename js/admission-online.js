@@ -4,45 +4,115 @@ document.addEventListener("DOMContentLoaded", function () {
   /* =====================================================
      RAILWAY BACKEND API
   ===================================================== */
-  const API_BASE_URL = "https://backend-production-c5cb.up.railway.app/api";
+
+  const API_BASE_URL =
+    "https://backend-production-c5cb.up.railway.app/api";
+
+  /* =====================================================
+     DOM ELEMENTS
+  ===================================================== */
 
   const form = document.getElementById("admissionForm");
   const applicationNo = document.getElementById("applicationNo");
   const submitButton = document.getElementById("submitApplicationBtn");
+
   const dob = document.getElementById("dob");
   const dobDisplay = document.getElementById("dobDisplay");
-  const openDobCalendarBtn = document.getElementById("openDobCalendarBtn");
+  const openDobCalendarBtn =
+    document.getElementById("openDobCalendarBtn");
   const age = document.getElementById("age");
+
   const sameAddress = document.getElementById("sameAddress");
-  const presentAddress = document.getElementById("presentAddress");
-  const permanentAddress = document.getElementById("permanentAddress");
+  const presentAddress =
+    document.getElementById("presentAddress");
+  const permanentAddress =
+    document.getElementById("permanentAddress");
+
   const pinCode = document.getElementById("pinCode");
   const state = document.getElementById("state");
   const district = document.getElementById("district");
   const place = document.getElementById("place");
   const pinStatus = document.getElementById("pinStatus");
+
   const hasAadhaar = document.getElementById("hasAadhaar");
-  const aadhaarNumber = document.getElementById("aadhaarNumber");
-  const mobileInput = document.getElementById("mobile");
-  const alternateOne = document.getElementById("alternateOne");
-  const emailInput = document.getElementById("email");
-  const sendMobileOtpBtn = document.getElementById("sendMobileOtpBtn");
-  const verifyMobileOtpBtn = document.getElementById("verifyMobileOtpBtn");
-  const mobileOtpInput = document.getElementById("mobileOtp");
-  const mobileOtpStatus = document.getElementById("mobileOtpStatus");
-  const mobileOtpPanel = document.getElementById("mobileOtpPanel");
-  const sendEmailOtpBtn = document.getElementById("sendEmailOtpBtn");
-  const verifyEmailOtpBtn = document.getElementById("verifyEmailOtpBtn");
-  const emailOtpInput = document.getElementById("emailOtp");
-  const emailOtpStatus = document.getElementById("emailOtpStatus");
-  const emailOtpPanel = document.getElementById("emailOtpPanel");
-  const academicLevel = document.getElementById("academicLevel");
-  const educationCourse = document.getElementById("educationCourse");
-  const educationBoard = document.getElementById("educationBoard");
-  const educationSubjects = document.getElementById("educationSubjects");
-  const educationYear = document.getElementById("educationYear");
-  const educationGrade = document.getElementById("educationGrade");
-  const declarationDate = document.getElementById("declarationDate");
+  const aadhaarNumber =
+    document.getElementById("aadhaarNumber");
+
+  const mobileInput =
+    document.getElementById("mobile");
+
+  const alternateOne =
+    document.getElementById("alternateOne");
+
+  const emailInput =
+    document.getElementById("email");
+
+  /* =====================================================
+     MOBILE OTP ELEMENTS
+  ===================================================== */
+
+  const sendMobileOtpBtn =
+    document.getElementById("sendMobileOtpBtn");
+
+  const verifyMobileOtpBtn =
+    document.getElementById("verifyMobileOtpBtn");
+
+  const mobileOtpInput =
+    document.getElementById("mobileOtp");
+
+  const mobileOtpStatus =
+    document.getElementById("mobileOtpStatus");
+
+  const mobileOtpPanel =
+    document.getElementById("mobileOtpPanel");
+
+  /* =====================================================
+     EMAIL OTP ELEMENTS
+  ===================================================== */
+
+  const sendEmailOtpBtn =
+    document.getElementById("sendEmailOtpBtn");
+
+  const verifyEmailOtpBtn =
+    document.getElementById("verifyEmailOtpBtn");
+
+  const emailOtpInput =
+    document.getElementById("emailOtp");
+
+  const emailOtpStatus =
+    document.getElementById("emailOtpStatus");
+
+  const emailOtpPanel =
+    document.getElementById("emailOtpPanel");
+
+  /* =====================================================
+     EDUCATION ELEMENTS
+  ===================================================== */
+
+  const academicLevel =
+    document.getElementById("academicLevel");
+
+  const educationCourse =
+    document.getElementById("educationCourse");
+
+  const educationBoard =
+    document.getElementById("educationBoard");
+
+  const educationSubjects =
+    document.getElementById("educationSubjects");
+
+  const educationYear =
+    document.getElementById("educationYear");
+
+  const educationGrade =
+    document.getElementById("educationGrade");
+
+  const declarationDate =
+    document.getElementById("declarationDate");
+
+  /* =====================================================
+     UPLOAD FIELDS
+  ===================================================== */
 
   const uploadFields = [
     "photoUpload",
@@ -51,228 +121,85 @@ document.addEventListener("DOMContentLoaded", function () {
     "parentSignature"
   ];
 
+  /* =====================================================
+     OTP STATE
+  ===================================================== */
+
   let isMobileOtpVerified = false;
   let isEmailOtpVerified = false;
 
+  /* =====================================================
+     APPLICATION NUMBER
+  ===================================================== */
+
   function generateApplicationNo() {
     const year = new Date().getFullYear();
-    const random = Math.floor(10000 + Math.random() * 90000);
+
+    const random =
+      Math.floor(
+        10000 + Math.random() * 90000
+      );
+
     return `GCARE${year}${random}`;
-  }
-
-  function getDateString(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-
-  function setStatus(element, message, type = "") {
-    if (!element) return;
-    element.textContent = message;
-    element.classList.remove("success", "error");
-    if (type) element.classList.add(type);
-  }
-
-  function showOtpPanel(panel) {
-    if (!panel) return;
-    panel.style.display = "block";
-    panel.classList.add("active");
-  }
-
-  function hideOtpPanel(panel) {
-    if (!panel) return;
-    panel.style.display = "none";
-    panel.classList.remove("active");
-  }
-
-  async function readJsonResponse(response, fallbackMessage) {
-    const responseText = await response.text();
-    try {
-      return JSON.parse(responseText);
-    } catch (error) {
-      console.error("INVALID BACKEND RESPONSE:", responseText);
-      throw new Error(fallbackMessage);
-    }
-  }
-
-  function showMobileOtpControls() {
-    const mobileOtpRow = mobileOtpPanel?.querySelector(".inline-otp-row");
-    showOtpPanel(mobileOtpPanel);
-
-    if (mobileOtpRow) mobileOtpRow.style.display = "flex";
-
-    if (mobileOtpInput) {
-      mobileOtpInput.value = "";
-      mobileOtpInput.readOnly = false;
-      mobileOtpInput.style.display = "";
-    }
-
-    if (verifyMobileOtpBtn) {
-      verifyMobileOtpBtn.style.display = "";
-      verifyMobileOtpBtn.disabled = false;
-      verifyMobileOtpBtn.textContent = "Verify OTP";
-    }
-  }
-
-  function hideMobileOtpControlsAfterVerification() {
-    const mobileOtpRow = mobileOtpPanel?.querySelector(".inline-otp-row");
-
-    if (mobileOtpInput) {
-      mobileOtpInput.value = "";
-      mobileOtpInput.readOnly = true;
-    }
-
-    if (mobileOtpRow) mobileOtpRow.style.display = "none";
-    if (sendMobileOtpBtn) sendMobileOtpBtn.style.display = "none";
-
-    showOtpPanel(mobileOtpPanel);
-  }
-
-  function showEmailOtpControls() {
-    const emailOtpRow = emailOtpPanel?.querySelector(".inline-otp-row");
-    showOtpPanel(emailOtpPanel);
-
-    if (emailOtpRow) emailOtpRow.style.display = "flex";
-
-    if (emailOtpInput) {
-      emailOtpInput.value = "";
-      emailOtpInput.readOnly = false;
-      emailOtpInput.style.display = "";
-    }
-
-    if (verifyEmailOtpBtn) {
-      verifyEmailOtpBtn.style.display = "";
-      verifyEmailOtpBtn.disabled = false;
-      verifyEmailOtpBtn.textContent = "Verify OTP";
-    }
-  }
-
-  function hideEmailOtpControlsAfterVerification() {
-    const emailOtpRow = emailOtpPanel?.querySelector(".inline-otp-row");
-
-    if (emailOtpInput) {
-      emailOtpInput.value = "";
-      emailOtpInput.readOnly = true;
-    }
-
-    if (emailOtpRow) emailOtpRow.style.display = "none";
-    if (sendEmailOtpBtn) sendEmailOtpBtn.style.display = "none";
-
-    showOtpPanel(emailOtpPanel);
-  }
-
-  function restoreOtpControls() {
-    const mobileOtpRow = mobileOtpPanel?.querySelector(".inline-otp-row");
-    const emailOtpRow = emailOtpPanel?.querySelector(".inline-otp-row");
-
-    if (sendMobileOtpBtn) {
-      sendMobileOtpBtn.style.display = "";
-      sendMobileOtpBtn.disabled = false;
-      sendMobileOtpBtn.textContent = "Send OTP";
-    }
-
-    if (sendEmailOtpBtn) {
-      sendEmailOtpBtn.style.display = "";
-      sendEmailOtpBtn.disabled = false;
-      sendEmailOtpBtn.textContent = "Send OTP";
-    }
-
-    if (mobileOtpRow) mobileOtpRow.style.display = "flex";
-    if (emailOtpRow) emailOtpRow.style.display = "flex";
-
-    if (mobileOtpInput) {
-      mobileOtpInput.value = "";
-      mobileOtpInput.readOnly = false;
-      mobileOtpInput.style.display = "";
-    }
-
-    if (emailOtpInput) {
-      emailOtpInput.value = "";
-      emailOtpInput.readOnly = false;
-      emailOtpInput.style.display = "";
-    }
-
-    if (verifyMobileOtpBtn) {
-      verifyMobileOtpBtn.style.display = "";
-      verifyMobileOtpBtn.disabled = false;
-      verifyMobileOtpBtn.textContent = "Verify OTP";
-    }
-
-    if (verifyEmailOtpBtn) {
-      verifyEmailOtpBtn.style.display = "";
-      verifyEmailOtpBtn.disabled = false;
-      verifyEmailOtpBtn.textContent = "Verify OTP";
-    }
-
-    hideOtpPanel(mobileOtpPanel);
-    hideOtpPanel(emailOtpPanel);
   }
 
   function setupApplicationNumber() {
     if (applicationNo) {
-      applicationNo.value = generateApplicationNo();
+      applicationNo.value =
+        generateApplicationNo();
     }
   }
 
-  function setupCourseDropdown() {
-    const courseInput = document.getElementById("courseSearchInput");
-    const courseValue = document.getElementById("courseName");
-    const courseOptions = document.getElementById("courseOptions");
+  /* =====================================================
+     DATE HELPERS
+  ===================================================== */
 
-    if (!courseInput || !courseValue || !courseOptions) return;
+  function getDateString(date) {
+    const year =
+      date.getFullYear();
 
-    courseInput.addEventListener("click", function () {
-      courseOptions.classList.toggle("show");
-    });
+    const month =
+      String(
+        date.getMonth() + 1
+      ).padStart(2, "0");
 
-    courseOptions.addEventListener("click", function (event) {
-      const selectedOption = event.target.closest(".course-option");
-      if (!selectedOption) return;
+    const day =
+      String(
+        date.getDate()
+      ).padStart(2, "0");
 
-      const selectedValue = selectedOption.getAttribute("data-value");
-
-      courseInput.value = selectedValue;
-      courseValue.value = selectedValue;
-      courseOptions.classList.remove("show");
-    });
-
-    document.addEventListener("click", function (event) {
-      const dropdown = event.target.closest(".custom-course-dropdown");
-      if (!dropdown) {
-        courseOptions.classList.remove("show");
-      }
-    });
-  }
-
-  function calculateAge(dobValue) {
-    if (!dobValue) return "";
-
-    const today = new Date();
-    const birthDate = new Date(`${dobValue}T00:00:00`);
-    let calculatedAge = today.getFullYear() - birthDate.getFullYear();
-
-    const birthdayNotCompleted =
-      today.getMonth() < birthDate.getMonth() ||
-      (
-        today.getMonth() === birthDate.getMonth() &&
-        today.getDate() < birthDate.getDate()
-      );
-
-    if (birthdayNotCompleted) calculatedAge--;
-
-    return calculatedAge;
+    return `${year}-${month}-${day}`;
   }
 
   function parseDdMmYyyy(dateString) {
-    if (!dateString) return null;
+    if (!dateString) {
+      return null;
+    }
 
-    const parts = dateString.split("-");
-    if (parts.length !== 3) return null;
+    const parts =
+      dateString.split("-");
 
-    const day = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    const day =
+      parseInt(
+        parts[0],
+        10
+      );
+
+    const month =
+      parseInt(
+        parts[1],
+        10
+      );
+
+    const year =
+      parseInt(
+        parts[2],
+        10
+      );
 
     if (
       isNaN(day) ||
@@ -288,268 +215,1064 @@ document.addEventListener("DOMContentLoaded", function () {
       return null;
     }
 
-    return new Date(year, month - 1, day);
+    return new Date(
+      year,
+      month - 1,
+      day
+    );
   }
 
   function formatDdMmYyyy(date) {
-    if (!date) return "";
+    if (!date) {
+      return "";
+    }
 
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
+    const day =
+      String(
+        date.getDate()
+      ).padStart(2, "0");
+
+    const month =
+      String(
+        date.getMonth() + 1
+      ).padStart(2, "0");
+
+    const year =
+      date.getFullYear();
 
     return `${day}-${month}-${year}`;
   }
 
-  function setupAgeValidation() {
-    if (!dob || !age || !dobDisplay) return;
-
-    const today = new Date();
-
-    const maximumDob = new Date(
-      today.getFullYear() - 15,
-      today.getMonth(),
-      today.getDate()
-    );
-
-    const minimumDob = new Date(
-      today.getFullYear() - 21,
-      today.getMonth(),
-      today.getDate() + 1
-    );
-
-    dob.max = getDateString(maximumDob);
-    dob.min = getDateString(minimumDob);
-
-    if (openDobCalendarBtn) {
-      openDobCalendarBtn.addEventListener("click", function () {
-        if (dob && typeof dob.showPicker === "function") {
-          dob.showPicker();
-        } else {
-          dob.click();
-        }
-      });
+  function calculateAge(dobValue) {
+    if (!dobValue) {
+      return "";
     }
 
-    dob.addEventListener("change", function () {
-      const selectedDate = new Date(this.value);
-      if (isNaN(selectedDate.getTime())) return;
+    const today =
+      new Date();
 
-      dobDisplay.value = formatDdMmYyyy(selectedDate);
+    const birthDate =
+      new Date(
+        `${dobValue}T00:00:00`
+      );
 
-      const calculatedAge = calculateAge(this.value);
+    let calculatedAge =
+      today.getFullYear() -
+      birthDate.getFullYear();
 
-      if (calculatedAge < 15 || calculatedAge > 20) {
-        age.value = "";
-        return;
+    const birthdayNotCompleted =
+      today.getMonth() <
+        birthDate.getMonth() ||
+      (
+        today.getMonth() ===
+          birthDate.getMonth() &&
+        today.getDate() <
+          birthDate.getDate()
+      );
+
+    if (birthdayNotCompleted) {
+      calculatedAge--;
+    }
+
+    return calculatedAge;
+  }
+
+  /* =====================================================
+     STATUS
+  ===================================================== */
+
+  function setStatus(
+    element,
+    message,
+    type = ""
+  ) {
+    if (!element) {
+      return;
+    }
+
+    element.textContent =
+      message;
+
+    element.classList.remove(
+      "success",
+      "error"
+    );
+
+    if (type) {
+      element.classList.add(
+        type
+      );
+    }
+  }
+
+  /* =====================================================
+     OTP PANEL
+  ===================================================== */
+
+  function showOtpPanel(panel) {
+    if (!panel) {
+      return;
+    }
+
+    panel.style.display =
+      "block";
+
+    panel.classList.add(
+      "active"
+    );
+  }
+
+  function hideOtpPanel(panel) {
+    if (!panel) {
+      return;
+    }
+
+    panel.style.display =
+      "none";
+
+    panel.classList.remove(
+      "active"
+    );
+  }
+
+  function showMobileOtpControls() {
+    const mobileOtpRow =
+      mobileOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    showOtpPanel(
+      mobileOtpPanel
+    );
+
+    if (mobileOtpRow) {
+      mobileOtpRow.style.display =
+        "flex";
+    }
+
+    if (mobileOtpInput) {
+      mobileOtpInput.value =
+        "";
+
+      mobileOtpInput.readOnly =
+        false;
+
+      mobileOtpInput.style.display =
+        "";
+    }
+
+    if (verifyMobileOtpBtn) {
+      verifyMobileOtpBtn.style.display =
+        "";
+
+      verifyMobileOtpBtn.disabled =
+        false;
+
+      verifyMobileOtpBtn.textContent =
+        "Verify OTP";
+    }
+  }
+
+  function hideMobileOtpControlsAfterVerification() {
+    const mobileOtpRow =
+      mobileOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    if (mobileOtpInput) {
+      mobileOtpInput.value =
+        "";
+
+      mobileOtpInput.readOnly =
+        true;
+    }
+
+    if (mobileOtpRow) {
+      mobileOtpRow.style.display =
+        "none";
+    }
+
+    if (sendMobileOtpBtn) {
+      sendMobileOtpBtn.style.display =
+        "none";
+    }
+
+    showOtpPanel(
+      mobileOtpPanel
+    );
+  }
+
+  function showEmailOtpControls() {
+    const emailOtpRow =
+      emailOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    showOtpPanel(
+      emailOtpPanel
+    );
+
+    if (emailOtpRow) {
+      emailOtpRow.style.display =
+        "flex";
+    }
+
+    if (emailOtpInput) {
+      emailOtpInput.value =
+        "";
+
+      emailOtpInput.readOnly =
+        false;
+
+      emailOtpInput.style.display =
+        "";
+    }
+
+    if (verifyEmailOtpBtn) {
+      verifyEmailOtpBtn.style.display =
+        "";
+
+      verifyEmailOtpBtn.disabled =
+        false;
+
+      verifyEmailOtpBtn.textContent =
+        "Verify OTP";
+    }
+  }
+
+  function hideEmailOtpControlsAfterVerification() {
+    const emailOtpRow =
+      emailOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    if (emailOtpInput) {
+      emailOtpInput.value =
+        "";
+
+      emailOtpInput.readOnly =
+        true;
+    }
+
+    if (emailOtpRow) {
+      emailOtpRow.style.display =
+        "none";
+    }
+
+    if (sendEmailOtpBtn) {
+      sendEmailOtpBtn.style.display =
+        "none";
+    }
+
+    showOtpPanel(
+      emailOtpPanel
+    );
+  }
+
+  function restoreOtpControls() {
+    const mobileOtpRow =
+      mobileOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    const emailOtpRow =
+      emailOtpPanel?.querySelector(
+        ".inline-otp-row"
+      );
+
+    if (sendMobileOtpBtn) {
+      sendMobileOtpBtn.style.display =
+        "";
+
+      sendMobileOtpBtn.disabled =
+        false;
+
+      sendMobileOtpBtn.textContent =
+        "Send OTP";
+    }
+
+    if (sendEmailOtpBtn) {
+      sendEmailOtpBtn.style.display =
+        "";
+
+      sendEmailOtpBtn.disabled =
+        false;
+
+      sendEmailOtpBtn.textContent =
+        "Send OTP";
+    }
+
+    if (mobileOtpRow) {
+      mobileOtpRow.style.display =
+        "flex";
+    }
+
+    if (emailOtpRow) {
+      emailOtpRow.style.display =
+        "flex";
+    }
+
+    if (mobileOtpInput) {
+      mobileOtpInput.value =
+        "";
+
+      mobileOtpInput.readOnly =
+        false;
+
+      mobileOtpInput.style.display =
+        "";
+    }
+
+    if (emailOtpInput) {
+      emailOtpInput.value =
+        "";
+
+      emailOtpInput.readOnly =
+        false;
+
+      emailOtpInput.style.display =
+        "";
+    }
+
+    if (verifyMobileOtpBtn) {
+      verifyMobileOtpBtn.style.display =
+        "";
+
+      verifyMobileOtpBtn.disabled =
+        false;
+
+      verifyMobileOtpBtn.textContent =
+        "Verify OTP";
+    }
+
+    if (verifyEmailOtpBtn) {
+      verifyEmailOtpBtn.style.display =
+        "";
+
+      verifyEmailOtpBtn.disabled =
+        false;
+
+      verifyEmailOtpBtn.textContent =
+        "Verify OTP";
+    }
+
+    hideOtpPanel(
+      mobileOtpPanel
+    );
+
+    hideOtpPanel(
+      emailOtpPanel
+    );
+  }
+
+  /* =====================================================
+     READ API RESPONSE
+  ===================================================== */
+
+  async function readJsonResponse(
+    response,
+    fallbackMessage
+  ) {
+    const responseText =
+      await response.text();
+
+    try {
+      return JSON.parse(
+        responseText
+      );
+    } catch (error) {
+      console.error(
+        "INVALID BACKEND RESPONSE:",
+        responseText
+      );
+
+      throw new Error(
+        fallbackMessage
+      );
+    }
+  }
+
+  /* =====================================================
+     COURSE DROPDOWN
+  ===================================================== */
+
+  function setupCourseDropdown() {
+    const courseInput =
+      document.getElementById(
+        "courseSearchInput"
+      );
+
+    const courseValue =
+      document.getElementById(
+        "courseName"
+      );
+
+    const courseOptions =
+      document.getElementById(
+        "courseOptions"
+      );
+
+    if (
+      !courseInput ||
+      !courseValue ||
+      !courseOptions
+    ) {
+      return;
+    }
+
+    courseInput.addEventListener(
+      "click",
+      function () {
+        courseOptions.classList.toggle(
+          "show"
+        );
       }
+    );
 
-      age.value = calculatedAge;
-    });
+    courseOptions.addEventListener(
+      "click",
+      function (event) {
+        const selectedOption =
+          event.target.closest(
+            ".course-option"
+          );
 
-    dobDisplay.addEventListener("input", function () {
-      let value = this.value.replace(/\D/g, "");
+        if (!selectedOption) {
+          return;
+        }
 
-      if (value.length > 8) value = value.slice(0, 8);
+        const selectedValue =
+          selectedOption.getAttribute(
+            "data-value"
+          );
 
-      if (value.length >= 2) {
-        value = value.slice(0, 2) + "-" + value.slice(2);
+        courseInput.value =
+          selectedValue;
+
+        courseValue.value =
+          selectedValue;
+
+        courseOptions.classList.remove(
+          "show"
+        );
       }
+    );
 
-      if (value.length >= 5) {
-        value = value.slice(0, 5) + "-" + value.slice(5);
+    document.addEventListener(
+      "click",
+      function (event) {
+        const dropdown =
+          event.target.closest(
+            ".custom-course-dropdown"
+          );
+
+        if (!dropdown) {
+          courseOptions.classList.remove(
+            "show"
+          );
+        }
       }
+    );
+  }
 
-      this.value = value;
+  /* =====================================================
+     AGE VALIDATION
+  ===================================================== */
 
-      if (value.length === 10) {
-        const parsedDate = parseDdMmYyyy(value);
+  function setupAgeValidation() {
+    if (
+      !dob ||
+      !age ||
+      !dobDisplay
+    ) {
+      return;
+    }
 
-        if (parsedDate) {
-          dob.value = getDateString(parsedDate);
+    const today =
+      new Date();
 
-          const calculatedAge = calculateAge(dob.value);
+    const maximumDob =
+      new Date(
+        today.getFullYear() - 15,
+        today.getMonth(),
+        today.getDate()
+      );
 
-          if (calculatedAge < 15 || calculatedAge > 20) {
-            age.value = "";
-            return;
+    const minimumDob =
+      new Date(
+        today.getFullYear() - 21,
+        today.getMonth(),
+        today.getDate() + 1
+      );
+
+    dob.max =
+      getDateString(
+        maximumDob
+      );
+
+    dob.min =
+      getDateString(
+        minimumDob
+      );
+
+    if (openDobCalendarBtn) {
+      openDobCalendarBtn.addEventListener(
+        "click",
+        function () {
+          if (
+            dob &&
+            typeof dob.showPicker ===
+              "function"
+          ) {
+            dob.showPicker();
+          } else {
+            dob.click();
           }
-
-          age.value = calculatedAge;
-        } else {
-          age.value = "";
         }
-      } else {
-        age.value = "";
-      }
-    });
-  }
+      );
+    }
 
-  function setupDeclarationDate() {
-    if (!declarationDate) return;
-
-    declarationDate.value = getDateString(new Date());
-    declarationDate.readOnly = true;
-  }
-
-  function setupSameAddress() {
-    if (!sameAddress || !presentAddress || !permanentAddress) return;
-
-    sameAddress.addEventListener("change", function () {
-      if (this.value === "Yes") {
-        permanentAddress.value = presentAddress.value;
-        permanentAddress.readOnly = true;
-      } else {
-        permanentAddress.value = "";
-        permanentAddress.readOnly = false;
-      }
-    });
-
-    presentAddress.addEventListener("input", function () {
-      if (sameAddress.value === "Yes") {
-        permanentAddress.value = this.value;
-      }
-    });
-  }
-
-  function setupPincodeValidation() {
-    if (!pinCode) return;
-
-    pinCode.inputMode = "numeric";
-    pinCode.maxLength = 6;
-
-    pinCode.addEventListener("input", async function () {
-      this.value = this.value.replace(/\D/g, "").slice(0, 6);
-
-      const enteredPin = this.value;
-
-      if (state) state.value = "";
-      if (district) district.value = "";
-      if (place) place.value = "";
-
-      if (enteredPin.length > 0 && enteredPin.charAt(0) !== "6") {
-        setStatus(
-          pinStatus,
-          "Tamil Nadu pincode must start with 6.",
-          "error"
-        );
-        return;
-      }
-
-      if (enteredPin.length > 0 && enteredPin.length < 6) {
-        const remainingDigits = 6 - enteredPin.length;
-
-        setStatus(
-          pinStatus,
-          `Enter the remaining ${remainingDigits} pincode digit(s).`,
-          "error"
-        );
-        return;
-      }
-
-      if (!/^\d{6}$/.test(enteredPin)) return;
-
-      try {
-        setStatus(pinStatus, "Fetching location details...", "");
-
-        const response = await fetch(
-          `https://api.postalpincode.in/pincode/${enteredPin}`
-        );
-
-        if (!response.ok) {
-          throw new Error("Unable to fetch pincode details.");
-        }
-
-        const data = await response.json();
+    dob.addEventListener(
+      "change",
+      function () {
+        const selectedDate =
+          new Date(
+            this.value
+          );
 
         if (
-          !data?.[0] ||
-          data[0].Status !== "Success" ||
-          !data[0].PostOffice?.length
+          isNaN(
+            selectedDate.getTime()
+          )
         ) {
-          throw new Error("Invalid pincode.");
+          return;
         }
 
-        const postOffice = data[0].PostOffice[0];
+        dobDisplay.value =
+          formatDdMmYyyy(
+            selectedDate
+          );
 
-        if (state) state.value = postOffice.State || "";
-        if (district) district.value = postOffice.District || "";
+        const calculatedAge =
+          calculateAge(
+            this.value
+          );
 
-        if (place) {
-          place.value =
-            postOffice.Name ||
-            postOffice.Block ||
-            postOffice.District ||
+        if (
+          calculatedAge < 15 ||
+          calculatedAge > 20
+        ) {
+          age.value =
+            "";
+
+          return;
+        }
+
+        age.value =
+          calculatedAge;
+      }
+    );
+
+    dobDisplay.addEventListener(
+      "input",
+      function () {
+        let value =
+          this.value.replace(
+            /\D/g,
+            ""
+          );
+
+        if (
+          value.length > 8
+        ) {
+          value =
+            value.slice(
+              0,
+              8
+            );
+        }
+
+        if (
+          value.length >= 2
+        ) {
+          value =
+            value.slice(
+              0,
+              2
+            ) +
+            "-" +
+            value.slice(2);
+        }
+
+        if (
+          value.length >= 5
+        ) {
+          value =
+            value.slice(
+              0,
+              5
+            ) +
+            "-" +
+            value.slice(5);
+        }
+
+        this.value =
+          value;
+
+        if (
+          value.length === 10
+        ) {
+          const parsedDate =
+            parseDdMmYyyy(
+              value
+            );
+
+          if (parsedDate) {
+            dob.value =
+              getDateString(
+                parsedDate
+              );
+
+            const calculatedAge =
+              calculateAge(
+                dob.value
+              );
+
+            if (
+              calculatedAge < 15 ||
+              calculatedAge > 20
+            ) {
+              age.value =
+                "";
+
+              return;
+            }
+
+            age.value =
+              calculatedAge;
+
+          } else {
+            age.value =
+              "";
+          }
+
+        } else {
+          age.value =
+            "";
+        }
+      }
+    );
+  }
+
+  /* =====================================================
+     DECLARATION DATE
+  ===================================================== */
+
+  function setupDeclarationDate() {
+    if (!declarationDate) {
+      return;
+    }
+
+    declarationDate.value =
+      getDateString(
+        new Date()
+      );
+
+    declarationDate.readOnly =
+      true;
+  }
+
+  /* =====================================================
+     SAME ADDRESS
+  ===================================================== */
+
+  function setupSameAddress() {
+    if (
+      !sameAddress ||
+      !presentAddress ||
+      !permanentAddress
+    ) {
+      return;
+    }
+
+    sameAddress.addEventListener(
+      "change",
+      function () {
+        if (
+          this.value === "Yes"
+        ) {
+          permanentAddress.value =
+            presentAddress.value;
+
+          permanentAddress.readOnly =
+            true;
+
+        } else {
+          permanentAddress.value =
+            "";
+
+          permanentAddress.readOnly =
+            false;
+        }
+      }
+    );
+
+    presentAddress.addEventListener(
+      "input",
+      function () {
+        if (
+          sameAddress.value ===
+          "Yes"
+        ) {
+          permanentAddress.value =
+            this.value;
+        }
+      }
+    );
+  }
+
+  /* =====================================================
+     PINCODE
+  ===================================================== */
+
+  function setupPincodeValidation() {
+    if (!pinCode) {
+      return;
+    }
+
+    pinCode.inputMode =
+      "numeric";
+
+    pinCode.maxLength =
+      6;
+
+    pinCode.addEventListener(
+      "input",
+      async function () {
+        this.value =
+          this.value
+            .replace(
+              /\D/g,
+              ""
+            )
+            .slice(
+              0,
+              6
+            );
+
+        const enteredPin =
+          this.value;
+
+        if (state) {
+          state.value =
             "";
         }
 
-        setStatus(
-          pinStatus,
-          "State, district, and place filled automatically.",
-          "success"
-        );
-      } catch (error) {
-        console.error("PINCODE ERROR:", error);
+        if (district) {
+          district.value =
+            "";
+        }
 
-        setStatus(
-          pinStatus,
-          error.message || "Unable to fetch pincode details.",
-          "error"
-        );
+        if (place) {
+          place.value =
+            "";
+        }
+
+        if (
+          enteredPin.length > 0 &&
+          enteredPin.charAt(0) !==
+            "6"
+        ) {
+          setStatus(
+            pinStatus,
+            "Tamil Nadu pincode must start with 6.",
+            "error"
+          );
+
+          return;
+        }
+
+        if (
+          enteredPin.length > 0 &&
+          enteredPin.length < 6
+        ) {
+          const remainingDigits =
+            6 -
+            enteredPin.length;
+
+          setStatus(
+            pinStatus,
+            `Enter the remaining ${remainingDigits} pincode digit(s).`,
+            "error"
+          );
+
+          return;
+        }
+
+        if (
+          !/^\d{6}$/.test(
+            enteredPin
+          )
+        ) {
+          return;
+        }
+
+        try {
+          setStatus(
+            pinStatus,
+            "Fetching location details...",
+            ""
+          );
+
+          const response =
+            await fetch(
+              `https://api.postalpincode.in/pincode/${enteredPin}`
+            );
+
+          if (
+            !response.ok
+          ) {
+            throw new Error(
+              "Unable to fetch pincode details."
+            );
+          }
+
+          const data =
+            await response.json();
+
+          if (
+            !data?.[0] ||
+            data[0].Status !==
+              "Success" ||
+            !data[0].PostOffice
+              ?.length
+          ) {
+            throw new Error(
+              "Invalid pincode."
+            );
+          }
+
+          const postOffice =
+            data[0].PostOffice[0];
+
+          if (state) {
+            state.value =
+              postOffice.State ||
+              "";
+          }
+
+          if (district) {
+            district.value =
+              postOffice.District ||
+              "";
+          }
+
+          if (place) {
+            place.value =
+              postOffice.Name ||
+              postOffice.Block ||
+              postOffice.District ||
+              "";
+          }
+
+          setStatus(
+            pinStatus,
+            "State, district, and place filled automatically.",
+            "success"
+          );
+
+        } catch (error) {
+          console.error(
+            "PINCODE ERROR:",
+            error
+          );
+
+          setStatus(
+            pinStatus,
+            error.message ||
+              "Unable to fetch pincode details.",
+            "error"
+          );
+        }
       }
-    });
+    );
   }
 
+  /* =====================================================
+     AADHAAR
+  ===================================================== */
+
   function setupAadhaarValidation() {
-    if (!aadhaarNumber) return;
+    if (!aadhaarNumber) {
+      return;
+    }
 
-    aadhaarNumber.inputMode = "numeric";
-    aadhaarNumber.maxLength = 12;
+    aadhaarNumber.inputMode =
+      "numeric";
 
-    aadhaarNumber.addEventListener("input", function () {
-      let filteredValue = this.value
-        .replace(/\D/g, "")
-        .slice(0, 12);
+    aadhaarNumber.maxLength =
+      12;
 
-      if (
-        filteredValue.length > 0 &&
-        /^[01]/.test(filteredValue)
-      ) {
-        filteredValue = filteredValue.replace(/^[01]/, "");
+    aadhaarNumber.addEventListener(
+      "input",
+      function () {
+        let filteredValue =
+          this.value
+            .replace(
+              /\D/g,
+              ""
+            )
+            .slice(
+              0,
+              12
+            );
+
+        if (
+          filteredValue.length >
+            0 &&
+          /^[01]/.test(
+            filteredValue
+          )
+        ) {
+          filteredValue =
+            filteredValue.replace(
+              /^[01]/,
+              ""
+            );
+        }
+
+        this.value =
+          filteredValue;
       }
-
-      this.value = filteredValue;
-    });
+    );
 
     if (hasAadhaar) {
-      hasAadhaar.addEventListener("change", function () {
-        aadhaarNumber.required = this.value === "Yes";
+      hasAadhaar.addEventListener(
+        "change",
+        function () {
+          aadhaarNumber.required =
+            this.value ===
+            "Yes";
 
-        if (this.value === "No") {
-          aadhaarNumber.value = "";
+          if (
+            this.value ===
+            "No"
+          ) {
+            aadhaarNumber.value =
+              "";
+          }
         }
-      });
+      );
     }
   }
 
-  function setupMobileValidation(input) {
-    if (!input) return;
+  /* =====================================================
+     MOBILE VALIDATION
+  ===================================================== */
 
-    input.inputMode = "numeric";
-    input.maxLength = 10;
+  function setupMobileValidation(
+    input
+  ) {
+    if (!input) {
+      return;
+    }
 
-    input.addEventListener("input", function () {
-      this.value = this.value
-        .replace(/\D/g, "")
-        .slice(0, 10);
+    input.inputMode =
+      "numeric";
 
-      if (input === mobileInput) {
-        isMobileOtpVerified = false;
+    input.maxLength =
+      10;
+
+    input.addEventListener(
+      "input",
+      function () {
+        this.value =
+          this.value
+            .replace(
+              /\D/g,
+              ""
+            )
+            .slice(
+              0,
+              10
+            );
+
+        if (
+          input ===
+          mobileInput
+        ) {
+          isMobileOtpVerified =
+            false;
+
+          if (mobileOtpInput) {
+            mobileOtpInput.value =
+              "";
+
+            mobileOtpInput.readOnly =
+              false;
+          }
+
+          setStatus(
+            mobileOtpStatus,
+            "Mobile OTP not verified.",
+            ""
+          );
+        }
+      }
+    );
+  }
+
+  /* =====================================================
+     EMAIL VALIDATION
+  ===================================================== */
+
+  function setupEmailValidation() {
+    if (!emailInput) {
+      return;
+    }
+
+    emailInput.addEventListener(
+      "input",
+      function () {
+        this.value =
+          this.value.replace(
+            /\s/g,
+            ""
+          );
+
+        isEmailOtpVerified =
+          false;
+
+        /*
+          IMPORTANT:
+          Mobile OTP is now also tied to email.
+          If email changes, mobile OTP must be verified again.
+        */
+
+        isMobileOtpVerified =
+          false;
+
+        if (emailOtpInput) {
+          emailOtpInput.value =
+            "";
+
+          emailOtpInput.readOnly =
+            false;
+        }
 
         if (mobileOtpInput) {
-          mobileOtpInput.value = "";
-          mobileOtpInput.readOnly = false;
+          mobileOtpInput.value =
+            "";
+
+          mobileOtpInput.readOnly =
+            false;
         }
+
+        setStatus(
+          emailOtpStatus,
+          "Email OTP not verified.",
+          ""
+        );
 
         setStatus(
           mobileOtpStatus,
@@ -557,231 +1280,510 @@ document.addEventListener("DOMContentLoaded", function () {
           ""
         );
       }
-    });
+    );
   }
 
-  function setupEmailValidation() {
-    if (!emailInput) return;
+  /* =====================================================
+     CHARACTER RESTRICTIONS
+  ===================================================== */
 
-    emailInput.addEventListener("input", function () {
-      this.value = this.value.replace(/\s/g, "");
-
-      isEmailOtpVerified = false;
-
-      if (emailOtpInput) {
-        emailOtpInput.value = "";
-        emailOtpInput.readOnly = false;
-      }
-
-      setStatus(
-        emailOtpStatus,
-        "Email OTP not verified.",
-        ""
+  function setupNameFieldRestriction(
+    inputId
+  ) {
+    const input =
+      document.getElementById(
+        inputId
       );
-    });
+
+    if (!input) {
+      return;
+    }
+
+    input.addEventListener(
+      "input",
+      function () {
+        const filteredValue =
+          this.value.replace(
+            /[^A-Za-z .]/g,
+            ""
+          );
+
+        if (
+          this.value !==
+          filteredValue
+        ) {
+          this.value =
+            filteredValue;
+        }
+      }
+    );
   }
 
-  function setupNameFieldRestriction(inputId) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-
-    input.addEventListener("input", function () {
-      const filteredValue = this.value.replace(
-        /[^A-Za-z .]/g,
-        ""
+  function setupSubjectsFieldRestriction(
+    inputId
+  ) {
+    const input =
+      document.getElementById(
+        inputId
       );
 
-      if (this.value !== filteredValue) {
-        this.value = filteredValue;
+    if (!input) {
+      return;
+    }
+
+    input.addEventListener(
+      "input",
+      function () {
+        const filteredValue =
+          this.value.replace(
+            /[^A-Za-z ,]/g,
+            ""
+          );
+
+        if (
+          this.value !==
+          filteredValue
+        ) {
+          this.value =
+            filteredValue;
+        }
       }
-    });
-  }
-
-  function setupSubjectsFieldRestriction(inputId) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-
-    input.addEventListener("input", function () {
-      const filteredValue = this.value.replace(
-        /[^A-Za-z ,]/g,
-        ""
-      );
-
-      if (this.value !== filteredValue) {
-        this.value = filteredValue;
-      }
-    });
+    );
   }
 
   function setupAllCharacterRestrictions() {
-    setupNameFieldRestriction("fullName");
-    setupNameFieldRestriction("parentName");
-    setupNameFieldRestriction("nationality");
-    setupNameFieldRestriction("otherCaste");
-    setupNameFieldRestriction("educationCourse");
-    setupNameFieldRestriction("educationBoard");
-    setupNameFieldRestriction("place");
-    setupSubjectsFieldRestriction("educationSubjects");
+    setupNameFieldRestriction(
+      "fullName"
+    );
+
+    setupNameFieldRestriction(
+      "parentName"
+    );
+
+    setupNameFieldRestriction(
+      "nationality"
+    );
+
+    setupNameFieldRestriction(
+      "otherCaste"
+    );
+
+    setupNameFieldRestriction(
+      "educationCourse"
+    );
+
+    setupNameFieldRestriction(
+      "educationBoard"
+    );
+
+    setupNameFieldRestriction(
+      "place"
+    );
+
+    setupSubjectsFieldRestriction(
+      "educationSubjects"
+    );
   }
+
+  /* =====================================================
+     EDUCATION
+  ===================================================== */
 
   function setupEducationValidation() {
-    if (!academicLevel || !educationCourse || !educationSubjects) return;
+    if (
+      !academicLevel ||
+      !educationCourse ||
+      !educationSubjects
+    ) {
+      return;
+    }
 
-    academicLevel.addEventListener("change", function () {
-      if (this.value === "8th Standard") {
-        educationCourse.placeholder = "Example: 8th Standard";
-        educationSubjects.placeholder =
-          "Tamil, English, Maths, Science, Social Science";
-      } else if (this.value === "10th Standard") {
-        educationCourse.placeholder = "Example: SSC / X / Matric";
-        educationSubjects.placeholder =
-          "Tamil, English, Maths, Science, Social Science";
-      } else if (this.value === "12th Standard") {
-        educationCourse.placeholder = "Example: HSC / XII";
-        educationSubjects.placeholder =
-          "Physics, Chemistry, Biology, Maths";
+    academicLevel.addEventListener(
+      "change",
+      function () {
+        if (
+          this.value ===
+          "8th Standard"
+        ) {
+          educationCourse.placeholder =
+            "Example: 8th Standard";
+
+          educationSubjects.placeholder =
+            "Tamil, English, Maths, Science, Social Science";
+
+        } else if (
+          this.value ===
+          "10th Standard"
+        ) {
+          educationCourse.placeholder =
+            "Example: SSC / X / Matric";
+
+          educationSubjects.placeholder =
+            "Tamil, English, Maths, Science, Social Science";
+
+        } else if (
+          this.value ===
+          "12th Standard"
+        ) {
+          educationCourse.placeholder =
+            "Example: HSC / XII";
+
+          educationSubjects.placeholder =
+            "Physics, Chemistry, Biology, Maths";
+        }
       }
-    });
+    );
 
-    educationSubjects.addEventListener("input", function () {
-      const subjects = this.value
-        .split(",")
-        .map(function (subject) {
-          return subject.trim();
-        })
-        .filter(Boolean);
+    educationSubjects.addEventListener(
+      "input",
+      function () {
+        const subjects =
+          this.value
+            .split(",")
+            .map(
+              function (
+                subject
+              ) {
+                return subject.trim();
+              }
+            )
+            .filter(
+              Boolean
+            );
 
-      if (subjects.length >= 2) {
-        let allValid = true;
+        if (
+          subjects.length >=
+          2
+        ) {
+          let allValid =
+            true;
 
-        for (let i = 0; i < subjects.length; i++) {
-          if (!/^[A-Za-z ]+$/.test(subjects[i])) {
-            allValid = false;
-            break;
+          for (
+            let i = 0;
+            i <
+            subjects.length;
+            i++
+          ) {
+            if (
+              !/^[A-Za-z ]+$/.test(
+                subjects[i]
+              )
+            ) {
+              allValid =
+                false;
+
+              break;
+            }
+          }
+
+          if (allValid) {
+            this.setCustomValidity(
+              ""
+            );
           }
         }
-
-        if (allValid) this.setCustomValidity("");
       }
-    });
+    );
 
     if (educationYear) {
-      educationYear.inputMode = "numeric";
-      educationYear.maxLength = 4;
+      educationYear.inputMode =
+        "numeric";
 
-      educationYear.addEventListener("input", function () {
-        this.value = this.value
-          .replace(/\D/g, "")
-          .slice(0, 4);
-      });
+      educationYear.maxLength =
+        4;
+
+      educationYear.addEventListener(
+        "input",
+        function () {
+          this.value =
+            this.value
+              .replace(
+                /\D/g,
+                ""
+              )
+              .slice(
+                0,
+                4
+              );
+        }
+      );
     }
   }
+
+  /* =====================================================
+     FILE VALIDATION
+  ===================================================== */
 
   function setupFileValidation() {
     const rules = {
       photoUpload: {
-        allowedTypes: ["image/jpeg", "image/png"],
-        message: "Upload only JPG, JPEG, or PNG image files."
+        allowedTypes: [
+          "image/jpeg",
+          "image/png"
+        ],
+
+        message:
+          "Upload only JPG, JPEG, or PNG image files."
       },
 
       parentSignature: {
-        allowedTypes: ["image/jpeg", "image/png"],
-        message: "Upload only JPG, JPEG, or PNG image files."
+        allowedTypes: [
+          "image/jpeg",
+          "image/png"
+        ],
+
+        message:
+          "Upload only JPG, JPEG, or PNG image files."
       },
 
       aadhaarUpload: {
-        allowedTypes: ["application/pdf"],
-        message: "Upload only a PDF file."
+        allowedTypes: [
+          "application/pdf"
+        ],
+
+        message:
+          "Upload only a PDF file."
       },
 
       educationCertificateUpload: {
-        allowedTypes: ["application/pdf"],
-        message: "Upload only a PDF file."
+        allowedTypes: [
+          "application/pdf"
+        ],
+
+        message:
+          "Upload only a PDF file."
       }
     };
 
-    uploadFields.forEach(function (fieldId) {
-      const input = document.getElementById(fieldId);
-      const preview = document.getElementById(`${fieldId}Preview`);
-      const rule = rules[fieldId];
+    uploadFields.forEach(
+      function (fieldId) {
+        const input =
+          document.getElementById(
+            fieldId
+          );
 
-      if (!input || !rule) return;
+        const preview =
+          document.getElementById(
+            `${fieldId}Preview`
+          );
 
-      input.addEventListener("change", function () {
-        if (preview) preview.innerHTML = "";
+        const rule =
+          rules[fieldId];
 
-        const file = this.files?.[0];
-        if (!file) return;
-
-        if (!rule.allowedTypes.includes(file.type)) {
-          this.value = "";
-          alert(rule.message);
+        if (
+          !input ||
+          !rule
+        ) {
           return;
         }
 
-        if (!preview) return;
+        input.addEventListener(
+          "change",
+          function () {
+            if (preview) {
+              preview.innerHTML =
+                "";
+            }
 
-        const fileName = document.createElement("p");
-        fileName.textContent = `Selected: ${file.name}`;
-        preview.appendChild(fileName);
+            const file =
+              this.files?.[0];
 
-        const fileUrl = URL.createObjectURL(file);
+            if (!file) {
+              return;
+            }
 
-        const viewLink = document.createElement("a");
-        viewLink.href = fileUrl;
-        viewLink.target = "_blank";
-        viewLink.rel = "noopener";
-        viewLink.textContent = "View File";
-        preview.appendChild(viewLink);
+            if (
+              !rule.allowedTypes.includes(
+                file.type
+              )
+            ) {
+              this.value =
+                "";
 
-        if (file.type.startsWith("image/")) {
-          const image = document.createElement("img");
-          image.src = fileUrl;
-          image.alt = file.name;
-          preview.appendChild(image);
-        }
-      });
-    });
+              alert(
+                rule.message
+              );
+
+              return;
+            }
+
+            if (!preview) {
+              return;
+            }
+
+            const fileName =
+              document.createElement(
+                "p"
+              );
+
+            fileName.textContent =
+              `Selected: ${file.name}`;
+
+            preview.appendChild(
+              fileName
+            );
+
+            const fileUrl =
+              URL.createObjectURL(
+                file
+              );
+
+            const viewLink =
+              document.createElement(
+                "a"
+              );
+
+            viewLink.href =
+              fileUrl;
+
+            viewLink.target =
+              "_blank";
+
+            viewLink.rel =
+              "noopener";
+
+            viewLink.textContent =
+              "View File";
+
+            preview.appendChild(
+              viewLink
+            );
+
+            if (
+              file.type.startsWith(
+                "image/"
+              )
+            ) {
+              const image =
+                document.createElement(
+                  "img"
+                );
+
+              image.src =
+                fileUrl;
+
+              image.alt =
+                file.name;
+
+              preview.appendChild(
+                image
+              );
+            }
+          }
+        );
+      }
+    );
   }
+
+  /* =====================================================
+     OTP INPUT
+  ===================================================== */
 
   function setupOtpInput(input) {
-    if (!input) return;
+    if (!input) {
+      return;
+    }
 
-    input.inputMode = "numeric";
-    input.maxLength = 6;
-    input.autocomplete = "off";
+    input.inputMode =
+      "numeric";
 
-    input.setAttribute("autocomplete", "off");
-    input.setAttribute("autocorrect", "off");
-    input.setAttribute("autocapitalize", "off");
-    input.setAttribute("spellcheck", "false");
+    input.maxLength =
+      6;
 
-    input.addEventListener("paste", function (event) {
-      event.preventDefault();
-      return false;
-    });
+    input.autocomplete =
+      "off";
 
-    input.addEventListener("drop", function (event) {
-      event.preventDefault();
-      return false;
-    });
+    input.setAttribute(
+      "autocomplete",
+      "off"
+    );
 
-    input.addEventListener("contextmenu", function (event) {
-      event.preventDefault();
-      return false;
-    });
+    input.setAttribute(
+      "autocorrect",
+      "off"
+    );
 
-    input.addEventListener("input", function () {
-      this.value = this.value
-        .replace(/\D/g, "")
-        .slice(0, 6);
-    });
+    input.setAttribute(
+      "autocapitalize",
+      "off"
+    );
+
+    input.setAttribute(
+      "spellcheck",
+      "false"
+    );
+
+    input.addEventListener(
+      "paste",
+      function (event) {
+        event.preventDefault();
+
+        return false;
+      }
+    );
+
+    input.addEventListener(
+      "drop",
+      function (event) {
+        event.preventDefault();
+
+        return false;
+      }
+    );
+
+    input.addEventListener(
+      "contextmenu",
+      function (event) {
+        event.preventDefault();
+
+        return false;
+      }
+    );
+
+    input.addEventListener(
+      "input",
+      function () {
+        this.value =
+          this.value
+            .replace(
+              /\D/g,
+              ""
+            )
+            .slice(
+              0,
+              6
+            );
+      }
+    );
   }
 
-  async function sendMobileOtp() {
-    const mobile = mobileInput?.value.trim() || "";
+  /* =====================================================
+     SEND MOBILE OTP
+     IMPORTANT FIX:
+     SEND MOBILE + EMAIL
+  ===================================================== */
 
-    if (!/^[6-9]\d{9}$/.test(mobile)) {
+  async function sendMobileOtp() {
+    const mobile =
+      mobileInput?.value
+        .trim() ||
+      "";
+
+    const email =
+      emailInput?.value
+        .trim()
+        .toLowerCase() ||
+      "";
+
+    /* -----------------------------
+       MOBILE VALIDATION
+    ----------------------------- */
+
+    if (
+      !/^[6-9]\d{9}$/.test(
+        mobile
+      )
+    ) {
       mobileInput?.setCustomValidity(
         "Enter a valid 10-digit mobile number starting with 6, 7, 8, or 9."
       );
@@ -797,11 +1799,50 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    mobileInput?.setCustomValidity("");
+    mobileInput?.setCustomValidity(
+      ""
+    );
+
+    /* -----------------------------
+       EMAIL VALIDATION
+    ----------------------------- */
+
+    const emailPattern =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
+
+    if (
+      !email ||
+      !emailPattern.test(
+        email
+      )
+    ) {
+      emailInput?.setCustomValidity(
+        "Please enter a valid email address before sending mobile OTP."
+      );
+
+      emailInput?.reportValidity();
+
+      setStatus(
+        mobileOtpStatus,
+        "Please enter a valid email address before sending mobile OTP.",
+        "error"
+      );
+
+      return;
+    }
+
+    emailInput?.setCustomValidity(
+      ""
+    );
 
     try {
-      sendMobileOtpBtn.disabled = true;
-      sendMobileOtpBtn.textContent = "Sending...";
+      if (sendMobileOtpBtn) {
+        sendMobileOtpBtn.disabled =
+          true;
+
+        sendMobileOtpBtn.textContent =
+          "Sending...";
+      }
 
       setStatus(
         mobileOtpStatus,
@@ -814,38 +1855,76 @@ document.addEventListener("DOMContentLoaded", function () {
         `${API_BASE_URL}/send-mobile-otp`
       );
 
-      const response = await fetch(
-        `${API_BASE_URL}/send-mobile-otp`,
+      console.log(
+        "SEND MOBILE OTP PAYLOAD:",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            mobile
-          })
+          mobile:
+            mobile,
+
+          email:
+            email
         }
       );
 
-      const result = await readJsonResponse(
-        response,
-        "The mobile OTP API returned an invalid response."
+      const response =
+        await fetch(
+          `${API_BASE_URL}/send-mobile-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                mobile:
+                  mobile,
+
+                email:
+                  email
+              })
+          }
+        );
+
+      const result =
+        await readJsonResponse(
+          response,
+          "The mobile OTP API returned an invalid response."
+        );
+
+      console.log(
+        "SEND MOBILE OTP RESPONSE:",
+        result
       );
 
-      if (!response.ok || !result.success) {
+      if (
+        !response.ok ||
+        !result.success
+      ) {
         throw new Error(
-          result.message || "Mobile OTP sending failed."
+          result.message ||
+            "Mobile OTP sending failed."
         );
       }
 
-      isMobileOtpVerified = false;
+      isMobileOtpVerified =
+        false;
+
       showMobileOtpControls();
+
+      if (mobileOtpInput) {
+        mobileOtpInput.focus();
+      }
 
       setStatus(
         mobileOtpStatus,
         "Mobile OTP sent successfully. Check your phone.",
         "success"
       );
+
     } catch (error) {
       console.error(
         "MOBILE OTP SEND ERROR:",
@@ -858,66 +1937,168 @@ document.addEventListener("DOMContentLoaded", function () {
           "Mobile OTP sending failed.",
         "error"
       );
+
     } finally {
       if (sendMobileOtpBtn) {
-        sendMobileOtpBtn.disabled = false;
-        sendMobileOtpBtn.textContent = "Send OTP";
+        sendMobileOtpBtn.disabled =
+          false;
+
+        sendMobileOtpBtn.textContent =
+          "Send OTP";
       }
     }
   }
 
-  async function verifyMobileOtp() {
-    const mobile = mobileInput?.value.trim() || "";
-    const otp = mobileOtpInput?.value.trim() || "";
+  /* =====================================================
+     VERIFY MOBILE OTP
+     IMPORTANT FIX:
+     SEND MOBILE + EMAIL + OTP
+  ===================================================== */
 
-    if (!/^\d{6}$/.test(otp)) {
+  async function verifyMobileOtp() {
+    const mobile =
+      mobileInput?.value
+        .trim() ||
+      "";
+
+    const email =
+      emailInput?.value
+        .trim()
+        .toLowerCase() ||
+      "";
+
+    const otp =
+      mobileOtpInput?.value
+        .trim() ||
+      "";
+
+    if (
+      !/^[6-9]\d{9}$/.test(
+        mobile
+      )
+    ) {
+      setStatus(
+        mobileOtpStatus,
+        "Enter a valid 10-digit mobile number.",
+        "error"
+      );
+
+      return;
+    }
+
+    const emailPattern =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
+
+    if (
+      !email ||
+      !emailPattern.test(
+        email
+      )
+    ) {
+      setStatus(
+        mobileOtpStatus,
+        "A valid email address is required for mobile OTP verification.",
+        "error"
+      );
+
+      return;
+    }
+
+    if (
+      !/^\d{6}$/.test(
+        otp
+      )
+    ) {
       setStatus(
         mobileOtpStatus,
         "Enter the complete 6-digit mobile OTP.",
         "error"
       );
+
       return;
     }
 
     try {
-      verifyMobileOtpBtn.disabled = true;
-      verifyMobileOtpBtn.textContent = "Verifying...";
+      if (verifyMobileOtpBtn) {
+        verifyMobileOtpBtn.disabled =
+          true;
+
+        verifyMobileOtpBtn.textContent =
+          "Verifying...";
+      }
 
       console.log(
         "VERIFY MOBILE OTP API:",
         `${API_BASE_URL}/verify-mobile-otp`
       );
 
-      const response = await fetch(
-        `${API_BASE_URL}/verify-mobile-otp`,
+      console.log(
+        "VERIFY MOBILE OTP PAYLOAD:",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
+          mobile:
             mobile,
+
+          email:
+            email,
+
+          otp:
             otp
-          })
         }
       );
 
-      const result = await readJsonResponse(
-        response,
-        "The mobile OTP verification API returned an invalid response."
+      const response =
+        await fetch(
+          `${API_BASE_URL}/verify-mobile-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                mobile:
+                  mobile,
+
+                email:
+                  email,
+
+                otp:
+                  otp
+              })
+          }
+        );
+
+      const result =
+        await readJsonResponse(
+          response,
+          "The mobile OTP verification API returned an invalid response."
+        );
+
+      console.log(
+        "VERIFY MOBILE OTP RESPONSE:",
+        result
       );
 
-      if (!response.ok || !result.success) {
+      if (
+        !response.ok ||
+        !result.success
+      ) {
         throw new Error(
           result.message ||
             "Mobile OTP verification failed."
         );
       }
 
-      isMobileOtpVerified = true;
+      isMobileOtpVerified =
+        true;
 
       if (mobileInput) {
-        mobileInput.readOnly = true;
+        mobileInput.readOnly =
+          true;
       }
 
       hideMobileOtpControlsAfterVerification();
@@ -927,29 +2108,53 @@ document.addEventListener("DOMContentLoaded", function () {
         "Mobile OTP verified successfully.",
         "success"
       );
+
     } catch (error) {
-      isMobileOtpVerified = false;
+      isMobileOtpVerified =
+        false;
+
+      console.error(
+        "MOBILE OTP VERIFY ERROR:",
+        error
+      );
 
       setStatus(
         mobileOtpStatus,
-        error.message || "Incorrect mobile OTP.",
+        error.message ||
+          "Incorrect mobile OTP.",
         "error"
       );
+
     } finally {
       if (verifyMobileOtpBtn) {
-        verifyMobileOtpBtn.disabled = false;
-        verifyMobileOtpBtn.textContent = "Verify OTP";
+        verifyMobileOtpBtn.disabled =
+          false;
+
+        verifyMobileOtpBtn.textContent =
+          "Verify OTP";
       }
     }
   }
 
+  /* =====================================================
+     SEND EMAIL OTP
+  ===================================================== */
+
   async function sendEmailOtp() {
-    const email = emailInput?.value.trim() || "";
+    const email =
+      emailInput?.value
+        .trim()
+        .toLowerCase() ||
+      "";
 
     const emailPattern =
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
 
-    if (!emailPattern.test(email)) {
+    if (
+      !emailPattern.test(
+        email
+      )
+    ) {
       emailInput?.setCustomValidity(
         "Please enter a valid email address."
       );
@@ -965,11 +2170,18 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    emailInput?.setCustomValidity("");
+    emailInput?.setCustomValidity(
+      ""
+    );
 
     try {
-      sendEmailOtpBtn.disabled = true;
-      sendEmailOtpBtn.textContent = "Sending...";
+      if (sendEmailOtpBtn) {
+        sendEmailOtpBtn.disabled =
+          true;
+
+        sendEmailOtpBtn.textContent =
+          "Sending...";
+      }
 
       setStatus(
         emailOtpStatus,
@@ -982,32 +2194,45 @@ document.addEventListener("DOMContentLoaded", function () {
         `${API_BASE_URL}/send-email-otp`
       );
 
-      const response = await fetch(
-        `${API_BASE_URL}/send-email-otp`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email
-          })
-        }
-      );
+      const response =
+        await fetch(
+          `${API_BASE_URL}/send-email-otp`,
+          {
+            method:
+              "POST",
 
-      const result = await readJsonResponse(
-        response,
-        "The email OTP API returned an invalid response."
-      );
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
 
-      if (!response.ok || !result.success) {
+            body:
+              JSON.stringify({
+                email:
+                  email
+              })
+          }
+        );
+
+      const result =
+        await readJsonResponse(
+          response,
+          "The email OTP API returned an invalid response."
+        );
+
+      if (
+        !response.ok ||
+        !result.success
+      ) {
         throw new Error(
           result.message ||
             "Email OTP sending failed."
         );
       }
 
-      isEmailOtpVerified = false;
+      isEmailOtpVerified =
+        false;
+
       showEmailOtpControls();
 
       if (emailOtpInput) {
@@ -1019,6 +2244,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Email OTP sent successfully. Check your inbox or spam folder.",
         "success"
       );
+
     } catch (error) {
       console.error(
         "EMAIL OTP SEND ERROR:",
@@ -1031,66 +2257,107 @@ document.addEventListener("DOMContentLoaded", function () {
           "Email OTP sending failed.",
         "error"
       );
+
     } finally {
       if (sendEmailOtpBtn) {
-        sendEmailOtpBtn.disabled = false;
-        sendEmailOtpBtn.textContent = "Send OTP";
+        sendEmailOtpBtn.disabled =
+          false;
+
+        sendEmailOtpBtn.textContent =
+          "Send OTP";
       }
     }
   }
 
-  async function verifyEmailOtp() {
-    const email = emailInput?.value.trim() || "";
-    const otp = emailOtpInput?.value.trim() || "";
+  /* =====================================================
+     VERIFY EMAIL OTP
+  ===================================================== */
 
-    if (!/^\d{6}$/.test(otp)) {
+  async function verifyEmailOtp() {
+    const email =
+      emailInput?.value
+        .trim()
+        .toLowerCase() ||
+      "";
+
+    const otp =
+      emailOtpInput?.value
+        .trim() ||
+      "";
+
+    if (
+      !/^\d{6}$/.test(
+        otp
+      )
+    ) {
       setStatus(
         emailOtpStatus,
         "Enter the complete 6-digit email OTP.",
         "error"
       );
+
       return;
     }
 
     try {
-      verifyEmailOtpBtn.disabled = true;
-      verifyEmailOtpBtn.textContent = "Verifying...";
+      if (verifyEmailOtpBtn) {
+        verifyEmailOtpBtn.disabled =
+          true;
+
+        verifyEmailOtpBtn.textContent =
+          "Verifying...";
+      }
 
       console.log(
         "VERIFY EMAIL OTP API:",
         `${API_BASE_URL}/verify-email-otp`
       );
 
-      const response = await fetch(
-        `${API_BASE_URL}/verify-email-otp`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email,
-            otp
-          })
-        }
-      );
+      const response =
+        await fetch(
+          `${API_BASE_URL}/verify-email-otp`,
+          {
+            method:
+              "POST",
 
-      const result = await readJsonResponse(
-        response,
-        "The email OTP verification API returned an invalid response."
-      );
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
 
-      if (!response.ok || !result.success) {
+            body:
+              JSON.stringify({
+                email:
+                  email,
+
+                otp:
+                  otp
+              })
+          }
+        );
+
+      const result =
+        await readJsonResponse(
+          response,
+          "The email OTP verification API returned an invalid response."
+        );
+
+      if (
+        !response.ok ||
+        !result.success
+      ) {
         throw new Error(
           result.message ||
             "Email OTP verification failed."
         );
       }
 
-      isEmailOtpVerified = true;
+      isEmailOtpVerified =
+        true;
 
       if (emailInput) {
-        emailInput.readOnly = true;
+        emailInput.readOnly =
+          true;
       }
 
       hideEmailOtpControlsAfterVerification();
@@ -1100,8 +2367,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Email OTP verified successfully.",
         "success"
       );
+
     } catch (error) {
-      isEmailOtpVerified = false;
+      isEmailOtpVerified =
+        false;
 
       setStatus(
         emailOtpStatus,
@@ -1109,21 +2378,37 @@ document.addEventListener("DOMContentLoaded", function () {
           "Incorrect email OTP.",
         "error"
       );
+
     } finally {
       if (verifyEmailOtpBtn) {
-        verifyEmailOtpBtn.disabled = false;
-        verifyEmailOtpBtn.textContent = "Verify OTP";
+        verifyEmailOtpBtn.disabled =
+          false;
+
+        verifyEmailOtpBtn.textContent =
+          "Verify OTP";
       }
     }
   }
 
+  /* =====================================================
+     OTP BUTTONS
+  ===================================================== */
+
   function setupOtpButtons() {
-    setupOtpInput(mobileOtpInput);
-    setupOtpInput(emailOtpInput);
+    setupOtpInput(
+      mobileOtpInput
+    );
+
+    setupOtpInput(
+      emailOtpInput
+    );
+
     restoreOtpControls();
 
     if (sendMobileOtpBtn) {
-      sendMobileOtpBtn.type = "button";
+      sendMobileOtpBtn.type =
+        "button";
+
       sendMobileOtpBtn.addEventListener(
         "click",
         sendMobileOtp
@@ -1131,7 +2416,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (verifyMobileOtpBtn) {
-      verifyMobileOtpBtn.type = "button";
+      verifyMobileOtpBtn.type =
+        "button";
+
       verifyMobileOtpBtn.addEventListener(
         "click",
         verifyMobileOtp
@@ -1139,7 +2426,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (sendEmailOtpBtn) {
-      sendEmailOtpBtn.type = "button";
+      sendEmailOtpBtn.type =
+        "button";
+
       sendEmailOtpBtn.addEventListener(
         "click",
         sendEmailOtp
@@ -1147,7 +2436,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (verifyEmailOtpBtn) {
-      verifyEmailOtpBtn.type = "button";
+      verifyEmailOtpBtn.type =
+        "button";
+
       verifyEmailOtpBtn.addEventListener(
         "click",
         verifyEmailOtp
@@ -1155,152 +2446,253 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function validateCourse() {
-    const course = document.getElementById("courseName");
+  /* =====================================================
+     COURSE VALIDATION
+  ===================================================== */
 
-    if (!course?.value.trim()) {
-      alert("Please select a course.");
+  function validateCourse() {
+    const course =
+      document.getElementById(
+        "courseName"
+      );
+
+    if (
+      !course?.value.trim()
+    ) {
+      alert(
+        "Please select a course."
+      );
+
       return false;
     }
 
     return true;
   }
 
+  /* =====================================================
+     AADHAAR VALIDATION
+  ===================================================== */
+
   function validateAadhaar() {
     if (
-      hasAadhaar?.value === "Yes" &&
+      hasAadhaar?.value ===
+        "Yes" &&
       !/^[2-9]\d{11}$/.test(
-        aadhaarNumber?.value.trim() || ""
+        aadhaarNumber?.value.trim() ||
+          ""
       )
     ) {
       aadhaarNumber?.setCustomValidity(
         "Aadhaar number must start with digits 2 to 9 and be exactly 12 digits."
       );
+
       return false;
     }
 
-    aadhaarNumber?.setCustomValidity("");
+    aadhaarNumber?.setCustomValidity(
+      ""
+    );
+
     return true;
   }
+
+  /* =====================================================
+     EDUCATION SUBJECT VALIDATION
+  ===================================================== */
 
   function validateEducationSubjects() {
     const subjects =
       educationSubjects?.value
         .split(",")
-        .map(function (s) {
-          return s.trim();
-        })
-        .filter(function (s) {
-          return s.length > 0;
-        }) || [];
+        .map(
+          function (s) {
+            return s.trim();
+          }
+        )
+        .filter(
+          function (s) {
+            return s.length >
+              0;
+          }
+        ) ||
+      [];
 
-    if (subjects.length < 2) {
+    if (
+      subjects.length <
+      2
+    ) {
       educationSubjects?.setCustomValidity(
         "Please enter all subjects separated by commas. At least two subjects are required."
       );
+
       return false;
     }
 
-    for (let i = 0; i < subjects.length; i++) {
-      if (!/^[A-Za-z ]+$/.test(subjects[i])) {
+    for (
+      let i = 0;
+      i <
+      subjects.length;
+      i++
+    ) {
+      if (
+        !/^[A-Za-z ]+$/.test(
+          subjects[i]
+        )
+      ) {
         educationSubjects?.setCustomValidity(
           "Please enter all subjects separated by commas. At least two subjects are required."
         );
+
         return false;
       }
     }
 
-    educationSubjects.setCustomValidity("");
+    educationSubjects.setCustomValidity(
+      ""
+    );
+
     return true;
   }
 
+  /* =====================================================
+     EDUCATION DETAILS VALIDATION
+  ===================================================== */
+
   function validateEducationDetails() {
-    if (!academicLevel?.value.trim()) {
+    if (
+      !academicLevel?.value.trim()
+    ) {
       academicLevel?.setCustomValidity(
         "Academic Level is required."
       );
+
       return false;
     }
 
-    academicLevel?.setCustomValidity("");
+    academicLevel?.setCustomValidity(
+      ""
+    );
 
-    if (!educationCourse?.value.trim()) {
+    if (
+      !educationCourse?.value.trim()
+    ) {
       educationCourse?.setCustomValidity(
         "Qualification / Course is required."
       );
+
       return false;
     }
 
-    educationCourse?.setCustomValidity("");
+    educationCourse?.setCustomValidity(
+      ""
+    );
 
-    if (!educationBoard?.value.trim()) {
+    if (
+      !educationBoard?.value.trim()
+    ) {
       educationBoard?.setCustomValidity(
         "University / Board is required."
       );
+
       return false;
     }
 
-    educationBoard?.setCustomValidity("");
+    educationBoard?.setCustomValidity(
+      ""
+    );
 
-    if (!educationYear?.value.trim()) {
+    if (
+      !educationYear?.value.trim()
+    ) {
       educationYear?.setCustomValidity(
         "Year of Passing is required."
       );
+
       return false;
     }
 
-    if (!/^\d{4}$/.test(educationYear.value.trim())) {
+    if (
+      !/^\d{4}$/.test(
+        educationYear.value.trim()
+      )
+    ) {
       educationYear?.setCustomValidity(
         "Year of Passing must be exactly 4 digits."
       );
+
       return false;
     }
 
-    educationYear?.setCustomValidity("");
+    educationYear?.setCustomValidity(
+      ""
+    );
 
-    if (!educationGrade?.value.trim()) {
+    if (
+      !educationGrade?.value.trim()
+    ) {
       educationGrade?.setCustomValidity(
         "Grade / Percentage is required."
       );
+
       return false;
     }
 
-    educationGrade?.setCustomValidity("");
+    educationGrade?.setCustomValidity(
+      ""
+    );
 
     return true;
   }
 
+  /* =====================================================
+     OTP VERIFICATION CHECK
+  ===================================================== */
+
   function validateOtpVerification() {
-    if (!isMobileOtpVerified) {
+    if (
+      !isMobileOtpVerified
+    ) {
       setStatus(
         mobileOtpStatus,
         "Verify the mobile OTP before submitting.",
         "error"
       );
+
       return false;
     }
 
-    if (!isEmailOtpVerified) {
+    if (
+      !isEmailOtpVerified
+    ) {
       setStatus(
         emailOtpStatus,
         "Verify the email OTP before submitting.",
         "error"
       );
+
       return false;
     }
 
     return true;
   }
+
+  /* =====================================================
+     DOB VALIDATION
+  ===================================================== */
 
   function validateDob() {
     if (!dob?.value) {
       dob?.setCustomValidity(
         "Date of Birth is required."
       );
+
       return false;
     }
 
-    const calculatedAge = calculateAge(dob.value);
+    const calculatedAge =
+      calculateAge(
+        dob.value
+      );
 
     if (
       calculatedAge < 15 ||
@@ -1317,119 +2709,220 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    dob?.setCustomValidity("");
-    dobDisplay?.setCustomValidity("");
+    dob?.setCustomValidity(
+      ""
+    );
+
+    dobDisplay?.setCustomValidity(
+      ""
+    );
 
     return true;
   }
 
-  function validateMobile(input, isRequired = false) {
-    if (isRequired && !input?.value) {
+  /* =====================================================
+     MOBILE VALIDATION
+  ===================================================== */
+
+  function validateMobile(
+    input,
+    isRequired = false
+  ) {
+    if (
+      isRequired &&
+      !input?.value
+    ) {
       input?.setCustomValidity(
         "Mobile number is required."
       );
+
       return false;
     }
 
     if (
       input?.value &&
-      !/^[6-9]\d{9}$/.test(input.value)
+      !/^[6-9]\d{9}$/.test(
+        input.value
+      )
     ) {
       input?.setCustomValidity(
         "Enter a valid 10-digit mobile number starting with 6, 7, 8, or 9."
       );
+
       return false;
     }
 
-    input?.setCustomValidity("");
+    input?.setCustomValidity(
+      ""
+    );
+
     return true;
   }
 
+  /* =====================================================
+     EMAIL VALIDATION
+  ===================================================== */
+
   function validateEmail() {
-    if (!emailInput?.value) {
+    if (
+      !emailInput?.value
+    ) {
       emailInput?.setCustomValidity(
         "Email address is required."
       );
+
       return false;
     }
 
     const emailPattern =
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
 
-    if (!emailPattern.test(emailInput.value)) {
+    if (
+      !emailPattern.test(
+        emailInput.value
+      )
+    ) {
       emailInput?.setCustomValidity(
         "Please enter a valid email address."
       );
+
       return false;
     }
 
-    emailInput?.setCustomValidity("");
+    emailInput?.setCustomValidity(
+      ""
+    );
+
     return true;
   }
 
+  /* =====================================================
+     PINCODE VALIDATION
+  ===================================================== */
+
   function validatePincode() {
-    if (!pinCode?.value) {
+    if (
+      !pinCode?.value
+    ) {
       pinCode?.setCustomValidity(
         "Pincode is required."
       );
+
       return false;
     }
 
-    if (!/^\d{6}$/.test(pinCode.value)) {
+    if (
+      !/^\d{6}$/.test(
+        pinCode.value
+      )
+    ) {
       pinCode?.setCustomValidity(
         "Pincode must contain exactly 6 digits."
       );
+
       return false;
     }
 
-    if (pinCode.value.charAt(0) !== "6") {
+    if (
+      pinCode.value.charAt(
+        0
+      ) !== "6"
+    ) {
       pinCode?.setCustomValidity(
         "Tamil Nadu pincode must start with 6."
       );
+
       return false;
     }
 
-    pinCode?.setCustomValidity("");
+    pinCode?.setCustomValidity(
+      ""
+    );
+
     return true;
   }
 
-  async function submitApplication(event) {
+  /* =====================================================
+     SUBMIT APPLICATION
+  ===================================================== */
+
+  async function submitApplication(
+    event
+  ) {
     console.log(
       "SUBMIT APPLICATION FUNCTION CALLED"
     );
 
     event.preventDefault();
 
-    if (!form.checkValidity()) {
+    if (
+      !form.checkValidity()
+    ) {
       console.log(
         "FORM CHECK VALIDITY FAILED"
       );
 
       form.reportValidity();
+
       return;
     }
 
-    if (!validateCourse()) return;
-    if (!validateDob()) return;
-    if (!validateAadhaar()) return;
-
-    if (!validateMobile(mobileInput, true)) {
+    if (
+      !validateCourse()
+    ) {
       return;
     }
 
-    if (!validateEmail()) return;
-    if (!validatePincode()) return;
-
-    if (!validateEducationDetails()) {
+    if (
+      !validateDob()
+    ) {
       return;
     }
 
-    if (!validateEducationSubjects()) {
+    if (
+      !validateAadhaar()
+    ) {
+      return;
+    }
+
+    if (
+      !validateMobile(
+        mobileInput,
+        true
+      )
+    ) {
+      return;
+    }
+
+    if (
+      !validateEmail()
+    ) {
+      return;
+    }
+
+    if (
+      !validatePincode()
+    ) {
+      return;
+    }
+
+    if (
+      !validateEducationDetails()
+    ) {
+      return;
+    }
+
+    if (
+      !validateEducationSubjects()
+    ) {
       educationSubjects?.reportValidity();
+
       return;
     }
 
-    if (!validateOtpVerification()) {
+    if (
+      !validateOtpVerification()
+    ) {
       return;
     }
 
@@ -1439,12 +2932,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       if (submitButton) {
-        submitButton.disabled = true;
+        submitButton.disabled =
+          true;
+
         submitButton.textContent =
           "Submitting...";
       }
 
-      const formData = new FormData(form);
+      const formData =
+        new FormData(
+          form
+        );
 
       formData.set(
         "applicationNo",
@@ -1472,18 +2970,23 @@ document.addEventListener("DOMContentLoaded", function () {
         `${API_BASE_URL}/admissions`
       );
 
-      const response = await fetch(
-        `${API_BASE_URL}/admissions`,
-        {
-          method: "POST",
-          body: formData
-        }
-      );
+      const response =
+        await fetch(
+          `${API_BASE_URL}/admissions`,
+          {
+            method:
+              "POST",
 
-      const result = await readJsonResponse(
-        response,
-        "The admission API returned an invalid response."
-      );
+            body:
+              formData
+          }
+        );
+
+      const result =
+        await readJsonResponse(
+          response,
+          "The admission API returned an invalid response."
+        );
 
       if (
         !response.ok ||
@@ -1496,7 +2999,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const submittedApplicationNo =
-        formData.get("applicationNo");
+        formData.get(
+          "applicationNo"
+        );
 
       alert(
         `Your application was submitted successfully.\nApplication No: ${submittedApplicationNo}`
@@ -1505,9 +3010,13 @@ document.addEventListener("DOMContentLoaded", function () {
       resetCompleteForm();
 
       window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        top:
+          0,
+
+        behavior:
+          "smooth"
       });
+
     } catch (error) {
       console.error(
         "APPLICATION SUBMIT ERROR:",
@@ -1518,14 +3027,21 @@ document.addEventListener("DOMContentLoaded", function () {
         error.message ||
           "Application submission failed. Please try again."
       );
+
     } finally {
       if (submitButton) {
-        submitButton.disabled = false;
+        submitButton.disabled =
+          false;
+
         submitButton.textContent =
           originalButtonText;
       }
     }
   }
+
+  /* =====================================================
+     RESET FORM
+  ===================================================== */
 
   function resetCompleteForm() {
     form.reset();
@@ -1535,19 +3051,28 @@ document.addEventListener("DOMContentLoaded", function () {
         "input, select, textarea"
       );
 
-    allInputs.forEach(function (input) {
-      input.setCustomValidity("");
-    });
+    allInputs.forEach(
+      function (input) {
+        input.setCustomValidity(
+          ""
+        );
+      }
+    );
 
-    isMobileOtpVerified = false;
-    isEmailOtpVerified = false;
+    isMobileOtpVerified =
+      false;
+
+    isEmailOtpVerified =
+      false;
 
     if (mobileInput) {
-      mobileInput.readOnly = false;
+      mobileInput.readOnly =
+        false;
     }
 
     if (emailInput) {
-      emailInput.readOnly = false;
+      emailInput.readOnly =
+        false;
     }
 
     restoreOtpControls();
@@ -1564,15 +3089,19 @@ document.addEventListener("DOMContentLoaded", function () {
       ""
     );
 
-    uploadFields.forEach(function (fieldId) {
-      const preview = document.getElementById(
-        `${fieldId}Preview`
-      );
+    uploadFields.forEach(
+      function (fieldId) {
+        const preview =
+          document.getElementById(
+            `${fieldId}Preview`
+          );
 
-      if (preview) {
-        preview.innerHTML = "";
+        if (preview) {
+          preview.innerHTML =
+            "";
+        }
       }
-    });
+    );
 
     const courseInput =
       document.getElementById(
@@ -1585,11 +3114,13 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
     if (courseInput) {
-      courseInput.value = "";
+      courseInput.value =
+        "";
     }
 
     if (courseValue) {
-      courseValue.value = "";
+      courseValue.value =
+        "";
     }
 
     if (applicationNo) {
@@ -1600,28 +3131,40 @@ document.addEventListener("DOMContentLoaded", function () {
     setupDeclarationDate();
   }
 
+  /* =====================================================
+     RESET BUTTON
+  ===================================================== */
+
   function setupResetButton() {
     const resetButton =
       form?.querySelector(
         ".reset-btn"
       );
 
-    if (!resetButton) return;
+    if (!resetButton) {
+      return;
+    }
 
     resetButton.addEventListener(
       "click",
       function (event) {
         event.preventDefault();
+
         resetCompleteForm();
       }
     );
   }
+
+  /* =====================================================
+     INITIALIZE
+  ===================================================== */
 
   function initialize() {
     if (!form) {
       console.error(
         "Admission form was not found."
       );
+
       return;
     }
 
@@ -1631,28 +3174,37 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     setupApplicationNumber();
+
     setupCourseDropdown();
+
     setupAgeValidation();
+
     setupDeclarationDate();
+
     setupSameAddress();
+
     setupPincodeValidation();
+
     setupAadhaarValidation();
 
     setupMobileValidation(
-      mobileInput,
-      true
+      mobileInput
     );
 
     setupMobileValidation(
-      alternateOne,
-      false
+      alternateOne
     );
 
     setupEmailValidation();
+
     setupAllCharacterRestrictions();
+
     setupEducationValidation();
+
     setupFileValidation();
+
     setupOtpButtons();
+
     setupResetButton();
 
     form.addEventListener(
@@ -1663,6 +3215,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   initialize();
 });
+
+/* =====================================================
+   BACK TO DOWNLOADS
+===================================================== */
 
 function goBackToDownloads() {
   window.location.href =
