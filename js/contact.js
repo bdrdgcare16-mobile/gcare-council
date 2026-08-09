@@ -485,1074 +485,1113 @@
 // });
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
-  // =========================================================
-  // RAILWAY BACKEND
-  // =========================================================
-
-  const API_BASE_URL =
-    "https://backend-production-c5cb.up.railway.app/api";
+    const API_BASE_URL =
+      "https://backend-production-c5cb.up.railway.app/api";
 
 
-  // =========================================================
-  // DOM ELEMENTS
-  // =========================================================
+    const enquiryForm =
+      document.getElementById(
+        "enquiryForm"
+      );
 
-  const enquiryForm =
-    document.getElementById("enquiryForm");
+    const submitBtn =
+      document.getElementById(
+        "submitBtn"
+      );
 
-  const submitBtn =
-    document.getElementById("submitBtn");
+    const otpSection =
+      document.getElementById(
+        "otpSection"
+      );
 
-  const otpSection =
-    document.getElementById("otpSection");
+    const emailOtpInput =
+      document.getElementById(
+        "emailOtpInput"
+      );
 
-  const emailOtpInput =
-    document.getElementById("emailOtpInput");
+    const mobileOtpInput =
+      document.getElementById(
+        "mobileOtpInput"
+      );
 
-  const mobileOtpInput =
-    document.getElementById("mobileOtpInput");
+    const verifyBtn =
+      document.getElementById(
+        "verifyBtn"
+      );
 
-  const verifyBtn =
-    document.getElementById("verifyBtn");
+    const verificationMessages =
+      document.getElementById(
+        "verificationMessages"
+      );
 
-  const verificationMessages =
-    document.getElementById("verificationMessages");
+    const verificationInfo =
+      document.getElementById(
+        "verificationInfo"
+      );
 
-  const verificationInfo =
-    document.getElementById("verificationInfo");
+    const fullNameInput =
+      document.getElementById(
+        "fullName"
+      );
 
-  const fullNameInput =
-    document.getElementById("fullName");
+    const mobileInput =
+      document.getElementById(
+        "mobile"
+      );
 
-  const mobileInput =
-    document.getElementById("mobile");
+    const emailInput =
+      document.getElementById(
+        "email"
+      );
 
-  const emailInput =
-    document.getElementById("email");
+    const addressInput =
+      document.getElementById(
+        "address"
+      );
 
-  const addressInput =
-    document.getElementById("address");
+    const cityInput =
+      document.getElementById(
+        "city"
+      );
 
-  const cityInput =
-    document.getElementById("city");
-
-  const messageInput =
-    document.getElementById("message");
-
-
-  // =========================================================
-  // STATE
-  // =========================================================
-
-  let pendingFormData = null;
-  let emailOtpVerified = false;
-  let mobileOtpVerified = false;
-
-
-  // =========================================================
-  // CHECK FORM EXISTS
-  // =========================================================
-
-  if (!enquiryForm) {
-    console.error("Contact form not found.");
-    return;
-  }
+    const messageInput =
+      document.getElementById(
+        "message"
+      );
 
 
-  // =========================================================
-  // SHOW MESSAGE
-  // =========================================================
+    let pendingFormData = null;
 
-  function showMessage(type, message) {
-    if (
-      !verificationMessages ||
-      !verificationInfo
-    ) {
+    let emailOtpVerified = false;
+
+    let mobileOtpVerified = false;
+
+
+    if (!enquiryForm) {
+      console.error(
+        "Contact form not found."
+      );
+
       return;
     }
 
-    verificationMessages.style.display = "block";
-    verificationInfo.className = type;
-    verificationInfo.textContent = message;
-  }
 
-
-  // =========================================================
-  // HIDE MESSAGE
-  // =========================================================
-
-  function hideMessage() {
-    if (
-      !verificationMessages ||
-      !verificationInfo
+    function showMessage(
+      type,
+      message
     ) {
-      return;
+      if (
+        !verificationMessages ||
+        !verificationInfo
+      ) {
+        return;
+      }
+
+      verificationMessages.style.display =
+        "block";
+
+      verificationInfo.className =
+        type;
+
+      verificationInfo.textContent =
+        message;
     }
 
-    verificationMessages.style.display = "none";
-    verificationInfo.textContent = "";
-    verificationInfo.className = "verification-info";
-  }
 
+    function hideMessage() {
+      if (
+        !verificationMessages ||
+        !verificationInfo
+      ) {
+        return;
+      }
 
-  // =========================================================
-  // GET FORM DATA
-  // =========================================================
+      verificationMessages.style.display =
+        "none";
 
-  function getFormData() {
-    return {
-      fullName:
-        fullNameInput.value.trim(),
+      verificationInfo.textContent =
+        "";
 
-      mobile:
-        mobileInput.value.trim(),
-
-      email:
-        emailInput.value.trim(),
-
-      address:
-        addressInput.value.trim(),
-
-      city:
-        cityInput.value.trim(),
-
-      message:
-        messageInput.value.trim()
-    };
-  }
-
-
-  // =========================================================
-  // VALIDATE FORM
-  // =========================================================
-
-  function validateMainForm(data) {
-
-    if (!data.fullName) {
-      throw new Error(
-        "Please enter your full name."
-      );
+      verificationInfo.className =
+        "verification-info";
     }
 
-    if (
-      !/^[A-Za-z][A-Za-z\s.'-]*$/.test(
-        data.fullName
-      )
+
+    function getFormData() {
+      return {
+        fullName:
+          fullNameInput.value.trim(),
+
+        mobile:
+          mobileInput.value.trim(),
+
+        email:
+          emailInput.value
+            .trim()
+            .toLowerCase(),
+
+        address:
+          addressInput.value.trim(),
+
+        city:
+          cityInput.value.trim(),
+
+        message:
+          messageInput.value.trim()
+      };
+    }
+
+
+    function validateMainForm(
+      data
     ) {
-      throw new Error(
-        "Full name should contain only letters, spaces, dots, apostrophes, or hyphens."
-      );
+
+      if (!data.fullName) {
+        throw new Error(
+          "Please enter your full name."
+        );
+      }
+
+
+      if (
+        !/^[A-Za-z][A-Za-z\s.'-]*$/.test(
+          data.fullName
+        )
+      ) {
+        throw new Error(
+          "Please enter a valid full name."
+        );
+      }
+
+
+      if (!data.mobile) {
+        throw new Error(
+          "Please enter your mobile number."
+        );
+      }
+
+
+      if (
+        !/^[6-9][0-9]{9}$/.test(
+          data.mobile
+        )
+      ) {
+        throw new Error(
+          "Please enter a valid 10-digit Indian mobile number."
+        );
+      }
+
+
+      if (
+        /^(\d)\1{9}$/.test(
+          data.mobile
+        )
+      ) {
+        throw new Error(
+          "Please enter a valid mobile number."
+        );
+      }
+
+
+      if (!data.email) {
+        throw new Error(
+          "Please enter your email address."
+        );
+      }
+
+
+      if (
+        !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(
+          data.email
+        )
+      ) {
+        throw new Error(
+          "Please enter a valid email address."
+        );
+      }
+
+
+      if (!data.address) {
+        throw new Error(
+          "Please enter your address."
+        );
+      }
+
+
+      if (
+        data.address.length < 5
+      ) {
+        throw new Error(
+          "Please enter a valid address."
+        );
+      }
+
+
+      if (!data.city) {
+        throw new Error(
+          "Please enter your city."
+        );
+      }
+
+
+      if (
+        !/^[A-Za-z\s.'-]+$/.test(
+          data.city
+        )
+      ) {
+        throw new Error(
+          "Please enter a valid city name."
+        );
+      }
+
+
+      if (!data.message) {
+        throw new Error(
+          "Please enter your message."
+        );
+      }
+
+
+      if (
+        data.message.length < 3
+      ) {
+        throw new Error(
+          "Message must contain at least 3 characters."
+        );
+      }
     }
 
 
-    if (!data.mobile) {
-      throw new Error(
-        "Please enter your mobile number."
-      );
-    }
-
-    if (
-      !/^[6-9][0-9]{9}$/.test(
-        data.mobile
-      )
-    ) {
-      throw new Error(
-        "Please enter a valid 10-digit Indian mobile number."
-      );
-    }
-
-    if (
-      /^(\d)\1{9}$/.test(
-        data.mobile
-      )
-    ) {
-      throw new Error(
-        "Please enter a valid mobile number."
-      );
-    }
-
-
-    if (!data.email) {
-      throw new Error(
-        "Please enter your email address."
-      );
-    }
-
-    if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(
-        data.email
-      )
-    ) {
-      throw new Error(
-        "Please enter a valid email address."
-      );
-    }
-
-
-    if (!data.address) {
-      throw new Error(
-        "Please enter your address."
-      );
-    }
-
-    if (data.address.length < 5) {
-      throw new Error(
-        "Please enter a valid address."
-      );
-    }
-
-
-    if (!data.city) {
-      throw new Error(
-        "Please enter your city."
-      );
-    }
-
-    if (
-      !/^[A-Za-z\s.'-]+$/.test(
-        data.city
-      )
-    ) {
-      throw new Error(
-        "Please enter a valid city name."
-      );
-    }
-
-
-    if (!data.message) {
-      throw new Error(
-        "Please enter your message."
-      );
-    }
-
-    if (data.message.length < 3) {
-      throw new Error(
-        "Message must contain at least 3 characters."
-      );
-    }
-  }
-
-
-  // =========================================================
-  // READ API RESPONSE
-  // =========================================================
-
-  async function readApiResponse(
-    response,
-    fallbackMessage
-  ) {
-    const contentType =
-      response.headers.get(
-        "content-type"
-      ) || "";
-
-    if (
-      contentType.includes(
-        "application/json"
-      )
-    ) {
-      return await response.json();
-    }
-
-    const text =
-      await response.text();
-
-    console.error(
-      "Non-JSON backend response:",
-      text
-    );
-
-    throw new Error(
+    async function readApiResponse(
+      response,
       fallbackMessage
-    );
-  }
-
-
-  // =========================================================
-  // SEND EMAIL OTP
-  // =========================================================
-
-  async function sendEmailOtp(data) {
-    console.log(
-      "Sending email OTP...",
-      data.email
-    );
-
-    const response =
-      await fetch(
-        `${API_BASE_URL}/send-otp`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            email:
-              data.email,
-
-            mobile:
-              data.mobile
-          })
-        }
-      );
-
-    const result =
-      await readApiResponse(
-        response,
-        "Unable to send email OTP."
-      );
-
-    console.log(
-      "Email OTP API:",
-      result
-    );
-
-    if (
-      !response.ok ||
-      result.success === false
     ) {
-      throw new Error(
-        result.message ||
-        "Email OTP sending failed."
-      );
-    }
-
-    return result;
-  }
+      const contentType =
+        response.headers.get(
+          "content-type"
+        ) || "";
 
 
-  // =========================================================
-  // SEND MOBILE OTP
-  // IMPORTANT FIX:
-  // NOW SENDS BOTH MOBILE + EMAIL
-  // =========================================================
-
-  async function sendMobileOtp(data) {
-    console.log(
-      "Sending mobile OTP...",
-      {
-        mobile: data.mobile,
-        email: data.email
+      if (
+        contentType.includes(
+          "application/json"
+        )
+      ) {
+        return await response.json();
       }
-    );
 
-    const response =
-      await fetch(
-        `${API_BASE_URL}/send-mobile-otp`,
+
+      const text =
+        await response.text();
+
+
+      console.error(
+        "Non JSON response:",
+        text
+      );
+
+
+      throw new Error(
+        fallbackMessage
+      );
+    }
+
+
+    async function sendEmailOtp(
+      data
+    ) {
+      console.log(
+        "SEND EMAIL OTP PAYLOAD:",
         {
-          method: "POST",
+          email:
+            data.email,
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            mobile:
-              data.mobile,
-
-            email:
-              data.email
-          })
+          mobile:
+            data.mobile
         }
       );
 
-    const result =
-      await readApiResponse(
-        response,
-        "Unable to send mobile OTP."
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/send-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                email:
+                  data.email,
+
+                mobile:
+                  data.mobile
+              })
+          }
+        );
+
+
+      const result =
+        await readApiResponse(
+          response,
+          "Unable to send email OTP."
+        );
+
+
+      console.log(
+        "EMAIL OTP RESPONSE:",
+        result
       );
 
-    console.log(
-      "Mobile OTP API:",
-      result
-    );
 
-    if (
-      !response.ok ||
-      result.success === false
-    ) {
-      throw new Error(
-        result.message ||
-        "Mobile OTP sending failed."
-      );
-    }
-
-    return result;
-  }
-
-
-  // =========================================================
-  // VERIFY EMAIL OTP
-  // =========================================================
-
-  async function verifyEmailOtp(
-    data,
-    otp
-  ) {
-    const response =
-      await fetch(
-        `${API_BASE_URL}/verify-otp`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            email:
-              data.email,
-
-            otp:
-              otp
-          })
-        }
-      );
-
-    const result =
-      await readApiResponse(
-        response,
-        "Unable to verify email OTP."
-      );
-
-    if (
-      !response.ok ||
-      result.success === false
-    ) {
-      throw new Error(
-        result.message ||
-        "Email OTP verification failed."
-      );
-    }
-
-    return result;
-  }
-
-
-  // =========================================================
-  // VERIFY MOBILE OTP
-  // IMPORTANT FIX:
-  // NOW SENDS MOBILE + EMAIL + OTP
-  // =========================================================
-
-  async function verifyMobileOtp(
-    data,
-    otp
-  ) {
-    const response =
-      await fetch(
-        `${API_BASE_URL}/verify-mobile-otp`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            mobile:
-              data.mobile,
-
-            email:
-              data.email,
-
-            otp:
-              otp
-          })
-        }
-      );
-
-    const result =
-      await readApiResponse(
-        response,
-        "Unable to verify mobile OTP."
-      );
-
-    if (
-      !response.ok ||
-      result.success === false
-    ) {
-      throw new Error(
-        result.message ||
-        "Mobile OTP verification failed."
-      );
-    }
-
-    return result;
-  }
-
-
-  // =========================================================
-  // FINAL CONTACT SUBMISSION
-  // =========================================================
-
-  async function submitContactForm(
-    data
-  ) {
-    console.log(
-      "Submitting contact form..."
-    );
-
-    const response =
-      await fetch(
-        `${API_BASE_URL}/contact`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            fullName:
-              data.fullName,
-
-            mobile:
-              data.mobile,
-
-            email:
-              data.email,
-
-            address:
-              data.address,
-
-            city:
-              data.city,
-
-            message:
-              data.message
-          })
-        }
-      );
-
-    const result =
-      await readApiResponse(
-        response,
-        "Unable to submit the contact form."
-      );
-
-    console.log(
-      "Contact API:",
-      result
-    );
-
-    if (
-      !response.ok ||
-      result.success === false
-    ) {
-      throw new Error(
-        result.message ||
-        "Contact form submission failed."
-      );
-    }
-
-    return result;
-  }
-
-
-  // =========================================================
-  // RESET OTP
-  // =========================================================
-
-  function resetOtpState() {
-    emailOtpVerified = false;
-    mobileOtpVerified = false;
-
-    if (emailOtpInput) {
-      emailOtpInput.value = "";
-    }
-
-    if (mobileOtpInput) {
-      mobileOtpInput.value = "";
-    }
-
-    if (verifyBtn) {
-      verifyBtn.style.display = "none";
-      verifyBtn.disabled = false;
-      verifyBtn.textContent = "Verify OTP";
-    }
-  }
-
-
-  // =========================================================
-  // CHECK OTP INPUTS
-  // =========================================================
-
-  function checkOtpInputs() {
-    if (
-      !emailOtpInput ||
-      !mobileOtpInput ||
-      !verifyBtn
-    ) {
-      return;
-    }
-
-    const emailOtp =
-      emailOtpInput.value.trim();
-
-    const mobileOtp =
-      mobileOtpInput.value.trim();
-
-    if (
-      /^[0-9]{6}$/.test(emailOtp) &&
-      /^[0-9]{6}$/.test(mobileOtp)
-    ) {
-      verifyBtn.style.display = "block";
-    } else {
-      verifyBtn.style.display = "none";
-    }
-  }
-
-
-  // =========================================================
-  // OTP INPUT SETUP
-  // =========================================================
-
-  function setupOtpInput(input) {
-    if (!input) {
-      return;
-    }
-
-    input.setAttribute(
-      "inputmode",
-      "numeric"
-    );
-
-    input.setAttribute(
-      "maxlength",
-      "6"
-    );
-
-    input.addEventListener(
-      "input",
-      function () {
-        this.value =
-          this.value
-            .replace(/[^0-9]/g, "")
-            .slice(0, 6);
-
-        checkOtpInputs();
+      if (
+        !response.ok ||
+        result.success === false
+      ) {
+        throw new Error(
+          result.message ||
+          "Email OTP sending failed."
+        );
       }
+
+
+      return result;
+    }
+
+
+    async function sendMobileOtp(
+      data
+    ) {
+      console.log(
+        "SEND MOBILE OTP PAYLOAD:",
+        {
+          mobile:
+            data.mobile,
+
+          email:
+            data.email
+        }
+      );
+
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/send-mobile-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                mobile:
+                  data.mobile,
+
+                email:
+                  data.email
+              })
+          }
+        );
+
+
+      const result =
+        await readApiResponse(
+          response,
+          "Unable to send mobile OTP."
+        );
+
+
+      console.log(
+        "MOBILE OTP RESPONSE:",
+        result
+      );
+
+
+      if (
+        !response.ok ||
+        result.success === false
+      ) {
+        throw new Error(
+          result.message ||
+          "Mobile OTP sending failed."
+        );
+      }
+
+
+      return result;
+    }
+
+
+    async function verifyEmailOtp(
+      data,
+      otp
+    ) {
+      const response =
+        await fetch(
+          `${API_BASE_URL}/verify-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                email:
+                  data.email,
+
+                otp:
+                  otp
+              })
+          }
+        );
+
+
+      const result =
+        await readApiResponse(
+          response,
+          "Unable to verify email OTP."
+        );
+
+
+      if (
+        !response.ok ||
+        result.success === false
+      ) {
+        throw new Error(
+          result.message ||
+          "Email OTP verification failed."
+        );
+      }
+
+
+      return result;
+    }
+
+
+    async function verifyMobileOtp(
+      data,
+      otp
+    ) {
+      console.log(
+        "VERIFY MOBILE OTP PAYLOAD:",
+        {
+          mobile:
+            data.mobile,
+
+          email:
+            data.email,
+
+          otp:
+            otp
+        }
+      );
+
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/verify-mobile-otp`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                mobile:
+                  data.mobile,
+
+                email:
+                  data.email,
+
+                otp:
+                  otp
+              })
+          }
+        );
+
+
+      const result =
+        await readApiResponse(
+          response,
+          "Unable to verify mobile OTP."
+        );
+
+
+      if (
+        !response.ok ||
+        result.success === false
+      ) {
+        throw new Error(
+          result.message ||
+          "Mobile OTP verification failed."
+        );
+      }
+
+
+      return result;
+    }
+
+
+    async function submitContactForm(
+      data
+    ) {
+      const response =
+        await fetch(
+          `${API_BASE_URL}/contact`,
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify({
+                fullName:
+                  data.fullName,
+
+                mobile:
+                  data.mobile,
+
+                email:
+                  data.email,
+
+                address:
+                  data.address,
+
+                city:
+                  data.city,
+
+                message:
+                  data.message
+              })
+          }
+        );
+
+
+      const result =
+        await readApiResponse(
+          response,
+          "Unable to submit contact form."
+        );
+
+
+      if (
+        !response.ok ||
+        result.success === false
+      ) {
+        throw new Error(
+          result.message ||
+          "Contact form submission failed."
+        );
+      }
+
+
+      return result;
+    }
+
+
+    function resetOtpState() {
+      emailOtpVerified =
+        false;
+
+      mobileOtpVerified =
+        false;
+
+
+      if (emailOtpInput) {
+        emailOtpInput.value =
+          "";
+      }
+
+
+      if (mobileOtpInput) {
+        mobileOtpInput.value =
+          "";
+      }
+
+
+      if (verifyBtn) {
+        verifyBtn.style.display =
+          "none";
+
+        verifyBtn.disabled =
+          false;
+
+        verifyBtn.textContent =
+          "Verify OTP";
+      }
+    }
+
+
+    function checkOtpInputs() {
+      if (
+        !emailOtpInput ||
+        !mobileOtpInput ||
+        !verifyBtn
+      ) {
+        return;
+      }
+
+
+      const emailOtp =
+        emailOtpInput.value.trim();
+
+
+      const mobileOtp =
+        mobileOtpInput.value.trim();
+
+
+      if (
+        /^[0-9]{6}$/.test(
+          emailOtp
+        ) &&
+        /^[0-9]{6}$/.test(
+          mobileOtp
+        )
+      ) {
+        verifyBtn.style.display =
+          "block";
+      } else {
+        verifyBtn.style.display =
+          "none";
+      }
+    }
+
+
+    function setupOtpInput(
+      input
+    ) {
+      if (!input) {
+        return;
+      }
+
+
+      input.addEventListener(
+        "input",
+        function () {
+          this.value =
+            this.value
+              .replace(
+                /[^0-9]/g,
+                ""
+              )
+              .slice(
+                0,
+                6
+              );
+
+
+          checkOtpInputs();
+        }
+      );
+
+
+      input.addEventListener(
+        "paste",
+        function (event) {
+          event.preventDefault();
+
+
+          const text =
+            event.clipboardData
+              .getData(
+                "text"
+              );
+
+
+          this.value =
+            text
+              .replace(
+                /[^0-9]/g,
+                ""
+              )
+              .slice(
+                0,
+                6
+              );
+
+
+          checkOtpInputs();
+        }
+      );
+    }
+
+
+    setupOtpInput(
+      emailOtpInput
     );
 
-    input.addEventListener(
-      "paste",
-      function (event) {
+
+    setupOtpInput(
+      mobileOtpInput
+    );
+
+
+    if (mobileInput) {
+      mobileInput.addEventListener(
+        "input",
+        function () {
+          this.value =
+            this.value
+              .replace(
+                /[^0-9]/g,
+                ""
+              )
+              .slice(
+                0,
+                10
+              );
+
+
+          resetOtpState();
+        }
+      );
+    }
+
+
+    if (emailInput) {
+      emailInput.addEventListener(
+        "input",
+        function () {
+          resetOtpState();
+        }
+      );
+    }
+
+
+    enquiryForm.addEventListener(
+      "submit",
+      async function (event) {
+
         event.preventDefault();
-
-        const pasted =
-          event.clipboardData
-            .getData("text");
-
-        this.value =
-          pasted
-            .replace(/[^0-9]/g, "")
-            .slice(0, 6);
-
-        checkOtpInputs();
-      }
-    );
-  }
-
-
-  setupOtpInput(
-    emailOtpInput
-  );
-
-  setupOtpInput(
-    mobileOtpInput
-  );
-
-
-  // =========================================================
-  // MOBILE FIELD - DIGITS ONLY
-  // =========================================================
-
-  if (mobileInput) {
-    mobileInput.addEventListener(
-      "input",
-      function () {
-        this.value =
-          this.value
-            .replace(/[^0-9]/g, "")
-            .slice(0, 10);
-
-        resetOtpState();
-      }
-    );
-  }
-
-
-  // =========================================================
-  // RESET OTP IF EMAIL CHANGES
-  // =========================================================
-
-  if (emailInput) {
-    emailInput.addEventListener(
-      "input",
-      function () {
-        resetOtpState();
-      }
-    );
-  }
-
-
-  // =========================================================
-  // MAIN FORM SUBMIT
-  // =========================================================
-
-  enquiryForm.addEventListener(
-    "submit",
-    async function (event) {
-
-      event.preventDefault();
-
-      hideMessage();
-
-      const formData =
-        getFormData();
-
-      try {
-
-        // -----------------------------------------
-        // VALIDATION
-        // -----------------------------------------
-
-        validateMainForm(
-          formData
-        );
-
-
-        // -----------------------------------------
-        // SAVE FORM TEMPORARILY
-        // -----------------------------------------
-
-        pendingFormData = {
-          ...formData
-        };
-
-
-        resetOtpState();
-
-
-        // -----------------------------------------
-        // DISABLE SUBMIT BUTTON
-        // -----------------------------------------
-
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent =
-            "Sending OTP...";
-        }
-
-
-        showMessage(
-          "verification-info",
-          "Please wait. Sending OTP to your email and mobile number..."
-        );
-
-
-        // =========================================
-        // SEND EMAIL OTP
-        // =========================================
-
-        await sendEmailOtp(
-          pendingFormData
-        );
-
-
-        // =========================================
-        // SEND MOBILE OTP
-        // =========================================
-
-        await sendMobileOtp(
-          pendingFormData
-        );
-
-
-        // =========================================
-        // SHOW OTP SECTION
-        // =========================================
-
-        if (otpSection) {
-          otpSection.style.display =
-            "block";
-
-          otpSection.scrollIntoView({
-            behavior:
-              "smooth",
-
-            block:
-              "center"
-          });
-        }
-
-
-        showMessage(
-          "verification-info",
-          `OTP sent successfully to ${formData.email} and ${formData.mobile}. Please enter both OTPs.`
-        );
-
-      } catch (error) {
-
-        console.error(
-          "Send OTP error:",
-          error
-        );
-
-        pendingFormData = null;
-
-        showMessage(
-          "verification-error",
-          error.message ||
-          "Unable to send OTP. Please try again."
-        );
-
-      } finally {
-
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent =
-            "Submit";
-        }
-
-      }
-    }
-  );
-
-
-  // =========================================================
-  // VERIFY OTP BUTTON
-  // =========================================================
-
-  if (verifyBtn) {
-    verifyBtn.addEventListener(
-      "click",
-      async function () {
 
         hideMessage();
 
 
-        // -----------------------------------------
-        // CHECK SAVED FORM DATA
-        // -----------------------------------------
-
-        if (!pendingFormData) {
-          showMessage(
-            "verification-error",
-            "Please submit the contact form first."
-          );
-
-          return;
-        }
-
-
-        // -----------------------------------------
-        // GET OTP VALUES
-        // -----------------------------------------
-
-        const emailOtp =
-          emailOtpInput
-            ? emailOtpInput.value.trim()
-            : "";
-
-        const mobileOtp =
-          mobileOtpInput
-            ? mobileOtpInput.value.trim()
-            : "";
-
-
-        // -----------------------------------------
-        // VALIDATE EMAIL OTP
-        // -----------------------------------------
-
-        if (
-          !/^[0-9]{6}$/.test(
-            emailOtp
-          )
-        ) {
-          showMessage(
-            "verification-error",
-            "Please enter a valid 6-digit email OTP."
-          );
-
-          return;
-        }
-
-
-        // -----------------------------------------
-        // VALIDATE MOBILE OTP
-        // -----------------------------------------
-
-        if (
-          !/^[0-9]{6}$/.test(
-            mobileOtp
-          )
-        ) {
-          showMessage(
-            "verification-error",
-            "Please enter a valid 6-digit mobile OTP."
-          );
-
-          return;
-        }
+        const formData =
+          getFormData();
 
 
         try {
-
-          verifyBtn.disabled = true;
-          verifyBtn.textContent =
-            "Verifying...";
-
-
-          // =======================================
-          // VERIFY EMAIL OTP
-          // =======================================
-
-          showMessage(
-            "verification-info",
-            "Verifying email OTP..."
+          validateMainForm(
+            formData
           );
 
-          await verifyEmailOtp(
-            pendingFormData,
-            emailOtp
-          );
 
-          emailOtpVerified = true;
+          pendingFormData = {
+            ...formData
+          };
 
 
-          // =======================================
-          // VERIFY MOBILE OTP
-          // =======================================
-
-          showMessage(
-            "verification-info",
-            "Email OTP verified. Verifying mobile OTP..."
-          );
-
-          await verifyMobileOtp(
-            pendingFormData,
-            mobileOtp
-          );
-
-          mobileOtpVerified = true;
+          resetOtpState();
 
 
-          // =======================================
-          // VERIFY BOTH
-          // =======================================
+          if (submitBtn) {
+            submitBtn.disabled =
+              true;
 
-          if (
-            !emailOtpVerified ||
-            !mobileOtpVerified
-          ) {
-            throw new Error(
-              "OTP verification failed."
-            );
+            submitBtn.textContent =
+              "Sending OTP...";
           }
 
 
-          // =======================================
-          // SUBMIT CONTACT FORM
-          // =======================================
-
           showMessage(
             "verification-info",
-            "OTP verified successfully. Submitting your enquiry..."
+            "Please wait. Sending OTP to your email and mobile number..."
           );
 
-          await submitContactForm(
+
+          /*
+            EMAIL OTP
+          */
+          await sendEmailOtp(
             pendingFormData
           );
 
 
-          // =======================================
-          // SUCCESS
-          // =======================================
-
-          showMessage(
-            "verification-success",
-            "Email OTP and mobile OTP verified successfully. Your enquiry has been submitted successfully."
+          /*
+            MOBILE OTP
+            IMPORTANT:
+            pendingFormData contains BOTH
+            mobile and email
+          */
+          await sendMobileOtp(
+            pendingFormData
           );
 
 
-          // =======================================
-          // RESET MAIN FORM
-          // =======================================
-
-          enquiryForm.reset();
-
-
-          // =======================================
-          // CLEAR OTP INPUTS
-          // =======================================
-
-          if (emailOtpInput) {
-            emailOtpInput.value = "";
-          }
-
-          if (mobileOtpInput) {
-            mobileOtpInput.value = "";
-          }
-
-
-          // =======================================
-          // HIDE OTP SECTION
-          // =======================================
-
           if (otpSection) {
             otpSection.style.display =
-              "none";
+              "block";
+
+
+            otpSection.scrollIntoView({
+              behavior:
+                "smooth",
+
+              block:
+                "center"
+            });
           }
 
-          verifyBtn.style.display =
-            "none";
 
-
-          // =======================================
-          // RESET STATE
-          // =======================================
-
-          pendingFormData = null;
-          emailOtpVerified = false;
-          mobileOtpVerified = false;
+          showMessage(
+            "verification-info",
+            `OTP sent successfully to ${pendingFormData.email} and ${pendingFormData.mobile}. Please enter both OTPs.`
+          );
 
 
         } catch (error) {
 
           console.error(
-            "Verify OTP error:",
+            "SEND OTP ERROR:",
             error
           );
 
-          emailOtpVerified = false;
-          mobileOtpVerified = false;
 
           showMessage(
             "verification-error",
             error.message ||
-            "OTP verification failed. Please try again."
+            "Unable to send OTP."
           );
+
 
         } finally {
 
-          verifyBtn.disabled = false;
-          verifyBtn.textContent =
-            "Verify OTP";
+          if (submitBtn) {
+            submitBtn.disabled =
+              false;
+
+            submitBtn.textContent =
+              "Submit";
+          }
 
         }
       }
     );
-  }
 
-});
+
+    if (verifyBtn) {
+      verifyBtn.addEventListener(
+        "click",
+        async function () {
+
+          hideMessage();
+
+
+          if (
+            !pendingFormData
+          ) {
+            showMessage(
+              "verification-error",
+              "Please submit the contact form first."
+            );
+
+            return;
+          }
+
+
+          const emailOtp =
+            emailOtpInput
+              ? emailOtpInput.value.trim()
+              : "";
+
+
+          const mobileOtp =
+            mobileOtpInput
+              ? mobileOtpInput.value.trim()
+              : "";
+
+
+          if (
+            !/^[0-9]{6}$/.test(
+              emailOtp
+            )
+          ) {
+            showMessage(
+              "verification-error",
+              "Please enter a valid 6-digit email OTP."
+            );
+
+            return;
+          }
+
+
+          if (
+            !/^[0-9]{6}$/.test(
+              mobileOtp
+            )
+          ) {
+            showMessage(
+              "verification-error",
+              "Please enter a valid 6-digit mobile OTP."
+            );
+
+            return;
+          }
+
+
+          try {
+
+            verifyBtn.disabled =
+              true;
+
+            verifyBtn.textContent =
+              "Verifying...";
+
+
+            showMessage(
+              "verification-info",
+              "Verifying email OTP..."
+            );
+
+
+            await verifyEmailOtp(
+              pendingFormData,
+              emailOtp
+            );
+
+
+            emailOtpVerified =
+              true;
+
+
+            showMessage(
+              "verification-info",
+              "Email OTP verified. Verifying mobile OTP..."
+            );
+
+
+            await verifyMobileOtp(
+              pendingFormData,
+              mobileOtp
+            );
+
+
+            mobileOtpVerified =
+              true;
+
+
+            if (
+              !emailOtpVerified ||
+              !mobileOtpVerified
+            ) {
+              throw new Error(
+                "OTP verification failed."
+              );
+            }
+
+
+            showMessage(
+              "verification-info",
+              "OTP verified successfully. Submitting your enquiry..."
+            );
+
+
+            await submitContactForm(
+              pendingFormData
+            );
+
+
+            showMessage(
+              "verification-success",
+              "Email OTP and mobile OTP verified successfully. Your enquiry has been submitted successfully."
+            );
+
+
+            enquiryForm.reset();
+
+
+            if (emailOtpInput) {
+              emailOtpInput.value =
+                "";
+            }
+
+
+            if (mobileOtpInput) {
+              mobileOtpInput.value =
+                "";
+            }
+
+
+            if (otpSection) {
+              otpSection.style.display =
+                "none";
+            }
+
+
+            verifyBtn.style.display =
+              "none";
+
+
+            pendingFormData =
+              null;
+
+            emailOtpVerified =
+              false;
+
+            mobileOtpVerified =
+              false;
+
+
+          } catch (error) {
+
+            console.error(
+              "VERIFY OTP ERROR:",
+              error
+            );
+
+
+            emailOtpVerified =
+              false;
+
+            mobileOtpVerified =
+              false;
+
+
+            showMessage(
+              "verification-error",
+              error.message ||
+              "OTP verification failed."
+            );
+
+
+          } finally {
+
+            verifyBtn.disabled =
+              false;
+
+            verifyBtn.textContent =
+              "Verify OTP";
+
+          }
+        }
+      );
+    }
+
+  }
+);
