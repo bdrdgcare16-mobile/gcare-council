@@ -4,9 +4,11 @@
 //       id: "student",
 //       title: "Student Admission Form",
 //       category: "Admission",
-//       description: "Application form for student admission and enrollment process.",
+//       description: "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
+//       onlinePage: "admission-online.html",
 //       file: "assets/forms/Student-Admission-Form.pdf",
-//       downloadName: "Student-Admission-Form.pdf"
+//       downloadName: "Student-Admission-Form.pdf",
+//       hasOnlineForm: true
 //     },
 //     {
 //       id: "internship",
@@ -14,7 +16,8 @@
 //       category: "Training",
 //       description: "Official form for internship request, approval, and submission details.",
 //       file: "assets/forms/internship-form.pdf",
-//       downloadName: "Internship-Form.pdf"
+//       downloadName: "Internship-Form.pdf",
+//       hasOnlineForm: false
 //     },
 //     {
 //       id: "report",
@@ -22,7 +25,8 @@
 //       category: "Training",
 //       description: "Official report form for internship completion and submission process.",
 //       file: "assets/forms/internship-report-form.pdf",
-//       downloadName: "Internship-Report-Form.pdf"
+//       downloadName: "Internship-Report-Form.pdf",
+//       hasOnlineForm: false
 //     }
 //   ];
 
@@ -34,7 +38,6 @@
 //   const selectedFormTitle = document.getElementById("selectedFormTitle");
 //   const selectedFormDescription = document.getElementById("selectedFormDescription");
 //   const selectedFormActions = document.getElementById("selectedFormActions");
-//   const selectedDownloadBtn = document.getElementById("selectedDownloadBtn");
 
 //   let currentForms = [...formsData];
 
@@ -94,6 +97,19 @@
 //     });
 //   }
 
+//   function getActionButtons(form) {
+//     if (form.hasOnlineForm) {
+//       return `
+//         <a href="${form.onlinePage}" class="download-btn">Online Form</a>
+//         <a href="${form.file}" download="${form.downloadName}" class="secondary-btn">Offline Form</a>
+//       `;
+//     }
+
+//     return `
+//       <a href="${form.file}" download="${form.downloadName}" class="secondary-btn">Download</a>
+//     `;
+//   }
+
 //   function createCard(form) {
 //     return `
 //       <div class="download-card reveal show" data-form-id="${form.id}" data-category="${form.category}" id="${form.id}">
@@ -106,9 +122,7 @@
 //         <p>${form.description}</p>
 
 //         <div class="card-actions">
-//           <a href="${form.file}" download="${form.downloadName}" class="secondary-btn">
-//             Download
-//           </a>
+//           ${getActionButtons(form)}
 //         </div>
 //       </div>
 //     `;
@@ -120,15 +134,11 @@
 //     downloadsGrid.innerHTML = "";
 
 //     if (!forms.length) {
-//       if (noResults) {
-//         noResults.style.display = "block";
-//       }
+//       if (noResults) noResults.style.display = "block";
 //       return;
 //     }
 
-//     if (noResults) {
-//       noResults.style.display = "none";
-//     }
+//     if (noResults) noResults.style.display = "none";
 
 //     forms.forEach(function (form) {
 //       downloadsGrid.insertAdjacentHTML("beforeend", createCard(form));
@@ -136,26 +146,20 @@
 //   }
 
 //   function updateSelectedForm(form) {
-//     if (
-//       !selectedFormTitle ||
-//       !selectedFormDescription ||
-//       !selectedFormActions ||
-//       !selectedDownloadBtn
-//     ) {
+//     if (!selectedFormTitle || !selectedFormDescription || !selectedFormActions) return;
+
+//     if (!form) {
+//       selectedFormTitle.textContent = "Select a form from dropdown";
+//       selectedFormDescription.textContent = "Choose a form to view available actions.";
+//       selectedFormActions.innerHTML = "";
+//       selectedFormActions.style.display = "none";
 //       return;
 //     }
 
-//     if (form) {
-//       selectedFormTitle.textContent = form.title;
-//       selectedFormDescription.textContent = form.description;
-//       selectedDownloadBtn.href = form.file;
-//       selectedDownloadBtn.setAttribute("download", form.downloadName);
-//       selectedFormActions.style.display = "flex";
-//     } else {
-//       selectedFormTitle.textContent = "Select a form from dropdown";
-//       selectedFormDescription.textContent = "Choose a form to view details and actions.";
-//       selectedFormActions.style.display = "none";
-//     }
+//     selectedFormTitle.textContent = form.title;
+//     selectedFormDescription.textContent = form.description;
+//     selectedFormActions.innerHTML = getActionButtons(form);
+//     selectedFormActions.style.display = "flex";
 //   }
 
 //   function filterForms() {
@@ -175,28 +179,19 @@
 //     });
 
 //     renderCards(currentForms);
-
-//     if (currentForms.length > 0) {
-//       updateSelectedForm(currentForms[0]);
-//     } else {
-//       updateSelectedForm(null);
-//     }
+//     updateSelectedForm(currentForms.length ? currentForms[0] : null);
 //   }
 
 //   function showFormFromHash() {
 //     const hashValue = window.location.hash.replace("#", "");
 
-//     if (!hashValue) {
-//       return;
-//     }
+//     if (!hashValue) return;
 
 //     const selectedForm = formsData.find(function (form) {
 //       return form.id === hashValue;
 //     });
 
-//     if (!selectedForm) {
-//       return;
-//     }
+//     if (!selectedForm) return;
 
 //     currentForms = [selectedForm];
 
@@ -227,9 +222,6 @@
 //     downloadLinks.forEach(function (link) {
 //       link.addEventListener("click", function (event) {
 //         const formId = this.getAttribute("data-form-id");
-
-//         if (!formId) return;
-
 //         const selectedForm = formsData.find(function (form) {
 //           return form.id === formId;
 //         });
@@ -264,17 +256,12 @@
 //   function setupSocialButtons() {
 //     const socialButtons = document.querySelectorAll(".social-btn");
 
-//     socialButtons.forEach(function (button) {
-//       button.addEventListener("click", function (event) {
-//         event.preventDefault();
-
-//         socialButtons.forEach(function (btn) {
-//           btn.classList.remove("active-social");
-//         });
-
-//         this.classList.add("active-social");
-//       });
-//     });
+//     socialButtons.forEach((button) => {
+//   button.addEventListener("click", function () {
+//     socialButtons.forEach((btn) => btn.classList.remove("active-social"));
+//     this.classList.add("active-social");
+//   });
+// });
 //   }
 
 //   function setupFooterLinks() {
@@ -313,33 +300,38 @@
 // });
 
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const formsData = [
     {
       id: "student",
       title: "Student Admission Form",
       category: "Admission",
-      description: "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
+      description:
+        "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
       onlinePage: "admission-online.html",
       file: "assets/forms/Student-Admission-Form.pdf",
       downloadName: "Student-Admission-Form.pdf",
       hasOnlineForm: true
     },
+
     {
       id: "internship",
       title: "Internship Form",
       category: "Training",
-      description: "Official form for internship request, approval, and submission details.",
-      file: "assets/forms/internship-form.pdf",
-      downloadName: "Internship-Form.pdf",
-      hasOnlineForm: false
+      description:
+        "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
+      onlinePage: "internship-online.html",
+      file: "assets/forms/Internship-Form.pdf",
+      downloadName: "TNSCVT-Internship-Form.pdf",
+      hasOnlineForm: true
     },
+
     {
       id: "report",
       title: "Internship Report Form",
       category: "Training",
-      description: "Official report form for internship completion and submission process.",
+      description:
+        "Official report form for internship completion and submission process.",
       file: "assets/forms/internship-report-form.pdf",
       downloadName: "Internship-Report-Form.pdf",
       hasOnlineForm: false
@@ -351,9 +343,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const filterDropdown = document.getElementById("formFilter");
   const navDownloadList = document.getElementById("navDownloadList");
   const noResults = document.getElementById("noResults");
-  const selectedFormTitle = document.getElementById("selectedFormTitle");
-  const selectedFormDescription = document.getElementById("selectedFormDescription");
-  const selectedFormActions = document.getElementById("selectedFormActions");
+
+  const selectedFormTitle =
+    document.getElementById("selectedFormTitle");
+
+  const selectedFormDescription =
+    document.getElementById("selectedFormDescription");
+
+  const selectedFormActions =
+    document.getElementById("selectedFormActions");
 
   let currentForms = [...formsData];
 
@@ -383,14 +381,20 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateDropdown() {
     if (!filterDropdown) return;
 
-    const categories = [...new Set(formsData.map(function (form) {
-      return form.category;
-    }))];
+    const categories = [
+      ...new Set(
+        formsData.map(function (form) {
+          return form.category;
+        })
+      )
+    ];
 
     categories.forEach(function (category) {
       const option = document.createElement("option");
+
       option.value = category;
       option.textContent = category;
+
       filterDropdown.appendChild(option);
     });
   }
@@ -416,21 +420,47 @@ document.addEventListener("DOMContentLoaded", function () {
   function getActionButtons(form) {
     if (form.hasOnlineForm) {
       return `
-        <a href="${form.onlinePage}" class="download-btn">Online Form</a>
-        <a href="${form.file}" download="${form.downloadName}" class="secondary-btn">Offline Form</a>
+        <a
+          href="${form.onlinePage}"
+          class="download-btn"
+        >
+          Online Form
+        </a>
+
+        <a
+          href="${form.file}"
+          download="${form.downloadName}"
+          class="secondary-btn"
+        >
+          Offline Form
+        </a>
       `;
     }
 
     return `
-      <a href="${form.file}" download="${form.downloadName}" class="secondary-btn">Download</a>
+      <a
+        href="${form.file}"
+        download="${form.downloadName}"
+        class="secondary-btn"
+      >
+        Download
+      </a>
     `;
   }
 
   function createCard(form) {
     return `
-      <div class="download-card reveal show" data-form-id="${form.id}" data-category="${form.category}" id="${form.id}">
+      <div
+        class="download-card reveal show"
+        data-form-id="${form.id}"
+        data-category="${form.category}"
+        id="${form.id}"
+      >
+
         <div class="card-top">
-          <span class="card-badge">${form.category}</span>
+          <span class="card-badge">
+            ${form.category}
+          </span>
         </div>
 
         <h4>${form.title}</h4>
@@ -440,6 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="card-actions">
           ${getActionButtons(form)}
         </div>
+
       </div>
     `;
   }
@@ -450,76 +481,129 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadsGrid.innerHTML = "";
 
     if (!forms.length) {
-      if (noResults) noResults.style.display = "block";
+      if (noResults) {
+        noResults.style.display = "block";
+      }
+
       return;
     }
 
-    if (noResults) noResults.style.display = "none";
+    if (noResults) {
+      noResults.style.display = "none";
+    }
 
     forms.forEach(function (form) {
-      downloadsGrid.insertAdjacentHTML("beforeend", createCard(form));
+      downloadsGrid.insertAdjacentHTML(
+        "beforeend",
+        createCard(form)
+      );
     });
   }
 
   function updateSelectedForm(form) {
-    if (!selectedFormTitle || !selectedFormDescription || !selectedFormActions) return;
-
-    if (!form) {
-      selectedFormTitle.textContent = "Select a form from dropdown";
-      selectedFormDescription.textContent = "Choose a form to view available actions.";
-      selectedFormActions.innerHTML = "";
-      selectedFormActions.style.display = "none";
+    if (
+      !selectedFormTitle ||
+      !selectedFormDescription ||
+      !selectedFormActions
+    ) {
       return;
     }
 
-    selectedFormTitle.textContent = form.title;
-    selectedFormDescription.textContent = form.description;
-    selectedFormActions.innerHTML = getActionButtons(form);
-    selectedFormActions.style.display = "flex";
+    if (!form) {
+      selectedFormTitle.textContent =
+        "Select a form from dropdown";
+
+      selectedFormDescription.textContent =
+        "Choose a form to view available actions.";
+
+      selectedFormActions.innerHTML = "";
+
+      selectedFormActions.style.display = "none";
+
+      return;
+    }
+
+    selectedFormTitle.textContent =
+      form.title;
+
+    selectedFormDescription.textContent =
+      form.description;
+
+    selectedFormActions.innerHTML =
+      getActionButtons(form);
+
+    selectedFormActions.style.display =
+      "flex";
   }
 
   function filterForms() {
     if (!filterDropdown) return;
 
-    const selectedValue = filterDropdown.value;
+    const selectedValue =
+      filterDropdown.value;
 
     if (selectedValue === "all") {
       currentForms = [...formsData];
+
       renderCards(currentForms);
+
       updateSelectedForm(null);
+
       return;
     }
 
-    currentForms = formsData.filter(function (form) {
-      return form.category === selectedValue;
-    });
+    currentForms =
+      formsData.filter(function (form) {
+        return (
+          form.category === selectedValue
+        );
+      });
 
     renderCards(currentForms);
-    updateSelectedForm(currentForms.length ? currentForms[0] : null);
+
+    updateSelectedForm(
+      currentForms.length
+        ? currentForms[0]
+        : null
+    );
   }
 
   function showFormFromHash() {
-    const hashValue = window.location.hash.replace("#", "");
+    const hashValue =
+      window.location.hash.replace(
+        "#",
+        ""
+      );
 
     if (!hashValue) return;
 
-    const selectedForm = formsData.find(function (form) {
-      return form.id === hashValue;
-    });
+    const selectedForm =
+      formsData.find(function (form) {
+        return form.id === hashValue;
+      });
 
     if (!selectedForm) return;
 
-    currentForms = [selectedForm];
+    currentForms = [
+      selectedForm
+    ];
 
     renderCards(currentForms);
-    updateSelectedForm(selectedForm);
+
+    updateSelectedForm(
+      selectedForm
+    );
 
     if (filterDropdown) {
-      filterDropdown.value = selectedForm.category;
+      filterDropdown.value =
+        selectedForm.category;
     }
 
     setTimeout(function () {
-      const downloadsSection = document.querySelector(".downloads-section");
+      const downloadsSection =
+        document.querySelector(
+          ".downloads-section"
+        );
 
       if (downloadsSection) {
         downloadsSection.scrollIntoView({
@@ -533,84 +617,164 @@ document.addEventListener("DOMContentLoaded", function () {
   function setupDownloadMenuClick() {
     if (!navDownloadList) return;
 
-    const downloadLinks = navDownloadList.querySelectorAll("a[data-form-id]");
+    const downloadLinks =
+      navDownloadList.querySelectorAll(
+        "a[data-form-id]"
+      );
 
-    downloadLinks.forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        const formId = this.getAttribute("data-form-id");
-        const selectedForm = formsData.find(function (form) {
-          return form.id === formId;
-        });
+    downloadLinks.forEach(
+      function (link) {
+        link.addEventListener(
+          "click",
+          function (event) {
+            const formId =
+              this.getAttribute(
+                "data-form-id"
+              );
 
-        if (!selectedForm) return;
+            const selectedForm =
+              formsData.find(
+                function (form) {
+                  return (
+                    form.id === formId
+                  );
+                }
+              );
 
-        event.preventDefault();
+            if (!selectedForm) {
+              return;
+            }
 
-        window.history.pushState(null, "", "downloads.html#" + formId);
+            event.preventDefault();
 
-        currentForms = [selectedForm];
+            window.history.pushState(
+              null,
+              "",
+              "downloads.html#" +
+                formId
+            );
 
-        renderCards(currentForms);
-        updateSelectedForm(selectedForm);
+            currentForms = [
+              selectedForm
+            ];
 
-        if (filterDropdown) {
-          filterDropdown.value = selectedForm.category;
-        }
+            renderCards(
+              currentForms
+            );
 
-        const downloadsSection = document.querySelector(".downloads-section");
+            updateSelectedForm(
+              selectedForm
+            );
 
-        if (downloadsSection) {
-          downloadsSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        }
-      });
-    });
+            if (filterDropdown) {
+              filterDropdown.value =
+                selectedForm.category;
+            }
+
+            const downloadsSection =
+              document.querySelector(
+                ".downloads-section"
+              );
+
+            if (downloadsSection) {
+              downloadsSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }
+          }
+        );
+      }
+    );
   }
 
   function setupSocialButtons() {
-    const socialButtons = document.querySelectorAll(".social-btn");
+    const socialButtons =
+      document.querySelectorAll(
+        ".social-btn"
+      );
 
-    socialButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
-    this.classList.add("active-social");
-  });
-});
+    socialButtons.forEach(
+      function (button) {
+        button.addEventListener(
+          "click",
+          function () {
+            socialButtons.forEach(
+              function (btn) {
+                btn.classList.remove(
+                  "active-social"
+                );
+              }
+            );
+
+            this.classList.add(
+              "active-social"
+            );
+          }
+        );
+      }
+    );
   }
 
   function setupFooterLinks() {
-    const footerLinks = document.querySelectorAll(".footer-text-link");
+    const footerLinks =
+      document.querySelectorAll(
+        ".footer-text-link"
+      );
 
-    footerLinks.forEach(function (link) {
-      link.addEventListener("click", function () {
-        footerLinks.forEach(function (item) {
-          item.classList.remove("active-footer-link");
-        });
+    footerLinks.forEach(
+      function (link) {
+        link.addEventListener(
+          "click",
+          function () {
+            footerLinks.forEach(
+              function (item) {
+                item.classList.remove(
+                  "active-footer-link"
+                );
+              }
+            );
 
-        this.classList.add("active-footer-link");
-      });
-    });
+            this.classList.add(
+              "active-footer-link"
+            );
+          }
+        );
+      }
+    );
   }
 
   function initialize() {
     populateDropdown();
+
     populateNavDropdown();
+
     renderCards(formsData);
+
     updateSelectedForm(null);
+
     setupRevealAnimation();
+
     setupDownloadMenuClick();
+
     setupSocialButtons();
+
     setupFooterLinks();
+
     showFormFromHash();
 
     if (filterDropdown) {
-      filterDropdown.addEventListener("change", filterForms);
+      filterDropdown.addEventListener(
+        "change",
+        filterForms
+      );
     }
   }
 
   initialize();
 
-  window.addEventListener("hashchange", showFormFromHash);
+  window.addEventListener(
+    "hashchange",
+    showFormFromHash
+  );
 });

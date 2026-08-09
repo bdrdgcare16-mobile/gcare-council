@@ -1,0 +1,794 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Times New Roman", serif;
+  background: #edf5fb;
+  color: #17283b;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.internship-page {
+  padding: 55px 20px 80px;
+}
+
+.internship-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 7px double #172e80;
+  padding: 40px 42px 50px;
+  box-shadow: 0 16px 45px rgba(0, 44, 85, 0.15);
+}
+
+
+/* =========================
+   OFFICIAL HEADER
+========================= */
+
+.official-header {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.official-header h1 {
+  color: #193552;
+  font-family: Arial, sans-serif;
+  font-size: 2.65rem;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.autonomous-bar {
+  max-width: 760px;
+  margin: 14px auto 16px;
+  padding: 8px 15px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ed9540,
+      #ffe1c2,
+      #ed9540
+    );
+
+  color: #234264;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+}
+
+.official-contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.official-header h2 {
+  margin-top: 30px;
+  color: #111111;
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group > label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #222222;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.required {
+  color: #d32222;
+}
+
+.note {
+  color: #555555;
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+.optional-text {
+  color: #687786;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-left: 5px;
+}
+
+.field-help {
+  display: block;
+  margin-top: 6px;
+
+  color: #617386;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group textarea {
+  width: 100%;
+  min-height: 48px;
+
+  border: 1.5px solid #24394a;
+  border-radius: 4px;
+
+  padding: 10px 13px;
+
+  background: #ffffff;
+  color: #17283b;
+
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.form-group textarea {
+  min-height: 105px;
+  resize: vertical;
+  text-transform: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #0074b7;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0, 116, 183, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #8a98a5;
+}
+
+.form-group input[readonly] {
+  background: #edf1f4;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   DATE INPUT
+========================= */
+
+.form-group input[type="date"] {
+  cursor: pointer;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+
+/* =========================
+   TWO COLUMN
+========================= */
+
+.two-column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+
+/* =========================
+   RADIO
+========================= */
+
+.radio-group {
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.radio-group input {
+  width: 20px;
+  height: 20px;
+
+  accent-color: #0074b7;
+  cursor: pointer;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+  display: block;
+  min-height: 18px;
+  margin-top: 5px;
+
+  color: #d32222;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.input-error {
+  border-color: #d32222 !important;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(211, 34, 34, 0.08) !important;
+}
+
+
+/* =========================
+   VALID INPUT
+========================= */
+
+.input-valid {
+  border-color: #178746 !important;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(23, 135, 70, 0.08) !important;
+}
+
+
+/* =========================
+   EMPLOYMENT SECTION
+========================= */
+
+.employment-section {
+  margin-top: 35px;
+  margin-bottom: 38px;
+}
+
+.employment-section h3 {
+  margin-bottom: 14px;
+
+  font-size: 1.25rem;
+  color: #222222;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 850px;
+
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 1.5px solid #333333;
+}
+
+th {
+  padding: 12px 8px;
+
+  background: #f3f6f8;
+
+  text-align: center;
+
+  color: #222222;
+
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+td {
+  background: #ffffff;
+}
+
+td input[type="text"],
+td input[type="date"] {
+  width: 100%;
+  height: 60px;
+
+  border: 0;
+  border-radius: 0;
+
+  padding: 8px;
+
+  outline: none;
+
+  background: transparent;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+td input:focus {
+  background: #eff8fd;
+}
+
+
+/* =========================
+   SIGNATURE SECTION
+========================= */
+
+.signature-section {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 55px;
+
+  margin-top: 40px;
+  padding-top: 30px;
+
+  border-top: 1px solid #d6dde5;
+}
+
+.signature-box {
+  min-width: 0;
+}
+
+.signature-box label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.signature-box p {
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+
+/* =========================
+   CANDIDATE FILE UPLOAD
+========================= */
+
+.signature-box input[type="file"] {
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1.5px solid #24394a;
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  font-family: Arial, sans-serif;
+  font-size: 0.92rem;
+
+  cursor: pointer;
+}
+
+.signature-box input[type="file"]:focus {
+  border-color: #0074b7;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0, 116, 183, 0.1);
+}
+
+.signature-box input[type="file"]::file-selector-button {
+  margin-right: 12px;
+
+  padding: 9px 14px;
+
+  border: none;
+  border-radius: 4px;
+
+  background: #0074b7;
+  color: #ffffff;
+
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.signature-box input[type="file"]::file-selector-button:hover {
+  background: #005e95;
+}
+
+
+/* =========================
+   INTERNSHIP OFFICER
+========================= */
+
+.officer-signature-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.officer-signature-line {
+  width: 100%;
+  height: 80px;
+
+  margin-top: 18px;
+
+  border-bottom: 2px dashed #34495e;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-top: 45px;
+}
+
+.form-actions button {
+  min-width: 180px;
+
+  padding: 14px 24px;
+
+  border-radius: 7px;
+
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.submit-btn {
+  background: #0074b7;
+
+  border: 1px solid #0074b7;
+
+  color: #ffffff;
+}
+
+.submit-btn:hover {
+  background: #005e95;
+  border-color: #005e95;
+}
+
+.submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   RESET BUTTON
+========================= */
+
+.reset-btn {
+  background: #ffffff;
+
+  border: 1px solid #0074b7;
+
+  color: #0074b7;
+}
+
+.reset-btn:hover {
+  background: #eaf4fb;
+}
+
+
+/* =========================
+   POPUP
+========================= */
+
+.success-popup {
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(0, 25, 48, 0.68);
+
+  z-index: 20000;
+}
+
+.success-popup.show {
+  display: flex;
+}
+
+.popup-card {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 36px 30px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  text-align: center;
+
+  box-shadow:
+    0 18px 50px
+    rgba(0, 0, 0, 0.25);
+}
+
+.success-mark {
+  width: 65px;
+  height: 65px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e3f5e8;
+
+  color: #14853f;
+
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.popup-card h3 {
+  margin-bottom: 8px;
+
+  color: #13334f;
+
+  font-size: 1.5rem;
+}
+
+.popup-card p {
+  color: #596c7e;
+
+  font-family: Arial, sans-serif;
+
+  line-height: 1.6;
+}
+
+.popup-card button {
+  margin-top: 22px;
+
+  min-width: 110px;
+
+  padding: 11px 22px;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: #0074b7;
+
+  color: #ffffff;
+
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.popup-card button:hover {
+  background: #005e95;
+}
+
+
+/* =========================
+   SCROLLBAR FOR TABLE
+========================= */
+
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #e7eef4;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #98acbd;
+  border-radius: 10px;
+}
+
+
+/* =========================
+   RESPONSIVE - TABLET
+========================= */
+
+@media (max-width: 850px) {
+
+  .internship-container {
+    padding:
+      30px
+      20px
+      40px;
+  }
+
+  .official-header h1 {
+    font-size: 2rem;
+  }
+
+  .two-column,
+  .signature-section {
+    grid-template-columns: 1fr;
+  }
+
+  .signature-section {
+    gap: 30px;
+  }
+
+}
+
+
+/* =========================
+   RESPONSIVE - MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .internship-page {
+    padding:
+      25px
+      10px
+      50px;
+  }
+
+  .internship-container {
+    border-width: 4px;
+
+    padding:
+      25px
+      15px
+      35px;
+  }
+
+  .official-header {
+    margin-bottom: 28px;
+  }
+
+  .official-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .official-header h2 {
+    font-size: 1.55rem;
+  }
+
+  .autonomous-bar {
+    font-size: 0.85rem;
+  }
+
+  .official-contact {
+    font-size: 0.85rem;
+  }
+
+  .form-group > label {
+    font-size: 1rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="date"],
+  .form-group input[type="tel"],
+  .form-group textarea {
+    font-size: 0.95rem;
+  }
+
+  .radio-group {
+    gap: 22px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
+@media (max-width: 420px) {
+
+  .internship-container {
+    padding:
+      22px
+      12px
+      30px;
+  }
+
+  .official-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .official-header h2 {
+    font-size: 1.35rem;
+  }
+
+  .autonomous-bar {
+    padding: 7px 8px;
+    font-size: 0.75rem;
+  }
+
+  .official-contact {
+    font-size: 0.78rem;
+  }
+
+}
