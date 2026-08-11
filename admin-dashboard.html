@@ -1,98 +1,5 @@
 <!-- <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Admin Dashboard - G Care Council</title>
-
-  <link rel="stylesheet" href="css/admin-dashboard.css" />
-</head>
-
-<body>
-  <header class="admin-header">
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>Manage submitted student admission forms</p>
-    </div>
-
-    <button type="button" id="logoutBtn">Logout</button>
-  </header>
-
-  <main class="dashboard-wrapper">
-    <section class="stats-grid">
-      <div class="stat-card">
-        <span>Total Forms</span>
-        <h2 id="totalCount">0</h2>
-      </div>
-
-      <div class="stat-card">
-        <span>Pending</span>
-        <h2 id="pendingCount">0</h2>
-      </div>
-
-      <div class="stat-card">
-        <span>Approved</span>
-        <h2 id="approvedCount">0</h2>
-      </div>
-
-      <div class="stat-card">
-        <span>Rejected</span>
-        <h2 id="rejectedCount">0</h2>
-      </div>
-    </section>
-
-    <section class="table-card">
-      <div class="table-header">
-        <div>
-          <h2>Student Admission Forms</h2>
-          <p>View user-submitted details and uploaded files.</p>
-        </div>
-
-        <input type="text" id="searchInput" placeholder="Search by name, mobile, course..." />
-      </div>
-
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>S.No</th>
-              <th>Application No.</th>
-              <th>Name</th>
-              <th>Course</th>
-              <th>Mobile</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Submitted At</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody id="applicationsTableBody"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <div class="modal-overlay" id="detailsModal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2>Application Details</h2>
-        <button type="button" id="closeModalBtn">×</button>
-      </div>
-
-      <div id="detailsContent"></div>
-    </div>
-  </div>
-
-  <script src="js/admin-dashboard.js?v=landscape-files-v1"></script>
-</body>
-
-</html> -->
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -116,7 +23,6 @@
   <main class="dashboard-shell">
     <div id="dashboardMessage" class="dashboard-message"></div>
 
-    <!-- FORM TYPE SELECTOR -->
     <section class="module-grid" aria-label="Application types">
       <button type="button" class="module-card active" data-form-type="admission">
         <div class="module-icon">SA</div>
@@ -146,7 +52,7 @@
       </button>
     </section>
 
-    <!-- STATUS COUNTS -->
+   
     <section class="stats-grid">
       <article class="stat-card">
         <span class="stat-label">Total Applications</span>
@@ -169,7 +75,7 @@
       </article>
     </section>
 
-    <!-- APPLICATION LIST -->
+    
     <section class="content-card">
       <div class="content-head">
         <div>
@@ -216,7 +122,6 @@
     </section>
   </main>
 
-  <!-- DETAILS MODAL -->
   <div class="modal-overlay" id="detailsModal">
     <div class="modal-panel">
       <div class="modal-header">
@@ -233,5 +138,201 @@
   </div>
 
   <script src="js/admin-dashboard.js?v=details-cleanup-v1"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - G Care Council</title>
+  <link rel="stylesheet" href="css/admin-dashboard.css?v=internship-count-fix-v2" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="brand-mark">GC</div>
+
+      <div>
+        <h1>G Care Council Admin</h1>
+        <p>Application Management Dashboard</p>
+      </div>
+    </div>
+
+    <button type="button" id="logoutBtn" class="logout-btn">
+      Logout
+    </button>
+  </header>
+
+  <main class="dashboard-shell">
+    <div id="dashboardMessage" class="dashboard-message"></div>
+
+    <!-- =====================================================
+         MODULE CARDS
+         Only the selected module data is shown below.
+    ====================================================== -->
+    <section class="module-grid">
+
+      <button
+        type="button"
+        class="module-card active"
+        data-form-type="admission">
+
+        <div class="module-icon">SA</div>
+
+        <div class="module-text">
+          <span class="module-title">Student Admission</span>
+          <span class="module-desc">
+            View and manage student applications
+          </span>
+        </div>
+
+        <span class="module-arrow">›</span>
+      </button>
+
+
+      <button
+        type="button"
+        class="module-card"
+        data-form-type="internship">
+
+        <div class="module-icon">IN</div>
+
+        <div class="module-text">
+          <span class="module-title">Internship</span>
+          <span class="module-desc">
+            Review internship applications
+          </span>
+        </div>
+
+        <span class="module-arrow">›</span>
+      </button>
+
+    </section>
+
+
+    <!-- =====================================================
+         ACTIVE MODULE COUNTS
+    ====================================================== -->
+    <section class="stats-grid">
+
+      <article class="stat-card">
+        <span class="stat-label">Total Applications</span>
+        <strong id="totalCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Pending</span>
+        <strong id="pendingCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Approved</span>
+        <strong id="approvedCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Rejected</span>
+        <strong id="rejectedCount">0</strong>
+      </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         ONLY ONE ACTIVE MODULE TABLE
+    ====================================================== -->
+    <section class="content-card">
+
+      <div class="content-head">
+
+        <div>
+          <span class="section-kicker" id="sectionKicker">
+            Student Admission
+          </span>
+
+          <h2 id="tableTitle">
+            Student Admission Applications
+          </h2>
+
+          <p id="tableSubtitle">
+            Click View to inspect the submitted details and uploaded documents.
+          </p>
+        </div>
+
+
+        <div class="search-box">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search..."
+            autocomplete="off"
+          />
+        </div>
+
+      </div>
+
+
+      <div class="table-scroll">
+
+        <table>
+
+          <thead>
+            <tr id="applicationsTableHead"></tr>
+          </thead>
+
+          <tbody id="applicationsTableBody">
+            <tr>
+              <td class="loading-cell">
+                Loading applications...
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       VIEW DETAILS MODAL
+  ====================================================== -->
+  <div class="modal-overlay" id="detailsModal">
+
+    <div class="modal-panel">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="modal-type" id="modalTypeLabel">
+            Student Admission
+          </span>
+
+          <h2 id="modalTitle">
+            Application Details
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          id="closeModalBtn"
+          class="close-btn">
+          ×
+        </button>
+
+      </div>
+
+      <div id="detailsContent"></div>
+
+    </div>
+
+  </div>
+
+  <script src="js/admin-dashboard.js?v=internship-count-fix-v2"></script>
 </body>
 </html>
