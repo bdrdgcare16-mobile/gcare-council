@@ -86,66 +86,108 @@
     </div>
   </div>
 
-  <script src="js/admin-dashboard.js?v=download-fixed-v2"></script>
+  <script src="js/admin-dashboard.js?v=landscape-files-v1"></script>
 </body>
 
 </html> -->
 
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Admin Dashboard - G Care Council</title>
-
-  <link rel="stylesheet" href="css/admin-dashboard.css" />
+  <link rel="stylesheet" href="css/admin-dashboard.css?v=details-cleanup-v1" />
 </head>
 
 <body>
-  <header class="admin-header">
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>Manage submitted student admission forms</p>
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="brand-mark">GC</div>
+      <div>
+        <h1>G Care Council Admin</h1>
+        <p>Application Management Dashboard</p>
+      </div>
     </div>
 
-    <button type="button" id="logoutBtn">Logout</button>
+    <button type="button" id="logoutBtn" class="logout-btn">Logout</button>
   </header>
 
-  <main class="dashboard-wrapper">
-    <section class="stats-grid">
-      <div class="stat-card">
-        <span>Total Forms</span>
-        <h2 id="totalCount">0</h2>
-      </div>
+  <main class="dashboard-shell">
+    <div id="dashboardMessage" class="dashboard-message"></div>
 
-      <div class="stat-card">
-        <span>Pending</span>
-        <h2 id="pendingCount">0</h2>
-      </div>
+    <!-- FORM TYPE SELECTOR -->
+    <section class="module-grid" aria-label="Application types">
+      <button type="button" class="module-card active" data-form-type="admission">
+        <div class="module-icon">SA</div>
+        <div class="module-text">
+          <span class="module-title">Student Admission</span>
+          <span class="module-desc">View and manage student applications</span>
+        </div>
+        <span class="module-arrow">›</span>
+      </button>
 
-      <div class="stat-card">
-        <span>Approved</span>
-        <h2 id="approvedCount">0</h2>
-      </div>
+      <button type="button" class="module-card" data-form-type="internship">
+        <div class="module-icon">IN</div>
+        <div class="module-text">
+          <span class="module-title">Internship</span>
+          <span class="module-desc">Review internship applications</span>
+        </div>
+        <span class="module-arrow">›</span>
+      </button>
 
-      <div class="stat-card">
-        <span>Rejected</span>
-        <h2 id="rejectedCount">0</h2>
-      </div>
+      <button type="button" class="module-card" data-form-type="affiliation">
+        <div class="module-icon">AF</div>
+        <div class="module-text">
+          <span class="module-title">Affiliation</span>
+          <span class="module-desc">Review institution affiliation forms</span>
+        </div>
+        <span class="module-arrow">›</span>
+      </button>
     </section>
 
-    <section class="table-card">
-      <div class="table-header">
+    <!-- STATUS COUNTS -->
+    <section class="stats-grid">
+      <article class="stat-card">
+        <span class="stat-label">Total Applications</span>
+        <strong id="totalCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Pending</span>
+        <strong id="pendingCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Approved</span>
+        <strong id="approvedCount">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Rejected</span>
+        <strong id="rejectedCount">0</strong>
+      </article>
+    </section>
+
+    <!-- APPLICATION LIST -->
+    <section class="content-card">
+      <div class="content-head">
         <div>
-          <h2>Student Admission Forms</h2>
-          <p>View user-submitted details and uploaded files.</p>
+          <span class="section-kicker" id="sectionKicker">Student Admission</span>
+          <h2 id="tableTitle">Student Admission Applications</h2>
+          <p id="tableSubtitle">
+            Click View Details to inspect the application and uploaded documents.
+          </p>
         </div>
 
-        <input type="text" id="searchInput" placeholder="Search by name, mobile, course..." />
+        <div class="search-box">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search name, email, mobile, application no..."
+            autocomplete="off"
+          />
+        </div>
       </div>
 
       <div class="table-scroll">
@@ -154,8 +196,8 @@
             <tr>
               <th>S.No</th>
               <th>Application No.</th>
-              <th>Name</th>
-              <th>Course</th>
+              <th>Applicant / Institution</th>
+              <th>Course / Purpose</th>
               <th>Mobile</th>
               <th>Email</th>
               <th>Status</th>
@@ -164,24 +206,32 @@
             </tr>
           </thead>
 
-          <tbody id="applicationsTableBody"></tbody>
+          <tbody id="applicationsTableBody">
+            <tr>
+              <td colspan="9" class="loading-cell">Loading applications...</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </section>
   </main>
 
+  <!-- DETAILS MODAL -->
   <div class="modal-overlay" id="detailsModal">
-    <div class="modal-box">
+    <div class="modal-panel">
       <div class="modal-header">
-        <h2>Application Details</h2>
-        <button type="button" id="closeModalBtn">×</button>
+        <div>
+          <span class="modal-type" id="modalTypeLabel">Student Admission</span>
+          <h2 id="modalTitle">Application Details</h2>
+        </div>
+
+        <button type="button" id="closeModalBtn" class="close-btn">×</button>
       </div>
 
       <div id="detailsContent"></div>
     </div>
   </div>
 
-  <script src="js/admin-dashboard.js?v=landscape-files-v1"></script>
+  <script src="js/admin-dashboard.js?v=details-cleanup-v1"></script>
 </body>
-
 </html>
