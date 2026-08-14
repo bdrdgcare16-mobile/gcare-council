@@ -54,12 +54,16 @@
     <ul class="menu">
 
       <li>
-        <a href="index.html">HOME</a>
+        <a href="index.html">
+          HOME
+        </a>
       </li>
 
       <li class="dropdown">
 
-        <a href="about.html">ABOUT</a>
+        <a href="about.html">
+          ABOUT
+        </a>
 
         <ul class="submenu">
 
@@ -103,7 +107,6 @@
         </a>
       </li>
 
-
       <li class="dropdown programmes-dropdown">
 
         <a href="programmes.html">
@@ -129,7 +132,6 @@
             </ul>
 
           </li>
-
 
           <li class="has-submenu">
 
@@ -161,7 +163,6 @@
 
           </li>
 
-
           <li class="has-submenu">
 
             <a href="programmes.html#paramedical">
@@ -192,10 +193,9 @@
 
           </li>
 
-
           <li>
             <a href="programmes.html#computer">
-              Computer & IT
+              Computer &amp; IT
             </a>
           </li>
 
@@ -214,7 +214,6 @@
         </ul>
 
       </li>
-
 
       <li class="dropdown active-menu">
 
@@ -246,7 +245,6 @@
 
       </li>
 
-
       <li>
         <a href="gallery.html">
           GALLERY
@@ -267,7 +265,6 @@
   <main class="internship-page">
 
     <div class="internship-container">
-
 
       <div class="official-header">
 
@@ -298,10 +295,17 @@
 
         </div>
 
-
         <h2>
           Internship Application Form
         </h2>
+
+        <a
+          href="assets/forms/Internship-Form.pdf"
+          target="_blank"
+          class="internship-pdf-btn"
+        >
+          View Internship Application Form
+        </a>
 
       </div>
 
@@ -310,9 +314,6 @@
         id="internshipForm"
         novalidate
       >
-
-
-        <!-- ENROLMENT NUMBER -->
 
         <div class="form-group">
 
@@ -337,8 +338,6 @@
         </div>
 
 
-        <!-- CENTRE CODE -->
-
         <div class="form-group">
 
           <label for="centreCode">
@@ -362,8 +361,6 @@
         </div>
 
 
-        <!-- STUDENT NAME -->
-
         <div class="form-group">
 
           <label for="studentName">
@@ -386,8 +383,6 @@
 
         </div>
 
-
-        <!-- FATHER NAME -->
 
         <div class="form-group">
 
@@ -414,9 +409,6 @@
 
         <div class="two-column">
 
-
-          <!-- SEX -->
-
           <div class="form-group">
 
             <label>
@@ -427,28 +419,21 @@
             <div class="radio-group">
 
               <label>
-
                 <input
                   type="radio"
                   name="sex"
                   value="Male"
                 />
-
                 Male
-
               </label>
 
-
               <label>
-
                 <input
                   type="radio"
                   name="sex"
                   value="Female"
                 />
-
                 Female
-
               </label>
 
             </div>
@@ -460,8 +445,6 @@
 
           </div>
 
-
-          <!-- DATE OF BIRTH -->
 
           <div class="form-group">
 
@@ -492,8 +475,6 @@
 
         </div>
 
-
-        <!-- ADDRESS -->
 
         <div class="form-group">
 
@@ -526,9 +507,6 @@
 
         <div class="two-column">
 
-
-          <!-- TAMIL NADU PIN CODE -->
-
           <div class="form-group">
 
             <label for="pinCode">
@@ -558,7 +536,7 @@
           </div>
 
 
-          <!-- PHONE -->
+          <!-- PHONE WITH OTP -->
 
           <div class="form-group">
 
@@ -567,19 +545,60 @@
               <span class="required">*</span>
             </label>
 
-            <input
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              maxlength="10"
-              inputmode="numeric"
-              autocomplete="off"
-              placeholder="Indian mobile number"
-            />
+            <div class="otp-main-row">
+
+              <input
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="Indian mobile number"
+              />
+
+              <button
+                type="button"
+                class="otp-send-btn"
+                id="sendMobileOtpBtn"
+              >
+                Send OTP
+              </button>
+
+            </div>
+
+            <div
+              class="otp-panel"
+              id="mobileOtpPanel"
+            >
+
+              <input
+                type="text"
+                id="mobileOtpInput"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="Enter Mobile OTP"
+              />
+
+              <button
+                type="button"
+                class="otp-verify-btn"
+                id="verifyMobileOtpBtn"
+              >
+                Verify OTP
+              </button>
+
+            </div>
 
             <small class="field-help">
               Enter a valid 10-digit Indian mobile number.
             </small>
+
+            <span
+              class="otp-status"
+              id="mobileOtpStatus"
+            ></span>
 
             <span
               class="error"
@@ -591,7 +610,7 @@
         </div>
 
 
-        <!-- EMAIL -->
+        <!-- EMAIL WITH OTP -->
 
         <div class="form-group">
 
@@ -600,18 +619,59 @@
             <span class="required">*</span>
           </label>
 
-          <input
-            type="text"
-            id="email"
-            name="email"
-            maxlength="100"
-            autocomplete="off"
-            placeholder="example@gmail.com"
-          />
+          <div class="otp-main-row">
+
+            <input
+              type="text"
+              id="email"
+              name="email"
+              maxlength="100"
+              autocomplete="off"
+              placeholder="example@gmail.com"
+            />
+
+            <button
+              type="button"
+              class="otp-send-btn"
+              id="sendEmailOtpBtn"
+            >
+              Send OTP
+            </button>
+
+          </div>
+
+          <div
+            class="otp-panel"
+            id="emailOtpPanel"
+          >
+
+            <input
+              type="text"
+              id="emailOtpInput"
+              maxlength="6"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="Enter Email OTP"
+            />
+
+            <button
+              type="button"
+              class="otp-verify-btn"
+              id="verifyEmailOtpBtn"
+            >
+              Verify OTP
+            </button>
+
+          </div>
 
           <small class="field-help">
             Use lowercase letters and a valid email address.
           </small>
+
+          <span
+            class="otp-status"
+            id="emailOtpStatus"
+          ></span>
 
           <span
             class="error"
@@ -627,8 +687,8 @@
 
           <h3>
             Employment Status
+            <span class="required">*</span>
           </h3>
-
 
           <div class="table-wrapper">
 
@@ -640,28 +700,32 @@
 
                   <th>
                     Name of Organization
+                    <span class="required">*</span>
                   </th>
 
                   <th>
                     Designation
+                    <span class="required">*</span>
                   </th>
 
                   <th>
                     Joining Date
+                    <span class="required">*</span>
                   </th>
 
                   <th>
                     Date of Leaving
+                    <span class="required">*</span>
                   </th>
 
                   <th>
                     Job Profile
+                    <span class="required">*</span>
                   </th>
 
                 </tr>
 
               </thead>
-
 
               <tbody>
 
@@ -671,6 +735,7 @@
                     <input
                       type="text"
                       name="organization1"
+                      autocomplete="off"
                     />
                   </td>
 
@@ -678,6 +743,7 @@
                     <input
                       type="text"
                       name="designation1"
+                      autocomplete="off"
                     />
                   </td>
 
@@ -699,11 +765,11 @@
                     <input
                       type="text"
                       name="jobProfile1"
+                      autocomplete="off"
                     />
                   </td>
 
                 </tr>
-
 
                 <tr>
 
@@ -711,6 +777,7 @@
                     <input
                       type="text"
                       name="organization2"
+                      autocomplete="off"
                     />
                   </td>
 
@@ -718,6 +785,7 @@
                     <input
                       type="text"
                       name="designation2"
+                      autocomplete="off"
                     />
                   </td>
 
@@ -739,6 +807,7 @@
                     <input
                       type="text"
                       name="jobProfile2"
+                      autocomplete="off"
                     />
                   </td>
 
@@ -750,15 +819,15 @@
 
           </div>
 
+          <span
+            class="error employment-error"
+            id="employmentDetailsError"
+          ></span>
+
         </div>
 
 
-        <!-- SIGNATURE SECTION -->
-
         <div class="signature-section">
-
-
-          <!-- CANDIDATE SIGNATURE -->
 
           <div class="signature-box">
 
@@ -786,12 +855,11 @@
           </div>
 
 
-          <!-- INTERNSHIP OFFICER -->
-
           <div class="signature-box officer-signature-box">
 
             <label>
               Internship Officer
+
               <span class="optional-text">
                 (Optional)
               </span>
@@ -808,8 +876,6 @@
         </div>
 
 
-        <!-- BUTTONS -->
-
         <div class="form-actions">
 
           <button
@@ -819,7 +885,6 @@
           >
             Reset
           </button>
-
 
           <button
             type="submit"
@@ -831,15 +896,12 @@
 
         </div>
 
-
       </form>
 
     </div>
 
   </main>
 
-
-  <!-- SUCCESS POPUP -->
 
   <div
     class="success-popup"

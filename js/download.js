@@ -331,10 +331,11 @@ document.addEventListener("DOMContentLoaded", function () {
       title: "Internship Report Form",
       category: "Training",
       description:
-        "Official report form for internship completion and submission process.",
-      file: "assets/forms/internship-report-form.pdf",
-      downloadName: "Internship-Report-Form.pdf",
-      hasOnlineForm: false
+        "View the official 10-page internship report template containing the certificate, acknowledgement, employer acceptance letter, organisational profile, work description, evaluation sheet, and conclusion.",
+      file: "assets/forms/G-Care-Council-Internship-Report.pdf",
+      downloadName: "G-Care-Council-Internship-Report-Template.pdf",
+      hasOnlineForm: false,
+      hasReportView: true
     }
   ];
 
@@ -433,6 +434,27 @@ document.addEventListener("DOMContentLoaded", function () {
           class="secondary-btn"
         >
           Offline Form
+        </a>
+      `;
+    }
+
+    if (form.hasReportView) {
+      return `
+        <a
+          href="${form.file}"
+          class="download-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Report
+        </a>
+
+        <a
+          href="${form.file}"
+          download="${form.downloadName}"
+          class="secondary-btn"
+        >
+          Download Report
         </a>
       `;
     }
