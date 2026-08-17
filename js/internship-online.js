@@ -1540,6 +1540,42 @@ document.addEventListener(
         }
       );
 
+      input.addEventListener(
+        "paste",
+        function (event) {
+
+          event.preventDefault();
+
+        }
+      );
+
+      input.addEventListener(
+        "copy",
+        function (event) {
+
+          event.preventDefault();
+
+        }
+      );
+
+      input.addEventListener(
+        "cut",
+        function (event) {
+
+          event.preventDefault();
+
+        }
+      );
+
+      input.addEventListener(
+        "contextmenu",
+        function (event) {
+
+          event.preventDefault();
+
+        }
+      );
+
     }
 
 

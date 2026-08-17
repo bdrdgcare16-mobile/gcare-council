@@ -2214,6 +2214,11 @@ body {
   text-align: center;
 }
 
+.social-btn i {
+  min-width: 16px;
+  text-align: center;
+}
+
 .footer-address-list li {
   display: flex;
   align-items: flex-start;

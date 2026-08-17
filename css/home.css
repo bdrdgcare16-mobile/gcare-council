@@ -306,6 +306,11 @@
   width: 20px;
 }
 
+.social-btn i {
+  width: 20px;
+  text-align: center;
+}
+
 .footer-contact li {
   display: block;
   margin-bottom: 12px;

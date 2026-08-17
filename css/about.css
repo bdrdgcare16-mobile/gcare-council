@@ -588,6 +588,13 @@ display: inline-block;
 color: #ffffff;
 }
 
+.social-btn i {
+  width: 20px;
+  text-align: center;
+  display: inline-block;
+  color: #ffffff;
+}
+
 .footer-col p {
     color: #ffffff;
     line-height: 1.6;
