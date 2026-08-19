@@ -452,8 +452,6 @@ function showGalleryImages(branch) {
       );
 
     }
-
-
     setTimeout(() => {
 
       galleryGrid.style.opacity = "1";
@@ -462,13 +460,9 @@ function showGalleryImages(branch) {
         "translateY(0)";
 
     }, 60);
-
-
   }, 220);
 
 }
-
-
 function createGalleryItem(item, index) {
 
   const div =
@@ -480,7 +474,6 @@ function createGalleryItem(item, index) {
   div.style.animationDelay =
     `${index * 0.06}s`;
 
-
   const img = document.createElement("img");
   img.src = item.image;
   img.alt = item.title;
@@ -490,24 +483,15 @@ function createGalleryItem(item, index) {
     this.src = "";
     this.style.display = "none";
   };
-
   div.appendChild(img);
-
   const overlay = document.createElement("div");
   overlay.className = "gallery-overlay";
-
   const title = document.createElement("h3");
   title.textContent = item.title;
-
   const description = document.createElement("p");
   description.textContent = item.description;
-
   overlay.appendChild(title);
   overlay.appendChild(description);
-
   div.appendChild(overlay);
-
-
   return div;
-
 }

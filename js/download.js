@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const formsData = [
     {
       id: "student",
-      title: "Student Admission Form",
+      title: "Sponsor Form",
       category: "Admission",
       description:
         "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
