@@ -175,11 +175,14 @@ const galleryData = [
   { branch: "nemilicherry", image: "assets/images/Nemilicherry/Nemilicherry (49).jpg", title: "Nemilicherry Campus View 49", description: "Campus landscape" },
 
   // Thiruthani
-  { branch: "thiruthani", image: "assets/images/images14.jpeg", title: "Thiruthani Campus", description: "Campus overview" },
-  { branch: "thiruthani", image: "assets/images/images13.jpeg", title: "Thiruthani Facilities", description: "Training facilities" },
-  { branch: "thiruthani", image: "assets/images/images11.jpeg", title: "Thiruthani Events", description: "Student activities" },
-
-  // Pudur
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (1).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (2).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (3).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (4).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (5).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (6).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  { branch: "thiruthani", image: "assets/images/thiruthani/thiruthani (7).jpeg", title: "Thiruthani Campus", description: "Campus overview" },
+  
   { branch: "pudur", image: "assets/images/pudur/pudur(1).jpeg", title: "Pudur Campus", description: "Campus entrance" },
   { branch: "pudur", image: "assets/images/pudur/pudur(2).jpeg", title: "Pudur Facilities", description: "Infrastructure" },
   { branch: "pudur", image: "assets/images/pudur/pudur(3).jpeg", title: "Pudur Activities", description: "Campus life" },
@@ -350,71 +353,161 @@ const defaultGalleryImages = [
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".gallery-btn");
+
+  const buttons =
+    document.querySelectorAll(".gallery-btn");
 
   buttons.forEach((button) => {
-    button.addEventListener("click", function () {
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
 
-      const branch = this.getAttribute("data-branch").toLowerCase();
-      showGalleryImages(branch);
-    });
+    button.addEventListener(
+      "click",
+      function () {
+
+        buttons.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        const branch =
+          this
+            .getAttribute("data-branch")
+            .toLowerCase();
+
+        showGalleryImages(branch);
+      }
+    );
+
   });
 
   showGalleryImages("all");
+
 });
 
+
 function showGalleryImages(branch) {
-  const galleryGrid = document.getElementById("galleryGrid");
+
+  const galleryGrid =
+    document.getElementById("galleryGrid");
 
   galleryGrid.style.opacity = "0";
-  galleryGrid.style.transform = "translateY(18px)";
+
+  galleryGrid.style.transform =
+    "translateY(18px)";
+
 
   setTimeout(() => {
+
     let filteredImages = [];
 
+
     if (branch === "all") {
-      filteredImages = defaultGalleryImages;
+
+      filteredImages =
+        defaultGalleryImages;
+
     } else {
-      filteredImages = galleryData.filter((item) => item.branch === branch);
+
+      filteredImages =
+        galleryData.filter(
+          (item) =>
+            item.branch === branch
+        );
+
     }
+
 
     galleryGrid.innerHTML = "";
 
+
     if (!filteredImages.length) {
+
       galleryGrid.innerHTML = `
         <div class="no-images">
           <h3>No images available</h3>
-          <p>No gallery photos are available for this branch right now.</p>
+
+          <p>
+            No gallery photos are available
+            for this branch right now.
+          </p>
         </div>
       `;
+
     } else {
-      filteredImages.forEach((item, index) => {
-        const galleryItem = createGalleryItem(item, index);
-        galleryGrid.appendChild(galleryItem);
-      });
+
+      filteredImages.forEach(
+        (item, index) => {
+
+          const galleryItem =
+            createGalleryItem(
+              item,
+              index
+            );
+
+          galleryGrid.appendChild(
+            galleryItem
+          );
+
+        }
+      );
+
     }
 
+
     setTimeout(() => {
+
       galleryGrid.style.opacity = "1";
-      galleryGrid.style.transform = "translateY(0)";
+
+      galleryGrid.style.transform =
+        "translateY(0)";
+
     }, 60);
+
+
   }, 220);
+
 }
 
-function createGalleryItem(item, index) {
-  const div = document.createElement("div");
-  div.className = "gallery-item";
-  div.style.animationDelay = `${index * 0.06}s`;
 
-  div.innerHTML = `
-    <img src="${item.image}" alt="${item.title}" onerror="this.src='assets/images/image1.png'">
-    <div class="gallery-overlay">
-      <h3>${item.title}</h3>
-      <p>${item.description}</p>
-    </div>
-  `;
+function createGalleryItem(item, index) {
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "gallery-item";
+
+  div.style.animationDelay =
+    `${index * 0.06}s`;
+
+
+  const img = document.createElement("img");
+  img.src = item.image;
+  img.alt = item.title;
+  
+  img.onerror = function() {
+    console.error(`Gallery image not found: ${item.image}`);
+    this.src = "";
+    this.style.display = "none";
+  };
+
+  div.appendChild(img);
+
+  const overlay = document.createElement("div");
+  overlay.className = "gallery-overlay";
+
+  const title = document.createElement("h3");
+  title.textContent = item.title;
+
+  const description = document.createElement("p");
+  description.textContent = item.description;
+
+  overlay.appendChild(title);
+  overlay.appendChild(description);
+
+  div.appendChild(overlay);
+
 
   return div;
+
 }
