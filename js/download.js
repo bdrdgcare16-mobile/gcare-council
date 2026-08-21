@@ -309,8 +309,8 @@ document.addEventListener("DOMContentLoaded", function () {
       description:
         "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
       onlinePage: "admission-online.html",
-      file: "assets/forms/Student-Admission-Form.pdf",
-      downloadName: "Student-Admission-Form.pdf",
+      file: "assets/forms/Sponsor-Form.pdf",
+      downloadName: "Sponsor-Form.pdf",
       hasOnlineForm: true
     },
 
