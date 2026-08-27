@@ -8,6 +8,7 @@
   <title>Admin Login - G Care Council</title>
 
   <link rel="stylesheet" href="css/admin-login.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
@@ -34,13 +35,18 @@
 
         <div class="form-group">
           <label for="adminPassword">Password</label>
-          <input
-            type="password"
-            id="adminPassword"
-            name="adminPassword"
-            placeholder="Enter password"
-            required
-          />
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="adminPassword"
+              name="adminPassword"
+              placeholder="Enter password"
+              required
+            />
+            <button type="button" class="toggle-password" id="toggleAdminPassword" aria-label="Show password" tabindex="-1">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
         </div>
 
         <button type="submit">Login</button>

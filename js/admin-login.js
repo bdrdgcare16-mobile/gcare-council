@@ -49,4 +49,29 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.textContent = "Invalid admin email or password.";
     }
   });
+
+  const adminPassword = document.getElementById("adminPassword");
+  const toggleAdminPassword = document.getElementById("toggleAdminPassword");
+
+  if (toggleAdminPassword && adminPassword) {
+    toggleAdminPassword.addEventListener("click", function () {
+      const icon = toggleAdminPassword.querySelector("i");
+
+      if (adminPassword.type === "password") {
+        adminPassword.type = "text";
+        toggleAdminPassword.setAttribute("aria-label", "Hide password");
+        if (icon) {
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        }
+      } else {
+        adminPassword.type = "password";
+        toggleAdminPassword.setAttribute("aria-label", "Show password");
+        if (icon) {
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+    });
+  }
 });

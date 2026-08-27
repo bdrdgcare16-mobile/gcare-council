@@ -6,7 +6,7 @@
 
 body {
   font-family: "Times New Roman", serif;
-  background: linear-gradient(135deg, #006fb3, #238fc6);
+  background: #001f3f;
   min-height: 100vh;
   color: #001f3f;
 }
@@ -17,6 +17,16 @@ body {
   align-items: center;
   justify-content: center;
   padding: 30px 16px;
+  background: url("../assets/images/healthcare-admin.png") no-repeat center center / cover;
+  position: relative;
+}
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 31, 63, 0.55);
+  pointer-events: none;
 }
 
 .login-card {
@@ -27,6 +37,8 @@ body {
   padding: 36px 34px;
   box-shadow: 0 18px 42px rgba(0, 36, 72, 0.22);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .logo-row {
@@ -80,6 +92,44 @@ body {
 .form-group input:focus {
   border-color: #0074b7;
   box-shadow: 0 0 0 3px rgba(0, 116, 183, 0.13);
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #5b6f82;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #0074b7;
+  background: rgba(0, 116, 183, 0.08);
+}
+
+.toggle-password i {
+  pointer-events: none;
 }
 
 button {
