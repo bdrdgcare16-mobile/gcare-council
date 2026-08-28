@@ -538,7 +538,7 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="9"
+            colspan="10"
             style="text-align:center;">
             No admission forms found.
           </td>
@@ -674,6 +674,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </td>
 
+            <td>
+
+              <button
+                type="button"
+                class="delete-btn"
+                data-delete-id="${escapeHtml(
+                  item.id
+                )}"
+                title="Delete application">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </button>
+
+            </td>
+
           </tr>
         `;
       }
@@ -697,7 +724,7 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="9"
+            colspan="10"
             style="text-align:center;">
             Loading admission forms...
           </td>
@@ -756,7 +783,7 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="9"
+            colspan="10"
             style="
               text-align:center;
               color:#c30000;
@@ -767,6 +794,103 @@ document.addEventListener("DOMContentLoaded", function () {
           </td>
         </tr>
       `;
+    }
+  }
+
+
+  /* =====================================================
+     DELETE ADMISSION
+  ===================================================== */
+
+  async function deleteApplication(id) {
+
+    if (
+      !confirm(
+        "Are you sure you want to delete this application?"
+      )
+    ) {
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/admissions/${id}`,
+          {
+            method: "DELETE"
+          }
+        );
+
+
+      if (response.status === 204) {
+
+        showDashboardMessage(
+          "Application deleted successfully.",
+          "success"
+        );
+
+
+        await fetchAdmissions();
+
+
+        return;
+      }
+
+
+      const result =
+        await readJsonResponse(
+          response,
+          "Delete application API returned an invalid response."
+        );
+
+
+      if (
+        !response.ok ||
+        !result.success
+      ) {
+
+        throw new Error(
+          result.message ||
+          "Failed to delete application."
+        );
+      }
+
+
+      applications =
+        applications.filter(
+          function (item) {
+            return (
+              String(item.id) !==
+              String(id)
+            );
+          }
+        );
+
+      updateStats();
+      renderTable(applications);
+
+      showDashboardMessage(
+        result.message ||
+        "Application deleted successfully.",
+        "success"
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Delete application error:",
+        error
+      );
+
+
+      showDashboardMessage(
+        error.message ||
+        "Failed to delete application.",
+        "error"
+      );
     }
   }
 
@@ -2097,7 +2221,25 @@ document.addEventListener("DOMContentLoaded", function () {
                   padding:13px;
                   text-align:left;
                 ">
+                Date
+              </th>
+
+
+              <th
+                style="
+                  padding:13px;
+                  text-align:left;
+                ">
                 Action
+              </th>
+
+
+              <th
+                style="
+                  padding:13px;
+                  text-align:left;
+                ">
+                Delete
               </th>
 
             </tr>
@@ -2228,6 +2370,103 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       );
     }
+
+
+    if (internshipTableBody) {
+
+      internshipTableBody.addEventListener(
+        "click",
+        function (event) {
+
+          const deleteBtn =
+            event.target.closest(
+              ".internship-delete-btn"
+            );
+
+
+          if (!deleteBtn) {
+            return;
+          }
+
+
+          const id =
+            deleteBtn.getAttribute(
+              "data-internship-id"
+            );
+
+
+          if (!id) {
+            return;
+          }
+
+
+          deleteInternship(
+            id
+          );
+        }
+      );
+    }
+  }
+
+
+  /* =====================================================
+     SHOW ADMISSION SECTION
+  ===================================================== */
+
+  function showAdmissionSection() {
+
+    const contentCard =
+      document.querySelector(
+        ".content-card"
+      );
+
+    const statsGrid =
+      document.querySelector(
+        ".stats-grid"
+      );
+
+
+    if (contentCard) {
+      contentCard.style.display = "";
+    }
+
+
+    if (statsGrid) {
+      statsGrid.style.display = "";
+    }
+
+
+    if (internshipSection) {
+      internshipSection.style.display =
+        "none";
+    }
+
+
+    document
+      .querySelectorAll(
+        ".module-card"
+      )
+      .forEach(function (card) {
+        card.classList.remove(
+          "active"
+        );
+      });
+
+
+    const admissionCard =
+      document.querySelector(
+        '[data-form-type="admission"]'
+      );
+
+
+    if (admissionCard) {
+      admissionCard.classList.add(
+        "active"
+      );
+    }
+
+
+    fetchAdmissions();
   }
 
 
@@ -2238,6 +2477,51 @@ document.addEventListener("DOMContentLoaded", function () {
   function showInternshipSection() {
 
     createInternshipSection();
+
+
+    const contentCard =
+      document.querySelector(
+        ".content-card"
+      );
+
+    const statsGrid =
+      document.querySelector(
+        ".stats-grid"
+      );
+
+
+    if (contentCard) {
+      contentCard.style.display = "none";
+    }
+
+
+    if (statsGrid) {
+      statsGrid.style.display = "none";
+    }
+
+
+    document
+      .querySelectorAll(
+        ".module-card"
+      )
+      .forEach(function (card) {
+        card.classList.remove(
+          "active"
+        );
+      });
+
+
+    const internshipCard =
+      document.querySelector(
+        '[data-form-type="internship"]'
+      );
+
+
+    if (internshipCard) {
+      internshipCard.classList.add(
+        "active"
+      );
+    }
 
 
     internshipSection.style.display =
@@ -2362,7 +2646,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <tr>
 
             <td
-              colspan="8"
+              colspan="10"
               style="
                 text-align:center;
                 padding:25px;
@@ -2592,6 +2876,15 @@ document.addEventListener("DOMContentLoaded", function () {
           );
 
 
+        const createdAt =
+          getValue(
+            item,
+            "createdAt",
+            "created_at"
+          ) ||
+          item.submittedAt;
+
+
         const status =
           item.status ||
           "Pending";
@@ -2683,6 +2976,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <td
               style="padding:13px;">
+              ${escapeHtml(
+                formatDate(
+                  createdAt
+                )
+              )}
+            </td>
+
+
+            <td
+              style="padding:13px;">
 
               <button
                 type="button"
@@ -2695,10 +2998,126 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </td>
 
+
+            <td
+              style="padding:13px;">
+
+              <button
+                type="button"
+                class="delete-btn internship-delete-btn"
+                data-internship-id="${escapeHtml(
+                  item.id
+                )}"
+                title="Delete internship application">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </button>
+
+            </td>
+
           </tr>
         `;
       }
     );
+  }
+
+
+  /* =====================================================
+     DELETE INTERNSHIP
+  ===================================================== */
+
+  async function deleteInternship(id) {
+
+    if (
+      !confirm(
+        "Are you sure you want to delete this application?"
+      )
+    ) {
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/internships/${id}`,
+          {
+            method: "DELETE"
+          }
+        );
+
+
+      if (response.status === 204) {
+
+        showDashboardMessage(
+          "Internship application deleted successfully.",
+          "success"
+        );
+
+
+        await fetchInternships();
+
+
+        return;
+      }
+
+
+      const result =
+        await readJsonResponse(
+          response,
+          "Delete internship API returned an invalid response."
+        );
+
+
+      if (
+        !response.ok ||
+        !result.success
+      ) {
+
+        throw new Error(
+          result.message ||
+          "Failed to delete internship application."
+        );
+      }
+
+
+      showDashboardMessage(
+        result.message ||
+        "Internship application deleted successfully.",
+        "success"
+      );
+
+
+      await fetchInternships();
+
+
+    } catch (error) {
+
+      console.error(
+        "Delete internship error:",
+        error
+      );
+
+
+      showDashboardMessage(
+        error.message ||
+        "Failed to delete internship application.",
+        "error"
+      );
+    }
   }
 
 
@@ -3234,7 +3653,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function setupInternshipCard() {
 
     const card =
-      findInternshipCard();
+      document.querySelector(
+        '[data-form-type="internship"]'
+      );
 
 
     if (!card) {
@@ -3261,6 +3682,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         showInternshipSection();
+      }
+    );
+  }
+
+
+  /* =====================================================
+     ADMISSION CARD CLICK
+  ===================================================== */
+
+  function setupAdmissionCard() {
+
+    const card =
+      document.querySelector(
+        '[data-form-type="admission"]'
+      );
+
+
+    if (!card) {
+
+      console.warn(
+        "Admission dashboard card was not found."
+      );
+
+      return;
+    }
+
+
+    card.style.cursor =
+      "pointer";
+
+
+    card.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        showAdmissionSection();
       }
     );
   }
@@ -3316,6 +3778,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
           openDetails(
+            id
+          );
+        }
+      );
+    }
+
+
+    /* ---------------------------------------------
+       ADMISSION DELETE
+    --------------------------------------------- */
+
+    if (applicationsTableBody) {
+
+      applicationsTableBody.addEventListener(
+        "click",
+        function (event) {
+
+          const deleteBtn =
+            event.target.closest(
+              ".delete-btn"
+            );
+
+
+          if (!deleteBtn) {
+            return;
+          }
+
+
+          const id =
+            deleteBtn.getAttribute(
+              "data-delete-id"
+            );
+
+
+          if (!id) {
+            return;
+          }
+
+
+          deleteApplication(
             id
           );
         }
@@ -3648,6 +4150,13 @@ document.addEventListener("DOMContentLoaded", function () {
     createInternshipSection();
 
     setupInternshipCard();
+
+
+    /* ---------------------------------------------
+       ADMISSION CARD
+    --------------------------------------------- */
+
+    setupAdmissionCard();
   }
 
 

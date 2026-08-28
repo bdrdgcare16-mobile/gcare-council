@@ -380,6 +380,22 @@ tbody tr:last-child td {
   background: var(--primary-dark);
 }
 
+.delete-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px;
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: var(--danger-soft);
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;

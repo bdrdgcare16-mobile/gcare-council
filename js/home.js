@@ -386,6 +386,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
+    const loginPasswordInput = document.getElementById("loginPassword");
+    const toggleLoginPasswordBtn = document.getElementById("toggleLoginPassword");
+    if (loginPasswordInput) loginPasswordInput.type = "password";
+    if (toggleLoginPasswordBtn) {
+      toggleLoginPasswordBtn.setAttribute("aria-label", "Show password");
+      const icon = toggleLoginPasswordBtn.querySelector("i");
+      if (icon) {
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+
     clearRegistrationErrors();
     showRegistrationForm();
   }
@@ -609,6 +621,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isValid) {
         saveRegisteredUser(email, { username: username, email: email, password: newPassword });
 
+        localStorage.setItem("gcareStudentLoggedIn", "true");
+        localStorage.setItem("gcareStudentEmail", email);
+
         if (registrationForm) registrationForm.style.display = "none";
         if (registrationFinalSuccess) registrationFinalSuccess.style.display = "block";
       }
@@ -698,6 +713,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setupPasswordToggle(toggleNewPassword, "regNewPassword", "new password");
   setupPasswordToggle(toggleConfirmPassword, "regConfirmPassword", "confirm password");
+
+  const toggleLoginPassword = document.getElementById("toggleLoginPassword");
+  setupPasswordToggle(toggleLoginPassword, "loginPassword", "password");
 
   resetRegistrationFlow();
 

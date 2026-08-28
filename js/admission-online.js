@@ -132,22 +132,131 @@ document.addEventListener("DOMContentLoaded", function () {
      APPLICATION NUMBER
   ===================================================== */
 
-  function generateApplicationNo() {
-    const year = new Date().getFullYear();
+  const APP_NO_KEY =
+    "gcareLastApplicationNo";
 
-    const random =
-      Math.floor(
-        10000 + Math.random() * 90000
-      );
+  const APP_NO_SESSION_KEY =
+    "gcareCurrentApplicationNo";
 
-    return `GCARE${year}${random}`;
+  function padApplicationNo(num) {
+    return (
+      "GCARE" + String(num).padStart(4, "0")
+    );
   }
 
-  function setupApplicationNumber() {
-    if (applicationNo) {
-      applicationNo.value =
-        generateApplicationNo();
+  async function fetchMaxApplicationNo() {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/admissions`
+      );
+
+      if (!response.ok) {
+        return 0;
+      }
+
+      const result = await response.json();
+
+      if (
+        !result ||
+        !result.success ||
+        !Array.isArray(result.data)
+      ) {
+        return 0;
+      }
+
+      let max = 0;
+
+      result.data.forEach(function (item) {
+        const code =
+          item.application_no ||
+          item.applicationNo ||
+          item.application_number;
+
+        if (
+          typeof code === "string" &&
+          code.startsWith("GCARE") &&
+          code.length === 9 &&
+          /^\d{4}$/.test(code.slice(5))
+        ) {
+          const n = parseInt(
+            code.slice(5),
+            10
+          );
+
+          if (!isNaN(n) && n > max) {
+            max = n;
+          }
+        }
+      });
+
+      return max;
+    } catch (error) {
+      console.error(
+        "Could not fetch application numbers:",
+        error
+      );
+      return 0;
     }
+  }
+
+  function getStoredLastApplicationNo() {
+    const stored = parseInt(
+      localStorage.getItem(APP_NO_KEY),
+      10
+    );
+
+    if (
+      !isNaN(stored) &&
+      stored >= 1 &&
+      stored <= 9999
+    ) {
+      return stored;
+    }
+
+    return 0;
+  }
+
+  function setStoredLastApplicationNo(num) {
+    localStorage.setItem(
+      APP_NO_KEY,
+      String(num)
+    );
+  }
+
+  async function generateApplicationNo() {
+    const dbMax = await fetchMaxApplicationNo();
+    const localMax = getStoredLastApplicationNo();
+    const next = Math.max(dbMax, localMax) + 1;
+
+    setStoredLastApplicationNo(next);
+
+    return padApplicationNo(next);
+  }
+
+  async function setupApplicationNumber() {
+    if (!applicationNo) {
+      return;
+    }
+
+    const current =
+      sessionStorage.getItem(
+        APP_NO_SESSION_KEY
+      );
+
+    if (current) {
+      applicationNo.value = current;
+      return;
+    }
+
+    const next =
+      await generateApplicationNo();
+
+    sessionStorage.setItem(
+      APP_NO_SESSION_KEY,
+      next
+    );
+
+    applicationNo.value = next;
   }
 
   /* =====================================================
@@ -2947,7 +3056,7 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.set(
         "applicationNo",
         applicationNo?.value ||
-          generateApplicationNo()
+          (await generateApplicationNo())
       );
 
       formData.set(
@@ -3007,7 +3116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `Your application was submitted successfully.\nApplication No: ${submittedApplicationNo}`
       );
 
-      resetCompleteForm();
+      await resetCompleteForm();
 
       window.scrollTo({
         top:
@@ -3043,7 +3152,7 @@ document.addEventListener("DOMContentLoaded", function () {
      RESET FORM
   ===================================================== */
 
-  function resetCompleteForm() {
+  async function resetCompleteForm() {
     form.reset();
 
     const allInputs =
@@ -3124,8 +3233,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (applicationNo) {
-      applicationNo.value =
-        generateApplicationNo();
+      sessionStorage.removeItem(
+        APP_NO_SESSION_KEY
+      );
+
+      const next =
+        await generateApplicationNo();
+
+      applicationNo.value = next;
+
+      sessionStorage.setItem(
+        APP_NO_SESSION_KEY,
+        next
+      );
     }
 
     setupDeclarationDate();
@@ -3159,7 +3279,7 @@ document.addEventListener("DOMContentLoaded", function () {
      INITIALIZE
   ===================================================== */
 
-  function initialize() {
+  async function initialize() {
     if (!form) {
       console.error(
         "Admission form was not found."
@@ -3173,7 +3293,7 @@ document.addEventListener("DOMContentLoaded", function () {
       API_BASE_URL
     );
 
-    setupApplicationNumber();
+    await setupApplicationNumber();
 
     setupCourseDropdown();
 

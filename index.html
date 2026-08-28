@@ -307,7 +307,7 @@
         <ul class="footer-contact">
           <li><span class="contact-icon">📍</span> No: 33 RL Tower Gandhipuram (GH Opposite) Thiruvallur,Pincode - 602001</li>
           <li><span class="contact-icon">📞</span>+91 93449 35968</li>
-          <li><span class="contact-icon">✉</span> infotech@gcarecouncil.in</li>
+          <li><span class="contact-icon">✉</span> info@gcarecouncil.in</li>
           <li><span class="contact-icon">🌐</span> www.gcarecouncil.in</li>
         </ul>
       </div>
@@ -410,7 +410,12 @@
 
           <div class="registration-form-group">
             <label for="loginPassword">Password <span class="required">*</span></label>
-            <input type="password" id="loginPassword" name="loginPassword" autocomplete="current-password" placeholder="Enter your password" />
+            <div class="registration-password-wrapper">
+              <input type="password" id="loginPassword" name="loginPassword" autocomplete="current-password" placeholder="Enter your password" />
+              <button type="button" class="password-toggle-btn" id="toggleLoginPassword" aria-label="Show password" tabindex="-1">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
             <span class="registration-error" id="loginPasswordError"></span>
           </div>
 
