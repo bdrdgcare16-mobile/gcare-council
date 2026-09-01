@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const formsData = [
     {
       id: "student",
-      title: "Sponsor Form",
+      title: "Student Admission Form",
       category: "Admission",
       description:
         "Choose Online Form to apply through the website or Offline Form to download and submit manually.",
       onlinePage: "admission-online.html",
       file: "assets/forms/Sponsor-Form.pdf",
-      downloadName: "Sponsor-Form.pdf",
+      downloadName: "Student-Admission-Form.pdf",
       hasOnlineForm: true
     },
 

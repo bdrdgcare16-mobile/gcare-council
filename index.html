@@ -102,17 +102,17 @@
 
 <li class="dropdown">
         <a href="#">LMS</a>
-        <ul class="submenu">
+        <!-- <ul class="submenu">
           <li><a href="admin-login.html?role=student">Student Login</a></li>
           <li><a href="admin-login.html?role=faculty">Faculty Login</a></li>
           <li><a href="admin-login.html?role=centre">Centre Login</a></li>
-        </ul>
+        </ul> -->
       </li>
 
       <li class="dropdown">
         <a href="downloads.html">DOWNLOADS</a>
         <ul class="submenu">
-          <li><a href="downloads.html#student">Sponsor Form</a></li>
+          <li><a href="downloads.html#student">Student Admission Form</a></li>
           <li><a href="downloads.html#internship">Internship Form</a></li>
           <li><a href="downloads.html#report">Internship Report Form</a></li>
         </ul>
@@ -341,39 +341,103 @@
         </div>
 
         <form class="registration-form" id="registrationForm" novalidate>
-          <div class="registration-form-group">
-            <label for="regUsername">Username <span class="required">*</span></label>
-            <input type="text" id="regUsername" name="regUsername" autocomplete="username" placeholder="Enter your username" />
-            <span class="registration-error" id="regUsernameError"></span>
-          </div>
-
-          <div class="registration-form-group">
-            <label for="regEmail">Email ID <span class="required">*</span></label>
-            <input type="email" id="regEmail" name="regEmail" autocomplete="email" placeholder="Enter your email address" />
-            <span class="registration-error" id="regEmailError"></span>
-          </div>
-
-          <button type="button" class="registration-submit-btn" id="regSendOtpBtn">SEND OTP</button>
-
-          <div class="registration-otp-area" id="registrationOtpArea" style="display: none;">
-            <div class="registration-otp-info" id="registrationOtpInfo"></div>
-
+          <div class="registration-step-1" id="registrationStep1" style="display: flex; flex-direction: column; gap: 18px;">
             <div class="registration-form-group">
-              <label for="regOtp">Enter OTP <span class="required">*</span></label>
-              <input type="password" id="regOtp" name="regOtp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" />
-              <span class="registration-error" id="regOtpError"></span>
+              <label for="regUsername">Username <span class="required">*</span></label>
+              <input type="text" id="regUsername" name="regUsername" autocomplete="username" placeholder="Enter your username" />
+              <span class="registration-error" id="regUsernameError"></span>
             </div>
 
-            <button type="button" class="registration-submit-btn" id="regVerifyOtpBtn">VERIFY OTP</button>
-          </div>
+            <div class="registration-form-group">
+              <label for="regLastName">Last Name <span class="required">*</span></label>
+              <input type="text" id="regLastName" name="regLastName" autocomplete="family-name" placeholder="Enter your last name" />
+              <span class="registration-error" id="regLastNameError"></span>
+            </div>
 
-          <div class="registration-otp-success" id="registrationOtpSuccess" style="display: none;">OTP Verified Successfully</div>
+            <div class="registration-form-group">
+              <label for="regDob">Date of Birth <span class="required">*</span></label>
+              <input type="date" id="regDob" name="regDob" autocomplete="bday" />
+              <span class="registration-error" id="regDobError"></span>
+            </div>
+
+            <div class="registration-form-group">
+              <label for="regEmail">Email ID <span class="required">*</span></label>
+              <div class="registration-otp-inline">
+                <input type="email" id="regEmail" name="regEmail" autocomplete="email" placeholder="Enter your email address" />
+                <button type="button" class="registration-submit-btn" id="regSendOtpBtn">SEND OTP</button>
+              </div>
+              <span class="registration-error" id="regEmailError"></span>
+            </div>
+
+            <div class="registration-otp-area" id="registrationOtpArea" style="display: none;">
+              <div class="registration-otp-info" id="registrationOtpInfo"></div>
+
+              <div class="registration-form-group">
+                <label for="regOtp">Enter OTP <span class="required">*</span></label>
+                <div class="registration-otp-inline">
+                  <input type="password" id="regOtp" name="regOtp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" />
+                  <button type="button" class="registration-submit-btn" id="regVerifyOtpBtn">VERIFY OTP</button>
+                </div>
+                <span class="registration-error" id="regOtpError"></span>
+              </div>
+
+              <button type="button" class="registration-resend-otp" id="regResendEmailOtpBtn" disabled>Resend OTP</button>
+            </div>
+
+            <div class="registration-otp-success" id="registrationEmailOtpSuccess" style="display: none;">OTP verified successfully</div>
+
+            <div class="registration-form-group">
+              <label for="regAddress">Address <span class="required">*</span></label>
+              <textarea id="regAddress" name="regAddress" autocomplete="street-address" rows="3" placeholder="Enter your address"></textarea>
+              <span class="registration-error" id="regAddressError"></span>
+            </div>
+
+            <div class="registration-form-group">
+              <label for="regCity">City <span class="required">*</span></label>
+              <input type="text" id="regCity" name="regCity" autocomplete="address-level2" placeholder="Enter your city" />
+              <span class="registration-error" id="regCityError"></span>
+            </div>
+
+            <div class="registration-form-group">
+              <label for="regState">State <span class="required">*</span></label>
+              <input type="text" id="regState" name="regState" autocomplete="address-level1" placeholder="Enter your state" />
+              <span class="registration-error" id="regStateError"></span>
+            </div>
+
+            <div class="registration-form-group">
+              <label for="regPhone">Phone Number <span class="required">*</span></label>
+              <div class="registration-otp-inline">
+                <input type="tel" id="regPhone" name="regPhone" autocomplete="tel" inputmode="numeric" maxlength="10" placeholder="Enter your phone number" />
+                <button type="button" class="registration-submit-btn" id="regSendPhoneOtpBtn">SEND OTP</button>
+              </div>
+              <span class="registration-error" id="regPhoneError"></span>
+            </div>
+
+            <div class="registration-otp-area" id="registrationPhoneOtpArea" style="display: none;">
+              <div class="registration-otp-info" id="registrationPhoneOtpInfo"></div>
+
+              <div class="registration-form-group">
+                <label for="regPhoneOtp">Enter OTP <span class="required">*</span></label>
+                <div class="registration-otp-inline">
+                  <input type="password" id="regPhoneOtp" name="regPhoneOtp" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" />
+                  <button type="button" class="registration-submit-btn" id="regVerifyPhoneOtpBtn">VERIFY OTP</button>
+                </div>
+                <span class="registration-error" id="regPhoneOtpError"></span>
+              </div>
+
+              <button type="button" class="registration-resend-otp" id="regResendPhoneOtpBtn" disabled>Resend OTP</button>
+            </div>
+
+            <div class="registration-otp-success" id="registrationPhoneOtpSuccess" style="display: none;">OTP verified successfully</div>
+
+            <button type="button" class="registration-submit-btn" id="regNextBtn">NEXT</button>
+          </div>
 
           <div class="registration-password-area" id="registrationPasswordArea" style="display: none;">
             <div class="registration-form-group">
               <label for="regNewPassword">New Password <span class="required">*</span></label>
               <div class="registration-password-wrapper">
-                <input type="password" id="regNewPassword" name="regNewPassword" autocomplete="new-password" placeholder="Create a new password" />
+                <input type="password" id="regNewPassword" name="regNewPassword" autocomplete="new-password" placeholder="Enter your new password" />
                 <button type="button" class="password-toggle-btn" id="toggleNewPassword" aria-label="Show new password" tabindex="-1">
                   <i class="fa-regular fa-eye"></i>
                 </button>
@@ -392,7 +456,10 @@
               <span class="registration-error" id="regConfirmPasswordError"></span>
             </div>
 
-            <button type="submit" class="registration-submit-btn" id="regSubmitBtn" disabled>SUBMIT</button>
+            <div class="registration-step-actions">
+              <button type="button" class="registration-submit-btn registration-back-btn" id="regBackBtn">BACK</button>
+              <button type="submit" class="registration-submit-btn" id="regSubmitBtn" disabled>SUBMIT</button>
+            </div>
           </div>
         </form>
 
@@ -426,8 +493,7 @@
 
         <div class="registration-final-success" id="registrationFinalSuccess" style="display: none;">
           <div class="registration-success-mark">✓</div>
-          <h3>Registration Successful</h3>
-          <p>Your account has been created successfully.</p>
+          <h3>Account created successfully</h3>
           <button type="button" class="registration-submit-btn" id="registrationSuccessBtn">OK</button>
         </div>
       </div>

@@ -10,7 +10,7 @@
   />
 
   <title>
-    Sponsor Form - G Care Council
+    Student Admission Form - G Care Council
   </title>
 
   <link
@@ -251,6 +251,10 @@
       PROGRAMMES
     </a>
 
+    <a href="lms-dashboard.html">
+      LMS
+    </a>
+
     <a
       href="downloads.html"
       class="active"
@@ -269,11 +273,11 @@
 
   <section class="form-hero">
     <h2>
-      Sponsor Form
+      Student Admission Form
     </h2>
 
     <p>
-      Please fill in the sponsor details and verify
+      Please fill in the student admission details and verify
       your mobile number and email before submitting.
     </p>
   </section>
@@ -314,6 +318,59 @@
               name="applicationNo"
               readonly
             />
+          </div>
+
+          <div class="form-group">
+            <label for="branch_name">
+              Branch Name
+              <b>*</b>
+            </label>
+
+            <select
+              id="branch_name"
+              name="branch_name"
+              required
+            >
+              <option value="">
+                Select Branch
+              </option>
+
+              <option value="Thiruvallur">
+                Thiruvallur
+              </option>
+
+              <option value="Salai">
+                Salai
+              </option>
+
+              <option value="Poonamallee">
+                Poonamallee
+              </option>
+
+              <option value="Ennore">
+                Ennore
+              </option>
+
+              <option value="Kanchipuram">
+                Kanchipuram
+              </option>
+
+              <option value="Thiruthani">
+                Thiruthani
+              </option>
+
+              <option value="Nemilicherry">
+                Nemilicherry
+              </option>
+
+              <option value="Pudur">
+                Pudur
+              </option>
+
+              <option value="Nagapattinam">
+                Nagapattinam
+              </option>
+            </select>
           </div>
 
           <div class="form-group course-field">
@@ -532,6 +589,7 @@
             </div>
           </div>
         </div>
+
       </section>
 
       <!-- Personal Details -->
@@ -984,6 +1042,15 @@
               >
                 Mobile OTP not verified.
               </p>
+
+              <button
+                type="button"
+                class="send-otp-small"
+                id="resendMobileOtpBtn"
+                style="display: none;"
+              >
+                Resend OTP
+              </button>
             </div>
           </div>
 
@@ -1062,6 +1129,15 @@
               >
                 Email OTP not verified.
               </p>
+
+              <button
+                type="button"
+                class="send-otp-small"
+                id="resendEmailOtpBtn"
+                style="display: none;"
+              >
+                Resend OTP
+              </button>
             </div>
           </div>
         </div>

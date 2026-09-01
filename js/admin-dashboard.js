@@ -1655,6 +1655,14 @@ document.addEventListener("DOMContentLoaded", function () {
           )}
 
           ${createDetailItem(
+            "Branch",
+            getValue(
+              item,
+              "branch"
+            )
+          )}
+
+          ${createDetailItem(
             "Name",
             `${safeValue(
               item.title
