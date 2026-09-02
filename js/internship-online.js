@@ -655,138 +655,133 @@ document.addEventListener(
        DATE OF BIRTH
     ===================================================== */
 
-    function calculateAge(
-      dateValue
-    ) {
-
-      const dob =
-        new Date(
-          dateValue +
-          "T00:00:00"
-        );
-
-      const today =
-        new Date();
-
-      let age =
-        today.getFullYear() -
-        dob.getFullYear();
-
-      const monthDifference =
-        today.getMonth() -
-        dob.getMonth();
-
-      if (
-        monthDifference < 0 ||
-        (
-          monthDifference === 0 &&
-          today.getDate() <
-          dob.getDate()
-        )
-      ) {
-
-        age--;
-
-      }
-
-      return age;
-
+    function getDateString(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
 
+    function addYears(date, years) {
+      const result = new Date(date);
+      const originalMonth = result.getMonth();
+      const originalDay = result.getDate();
+      result.setFullYear(
+        result.getFullYear() + years,
+        originalMonth,
+        originalDay
+      );
+      if (result.getMonth() !== originalMonth) {
+        result.setDate(0);
+      }
+      return result;
+    }
+
+    function parseYyyyMmDd(dateString) {
+      if (!dateString) {
+        return null;
+      }
+      const parts = dateString.split("-");
+      if (parts.length !== 3) {
+        return null;
+      }
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10);
+      const day = parseInt(parts[2], 10);
+      if (
+        isNaN(year) ||
+        isNaN(month) ||
+        isNaN(day) ||
+        month < 1 ||
+        month > 12 ||
+        day < 1 ||
+        day > 31
+      ) {
+        return null;
+      }
+      const date = new Date(year, month - 1, day);
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() + 1 !== month ||
+        date.getDate() !== day
+      ) {
+        return null;
+      }
+      return date;
+    }
+
+    function calculateAge(dateValue) {
+      let dob;
+      if (dateValue instanceof Date) {
+        dob = dateValue;
+      } else {
+        dob = parseYyyyMmDd(dateValue);
+      }
+      if (!dob || isNaN(dob.getTime())) {
+        return NaN;
+      }
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const birthdayNotCompleted =
+        today.getMonth() < dob.getMonth() ||
+        (
+          today.getMonth() === dob.getMonth() &&
+          today.getDate() < dob.getDate()
+        );
+      if (birthdayNotCompleted) {
+        age--;
+      }
+      return age;
+    }
 
     function setDateOfBirthLimits() {
-
-      const today =
-        new Date();
-
-      const minDate =
-        new Date(
-          today.getFullYear() - 20,
-          today.getMonth(),
-          today.getDate()
-        );
-
-      const maxDate =
-        new Date(
-          today.getFullYear() - 15,
-          today.getMonth(),
-          today.getDate()
-        );
-
-
-      const minDateString =
-        minDate.toISOString()
-          .split('T')[0];
-
-      const maxDateString =
-        maxDate.toISOString()
-          .split('T')[0];
-
-
+      const today = new Date();
+      const minDate = addYears(today, -35);
+      const maxDate = addYears(today, -15);
       if (dateOfBirth) {
-
-        dateOfBirth.min =
-          minDateString;
-
-        dateOfBirth.max =
-          maxDateString;
-
+        dateOfBirth.min = getDateString(minDate);
+        dateOfBirth.max = getDateString(maxDate);
       }
-
     }
 
-
     function validateDateOfBirth() {
-
-      const value =
-        dateOfBirth.value;
-
-      if (
-        !value
-      ) {
-
+      const value = dateOfBirth.value;
+      if (!value) {
         setError(
           dateOfBirth,
           "dateOfBirthError",
           "Date of Birth is required."
         );
-
         return false;
-
       }
-
-      const age =
-        calculateAge(
-          value
-        );
-
-      if (
-        Number.isNaN(
-          age
-        ) ||
-        age < 15 ||
-        age > 20
-      ) {
-
+      const dob = parseYyyyMmDd(value);
+      if (!dob) {
         setError(
           dateOfBirth,
           "dateOfBirthError",
-          "Age must be between 15 and 20 years."
+          "Age must be between 15 and 35 years."
         );
-
         return false;
-
       }
-
+      const age = calculateAge(dob);
+      if (
+        Number.isNaN(age) ||
+        age < 15 ||
+        age > 35
+      ) {
+        setError(
+          dateOfBirth,
+          "dateOfBirthError",
+          "Age must be between 15 and 35 years."
+        );
+        return false;
+      }
       markValid(
         dateOfBirth,
         "dateOfBirthError"
       );
-
       return true;
-
     }
-
 
     dateOfBirth.addEventListener(
       "change",
@@ -2832,10 +2827,20 @@ document.addEventListener(
             error
           );
 
-          alert(
+          let displayMessage =
             error.message ||
-            "Unable to submit Internship Application. Please try again."
-          );
+            "Unable to submit Internship Application. Please try again.";
+
+          if (
+            /^Age must be between 15 and 20 years\.?$/i.test(
+              displayMessage
+            )
+          ) {
+            displayMessage =
+              "Age must be between 15 and 35 years.";
+          }
+
+          alert(displayMessage);
 
         } finally {
 

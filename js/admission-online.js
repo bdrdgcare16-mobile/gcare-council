@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const dob = document.getElementById("dob");
   const dobDisplay = document.getElementById("dobDisplay");
+  const dobErrorMessage =
+    document.getElementById("dobErrorMessage");
   const openDobCalendarBtn =
     document.getElementById("openDobCalendarBtn");
   const age = document.getElementById("age");
@@ -295,6 +297,24 @@ document.addEventListener("DOMContentLoaded", function () {
     return `${year}-${month}-${day}`;
   }
 
+  function addYears(date, years) {
+    const result = new Date(date);
+    const originalMonth = result.getMonth();
+    const originalDay = result.getDate();
+
+    result.setFullYear(
+      result.getFullYear() + years,
+      originalMonth,
+      originalDay
+    );
+
+    if (result.getMonth() !== originalMonth) {
+      result.setDate(0);
+    }
+
+    return result;
+  }
+
   function parseDdMmYyyy(dateString) {
     if (!dateString) {
       return null;
@@ -339,11 +359,21 @@ document.addEventListener("DOMContentLoaded", function () {
       return null;
     }
 
-    return new Date(
+    const parsedDate = new Date(
       year,
       month - 1,
       day
     );
+
+    if (
+      parsedDate.getDate() !== day ||
+      parsedDate.getMonth() + 1 !== month ||
+      parsedDate.getFullYear() !== year
+    ) {
+      return null;
+    }
+
+    return parsedDate;
   }
 
   function formatDdMmYyyy(date) {
@@ -372,13 +402,40 @@ document.addEventListener("DOMContentLoaded", function () {
       return "";
     }
 
-    const today =
-      new Date();
+    let birthDate;
 
-    const birthDate =
-      new Date(
-        `${dobValue}T00:00:00`
+    if (dobValue instanceof Date) {
+      birthDate = dobValue;
+    } else if (
+      /^\d{4}-\d{2}-\d{2}$/.test(dobValue)
+    ) {
+      const parts = dobValue.split("-");
+      birthDate = new Date(
+        parseInt(parts[0], 10),
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[2], 10)
       );
+    } else if (
+      /^\d{2}-\d{2}-\d{4}$/.test(dobValue)
+    ) {
+      const parts = dobValue.split("-");
+      birthDate = new Date(
+        parseInt(parts[2], 10),
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[0], 10)
+      );
+    } else {
+      birthDate = new Date(dobValue);
+    }
+
+    if (
+      !birthDate ||
+      isNaN(birthDate.getTime())
+    ) {
+      return "";
+    }
+
+    const today = new Date();
 
     let calculatedAge =
       today.getFullYear() -
@@ -398,7 +455,47 @@ document.addEventListener("DOMContentLoaded", function () {
       calculatedAge--;
     }
 
+    if (isNaN(calculatedAge)) {
+      return "";
+    }
+
     return calculatedAge;
+  }
+
+  /* =====================================================
+     DOB ERROR HELPERS
+  ===================================================== */
+
+  function showDobError(message) {
+    if (dob) {
+      dob.setCustomValidity(message);
+    }
+
+    if (dobDisplay) {
+      dobDisplay.setCustomValidity(message);
+    }
+
+    if (dobErrorMessage) {
+      dobErrorMessage.textContent = message;
+      dobErrorMessage.style.display = message
+        ? "block"
+        : "none";
+    }
+  }
+
+  function clearDobError() {
+    if (dob) {
+      dob.setCustomValidity("");
+    }
+
+    if (dobDisplay) {
+      dobDisplay.setCustomValidity("");
+    }
+
+    if (dobErrorMessage) {
+      dobErrorMessage.textContent = "";
+      dobErrorMessage.style.display = "none";
+    }
   }
 
   /* =====================================================
@@ -1006,32 +1103,13 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const today =
-      new Date();
+    const today = new Date();
 
-    const maximumDob =
-      new Date(
-        today.getFullYear() - 15,
-        today.getMonth(),
-        today.getDate()
-      );
+    const minDob = addYears(today, -35);
+    const maxDob = addYears(today, -15);
 
-    const minimumDob =
-      new Date(
-        today.getFullYear() - 21,
-        today.getMonth(),
-        today.getDate() + 1
-      );
-
-    dob.max =
-      getDateString(
-        maximumDob
-      );
-
-    dob.min =
-      getDateString(
-        minimumDob
-      );
+    dob.min = getDateString(minDob);
+    dob.max = getDateString(maxDob);
 
     if (openDobCalendarBtn) {
       openDobCalendarBtn.addEventListener(
@@ -1053,16 +1131,30 @@ document.addEventListener("DOMContentLoaded", function () {
     dob.addEventListener(
       "change",
       function () {
-        const selectedDate =
-          new Date(
-            this.value
-          );
+        if (!this.value) {
+          dobDisplay.value = "";
+          age.value = "";
+          clearDobError();
+          return;
+        }
+
+        const parts = this.value.split("-");
+
+        const selectedDate = new Date(
+          parseInt(parts[0], 10),
+          parseInt(parts[1], 10) - 1,
+          parseInt(parts[2], 10)
+        );
 
         if (
           isNaN(
             selectedDate.getTime()
           )
         ) {
+          age.value = "";
+          showDobError(
+            "Please enter a valid date in DD-MM-YYYY format."
+          );
           return;
         }
 
@@ -1073,21 +1165,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const calculatedAge =
           calculateAge(
-            this.value
+            selectedDate
           );
 
         if (
+          calculatedAge === "" ||
           calculatedAge < 15 ||
-          calculatedAge > 20
+          calculatedAge > 35
         ) {
-          age.value =
-            "";
-
+          age.value = "";
+          showDobError(
+            "Only applicants aged between 15 and 35 years can apply."
+          );
           return;
         }
 
-        age.value =
-          calculatedAge;
+        age.value = calculatedAge;
+        clearDobError();
       }
     );
 
@@ -1134,8 +1228,7 @@ document.addEventListener("DOMContentLoaded", function () {
             value.slice(5);
         }
 
-        this.value =
-          value;
+        this.value = value;
 
         if (
           value.length === 10
@@ -1153,30 +1246,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const calculatedAge =
               calculateAge(
-                dob.value
+                parsedDate
               );
 
             if (
+              calculatedAge === "" ||
               calculatedAge < 15 ||
-              calculatedAge > 20
+              calculatedAge > 35
             ) {
-              age.value =
-                "";
-
+              age.value = "";
+              showDobError(
+                "Only applicants aged between 15 and 35 years can apply."
+              );
               return;
             }
 
-            age.value =
-              calculatedAge;
-
+            age.value = calculatedAge;
+            clearDobError();
           } else {
-            age.value =
-              "";
+            dob.value = "";
+            age.value = "";
+            showDobError(
+              "Please enter a valid date in DD-MM-YYYY format."
+            );
           }
-
         } else {
-          age.value =
-            "";
+          dob.value = "";
+          age.value = "";
+          clearDobError();
         }
       }
     );
@@ -3154,10 +3251,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateDob() {
     if (!dob?.value) {
-      dob?.setCustomValidity(
+      showDobError(
         "Date of Birth is required."
       );
-
+      dobDisplay?.reportValidity();
       return false;
     }
 
@@ -3167,28 +3264,18 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
     if (
+      calculatedAge === "" ||
       calculatedAge < 15 ||
-      calculatedAge > 20
+      calculatedAge > 35
     ) {
-      dob?.setCustomValidity(
-        "Only applicants aged between 15 and 20 years can apply."
+      showDobError(
+        "Only applicants aged between 15 and 35 years can apply."
       );
-
-      dobDisplay?.setCustomValidity(
-        "Only applicants aged between 15 and 20 years can apply."
-      );
-
+      dobDisplay?.reportValidity();
       return false;
     }
 
-    dob?.setCustomValidity(
-      ""
-    );
-
-    dobDisplay?.setCustomValidity(
-      ""
-    );
-
+    clearDobError();
     return true;
   }
 
