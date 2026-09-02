@@ -1656,10 +1656,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ${createDetailItem(
             "Branch",
-            getValue(
-              item,
-              "branch"
-            )
+            item?.branch_name ||
+            item?.branchName ||
+            item?.branch ||
+            "-"
           )}
 
           ${createDetailItem(
