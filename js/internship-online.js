@@ -739,7 +739,7 @@ document.addEventListener(
           setError(
             dateOfBirth,
             "dateOfBirthError",
-            "Date of Birth is required."
+            "Please select your Date of Birth."
           );
         } else {
           setError(
@@ -2753,6 +2753,12 @@ document.addEventListener(
             displayMessage =
               "Age must be between 15 and 35 years.";
           }
+
+          submitBtn.disabled =
+            false;
+
+          submitBtn.textContent =
+            "Submit Application";
 
           alert(displayMessage);
 

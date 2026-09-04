@@ -152,6 +152,100 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  function getInternshipDate(
+    item
+  ) {
+
+    const dateKeys = [
+      "createdAt",
+      "created_at",
+      "submittedAt",
+      "submitted_at",
+      "applicationDate",
+      "application_date",
+      "date"
+    ];
+
+
+    for (
+      let i = 0;
+      i < dateKeys.length;
+      i++
+    ) {
+
+      const value =
+        item?.[dateKeys[i]];
+
+      if (
+        value
+      ) {
+        return value;
+      }
+    }
+
+    return "";
+  }
+
+
+  function formatDateShort(
+    value
+  ) {
+
+    if (!value) {
+      return "-";
+    }
+
+
+    const date =
+      new Date(value);
+
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+      return "-";
+    }
+
+
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+
+
+    const day =
+      String(
+        date.getDate()
+      ).padStart(
+        2,
+        "0"
+      );
+
+    const month =
+      months[
+        date.getMonth()
+      ];
+
+    const year =
+      date.getFullYear();
+
+
+    return `${day} ${month} ${year}`;
+  }
+
+
   /* =====================================================
      ESCAPE HTML
      Prevent broken HTML when displaying user data
@@ -2885,12 +2979,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const createdAt =
-          getValue(
-            item,
-            "createdAt",
-            "created_at"
-          ) ||
-          item.submittedAt;
+          getInternshipDate(
+            item
+          );
 
 
         const status =
@@ -2985,7 +3076,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <td
               style="padding:13px;">
               ${escapeHtml(
-                formatDate(
+                formatDateShort(
                   createdAt
                 )
               )}
@@ -3274,10 +3365,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const createdAt =
-        getValue(
-          item,
-          "createdAt",
-          "created_at"
+        getInternshipDate(
+          item
         );
 
 
@@ -3375,7 +3464,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           ${createDetailItem(
             "Submitted At",
-            formatDate(
+            formatDateShort(
               createdAt
             )
           )}

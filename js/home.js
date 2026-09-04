@@ -1106,7 +1106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       localStorage.setItem("gcareStudentLoggedIn", "true");
       localStorage.setItem("gcareStudentEmail", email);
-      window.location.href = "lms-dashboard.html";
+      window.location.href = "faculty-dashboard.html";
     });
   }
 
