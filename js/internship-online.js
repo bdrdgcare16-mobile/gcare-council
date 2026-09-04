@@ -663,13 +663,15 @@ document.addEventListener(
     }
 
     function addYears(date, years) {
-      const result = new Date(date);
-      const originalMonth = result.getMonth();
-      const originalDay = result.getDate();
-      result.setFullYear(
-        result.getFullYear() + years,
+      const originalMonth = date.getMonth();
+      const originalDay = date.getDate();
+      const result = new Date(
+        date.getFullYear() + years,
         originalMonth,
-        originalDay
+        originalDay,
+        12,
+        0,
+        0
       );
       if (result.getMonth() !== originalMonth) {
         result.setDate(0);
@@ -677,66 +679,50 @@ document.addEventListener(
       return result;
     }
 
-    function parseYyyyMmDd(dateString) {
-      if (!dateString) {
+    function calculateApplicantAge(dobValue) {
+      if (!dobValue) {
         return null;
       }
-      const parts = dateString.split("-");
+
+      const parts = dobValue.split("-");
+
       if (parts.length !== 3) {
         return null;
       }
-      const year = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10);
-      const day = parseInt(parts[2], 10);
-      if (
-        isNaN(year) ||
-        isNaN(month) ||
-        isNaN(day) ||
-        month < 1 ||
-        month > 12 ||
-        day < 1 ||
-        day > 31
-      ) {
-        return null;
-      }
-      const date = new Date(year, month - 1, day);
-      if (
-        date.getFullYear() !== year ||
-        date.getMonth() + 1 !== month ||
-        date.getDate() !== day
-      ) {
-        return null;
-      }
-      return date;
-    }
 
-    function calculateAge(dateValue) {
-      let dob;
-      if (dateValue instanceof Date) {
-        dob = dateValue;
-      } else {
-        dob = parseYyyyMmDd(dateValue);
+      const birthYear = Number(parts[0]);
+      const birthMonth = Number(parts[1]);
+      const birthDay = Number(parts[2]);
+
+      if (
+        !Number.isInteger(birthYear) ||
+        !Number.isInteger(birthMonth) ||
+        !Number.isInteger(birthDay)
+      ) {
+        return null;
       }
-      if (!dob || isNaN(dob.getTime())) {
-        return NaN;
-      }
+
       const today = new Date();
-      let age = today.getFullYear() - dob.getFullYear();
-      const birthdayNotCompleted =
-        today.getMonth() < dob.getMonth() ||
-        (
-          today.getMonth() === dob.getMonth() &&
-          today.getDate() < dob.getDate()
-        );
-      if (birthdayNotCompleted) {
+
+      let age = today.getFullYear() - birthYear;
+
+      const currentMonth = today.getMonth() + 1;
+      const currentDay = today.getDate();
+
+      if (
+        currentMonth < birthMonth ||
+        (currentMonth === birthMonth && currentDay < birthDay)
+      ) {
         age--;
       }
+
       return age;
     }
 
     function setDateOfBirthLimits() {
       const today = new Date();
-      const minDate = addYears(today, -35);
+      const minDate = addYears(today, -36);
+      minDate.setDate(minDate.getDate() + 1);
       const maxDate = addYears(today, -15);
       if (dateOfBirth) {
         dateOfBirth.min = getDateString(minDate);
@@ -745,27 +731,27 @@ document.addEventListener(
     }
 
     function validateDateOfBirth() {
-      const value = dateOfBirth.value;
-      if (!value) {
-        setError(
-          dateOfBirth,
-          "dateOfBirthError",
-          "Date of Birth is required."
-        );
+      const dobValue = dateOfBirth.value;
+      const age = calculateApplicantAge(dobValue);
+
+      if (age === null) {
+        if (!dobValue) {
+          setError(
+            dateOfBirth,
+            "dateOfBirthError",
+            "Date of Birth is required."
+          );
+        } else {
+          setError(
+            dateOfBirth,
+            "dateOfBirthError",
+            "Please select a valid Date of Birth."
+          );
+        }
         return false;
       }
-      const dob = parseYyyyMmDd(value);
-      if (!dob) {
-        setError(
-          dateOfBirth,
-          "dateOfBirthError",
-          "Age must be between 15 and 35 years."
-        );
-        return false;
-      }
-      const age = calculateAge(dob);
+
       if (
-        Number.isNaN(age) ||
         age < 15 ||
         age > 35
       ) {
@@ -776,10 +762,12 @@ document.addEventListener(
         );
         return false;
       }
+
       markValid(
         dateOfBirth,
         "dateOfBirthError"
       );
+
       return true;
     }
 
@@ -2140,12 +2128,7 @@ document.addEventListener(
       "designation1",
       "joiningDate1",
       "leavingDate1",
-      "jobProfile1",
-      "organization2",
-      "designation2",
-      "joiningDate2",
-      "leavingDate2",
-      "jobProfile2"
+      "jobProfile1"
     ];
 
 
@@ -2250,16 +2233,6 @@ document.addEventListener(
           "leavingDate1"
         ].value;
 
-      const joiningDate2 =
-        form.elements[
-          "joiningDate2"
-        ].value;
-
-      const leavingDate2 =
-        form.elements[
-          "leavingDate2"
-        ].value;
-
 
       if (
         joiningDate1 >
@@ -2283,37 +2256,6 @@ document.addEventListener(
 
         form.elements[
           "leavingDate1"
-        ].classList.add(
-          "employment-input-error"
-        );
-
-        return false;
-
-      }
-
-
-      if (
-        joiningDate2 >
-        leavingDate2
-      ) {
-
-        if (
-          error
-        ) {
-
-          error.textContent =
-            "Employment Row 2: Date of Leaving cannot be earlier than Joining Date.";
-
-        }
-
-        form.elements[
-          "joiningDate2"
-        ].classList.add(
-          "employment-input-error"
-        );
-
-        form.elements[
-          "leavingDate2"
         ].classList.add(
           "employment-input-error"
         );
@@ -2550,6 +2492,10 @@ document.addEventListener(
         event.preventDefault();
 
 
+        const dobValid =
+          validateDateOfBirth();
+
+
         const enrolmentValid =
           validateEnrolmentNumber();
 
@@ -2564,9 +2510,6 @@ document.addEventListener(
 
         const sexValid =
           validateSex();
-
-        const dobValid =
-          validateDateOfBirth();
 
         const addressValid =
           validateAddress();
@@ -2688,14 +2631,14 @@ document.addEventListener(
            SUBMIT
         ================================================= */
 
+        submitBtn.disabled =
+          true;
+
+        submitBtn.textContent =
+          "Submitting...";
+
+
         try {
-
-          submitBtn.disabled =
-            true;
-
-          submitBtn.textContent =
-            "Submitting...";
-
 
           const formData =
             new FormData(
@@ -2729,35 +2672,6 @@ document.addEventListener(
               jobProfile:
                 form.elements[
                   "jobProfile1"
-                ].value.trim()
-
-            },
-
-            {
-
-              organizationName:
-                form.elements[
-                  "organization2"
-                ].value.trim(),
-
-              designation:
-                form.elements[
-                  "designation2"
-                ].value.trim(),
-
-              joiningDate:
-                form.elements[
-                  "joiningDate2"
-                ].value,
-
-              leavingDate:
-                form.elements[
-                  "leavingDate2"
-                ].value,
-
-              jobProfile:
-                form.elements[
-                  "jobProfile2"
                 ].value.trim()
 
             }

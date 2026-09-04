@@ -323,6 +323,7 @@
       class="affiliation-form"
       action="#"
       method="POST"
+      enctype="multipart/form-data"
     >
       <!-- 1. Institution Details -->
       <section class="form-box">
@@ -521,12 +522,26 @@
 
         <div class="grid-2">
           <div class="form-group">
-            <label>Whether Own building or on rent / lease <b>*</b></label>
+            <label>Whether Own building or on rent  <b>*</b></label>
             <div class="inline-options">
               <label class="radio-label">Own <input type="radio" name="buildingType" value="Own" required /></label>
-              <label class="radio-label">Rent / Lease <input type="radio" name="buildingType" value="Rent / Lease" /></label>
+              <label class="radio-label">Rent  <input type="radio" name="buildingType" value="Rent" /></label>
             </div>
-            <small class="field-hint">If own, copy of sale deed; if lease / rent, minimum 5 years agreement copy should be enclosed.</small>
+            <small class="field-hint">If own, copy of sale deed; if rent, minimum 5 years agreement copy should be enclosed.</small>
+            <div class="conditional-upload" id="saleDeedUpload">
+              <label for="saleDeedFile">Upload Sale Deed <b>*</b></label>
+              <input type="file" id="saleDeedFile" name="saleDeedFile" accept=".pdf,.jpg,.jpeg,.png" />
+              <span class="file-name" id="saleDeedFileName"></span>
+              <span class="file-error" id="saleDeedFileError">Only PDF, JPG, JPEG, and PNG files are allowed.</span>
+              <small class="field-hint">Allowed formats: PDF, JPG, JPEG, PNG</small>
+            </div>
+            <div class="conditional-upload" id="rentalAgreementUpload">
+              <label for="rentalAgreementFile">Upload Rental Agreement <b>*</b></label>
+              <input type="file" id="rentalAgreementFile" name="rentalAgreementFile" accept=".pdf,.jpg,.jpeg,.png" />
+              <span class="file-name" id="rentalAgreementFileName"></span>
+              <span class="file-error" id="rentalAgreementFileError">Only PDF, JPG, JPEG, and PNG files are allowed.</span>
+              <small class="field-hint">Allowed formats: PDF, JPG, JPEG, PNG</small>
+            </div>
           </div>
 
           <div class="form-group">
@@ -534,6 +549,13 @@
             <div class="inline-options">
               <label class="radio-label">Available <input type="radio" name="buildingDocuments" value="Available" required /></label>
               <label class="radio-label">Not Available <input type="radio" name="buildingDocuments" value="Not Available" /></label>
+            </div>
+            <div class="conditional-upload" id="buildingDocumentsUpload">
+              <label for="buildingDocumentsFile">Upload Building Documents <b>*</b></label>
+              <input type="file" id="buildingDocumentsFile" name="buildingDocumentsFile" accept=".pdf,.jpg,.jpeg,.png" />
+              <span class="file-name" id="buildingDocumentsFileName"></span>
+              <span class="file-error" id="buildingDocumentsFileError">Only PDF, JPG, JPEG, and PNG files are allowed.</span>
+              <small class="field-hint">Allowed formats: PDF, JPG, JPEG, PNG</small>
             </div>
           </div>
 
@@ -785,6 +807,13 @@
         </div>
 
         <div class="declaration-box">
+          <div class="declaration-accept">
+            <label class="checkbox-label" for="declarationAccept">
+              <input type="checkbox" id="declarationAccept" name="declarationAccept" required />
+              I accept the above declaration <b>*</b>
+            </label>
+            <span class="file-error" id="declarationAcceptError">Please accept the declaration before submitting.</span>
+          </div>
           <p>We have fully understood the affiliation, recognition and training conditions prescribed by G Care Council Training, an auspicious agency of Gandhi Foundation. We hereby undertake to comply with all applicable guidelines, infrastructure requirements, academic standards and timelines specified by G Care Council. We understand that failure to fulfil these conditions, or submission of false information, may result in the rejection, suspension or withdrawal of affiliation or recognition. The management accepts full responsibility for the proper conduct of approved programmes and for payment of salaries and other dues to its teaching and non-teaching staff without financial assistance from G Care Council.</p>
 
           <div class="grid-3">

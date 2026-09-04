@@ -345,6 +345,20 @@ body {
   color: #c30000;
 }
 
+/* Conditional uploads */
+.conditional-upload {
+  display: none;
+  margin-top: 14px;
+}
+
+.conditional-upload.show {
+  display: block;
+}
+
+.declaration-accept {
+  margin-bottom: 14px;
+}
+
 /* Enclosure uploads */
 .enclosure-item {
   display: flex;

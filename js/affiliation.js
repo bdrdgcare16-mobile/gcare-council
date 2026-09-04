@@ -112,4 +112,177 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+
+  /* Conditional document uploads for Building & Document Particulars */
+  const buildingTypeRadios = document.querySelectorAll('input[name="buildingType"]');
+  const saleDeedUpload = document.getElementById("saleDeedUpload");
+  const rentalAgreementUpload = document.getElementById("rentalAgreementUpload");
+  const saleDeedFile = document.getElementById("saleDeedFile");
+  const rentalAgreementFile = document.getElementById("rentalAgreementFile");
+  const saleDeedFileName = document.getElementById("saleDeedFileName");
+  const saleDeedFileError = document.getElementById("saleDeedFileError");
+  const rentalAgreementFileName = document.getElementById("rentalAgreementFileName");
+  const rentalAgreementFileError = document.getElementById("rentalAgreementFileError");
+
+  const documentAllowedExtensions = ["pdf", "jpg", "jpeg", "png"];
+
+  function clearFileInput(fileInput, fileNameEl, fileErrorEl) {
+    if (fileInput) {
+      fileInput.value = "";
+      fileInput.required = false;
+    }
+    if (fileNameEl) {
+      fileNameEl.textContent = "";
+      fileNameEl.classList.remove("show");
+    }
+    if (fileErrorEl) {
+      fileErrorEl.classList.remove("show");
+    }
+  }
+
+  function validateFileInput(fileInput, fileNameEl, fileErrorEl) {
+    if (!fileNameEl || !fileErrorEl || !fileInput) {
+      return;
+    }
+
+    fileErrorEl.classList.remove("show");
+    fileNameEl.classList.remove("show");
+    fileNameEl.textContent = "";
+
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const fileExtension = file.name.split(".").pop().toLowerCase();
+
+      if (!documentAllowedExtensions.includes(fileExtension)) {
+        fileInput.value = "";
+        fileErrorEl.classList.add("show");
+        return;
+      }
+
+      fileNameEl.textContent = "Selected file: " + file.name;
+      fileNameEl.classList.add("show");
+    }
+  }
+
+  function updateBuildingTypeUploads() {
+    const selected = document.querySelector('input[name="buildingType"]:checked');
+    const value = selected ? selected.value : null;
+
+    if (saleDeedUpload) {
+      saleDeedUpload.classList.toggle("show", value === "Own");
+    }
+    if (rentalAgreementUpload) {
+      rentalAgreementUpload.classList.toggle("show", value === "Rent");
+    }
+
+    if (value === "Own") {
+      if (saleDeedFile) {
+        saleDeedFile.required = true;
+      }
+      clearFileInput(rentalAgreementFile, rentalAgreementFileName, rentalAgreementFileError);
+    } else if (value === "Rent") {
+      if (rentalAgreementFile) {
+        rentalAgreementFile.required = true;
+      }
+      clearFileInput(saleDeedFile, saleDeedFileName, saleDeedFileError);
+    } else {
+      clearFileInput(saleDeedFile, saleDeedFileName, saleDeedFileError);
+      clearFileInput(rentalAgreementFile, rentalAgreementFileName, rentalAgreementFileError);
+    }
+  }
+
+  buildingTypeRadios.forEach(function (radio) {
+    radio.addEventListener("change", updateBuildingTypeUploads);
+  });
+  updateBuildingTypeUploads();
+
+  if (saleDeedFile) {
+    saleDeedFile.addEventListener("change", function () {
+      validateFileInput(saleDeedFile, saleDeedFileName, saleDeedFileError);
+    });
+  }
+
+  if (rentalAgreementFile) {
+    rentalAgreementFile.addEventListener("change", function () {
+      validateFileInput(rentalAgreementFile, rentalAgreementFileName, rentalAgreementFileError);
+    });
+  }
+
+  /* Building documents conditional upload */
+  const buildingDocumentsRadios = document.querySelectorAll('input[name="buildingDocuments"]');
+  const buildingDocumentsUpload = document.getElementById("buildingDocumentsUpload");
+  const buildingDocumentsFile = document.getElementById("buildingDocumentsFile");
+  const buildingDocumentsFileName = document.getElementById("buildingDocumentsFileName");
+  const buildingDocumentsFileError = document.getElementById("buildingDocumentsFileError");
+
+  function updateBuildingDocumentsUpload() {
+    const selected = document.querySelector('input[name="buildingDocuments"]:checked');
+    const value = selected ? selected.value : null;
+
+    if (buildingDocumentsUpload) {
+      buildingDocumentsUpload.classList.toggle("show", value === "Available");
+    }
+
+    if (buildingDocumentsFile) {
+      buildingDocumentsFile.required = value === "Available";
+      if (value !== "Available") {
+        clearFileInput(buildingDocumentsFile, buildingDocumentsFileName, buildingDocumentsFileError);
+      }
+    }
+  }
+
+  buildingDocumentsRadios.forEach(function (radio) {
+    radio.addEventListener("change", updateBuildingDocumentsUpload);
+  });
+  updateBuildingDocumentsUpload();
+
+  if (buildingDocumentsFile) {
+    buildingDocumentsFile.addEventListener("change", function () {
+      validateFileInput(buildingDocumentsFile, buildingDocumentsFileName, buildingDocumentsFileError);
+    });
+  }
+
+  /* Declaration checkbox validation */
+  const declarationAccept = document.getElementById("declarationAccept");
+  const declarationAcceptError = document.getElementById("declarationAcceptError");
+
+  if (declarationAccept) {
+    declarationAccept.setCustomValidity("Please accept the declaration before submitting.");
+    declarationAccept.addEventListener("change", function () {
+      declarationAccept.setCustomValidity(declarationAccept.checked ? "" : "Please accept the declaration before submitting.");
+      if (declarationAcceptError) {
+        declarationAcceptError.classList.toggle("show", !declarationAccept.checked);
+      }
+    });
+  }
+
+  /* Affiliation form submission with file data */
+  const affiliationForm = document.getElementById("affiliationForm");
+
+  if (affiliationForm) {
+    affiliationForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (declarationAccept && !declarationAccept.checked) {
+        declarationAccept.setCustomValidity("Please accept the declaration before submitting.");
+        if (declarationAcceptError) {
+          declarationAcceptError.classList.add("show");
+        }
+        declarationAccept.reportValidity();
+        return;
+      }
+
+      if (declarationAcceptError) {
+        declarationAcceptError.classList.remove("show");
+      }
+
+      // Build FormData to include all text fields and file uploads
+      const formData = new FormData(affiliationForm);
+
+      // The uploaded files are now included with the existing form data
+      console.log("Affiliation form data prepared for submission:", formData);
+      alert("Form submitted successfully.");
+      // affiliationForm.reset(); // Uncomment if the form should reset after submission
+    });
+  }
 });
