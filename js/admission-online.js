@@ -1395,12 +1395,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (
           enteredPin.length > 0 &&
-          enteredPin.charAt(0) !==
-            "6"
+          enteredPin.charAt(0) ===
+            "0"
         ) {
           setStatus(
             pinStatus,
-            "Tamil Nadu pincode must start with 6.",
+            "PIN code must not start with 0.",
             "error"
           );
 
@@ -1425,7 +1425,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (
-          !/^\d{6}$/.test(
+          !/^[1-9][0-9]{5}$/.test(
             enteredPin
           )
         ) {
@@ -3371,24 +3371,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (
-      !/^\d{6}$/.test(
+      !/^[1-9][0-9]{5}$/.test(
         pinCode.value
       )
     ) {
       pinCode?.setCustomValidity(
-        "Pincode must contain exactly 6 digits."
-      );
-
-      return false;
-    }
-
-    if (
-      pinCode.value.charAt(
-        0
-      ) !== "6"
-    ) {
-      pinCode?.setCustomValidity(
-        "Tamil Nadu pincode must start with 6."
+        "Enter a valid 6-digit Indian PIN code."
       );
 
       return false;
