@@ -295,6 +295,10 @@ html {
     right: 24px;
   }
 
+  .has-submenu.open > .nested-submenu {
+    display: block;
+  }
+
   .menu > li > a {
     padding: 14px 16px;
   }

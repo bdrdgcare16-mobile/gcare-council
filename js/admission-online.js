@@ -1105,7 +1105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const today = new Date();
 
-    const minDob = addYears(today, -35);
+    const minDob = addYears(today, -40);
     const maxDob = addYears(today, -15);
 
     dob.min = getDateString(minDob);
@@ -1171,11 +1171,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (
           calculatedAge === "" ||
           calculatedAge < 15 ||
-          calculatedAge > 35
+          calculatedAge > 40
         ) {
           age.value = "";
           showDobError(
-            "Only applicants aged between 15 and 35 years can apply."
+            "Only applicants aged between 15 and 40 years can apply."
           );
           return;
         }
@@ -1252,11 +1252,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (
               calculatedAge === "" ||
               calculatedAge < 15 ||
-              calculatedAge > 35
+              calculatedAge > 40
             ) {
               age.value = "";
               showDobError(
-                "Only applicants aged between 15 and 35 years can apply."
+                "Only applicants aged between 15 and 40 years can apply."
               );
               return;
             }
@@ -3266,10 +3266,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (
       calculatedAge === "" ||
       calculatedAge < 15 ||
-      calculatedAge > 35
+      calculatedAge > 40
     ) {
       showDobError(
-        "Only applicants aged between 15 and 35 years can apply."
+        "Only applicants aged between 15 and 40 years can apply."
       );
       dobDisplay?.reportValidity();
       return false;

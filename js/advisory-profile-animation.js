@@ -78,4 +78,32 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
+
+  // Mobile nested submenu toggle for PROGRAMMES
+  const programmesDropdown = document.getElementById("programmesDropdown");
+
+  if (programmesDropdown) {
+    const submenuParents = programmesDropdown.querySelectorAll(".has-submenu > a");
+
+    submenuParents.forEach(function (parentLink) {
+      parentLink.addEventListener("click", function (e) {
+        if (window.innerWidth <= 768) {
+          const parentLi = this.parentElement;
+          const childMenu = parentLi.querySelector(".nested-submenu");
+
+          if (childMenu) {
+            e.preventDefault();
+
+            programmesDropdown.querySelectorAll(".has-submenu").forEach(function (item) {
+              if (item !== parentLi) {
+                item.classList.remove("open");
+              }
+            });
+
+            parentLi.classList.toggle("open");
+          }
+        }
+      });
+    });
+  }
 });

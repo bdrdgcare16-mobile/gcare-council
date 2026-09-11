@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const API_BASE_URL =
+    "https://backend-production-c5cb.up.railway.app/api";
+
   const socialButtons = document.querySelectorAll(".social-btn");
 
   socialButtons.forEach(function (button) {
@@ -176,14 +179,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (value === "Own") {
-      if (saleDeedFile) {
-        saleDeedFile.required = true;
-      }
       clearFileInput(rentalAgreementFile, rentalAgreementFileName, rentalAgreementFileError);
     } else if (value === "Rent") {
-      if (rentalAgreementFile) {
-        rentalAgreementFile.required = true;
-      }
       clearFileInput(saleDeedFile, saleDeedFileName, saleDeedFileError);
     } else {
       clearFileInput(saleDeedFile, saleDeedFileName, saleDeedFileError);
@@ -223,11 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
       buildingDocumentsUpload.classList.toggle("show", value === "Available");
     }
 
-    if (buildingDocumentsFile) {
-      buildingDocumentsFile.required = value === "Available";
-      if (value !== "Available") {
-        clearFileInput(buildingDocumentsFile, buildingDocumentsFileName, buildingDocumentsFileError);
-      }
+    if (value !== "Available") {
+      clearFileInput(buildingDocumentsFile, buildingDocumentsFileName, buildingDocumentsFileError);
     }
   }
 
@@ -258,9 +252,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* Affiliation form submission with file data */
   const affiliationForm = document.getElementById("affiliationForm");
+  const submitButton = affiliationForm
+    ? affiliationForm.querySelector('button[type="submit"]')
+    : null;
 
   if (affiliationForm) {
-    affiliationForm.addEventListener("submit", function (event) {
+    affiliationForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       if (declarationAccept && !declarationAccept.checked) {
@@ -276,13 +273,50 @@ document.addEventListener("DOMContentLoaded", function () {
         declarationAcceptError.classList.remove("show");
       }
 
-      // Build FormData to include all text fields and file uploads
       const formData = new FormData(affiliationForm);
 
-      // The uploaded files are now included with the existing form data
-      console.log("Affiliation form data prepared for submission:", formData);
-      alert("Form submitted successfully.");
-      // affiliationForm.reset(); // Uncomment if the form should reset after submission
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+      }
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/affiliations`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          alert(
+            result.message ||
+              "Affiliation application submitted successfully."
+          );
+          affiliationForm.reset();
+        } else {
+          alert(
+            result.message ||
+              "Unable to submit affiliation application. Please try again."
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Affiliation submission error:",
+          error
+        );
+        alert(
+          "Unable to submit affiliation application. Please try again."
+        );
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit Application";
+        }
+      }
     });
   }
 });
