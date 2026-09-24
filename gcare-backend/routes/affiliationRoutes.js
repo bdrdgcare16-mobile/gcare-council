@@ -142,6 +142,10 @@ const {
   deleteAffiliation,
 } = require("../controllers/affiliationController");
 
+const { requireAdmin } = require("../middleware/adminAuth");
+
+const debugLog = require("../utils/debugLog");
+
 const router = express.Router();
 
 /* =====================================================
@@ -307,12 +311,12 @@ router.post(
           });
         }
 
-        console.log(
+        debugLog(
           "AFFILIATION FORM BODY:",
           req.body
         );
 
-        console.log(
+        debugLog(
           "AFFILIATION FILE FIELDS:",
           req.files
             ? Object.keys(req.files)
@@ -333,6 +337,7 @@ router.post(
 
 router.get(
   "/",
+  requireAdmin,
   getAllAffiliations
 );
 
@@ -342,6 +347,7 @@ router.get(
 
 router.get(
   "/:id",
+  requireAdmin,
   getAffiliationById
 );
 
@@ -351,6 +357,7 @@ router.get(
 
 router.patch(
   "/:id/status",
+  requireAdmin,
   updateStatus
 );
 
@@ -360,6 +367,7 @@ router.patch(
 
 router.delete(
   "/:id",
+  requireAdmin,
   deleteAffiliation
 );
 

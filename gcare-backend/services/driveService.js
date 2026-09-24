@@ -3,7 +3,10 @@ const drive = require("../config/googleDrive");
 
 const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
-console.log("[GOOGLE DRIVE] Folder ID from env:", folderId || "NOT SET");
+console.log(
+  "[GOOGLE DRIVE] Folder ID from env:",
+  folderId ? `${folderId.slice(0, 6)}…` : "NOT SET"
+);
 
 const uploadFileToDrive = async (file) => {
   if (!file) {
@@ -70,6 +73,39 @@ const uploadFileToDrive = async (file) => {
   }
 };
 
+const getDriveFileStream = async (fileId) => {
+  const metadata = await drive.files.get({
+    fileId,
+    fields: "id,name,mimeType",
+  });
+
+  const response = await drive.files.get(
+    { fileId, alt: "media" },
+    { responseType: "stream" }
+  );
+
+  return {
+    stream: response.data,
+    name: metadata.data.name,
+    mimeType: metadata.data.mimeType,
+  };
+};
+
+const deleteFileFromDrive = async (fileId) => {
+  try {
+    await drive.files.delete({ fileId });
+    return true;
+  } catch (error) {
+    console.error(
+      "[GOOGLE DRIVE] Failed to delete orphaned file:",
+      fileId
+    );
+    return false;
+  }
+};
+
 module.exports = {
   uploadFileToDrive,
+  getDriveFileStream,
+  deleteFileFromDrive,
 };

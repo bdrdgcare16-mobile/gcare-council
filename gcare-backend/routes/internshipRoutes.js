@@ -342,10 +342,19 @@ const {
   getAllInternships,
   getInternshipById,
   updateInternshipStatus,
-  deleteInternship
+  deleteInternship,
+  streamInternshipSignature
 } =
   require(
     "../controllers/internshipController"
+  );
+
+
+const {
+  requireAdmin
+} =
+  require(
+    "../middleware/adminAuth"
   );
 
 
@@ -384,56 +393,13 @@ if (
 
 /* =====================================================
    STORAGE
+
+   Memory storage keeps file.buffer
+   available for Google Drive upload.
 ===================================================== */
 
 const storage =
-  multer.diskStorage({
-
-    destination:
-      function (
-        req,
-        file,
-        cb
-      ) {
-
-        cb(
-          null,
-          uploadDirectory
-        );
-
-      },
-
-
-    filename:
-      function (
-        req,
-        file,
-        cb
-      ) {
-
-        const extension =
-          path
-            .extname(
-              file.originalname
-            )
-            .toLowerCase();
-
-
-        const fileName =
-          `candidate-${Date.now()}-${Math.round(
-            Math.random() *
-            1e9
-          )}${extension}`;
-
-
-        cb(
-          null,
-          fileName
-        );
-
-      }
-
-  });
+  multer.memoryStorage();
 
 
 /* =====================================================
@@ -618,6 +584,7 @@ router.post(
 
 router.get(
   "/",
+  requireAdmin,
   getAllInternships
 );
 
@@ -627,7 +594,14 @@ router.get(
 ===================================================== */
 
 router.get(
+  "/:id/signature",
+  requireAdmin,
+  streamInternshipSignature
+);
+
+router.get(
   "/:id",
+  requireAdmin,
   getInternshipById
 );
 
@@ -638,6 +612,7 @@ router.get(
 
 router.put(
   "/:id/status",
+  requireAdmin,
   updateInternshipStatus
 );
 
@@ -648,6 +623,7 @@ router.put(
 
 router.delete(
   "/:id",
+  requireAdmin,
   deleteInternship
 );
 

@@ -894,6 +894,12 @@
 // };
 
 
+const path =
+  require("path");
+
+const fs =
+  require("fs");
+
 const db =
   require("../config/db").promise();
 
@@ -906,6 +912,21 @@ const {
 } =
   require(
     "../services/internshipEmailService"
+  );
+
+
+const {
+  uploadFileToDrive,
+  getDriveFileStream
+} =
+  require(
+    "../services/driveService"
+  );
+
+
+const debugLog =
+  require(
+    "../utils/debugLog"
   );
 
 
@@ -1004,7 +1025,7 @@ async function sendInternshipSubmissionEmails(
     userResult.status ===
     "fulfilled"
   ) {
-    console.log(
+    debugLog(
       "INTERNSHIP USER EMAIL SENT:",
       application.email
     );
@@ -1019,7 +1040,7 @@ async function sendInternshipSubmissionEmails(
     adminResult.status ===
     "fulfilled"
   ) {
-    console.log(
+    debugLog(
       "INTERNSHIP ADMIN EMAIL SENT:",
       process.env.ADMIN_EMAIL ||
       "info@gcarecouncil.in"
@@ -1071,7 +1092,7 @@ async function sendInternshipStatusEmails(
     userResult.status ===
     "fulfilled"
   ) {
-    console.log(
+    debugLog(
       `INTERNSHIP ${application.status} USER EMAIL SENT:`,
       application.email
     );
@@ -1086,7 +1107,7 @@ async function sendInternshipStatusEmails(
     adminResult.status ===
     "fulfilled"
   ) {
-    console.log(
+    debugLog(
       `INTERNSHIP ${application.status} ADMIN EMAIL SENT:`,
       process.env.ADMIN_EMAIL ||
       "info@gcarecouncil.in"
@@ -1425,11 +1446,28 @@ async (
       null;
 
 
+    /* ---------------------------------------------
+       Upload the signature image to Google Drive
+       BEFORE inserting the application row. If the
+       upload fails, an error is thrown and no
+       application is created without its document.
+    --------------------------------------------- */
+
     if (
       req.file
     ) {
-      candidateSignature =
-        `/uploads/internships/${req.file.filename}`;
+      const driveFile =
+        await uploadFileToDrive(
+          req.file
+        );
+
+      if (
+        driveFile &&
+        driveFile.fileId
+      ) {
+        candidateSignature =
+          `drive:${driveFile.fileId}`;
+      }
     }
 
 
@@ -2030,6 +2068,170 @@ async (
 
 
 /* =====================================================
+   STREAM INTERNSHIP SIGNATURE
+
+   GET /api/internships/:id/signature
+
+   - "drive:<fileId>" references are streamed
+     from Google Drive through the backend.
+   - Legacy local paths under uploads/ are
+     still served for historical records.
+===================================================== */
+
+const streamInternshipSignature =
+async (
+  req,
+  res
+) => {
+  try {
+    const id =
+      Number(req.params.id);
+
+    if (
+      !Number.isInteger(id) ||
+      id <= 0
+    ) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message:
+            "Invalid internship id."
+        });
+    }
+
+    const [rows] =
+      await db.execute(
+        `
+          SELECT candidate_signature
+          FROM internship_applications
+          WHERE id = ?
+          LIMIT 1
+        `,
+        [id]
+      );
+
+    if (
+      !rows.length
+    ) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message:
+            "Internship application not found."
+        });
+    }
+
+    const signature =
+      String(
+        rows[0].candidate_signature ||
+        ""
+      );
+
+    if (
+      !signature
+    ) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message:
+            "No signature was uploaded for this application."
+        });
+    }
+
+    /* ---------------------------------------------
+       GOOGLE DRIVE FILE
+    --------------------------------------------- */
+
+    if (
+      signature.startsWith("drive:")
+    ) {
+      const fileId =
+        signature.slice(6);
+
+      const driveFile =
+        await getDriveFileStream(
+          fileId
+        );
+
+      res.setHeader(
+        "Content-Type",
+        driveFile.mimeType ||
+          "application/octet-stream"
+      );
+
+      res.setHeader(
+        "Content-Disposition",
+        `inline; filename="signature"`
+      );
+
+      driveFile.stream.on(
+        "error",
+        () => {
+          if (!res.headersSent) {
+            res.status(500).end();
+          } else {
+            res.destroy();
+          }
+        }
+      );
+
+      driveFile.stream.pipe(res);
+
+      return;
+    }
+
+    /* ---------------------------------------------
+       LEGACY LOCAL FILE
+    --------------------------------------------- */
+
+    const normalizedPath =
+      signature.replace(/\\/g, "/");
+
+    const localPath =
+      path.resolve(
+        process.cwd(),
+        "uploads",
+        "internships",
+        path.basename(normalizedPath)
+      );
+
+    if (
+      !fs.existsSync(localPath)
+    ) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message:
+            "File is no longer available on the server."
+        });
+    }
+
+    return res.sendFile(localPath);
+
+  } catch (error) {
+    console.error(
+      "STREAM INTERNSHIP SIGNATURE ERROR:",
+      error.message
+    );
+
+    if (!res.headersSent) {
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Failed to load signature."
+        });
+    }
+  }
+};
+
+
+/* =====================================================
    EXPORT
 ===================================================== */
 
@@ -2038,5 +2240,6 @@ module.exports = {
   getAllInternships,
   getInternshipById,
   updateInternshipStatus,
-  deleteInternship
+  deleteInternship,
+  streamInternshipSignature
 };

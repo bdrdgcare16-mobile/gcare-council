@@ -822,8 +822,13 @@ app.use(
 ===================================================== */
 
 app.use(function (req, res, next) {
+  const safeUrl = req.originalUrl.replace(
+    /([?&](code|state|access_token|refresh_token|id_token|client_secret)=)[^&]*/gi,
+    "$1[REDACTED]"
+  );
+
   console.log(
-    `[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`
+    `[${new Date().toISOString()}] ${req.method} ${safeUrl}`
   );
 
   next();
@@ -940,11 +945,20 @@ console.log(
 console.log("========================================");
 
 /* =====================================================
-   STATIC FILE ACCESS
+   STATIC FILE ACCESS (ADMIN ONLY)
+
+   Uploaded files contain student identity documents
+   (Aadhaar, photos, signatures), so they must never
+   be publicly accessible. Admin authentication is
+   required even for direct /uploads/* requests.
 ===================================================== */
+
+const { requireAdmin } =
+  require("./middleware/adminAuth");
 
 app.use(
   "/uploads",
+  requireAdmin,
   express.static(
     path.join(__dirname, "uploads")
   )
@@ -968,6 +982,22 @@ const contactRoutes =
 app.use(
   "/api/contact",
   contactRoutes
+);
+
+/* =====================================================
+   ADMIN AUTH ROUTES
+===================================================== */
+
+const adminAuthRoutes =
+  require("./routes/adminAuthRoutes");
+
+app.use(
+  "/api/admin",
+  adminAuthRoutes
+);
+
+console.log(
+  "Admin auth routes loaded"
 );
 
 /* =====================================================
@@ -1017,6 +1047,34 @@ app.use(
 console.log(
   "Affiliation routes loaded"
 );
+
+/* =====================================================
+   GOOGLE DRIVE OAUTH SETUP (TEMPORARY, LOCAL ONLY)
+
+   Enabled only when:
+   - NODE_ENV is not "production"
+   - GOOGLE_OAUTH_SETUP=true in .env
+
+   Remove this block after regenerating the
+   Google Drive refresh token.
+===================================================== */
+
+if (
+  process.env.NODE_ENV !== "production" &&
+  process.env.GOOGLE_OAUTH_SETUP === "true"
+) {
+  const googleDriveAuthRoutes =
+    require("./routes/googleDriveAuthRoutes");
+
+  app.use(
+    "/api/google-drive",
+    googleDriveAuthRoutes
+  );
+
+  console.log(
+    "Google Drive OAuth setup routes enabled (local only)"
+  );
+}
 
 /* =====================================================
    HEALTH CHECK
@@ -1140,29 +1198,31 @@ app.get(
 );
 
 /* =====================================================
-   CONTACT DEBUG
+   CONTACT DEBUG (LOCAL DEVELOPMENT ONLY)
 ===================================================== */
 
-app.post(
-  "/api/debug/contact",
-  function (req, res) {
-    console.log(
-      "DEBUG CONTACT BODY:",
-      req.body
-    );
+if (process.env.NODE_ENV !== "production") {
+  app.post(
+    "/api/debug/contact",
+    function (req, res) {
+      console.log(
+        "DEBUG CONTACT BODY:",
+        req.body
+      );
 
-    return res
-      .status(200)
-      .json({
-        success: true,
+      return res
+        .status(200)
+        .json({
+          success: true,
 
-        message:
-          "Contact payload received successfully.",
+          message:
+            "Contact payload received successfully.",
 
-        data: req.body
-      });
-  }
-);
+          data: req.body
+        });
+    }
+  );
+}
 
 /* =====================================================
    404

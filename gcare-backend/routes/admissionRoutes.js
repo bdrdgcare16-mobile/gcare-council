@@ -84,8 +84,11 @@ const {
   getAdmissions,
   getAdmissionById,
   updateAdmissionStatus,
-  deleteAdmission
+  deleteAdmission,
+  streamAdmissionDocument
 } = require("../controllers/admissionController");
+
+const { requireAdmin } = require("../middleware/adminAuth");
 
 const router = express.Router();
 
@@ -104,24 +107,10 @@ ensureUploadDir();
 
 /* --------------------------------
    Multer Storage Configuration
+   Memory storage keeps file.buffer
+   available for Google Drive upload.
 -------------------------------- */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    ensureUploadDir();
-    cb(null, uploadDir);
-  },
-
-  filename: function (req, file, cb) {
-    const fileExtension = path.extname(file.originalname);
-    const fileName =
-      Date.now() +
-      "-" +
-      Math.round(Math.random() * 1e9) +
-      fileExtension;
-
-    cb(null, fileName);
-  }
-});
+const storage = multer.memoryStorage();
 
 /* --------------------------------
    File Upload Validation
@@ -192,16 +181,24 @@ function handleAdmissionUpload(req, res, next) {
 // POST /api/admissions
 router.post("/", handleAdmissionUpload, createAdmission);
 
-// GET /api/admissions
-router.get("/", getAdmissions);
+// GET /api/admissions (admin only)
+router.get("/", requireAdmin, getAdmissions);
 
-// GET /api/admissions/:id
-router.get("/:id", getAdmissionById);
+// GET /api/admissions/documents/:documentId/file (admin only)
+// Streams a stored document (Google Drive or legacy local file)
+router.get(
+  "/documents/:documentId/file",
+  requireAdmin,
+  streamAdmissionDocument
+);
 
-// PUT /api/admissions/:id/status
-router.put("/:id/status", updateAdmissionStatus);
+// GET /api/admissions/:id (admin only)
+router.get("/:id", requireAdmin, getAdmissionById);
 
-// DELETE /api/admissions/:id
-router.delete("/:id", deleteAdmission);
+// PUT /api/admissions/:id/status (admin only)
+router.put("/:id/status", requireAdmin, updateAdmissionStatus);
+
+// DELETE /api/admissions/:id (admin only)
+router.delete("/:id", requireAdmin, deleteAdmission);
 
 module.exports = router;

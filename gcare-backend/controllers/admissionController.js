@@ -114,13 +114,24 @@
 //   updateAdmissionStatus
 // };
 
+const path = require("path");
+const fs = require("fs");
+
 const {
   saveAdmission,
   getAllAdmissions,
   getAdmissionDetails,
+  getAdmissionDocumentById,
   changeAdmissionStatus,
   removeAdmission
 } = require("../services/admissionService");
+
+const {
+  getDriveFileStream
+} = require("../services/driveService");
+
+const debugLog =
+  require("../utils/debugLog");
 
 const {
   sendAdminAdmissionNotification,
@@ -135,12 +146,12 @@ const {
 
 const createAdmission = async (req, res) => {
   try {
-    console.log(
+    debugLog(
       "ADMISSION REQUEST BODY:",
       req.body
     );
 
-    console.log(
+    debugLog(
       "ADMISSION REQUEST FILES:",
       req.files
         ? Object.keys(req.files)
@@ -535,10 +546,164 @@ const deleteAdmission = async (
 };
 
 
+/* =====================================================
+   STREAM ADMISSION DOCUMENT
+
+   GET /api/admissions/documents/:documentId/file
+
+   - "drive:<fileId>" references are streamed
+     from Google Drive through the backend, so
+     private student documents are never exposed
+     through public Drive links.
+   - Legacy local file paths under uploads/ are
+     still served for historical records.
+===================================================== */
+
+const streamAdmissionDocument = async (
+  req,
+  res
+) => {
+  try {
+    const documentId =
+      Number(req.params.documentId);
+
+    if (
+      !Number.isInteger(documentId) ||
+      documentId <= 0
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid document id."
+      });
+    }
+
+    const document =
+      await getAdmissionDocumentById(
+        documentId
+      );
+
+    if (!document) {
+      return res.status(404).json({
+        success: false,
+        message: "Document not found."
+      });
+    }
+
+    const filePath =
+      String(document.filePath || "");
+
+    const fileName =
+      String(
+        document.fileName || "document"
+      ).replace(/"/g, "");
+
+    /* ---------------------------------------------
+       GOOGLE DRIVE FILE
+    --------------------------------------------- */
+
+    if (filePath.startsWith("drive:")) {
+      const fileId = filePath.slice(6);
+
+      const driveFile =
+        await getDriveFileStream(fileId);
+
+      res.setHeader(
+        "Content-Type",
+        document.mimeType ||
+          driveFile.mimeType ||
+          "application/octet-stream"
+      );
+
+      res.setHeader(
+        "Content-Disposition",
+        `inline; filename="${fileName}"`
+      );
+
+      driveFile.stream.on(
+        "error",
+        () => {
+          if (!res.headersSent) {
+            res.status(500).end();
+          } else {
+            res.destroy();
+          }
+        }
+      );
+
+      driveFile.stream.pipe(res);
+
+      return;
+    }
+
+    /* ---------------------------------------------
+       LEGACY LOCAL FILE
+    --------------------------------------------- */
+
+    const normalizedPath =
+      filePath.replace(/\\/g, "/");
+
+    const uploadsIndex =
+      normalizedPath.indexOf("uploads/");
+
+    const relativePath =
+      uploadsIndex !== -1
+        ? normalizedPath.substring(
+            uploadsIndex + "uploads/".length
+          )
+        : path.basename(normalizedPath);
+
+    const uploadsRoot = path.resolve(
+      process.cwd(),
+      "uploads"
+    );
+
+    const localPath = path.resolve(
+      uploadsRoot,
+      relativePath
+    );
+
+    if (
+      !localPath.startsWith(
+        uploadsRoot + path.sep
+      ) ||
+      !fs.existsSync(localPath)
+    ) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "File is no longer available on the server."
+      });
+    }
+
+    res.setHeader(
+      "Content-Type",
+      document.mimeType ||
+        "application/octet-stream"
+    );
+
+    return res.sendFile(localPath);
+
+  } catch (error) {
+    console.error(
+      "Stream admission document error:",
+      error.message
+    );
+
+    if (!res.headersSent) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to load document."
+      });
+    }
+  }
+};
+
+
 module.exports = {
   createAdmission,
   getAdmissions,
   getAdmissionById,
   updateAdmissionStatus,
-  deleteAdmission
+  deleteAdmission,
+  streamAdmissionDocument
 };

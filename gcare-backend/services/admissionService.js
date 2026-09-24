@@ -247,9 +247,18 @@ const {
   fetchAdmissions,
   fetchAdmissionById,
   fetchAdmissionDocuments,
+  fetchAdmissionDocumentById,
   updateStatus,
   deleteAdmission
 } = require("../query/admissionQuery");
+
+const {
+  uploadFileToDrive,
+  deleteFileFromDrive
+} = require("./driveService");
+
+const debugLog =
+  require("../utils/debugLog");
 
 
 /* =====================================================
@@ -383,32 +392,32 @@ const saveAdmission = async (
      LOG FILES
   --------------------------------------------- */
 
-  console.log(
+  debugLog(
     "Received uploaded files:"
   );
 
-  console.log(
+  debugLog(
     "- photoUpload:",
     files.photoUpload?.[0]
       ?.filename ||
       "Not provided"
   );
 
-  console.log(
+  debugLog(
     "- aadhaarUpload:",
     files.aadhaarUpload?.[0]
       ?.filename ||
       "Not provided"
   );
 
-  console.log(
+  debugLog(
     "- educationCertificateUpload:",
     files.educationCertificateUpload?.[0]
       ?.filename ||
       "Not provided"
   );
 
-  console.log(
+  debugLog(
     "- parentSignature:",
     files.parentSignature?.[0]
       ?.filename ||
@@ -430,7 +439,7 @@ const saveAdmission = async (
       ? rawBranch.trim()
       : "";
 
-  console.log(
+  debugLog(
     "Student Admission branch value received:",
     branchName || "NOT RECEIVED"
   );
@@ -448,6 +457,102 @@ const saveAdmission = async (
 
 
   /* ---------------------------------------------
+     UPLOAD DOCUMENTS TO GOOGLE DRIVE
+
+     Files are uploaded BEFORE the admission row
+     is inserted. If any required upload fails,
+     no admission record is created, so an
+     application can never appear submitted
+     without its documents being stored.
+
+     If a later upload fails, earlier Drive
+     files are deleted as orphans.
+  --------------------------------------------- */
+
+  const fileMap = [
+    {
+      key:
+        "photoUpload",
+
+      type:
+        "Passport Size Photo"
+    },
+
+    {
+      key:
+        "aadhaarUpload",
+
+      type:
+        "Aadhaar Card"
+    },
+
+    {
+      key:
+        "educationCertificateUpload",
+
+      type:
+        "Education Certificate"
+    },
+
+    {
+      key:
+        "parentSignature",
+
+      type:
+        "Parent / Guardian Signature"
+    }
+  ];
+
+
+  const driveUploads =
+    {};
+
+  const uploadedFileIds =
+    [];
+
+
+  try {
+    for (
+      const item of fileMap
+    ) {
+      const file =
+        files[item.key][0];
+
+      const driveFile =
+        await uploadFileToDrive(
+          file
+        );
+
+      if (
+        !driveFile ||
+        !driveFile.fileId
+      ) {
+        throw new Error(
+          `${item.type} could not be stored. Please try again.`
+        );
+      }
+
+      uploadedFileIds.push(
+        driveFile.fileId
+      );
+
+      driveUploads[item.key] =
+        driveFile;
+    }
+  } catch (uploadError) {
+    for (
+      const fileId of uploadedFileIds
+    ) {
+      await deleteFileFromDrive(
+        fileId
+      );
+    }
+
+    throw uploadError;
+  }
+
+
+  /* ---------------------------------------------
      CREATE ADMISSION DATA
   --------------------------------------------- */
 
@@ -457,39 +562,22 @@ const saveAdmission = async (
     branch_name: branchName,
 
     photoPath:
-      files.photoUpload?.[0]
-        ? normalizeFilePath(
-            files.photoUpload[0].path
-          )
-        : null,
+      `drive:${driveUploads.photoUpload.fileId}`,
 
     aadhaarPath:
-      files.aadhaarUpload?.[0]
-        ? normalizeFilePath(
-            files.aadhaarUpload[0].path
-          )
-        : null,
+      `drive:${driveUploads.aadhaarUpload.fileId}`,
 
     educationCertificatePath:
-      files.educationCertificateUpload?.[0]
-        ? normalizeFilePath(
-            files.educationCertificateUpload[0]
-              .path
-          )
-        : null,
+      `drive:${driveUploads.educationCertificateUpload.fileId}`,
 
     parentSignaturePath:
-      files.parentSignature?.[0]
-        ? normalizeFilePath(
-            files.parentSignature[0].path
-          )
-        : null,
+      `drive:${driveUploads.parentSignature.fileId}`,
 
     status: "Pending"
   };
 
 
-  console.log(
+  debugLog(
     "ADMISSION DATA BEFORE INSERT:",
     admissionData
   );
@@ -530,49 +618,10 @@ const saveAdmission = async (
     insertResult.insertId;
 
 
-  console.log(
+  debugLog(
     "Admission inserted successfully. ID:",
     admissionId
   );
-
-
-  /* ---------------------------------------------
-     DOCUMENT CONFIG
-  --------------------------------------------- */
-
-  const fileMap = [
-    {
-      key:
-        "photoUpload",
-
-      type:
-        "Passport Size Photo"
-    },
-
-    {
-      key:
-        "aadhaarUpload",
-
-      type:
-        "Aadhaar Card"
-    },
-
-    {
-      key:
-        "educationCertificateUpload",
-
-      type:
-        "Education Certificate"
-    },
-
-    {
-      key:
-        "parentSignature",
-
-      type:
-        "Parent / Guardian Signature"
-    }
-  ];
 
 
   const uploadedDocuments =
@@ -581,6 +630,9 @@ const saveAdmission = async (
 
   /* ---------------------------------------------
      INSERT DOCUMENT RECORDS
+
+     file_path stores the Google Drive reference
+     in the format "drive:<fileId>".
   --------------------------------------------- */
 
   for (
@@ -591,6 +643,9 @@ const saveAdmission = async (
     ) {
       const file =
         files[item.key][0];
+
+      const driveFile =
+        driveUploads[item.key];
 
 
       const documentData = {
@@ -604,9 +659,7 @@ const saveAdmission = async (
           file.originalname,
 
         filePath:
-          normalizeFilePath(
-            file.path
-          ),
+          `drive:${driveFile.fileId}`,
 
         mimeType:
           file.mimetype
@@ -829,6 +882,52 @@ const getAdmissionDetails = (
 
 
 /* =====================================================
+   GET SINGLE ADMISSION DOCUMENT
+===================================================== */
+
+const getAdmissionDocumentById = (
+  documentId
+) => {
+  return new Promise(
+    (resolve, reject) => {
+
+      fetchAdmissionDocumentById(
+        documentId,
+        (
+          err,
+          result
+        ) => {
+
+          if (err) {
+            reject(err);
+
+            return;
+          }
+
+
+          if (
+            !result ||
+            !result.length
+          ) {
+            resolve(null);
+
+            return;
+          }
+
+
+          resolve(
+            result[0]
+          );
+
+        }
+      );
+
+    }
+  );
+};
+
+
+/* =====================================================
    CHANGE ADMISSION STATUS
 ===================================================== */
 
@@ -981,6 +1080,7 @@ module.exports = {
   saveAdmission,
   getAllAdmissions,
   getAdmissionDetails,
+  getAdmissionDocumentById,
   changeAdmissionStatus,
   removeAdmission
 };

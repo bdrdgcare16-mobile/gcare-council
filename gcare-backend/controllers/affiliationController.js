@@ -495,6 +495,7 @@
 
 const affiliationService = require("../services/affiliationService");
 const { uploadFileToDrive } = require("../services/driveService");
+const debugLog = require("../utils/debugLog");
 
 const clean = (value) => {
   if (typeof value !== "string") {
@@ -647,8 +648,8 @@ const submitAffiliation = async (req, res) => {
   try {
     const body = req.body || {};
 
-    console.log("Affiliation form body:", body);
-    console.log(
+    debugLog("Affiliation form body:", body);
+    debugLog(
       "Affiliation file fields:",
       Object.keys(req.files || {})
     );
@@ -864,7 +865,7 @@ const submitAffiliation = async (req, res) => {
       ),
     };
 
-    console.log(
+    debugLog(
       "Affiliation data prepared successfully:",
       {
         ...data,
