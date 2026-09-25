@@ -1678,15 +1678,6 @@ document.addEventListener("DOMContentLoaded", function () {
         isEmailOtpVerified =
           false;
 
-        /*
-          IMPORTANT:
-          Mobile OTP is now also tied to email.
-          If email changes, mobile OTP must be verified again.
-        */
-
-        isMobileOtpVerified =
-          false;
-
         if (emailOtpInput) {
           emailOtpInput.value =
             "";
@@ -1695,23 +1686,9 @@ document.addEventListener("DOMContentLoaded", function () {
             false;
         }
 
-        if (mobileOtpInput) {
-          mobileOtpInput.value =
-            "";
-
-          mobileOtpInput.readOnly =
-            false;
-        }
-
         setStatus(
           emailOtpStatus,
           "Email OTP not verified.",
-          ""
-        );
-
-        setStatus(
-          mobileOtpStatus,
-          "Mobile OTP not verified.",
           ""
         );
 
@@ -1726,32 +1703,12 @@ document.addEventListener("DOMContentLoaded", function () {
             "Resend OTP";
         }
 
-        if (resendMobileOtpBtn) {
-          resendMobileOtpBtn.style.display =
-            "none";
-
-          resendMobileOtpBtn.disabled =
-            true;
-
-          resendMobileOtpBtn.textContent =
-            "Resend OTP";
-        }
-
         if (emailResendTimer) {
           clearInterval(
             emailResendTimer
           );
 
           emailResendTimer =
-            null;
-        }
-
-        if (mobileResendTimer) {
-          clearInterval(
-            mobileResendTimer
-          );
-
-          mobileResendTimer =
             null;
         }
       }
@@ -2280,38 +2237,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ""
     );
 
-    /* -----------------------------
-       EMAIL VALIDATION
-    ----------------------------- */
-
-    const emailPattern =
-      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
-
-    if (
-      !email ||
-      !emailPattern.test(
-        email
-      )
-    ) {
-      emailInput?.setCustomValidity(
-        "Please enter a valid email address before sending mobile OTP."
-      );
-
-      emailInput?.reportValidity();
-
-      setStatus(
-        mobileOtpStatus,
-        "Please enter a valid email address before sending mobile OTP.",
-        "error"
-      );
-
-      return;
-    }
-
-    emailInput?.setCustomValidity(
-      ""
-    );
-
     try {
       if (sendMobileOtpBtn) {
         sendMobileOtpBtn.disabled =
@@ -2481,24 +2406,6 @@ document.addEventListener("DOMContentLoaded", function () {
       setStatus(
         mobileOtpStatus,
         "Enter a valid 10-digit mobile number.",
-        "error"
-      );
-
-      return;
-    }
-
-    const emailPattern =
-      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
-
-    if (
-      !email ||
-      !emailPattern.test(
-        email
-      )
-    ) {
-      setStatus(
-        mobileOtpStatus,
-        "A valid email address is required for mobile OTP verification.",
         "error"
       );
 
