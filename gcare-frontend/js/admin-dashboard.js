@@ -7,7 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const isLoggedIn =
     localStorage.getItem("adminLoggedIn");
 
-  if (isLoggedIn !== "true") {
+  const adminToken =
+    localStorage.getItem("adminToken");
+
+  if (
+    isLoggedIn !== "true" ||
+    !adminToken
+  ) {
     window.location.href =
       "admin-login.html";
     return;
@@ -23,6 +29,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const BASE_URL =
     API_BASE_URL.replace("/api", "");
+
+
+  /* =====================================================
+     ADMIN AUTH
+
+     The server issues a signed token at login.
+     Every admin-only API request must send it in the
+     Authorization header. On a 401 the session is
+     cleared and the user is sent back to login.
+  ===================================================== */
+
+  function getAdminToken() {
+    return localStorage.getItem("adminToken") || "";
+  }
+
+  function clearAdminSession() {
+    localStorage.removeItem("adminLoggedIn");
+    localStorage.removeItem("adminEmail");
+    localStorage.removeItem("adminToken");
+  }
+
+  async function adminFetch(url, options = {}) {
+    const headers = {
+      ...(options.headers || {}),
+      Authorization: `Bearer ${getAdminToken()}`
+    };
+
+    const response = await fetch(url, {
+      ...options,
+      headers
+    });
+
+    if (response.status === 401) {
+      clearAdminSession();
+      window.location.href = "admin-login.html";
+      throw new Error("Admin session expired. Please log in again.");
+    }
+
+    return response;
+  }
+
+  /*
+    Fetch a protected file as a blob and return an
+    object URL that can be used for <img>, viewing,
+    or downloading.
+  */
+  async function fetchProtectedBlobUrl(url) {
+    const response = await adminFetch(url);
+
+    if (!response.ok) {
+      throw new Error("File could not be loaded.");
+    }
+
+    const blob = await response.blob();
+    return window.URL.createObjectURL(blob);
+  }
+
+  /*
+    After modal HTML is rendered, load any images that
+    point at protected backend routes.
+  */
+  async function hydrateProtectedMedia(root) {
+    if (!root) {
+      return;
+    }
+
+    const elements = root.querySelectorAll("[data-auth-src]");
+
+    for (const el of elements) {
+      const url = el.getAttribute("data-auth-src");
+
+      if (!url) {
+        continue;
+      }
+
+      try {
+        el.src = await fetchProtectedBlobUrl(url);
+      } catch (error) {
+        console.error("Protected file load failed:", error);
+        el.replaceWith(
+          Object.assign(document.createElement("p"), {
+            textContent: "File could not be loaded."
+          })
+        );
+      }
+    }
+  }
 
 
   /* =====================================================
@@ -827,7 +920,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/admissions`
         );
 
@@ -910,7 +1003,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/admissions/${id}`,
           {
             method: "DELETE"
@@ -1227,6 +1320,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       return {
 
+        documentId:
+          document.id ||
+          document.documentId ||
+          "",
+
         filePath:
           document.filePath ||
           document.file_path ||
@@ -1326,10 +1424,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    /*
+      Every stored document (Google Drive or legacy
+      local file) is served through the authenticated
+      document endpoint — /uploads is no longer public.
+    */
+    const isProtected =
+      Boolean(fileData.documentId);
+
+
     const fileUrl =
-      normalizeFileUrl(
-        fileData.filePath
-      );
+      isProtected
+        ? `${API_BASE_URL}/admissions/documents/${encodeURIComponent(
+            fileData.documentId
+          )}/file`
+        : normalizeFileUrl(
+            fileData.filePath
+          );
 
 
     const fileName =
@@ -1358,15 +1469,25 @@ document.addEventListener("DOMContentLoaded", function () {
         ${
           imageFile
 
-            ? `
-              <img
-                src="${escapeHtml(
-                  fileUrl
-                )}"
-                alt="${escapeHtml(
-                  title
-                )}" />
-            `
+            ? isProtected
+              ? `
+                <img
+                  data-auth-src="${escapeHtml(
+                    fileUrl
+                  )}"
+                  alt="${escapeHtml(
+                    title
+                  )}" />
+              `
+              : `
+                <img
+                  src="${escapeHtml(
+                    fileUrl
+                  )}"
+                  alt="${escapeHtml(
+                    title
+                  )}" />
+              `
 
             : `
               <p class="pdf-file-text">
@@ -1385,15 +1506,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <div class="file-actions">
 
-          <a
-            href="${escapeHtml(
-              fileUrl
-            )}"
-            target="_blank"
-            rel="noopener"
-            class="view-file-btn">
-            View
-          </a>
+          ${
+            isProtected
+              ? `
+                <a
+                  href="#"
+                  class="view-file-btn"
+                  data-protected-url="${escapeHtml(
+                    fileUrl
+                  )}">
+                  View
+                </a>
+              `
+              : `
+                <a
+                  href="${escapeHtml(
+                    fileUrl
+                  )}"
+                  target="_blank"
+                  rel="noopener"
+                  class="view-file-btn">
+                  View
+                </a>
+              `
+          }
 
 
           <button
@@ -1402,6 +1538,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data-file-url="${escapeHtml(
               fileUrl
             )}"
+            data-protected="${isProtected ? "1" : "0"}"
             data-file-name="${escapeHtml(
               fileName
             )}">
@@ -1421,7 +1558,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function downloadFile(
     fileUrl,
-    fileName
+    fileName,
+    isProtected
   ) {
 
     try {
@@ -1435,9 +1573,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
-          fileUrl
-        );
+        isProtected
+          ? await adminFetch(fileUrl)
+          : await fetch(
+              fileUrl
+            );
 
 
       if (!response.ok) {
@@ -1528,7 +1668,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/admissions/${id}`
         );
 
@@ -1971,6 +2111,11 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
 
 
+      hydrateProtectedMedia(
+        detailsContent
+      );
+
+
     } catch (error) {
 
       console.error(
@@ -2013,7 +2158,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/admissions/${id}/status`,
           {
             method: "PUT",
@@ -2690,7 +2835,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/internships`
         );
 
@@ -3151,7 +3296,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/internships/${id}`,
           {
             method: "DELETE"
@@ -3240,7 +3385,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/internships/${id}`
         );
 
@@ -3389,11 +3534,20 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
+      /*
+        Both Drive-backed and legacy local signatures
+        are served through the authenticated signature
+        endpoint — /uploads is no longer public.
+      */
+      const signatureIsProtected =
+        Boolean(candidateSignature);
+
+
       const signatureUrl =
         candidateSignature
-          ? normalizeFileUrl(
-              candidateSignature
-            )
+          ? `${API_BASE_URL}/internships/${encodeURIComponent(
+              item.id
+            )}/signature`
           : "";
 
 
@@ -3496,35 +3650,73 @@ document.addEventListener("DOMContentLoaded", function () {
                     background:#fafafa;
                   ">
 
-                  <img
-                    src="${escapeHtml(
-                      signatureUrl
-                    )}"
-                    alt="Candidate Signature"
-                    style="
-                      max-width:350px;
-                      max-height:180px;
-                      object-fit:contain;
-                      display:block;
-                    "
-                  />
+                  ${
+                    signatureIsProtected
+                      ? `
+                        <img
+                          data-auth-src="${escapeHtml(
+                            signatureUrl
+                          )}"
+                          alt="Candidate Signature"
+                          style="
+                            max-width:350px;
+                            max-height:180px;
+                            object-fit:contain;
+                            display:block;
+                          "
+                        />
+                      `
+                      : `
+                        <img
+                          src="${escapeHtml(
+                            signatureUrl
+                          )}"
+                          alt="Candidate Signature"
+                          style="
+                            max-width:350px;
+                            max-height:180px;
+                            object-fit:contain;
+                            display:block;
+                          "
+                        />
+                      `
+                  }
 
 
                   <br>
 
 
-                  <a
-                    href="${escapeHtml(
-                      signatureUrl
-                    )}"
-                    target="_blank"
-                    rel="noopener"
-                    style="
-                      display:inline-block;
-                      margin-top:10px;
-                    ">
-                    View Signature
-                  </a>
+                  ${
+                    signatureIsProtected
+                      ? `
+                        <a
+                          href="#"
+                          class="view-file-btn"
+                          data-protected-url="${escapeHtml(
+                            signatureUrl
+                          )}"
+                          style="
+                            display:inline-block;
+                            margin-top:10px;
+                          ">
+                          View Signature
+                        </a>
+                      `
+                      : `
+                        <a
+                          href="${escapeHtml(
+                            signatureUrl
+                          )}"
+                          target="_blank"
+                          rel="noopener"
+                          style="
+                            display:inline-block;
+                            margin-top:10px;
+                          ">
+                          View Signature
+                        </a>
+                      `
+                  }
 
                 </div>
               `
@@ -3572,6 +3764,11 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
 
 
+      hydrateProtectedMedia(
+        detailsContent
+      );
+
+
     } catch (error) {
 
       console.error(
@@ -3616,7 +3813,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const response =
-        await fetch(
+        await adminFetch(
           `${API_BASE_URL}/internships/${id}/status`,
           {
             method: "PUT",
@@ -3955,10 +4152,75 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
+          const isProtected =
+            downloadBtn.getAttribute(
+              "data-protected"
+            ) === "1";
+
+
           downloadFile(
             fileUrl,
-            fileName
+            fileName,
+            isProtected
           );
+        }
+      );
+
+
+      /* -------------------------------------------
+         PROTECTED DOCUMENT VIEW
+
+         Drive-backed files cannot be opened with a
+         plain link because the backend requires an
+         Authorization header. Fetch the file with
+         the admin token, then open the blob URL.
+      ------------------------------------------- */
+
+      detailsContent.addEventListener(
+        "click",
+        async function (event) {
+
+          const viewBtn =
+            event.target.closest(
+              ".view-file-btn[data-protected-url]"
+            );
+
+
+          if (!viewBtn) {
+            return;
+          }
+
+
+          event.preventDefault();
+
+
+          const fileUrl =
+            viewBtn.getAttribute(
+              "data-protected-url"
+            );
+
+
+          try {
+            const blobUrl =
+              await fetchProtectedBlobUrl(
+                fileUrl
+              );
+
+            window.open(
+              blobUrl,
+              "_blank",
+              "noopener"
+            );
+          } catch (error) {
+            console.error(
+              "Protected view error:",
+              error
+            );
+
+            alert(
+              "Unable to open the file. Please log in again."
+            );
+          }
         }
       );
 
@@ -4203,14 +4465,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function () {
 
-          localStorage.removeItem(
-            "adminLoggedIn"
-          );
-
-
-          localStorage.removeItem(
-            "adminEmail"
-          );
+          clearAdminSession();
 
 
           window.location.href =

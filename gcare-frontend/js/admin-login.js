@@ -1,27 +1,5 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   const adminLoginForm = document.getElementById("adminLoginForm");
-//   const errorMessage = document.getElementById("errorMessage");
-
-//   const ADMIN_EMAIL = "infotech@gcarecouncil.in";
-//   const ADMIN_PASSWORD = "admin123";
-
-//   adminLoginForm.addEventListener("submit", function (event) {
-//     event.preventDefault();
-
-//     const enteredEmail = document.getElementById("adminEmail").value.trim();
-//     const enteredPassword = document.getElementById("adminPassword").value.trim();
-
-//     errorMessage.textContent = "";
-
-//     if (enteredEmail === ADMIN_EMAIL && enteredPassword === ADMIN_PASSWORD) {
-//       localStorage.setItem("adminLoggedIn", "true");
-//       localStorage.setItem("adminEmail", enteredEmail);
-//       window.location.href = "admin-dashboard.html";
-//     } else {
-//       errorMessage.textContent = "Invalid admin email or password.";
-//     }
-//   });
-// });
+// Admin credentials are verified server-side.
+// No credentials are stored in this file.
 
 
 
@@ -30,10 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const adminLoginForm = document.getElementById("adminLoginForm");
   const errorMessage = document.getElementById("errorMessage");
 
-  const ADMIN_EMAIL = "infotech@gcarecouncil.in";
-  const ADMIN_PASSWORD = "admin123";
+  const API_BASE_URL =
+    "https://backend-production-c5cb.up.railway.app/api";
 
-  adminLoginForm.addEventListener("submit", function (event) {
+  adminLoginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const enteredEmail = document.getElementById("adminEmail").value.trim();
@@ -41,12 +19,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     errorMessage.textContent = "";
 
-    if (enteredEmail === ADMIN_EMAIL && enteredPassword === ADMIN_PASSWORD) {
-      localStorage.setItem("adminLoggedIn", "true");
-      localStorage.setItem("adminEmail", enteredEmail);
-      window.location.href = "admin-dashboard.html";
-    } else {
-      errorMessage.textContent = "Invalid admin email or password.";
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: enteredEmail,
+          password: enteredPassword
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success && result.token) {
+        localStorage.setItem("adminLoggedIn", "true");
+        localStorage.setItem("adminEmail", enteredEmail);
+        localStorage.setItem("adminToken", result.token);
+        window.location.href = "admin-dashboard.html";
+      } else {
+        errorMessage.textContent =
+          result.message || "Invalid admin email or password.";
+      }
+    } catch (error) {
+      console.error("Admin login error:", error);
+      errorMessage.textContent =
+        "Unable to reach the server. Please try again.";
     }
   });
 

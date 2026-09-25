@@ -490,7 +490,9 @@ document.addEventListener(
   function () {
 
     const API_BASE_URL =
-      "https://backend-production-c5cb.up.railway.app/api";
+      ["localhost", "127.0.0.1"].includes(location.hostname)
+        ? "http://localhost:3000/api"
+        : "https://backend-production-c5cb.up.railway.app/api";
 
 
     const enquiryForm =

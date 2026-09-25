@@ -7,7 +7,9 @@ document.addEventListener(
     ===================================================== */
 
     const API_BASE_URL =
-     "https://backend-production-c5cb.up.railway.app";
+      ["localhost", "127.0.0.1"].includes(location.hostname)
+        ? "http://localhost:3000"
+        : "https://backend-production-c5cb.up.railway.app";
     const INTERNSHIP_API_URL =
       `${API_BASE_URL}/api/internships`;
 
@@ -721,7 +723,7 @@ document.addEventListener(
 
     function setDateOfBirthLimits() {
       const today = new Date();
-      const minDate = addYears(today, -36);
+      const minDate = addYears(today, -41);
       minDate.setDate(minDate.getDate() + 1);
       const maxDate = addYears(today, -15);
       if (dateOfBirth) {
@@ -753,12 +755,12 @@ document.addEventListener(
 
       if (
         age < 15 ||
-        age > 35
+        age > 40
       ) {
         setError(
           dateOfBirth,
           "dateOfBirthError",
-          "Age must be between 15 and 35 years."
+          "Age must be between 15 and 40 years."
         );
         return false;
       }
@@ -2746,13 +2748,10 @@ document.addEventListener(
             "Unable to submit Internship Application. Please try again.";
 
           if (
-            /^Age must be between 15 and 20 years\.?$/i.test(
-              displayMessage
-            )
-          ) {
-            displayMessage =
-              "Age must be between 15 and 35 years.";
-          }
+            /^Age must be between 15 and (20|35|40) years\.?$/i.test(displayMessage)
+           ) {
+           displayMessage = "Age must be between 15 and 40 years.";
+            }
 
           submitBtn.disabled =
             false;
