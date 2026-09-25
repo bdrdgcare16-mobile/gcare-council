@@ -209,40 +209,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec"
-    ];
+    const pad =
+      function (number) {
+        return String(
+          number
+        ).padStart(
+          2,
+          "0"
+        );
+      };
 
 
     const day =
-      String(
+      pad(
         date.getDate()
-      ).padStart(
-        2,
-        "0"
       );
 
     const month =
-      months[
-        date.getMonth()
-      ];
+      pad(
+        date.getMonth() + 1
+      );
 
     const year =
       date.getFullYear();
 
+    const hours24 =
+      date.getHours();
 
-    return `${day} ${month} ${year}`;
+    const hours =
+      pad(
+        hours24 % 12 || 12
+      );
+
+    const minutes =
+      pad(
+        date.getMinutes()
+      );
+
+    const period =
+      hours24 < 12
+        ? "AM"
+        : "PM";
+
+
+    return `${day}-${month}-${year} ${hours}:${minutes} ${period}`;
   }
 
 
