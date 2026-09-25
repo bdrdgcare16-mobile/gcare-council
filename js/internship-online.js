@@ -721,7 +721,7 @@ document.addEventListener(
 
     function setDateOfBirthLimits() {
       const today = new Date();
-      const minDate = addYears(today, -36);
+      const minDate = addYears(today, -41);
       minDate.setDate(minDate.getDate() + 1);
       const maxDate = addYears(today, -15);
       if (dateOfBirth) {
@@ -753,12 +753,12 @@ document.addEventListener(
 
       if (
         age < 15 ||
-        age > 35
+        age > 40
       ) {
         setError(
           dateOfBirth,
           "dateOfBirthError",
-          "Age must be between 15 and 35 years."
+          "Age must be between 15 and 40 years."
         );
         return false;
       }
@@ -2746,12 +2746,12 @@ document.addEventListener(
             "Unable to submit Internship Application. Please try again.";
 
           if (
-            /^Age must be between 15 and 20 years\.?$/i.test(
+            /^Age must be between 15 and (20|35) years\.?$/i.test(
               displayMessage
             )
           ) {
             displayMessage =
-              "Age must be between 15 and 35 years.";
+              "Age must be between 15 and 40 years.";
           }
 
           submitBtn.disabled =
