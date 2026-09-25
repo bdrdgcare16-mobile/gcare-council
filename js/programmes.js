@@ -94,8 +94,8 @@ const programmesData = {
     subcourses: [
       {
         id: "diploma-nursing",
-        name: "Diploma Nursing",
-        title: "Diploma in Nursing",
+        name: "ADFNA Course",
+        title: "Advanced Diploma in Female Nursing Assistant",
         subtitle: "Advanced Nursing Education for Healthcare Excellence",
         description: "Comprehensive diploma programme in nursing focusing on advanced patient care, clinical practices, medical ethics, and professional healthcare standards. This course prepares students for diverse nursing roles in hospitals, clinics, and healthcare facilities.",
         duration: "3 Years",
@@ -776,8 +776,8 @@ const programmesData = {
       },
       {
         id: "lab-technician",
-        name: "Dip.in.Lab Technician",
-        title: "Dip.in.Lab Technician",
+        name: "ADMLT Course",
+        title: "Advanced Diploma in Medical Lab Technician",
         subtitle: "Clinical Laboratory Excellence",
         description:"The Diploma in Medical Lab Technician (DMLT) is a one-year program designed to train individuals in the essential skills and knowledge required to perform laboratory tests and procedures that assist in the diagnosis and treatment of diseases. This course equips students with expertise in areas such as blood analysis, microbiology, immunology and biochemistry.",
         duration: "1 Year",
