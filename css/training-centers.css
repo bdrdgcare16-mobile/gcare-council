@@ -1,0 +1,522 @@
+/* ================================
+   TRAINING CENTERS PAGE
+================================ */
+
+.training-centers-main {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7fb 45%, #e7edf5 100%);
+  min-height: 100vh;
+  padding: 70px 20px 90px;
+}
+
+.training-centers-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0d4f92;
+  font-family: "Times New Roman", serif;
+}
+
+.title-underline {
+  width: 86px;
+  height: 5px;
+  background: #d8a028;
+  border-radius: 999px;
+  margin: 18px auto 22px;
+}
+
+.page-subtitle {
+  max-width: 820px;
+  margin: 0 auto;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: #4f5f73;
+  font-family: "Times New Roman", serif;
+}
+
+/* ================================
+   FILTER BAR
+================================ */
+
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 42px;
+  position: relative;
+  z-index: 50;
+}
+
+.filter-box {
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+}
+
+.filter-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0d4f92;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-family: "Times New Roman", serif;
+}
+
+.custom-district-dropdown {
+  width: 100%;
+  position: relative;
+}
+
+.district-dropdown-button {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid #0d4f92;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #24384d;
+  font-size: 1rem;
+  font-family: "Times New Roman", serif;
+  box-shadow: 0 8px 20px rgba(13, 79, 146, 0.08);
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.district-dropdown-button:focus,
+.custom-district-dropdown.open .district-dropdown-button {
+  border-color: #0d4f92;
+  box-shadow: 0 10px 24px rgba(13, 79, 146, 0.16);
+}
+
+.dropdown-arrow {
+  font-size: 1.2rem;
+  color: #0d4f92;
+  transition: transform 0.25s ease;
+}
+
+.custom-district-dropdown.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.district-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #0d4f92;
+  border-radius: 10px;
+  box-shadow: 0 16px 32px rgba(13, 79, 146, 0.18);
+  z-index: 999;
+  display: none;
+}
+
+.custom-district-dropdown.open .district-dropdown-menu {
+  display: block;
+}
+
+.district-dropdown-menu li {
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: #24384d;
+  font-family: "Times New Roman", serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.district-dropdown-menu li:hover,
+.district-dropdown-menu li.active {
+  background-color: #0d4f92;
+  color: #ffffff;
+}
+
+/* ================================
+   GRID
+================================ */
+
+.training-centers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.training-center-card {
+  background: #ffffff;
+  border: 1px solid #dbe4ee;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(19, 44, 74, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.training-center-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 34px rgba(19, 44, 74, 0.14);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #0d4f92 0%, #1567bc 100%);
+  color: #ffffff;
+  padding: 18px 18px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-header-text {
+  flex: 1;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: "Times New Roman", serif;
+}
+
+.card-header small {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  opacity: 0.92;
+  font-family: "Times New Roman", serif;
+}
+
+.district-badge {
+  min-width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: "Times New Roman", serif;
+}
+
+.card-body {
+  padding: 22px 20px;
+  background: #ffffff;
+}
+
+.card-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e6edf5;
+}
+
+.card-row:first-child {
+  padding-top: 0;
+}
+
+.card-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.card-label {
+  width: 116px;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #1567bc;
+  font-family: "Times New Roman", serif;
+}
+
+.card-value {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #4d5b6a;
+  word-break: break-word;
+  font-family: "Times New Roman", serif;
+}
+
+/* ================================
+   NO RESULTS
+================================ */
+
+.no-results {
+  text-align: center;
+  padding: 56px 20px;
+}
+
+.no-results-content {
+  max-width: 420px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #dbe4ee;
+  border-radius: 18px;
+  padding: 34px 24px;
+  box-shadow: 0 12px 28px rgba(19, 44, 74, 0.08);
+}
+
+.no-results h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  color: #0d4f92;
+  font-family: "Times New Roman", serif;
+}
+
+.no-results p {
+  margin: 0;
+  font-size: 1rem;
+  color: #5d6b79;
+  font-family: "Times New Roman", serif;
+}
+
+/* ================================
+   Footer - Exact Reference Style
+================================ */
+
+.site-footer {
+  background: linear-gradient(180deg, #00152d 0%, #000f22 100%);
+  color: #ffffff;
+  padding-top: 60px;
+}
+
+.footer-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 38px 40px;
+  display: grid;
+  grid-template-columns: 1.2fr 1.1fr 1.1fr 1fr;
+  gap: 42px;
+  align-items: start;
+}
+
+.footer-column h4,
+.footer-about h3 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  letter-spacing: 0.4px;
+}
+
+.footer-about h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-family: "Times New Roman", serif;
+  text-transform: none;
+}
+
+.footer-tagline {
+  font-style: normal;
+}
+
+.footer-text,
+.contact-list li,
+.footer-links li a {
+  color: #ffffff;
+  line-height: 1.85;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-family: "Times New Roman", serif;
+}
+
+.footer-text {
+  max-width: 255px;
+}
+
+.footer-links,
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 4px;
+}
+
+.footer-links a {
+  display: inline-block;
+  position: relative;
+  padding-left: 14px;
+  transition: color 0.25s ease;
+}
+
+.footer-links a::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.footer-links a:hover,
+.footer-links a.active-footer-link {
+  color: #ffd84d;
+}
+
+.social-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(113, 156, 203, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: all 0.25s ease;
+  font-family: "Times New Roman", serif;
+}
+
+.social-btn:hover {
+  background: #f2cf4a;
+  color: #111111;
+}
+
+.social-btn.active-social {
+  border-color: #f2cf4a;
+  font-weight: 700;
+}
+
+.social-icon {
+  width: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-list li {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.contact-icon {
+  display: inline-block;
+  width: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  padding: 18px 24px 22px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #b7c7d8;
+  font-size: 0.9rem;
+  font-family: "Times New Roman", serif;
+}
+
+@media (max-width: 1100px) {
+  .training-centers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .training-centers-main {
+    padding: 52px 14px 72px;
+  }
+
+  .training-centers-container {
+    padding: 0 8px;
+  }
+
+  .page-title {
+    font-size: 2.3rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .training-centers-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-label {
+    width: 100%;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0 18px 28px;
+  }
+
+  .footer-text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .district-dropdown-button {
+    height: 48px;
+    font-size: 0.95rem;
+    padding: 0 14px;
+  }
+
+  .district-dropdown-menu li {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+
+  .card-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .card-body {
+    padding: 18px 16px;
+  }
+}
