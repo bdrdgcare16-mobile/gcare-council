@@ -572,6 +572,8 @@ document.addEventListener(
 
     let mobileOtpVerified = false;
 
+    let otpsSent = false;
+
 
     if (!enquiryForm) {
       console.error(
@@ -1123,6 +1125,9 @@ document.addEventListener(
       mobileOtpVerified =
         false;
 
+      otpsSent =
+        false;
+
 
       if (emailOtpInput) {
         emailOtpInput.value =
@@ -1145,6 +1150,12 @@ document.addEventListener(
 
         verifyBtn.textContent =
           "Verify OTP";
+      }
+
+
+      if (submitBtn) {
+        submitBtn.textContent =
+          "Submit";
       }
     }
 
@@ -1367,6 +1378,10 @@ document.addEventListener(
           );
 
 
+          otpsSent =
+            true;
+
+
         } catch (error) {
 
           console.error(
@@ -1389,7 +1404,9 @@ document.addEventListener(
               false;
 
             submitBtn.textContent =
-              "Submit";
+              otpsSent
+                ? "RESEND OTP"
+                : "Submit";
           }
 
         }
@@ -1553,11 +1570,7 @@ document.addEventListener(
             pendingFormData =
               null;
 
-            emailOtpVerified =
-              false;
-
-            mobileOtpVerified =
-              false;
+            resetOtpState();
 
 
           } catch (error) {

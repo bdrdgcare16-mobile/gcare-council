@@ -132,6 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let isMobileOtpVerified = false;
   let isEmailOtpVerified = false;
 
+  let isMobileOtpSent = false;
+  let isEmailOtpSent = false;
+
   let mobileResendTimer = null;
   let emailResendTimer = null;
 
@@ -858,6 +861,12 @@ document.addEventListener("DOMContentLoaded", function () {
       emailOtpPanel?.querySelector(
         ".inline-otp-row"
       );
+
+    isMobileOtpSent =
+      false;
+
+    isEmailOtpSent =
+      false;
 
     if (sendMobileOtpBtn) {
       sendMobileOtpBtn.style.display =
@@ -2245,7 +2254,9 @@ document.addEventListener("DOMContentLoaded", function () {
           true;
 
         sendMobileOtpBtn.textContent =
-          "Sending...";
+          isResend
+            ? "Resending..."
+            : "Sending...";
       }
 
       if (resendMobileOtpBtn) {
@@ -2329,6 +2340,9 @@ document.addEventListener("DOMContentLoaded", function () {
       isMobileOtpVerified =
         false;
 
+      isMobileOtpSent =
+        true;
+
       showMobileOtpControls();
 
       startMobileResendCooldown();
@@ -2372,7 +2386,9 @@ document.addEventListener("DOMContentLoaded", function () {
           false;
 
         sendMobileOtpBtn.textContent =
-          "Send OTP";
+          isMobileOtpSent
+            ? "Resend OTP"
+            : "Send OTP";
       }
     }
   }
@@ -2592,7 +2608,9 @@ document.addEventListener("DOMContentLoaded", function () {
           true;
 
         sendEmailOtpBtn.textContent =
-          "Sending...";
+          isResend
+            ? "Resending..."
+            : "Sending...";
       }
 
       if (resendEmailOtpBtn) {
@@ -2657,6 +2675,9 @@ document.addEventListener("DOMContentLoaded", function () {
       isEmailOtpVerified =
         false;
 
+      isEmailOtpSent =
+        true;
+
       showEmailOtpControls();
 
       startEmailResendCooldown();
@@ -2700,7 +2721,9 @@ document.addEventListener("DOMContentLoaded", function () {
           false;
 
         sendEmailOtpBtn.textContent =
-          "Send OTP";
+          isEmailOtpSent
+            ? "Resend OTP"
+            : "Send OTP";
       }
     }
   }
@@ -2847,7 +2870,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       sendMobileOtpBtn.addEventListener(
         "click",
-        sendMobileOtp
+        function () {
+          sendMobileOtp(
+            isMobileOtpSent
+          );
+        }
       );
     }
 
@@ -2867,7 +2894,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       sendEmailOtpBtn.addEventListener(
         "click",
-        sendEmailOtp
+        function () {
+          sendEmailOtp(
+            isEmailOtpSent
+          );
+        }
       );
     }
 
