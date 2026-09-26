@@ -1078,17 +1078,10 @@ if (
 
 /* =====================================================
    HEALTH CHECK
-===================================================== */
 
-app.get("/", function (req, res) {
-  return res
-    .status(200)
-    .json({
-      success: true,
-      message:
-        "G Care Council backend server is running."
-    });
-});
+   GET /            -> serves gcare-frontend/index.html
+   GET /test        -> JSON health check (kept for API)
+===================================================== */
 
 app.get("/test", function (req, res) {
   return res
@@ -1196,6 +1189,22 @@ app.get(
       });
   }
 );
+
+/* =====================================================
+   STATIC FRONTEND (LOCAL SINGLE-PORTAL MODE)
+
+   Serves the existing gcare-frontend folder so the
+   whole site runs on http://localhost:3000/ — same
+   origin as all /api/* endpoints.
+
+   Placed AFTER all API routes and BEFORE the 404
+   handler so /api/* and /uploads keep working.
+===================================================== */
+
+const frontendPath =
+  path.join(__dirname, "../gcare-frontend");
+
+app.use(express.static(frontendPath));
 
 /* =====================================================
    CONTACT DEBUG (LOCAL DEVELOPMENT ONLY)

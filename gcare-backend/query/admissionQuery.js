@@ -1,5 +1,8 @@
 const db = require("../config/db");
 
+const debugLog =
+  require("../utils/debugLog");
+
 /* =====================================================
    INSERT ADMISSION
 ===================================================== */
@@ -85,7 +88,7 @@ const insertAdmission = (data, callback) => {
     VALUES (${placeholders})
   `;
 
-  console.log(
+  debugLog(
     "INSERT ADMISSION VALUES:",
     values
   );
@@ -125,7 +128,7 @@ const insertAdmissionDocument = (
     documentData.mimeType
   ];
 
-  console.log(
+  debugLog(
     "INSERT DOCUMENT VALUES:",
     values
   );
@@ -268,6 +271,45 @@ const fetchAdmissionDocuments = (
 
 
 /* =====================================================
+   FETCH SINGLE ADMISSION DOCUMENT
+===================================================== */
+
+const fetchAdmissionDocumentById = (
+  documentId,
+  callback
+) => {
+  const sql = `
+    SELECT
+      id,
+
+      admission_id AS admissionId,
+
+      document_type AS documentType,
+
+      file_name AS fileName,
+
+      file_path AS filePath,
+
+      mime_type AS mimeType,
+
+      created_at AS createdAt
+
+    FROM admission_documents
+
+    WHERE id = ?
+
+    LIMIT 1
+  `;
+
+  db.query(
+    sql,
+    [documentId],
+    callback
+  );
+};
+
+
+/* =====================================================
    UPDATE ADMISSION STATUS
 ===================================================== */
 
@@ -327,6 +369,7 @@ module.exports = {
   fetchAdmissions,
   fetchAdmissionById,
   fetchAdmissionDocuments,
+  fetchAdmissionDocumentById,
   updateStatus,
   deleteAdmission
 };

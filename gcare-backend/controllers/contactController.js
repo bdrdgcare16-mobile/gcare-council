@@ -182,6 +182,9 @@
 const contactService =
   require("../services/contactService");
 
+const debugLog =
+  require("../utils/debugLog");
+
 /* =====================================================
    CREATE CONTACT
 ===================================================== */
@@ -189,7 +192,7 @@ const contactService =
 const submitContactForm =
   async (req, res) => {
     try {
-      console.log(
+      debugLog(
         "Incoming contact payload:",
         req.body
       );
@@ -281,7 +284,7 @@ const submitContactForm =
           String(message).trim()
       };
 
-      console.log(
+      debugLog(
         "Validated contact payload:",
         payload
       );

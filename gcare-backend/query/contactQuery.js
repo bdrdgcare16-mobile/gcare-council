@@ -1,9 +1,10 @@
 const { ContactMessage } = require('../models');
+const debugLog = require('../utils/debugLog');
 
 // Create new contact
 const createContactMessage = async (data) => {
   try {
-    console.log('QUERY CREATE DATA:', data);
+    debugLog('QUERY CREATE DATA:', data);
 
     const result = await ContactMessage.create({
       fullName: data.fullName,
