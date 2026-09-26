@@ -132,8 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let isMobileOtpVerified = false;
   let isEmailOtpVerified = false;
 
-  let isMobileOtpSent = false;
-  let isEmailOtpSent = false;
+  let mobileOtpSent = false;
+  let emailOtpSent = false;
 
   let mobileResendTimer = null;
   let emailResendTimer = null;
@@ -835,10 +835,10 @@ document.addEventListener("DOMContentLoaded", function () {
         ".inline-otp-row"
       );
 
-    isMobileOtpSent =
+    mobileOtpSent =
       false;
 
-    isEmailOtpSent =
+    emailOtpSent =
       false;
 
     if (sendMobileOtpBtn) {
@@ -2269,7 +2269,7 @@ document.addEventListener("DOMContentLoaded", function () {
       isMobileOtpVerified =
         false;
 
-      isMobileOtpSent =
+      mobileOtpSent =
         true;
 
       showMobileOtpControls();
@@ -2308,7 +2308,7 @@ document.addEventListener("DOMContentLoaded", function () {
             false;
 
           sendMobileOtpBtn.textContent =
-            isMobileOtpSent
+            mobileOtpSent
               ? "Resend OTP"
               : "Send OTP";
         }
@@ -2594,7 +2594,7 @@ document.addEventListener("DOMContentLoaded", function () {
       isEmailOtpVerified =
         false;
 
-      isEmailOtpSent =
+      emailOtpSent =
         true;
 
       showEmailOtpControls();
@@ -2633,7 +2633,7 @@ document.addEventListener("DOMContentLoaded", function () {
             false;
 
           sendEmailOtpBtn.textContent =
-            isEmailOtpSent
+            emailOtpSent
               ? "Resend OTP"
               : "Send OTP";
         }
@@ -2789,7 +2789,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function () {
           sendMobileOtp(
-            isMobileOtpSent
+            mobileOtpSent
           );
         }
       );
@@ -2813,7 +2813,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function () {
           sendEmailOtp(
-            isEmailOtpSent
+            emailOtpSent
           );
         }
       );

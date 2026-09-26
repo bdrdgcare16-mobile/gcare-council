@@ -1125,9 +1125,6 @@ document.addEventListener(
       mobileOtpVerified =
         false;
 
-      otpsSent =
-        false;
-
 
       if (emailOtpInput) {
         emailOtpInput.value =
@@ -1155,7 +1152,9 @@ document.addEventListener(
 
       if (submitBtn) {
         submitBtn.textContent =
-          "Submit";
+          otpsSent
+            ? "Resend OTP"
+            : "Send OTP";
       }
     }
 
@@ -1405,8 +1404,8 @@ document.addEventListener(
 
             submitBtn.textContent =
               otpsSent
-                ? "RESEND OTP"
-                : "Submit";
+                ? "Resend OTP"
+                : "Send OTP";
           }
 
         }
@@ -1569,6 +1568,8 @@ document.addEventListener(
 
             pendingFormData =
               null;
+
+            otpsSent = false;
 
             resetOtpState();
 

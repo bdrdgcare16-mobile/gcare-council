@@ -160,6 +160,12 @@ document.addEventListener(
     let emailOtpVerified =
       false;
 
+    let mobileOtpSent =
+      false;
+
+    let emailOtpSent =
+      false;
+
 
     /* =====================================================
        ERROR HELPERS
@@ -1660,6 +1666,9 @@ document.addEventListener(
             mobileOtpVerified =
               false;
 
+            mobileOtpSent =
+              true;
+
             mobileOtpPanel.classList.add(
               "show"
             );
@@ -1697,7 +1706,9 @@ document.addEventListener(
               false;
 
             sendMobileOtpBtn.textContent =
-              "Send OTP";
+              mobileOtpSent
+                ? "Resend OTP"
+                : "Send OTP";
 
           }
 
@@ -1930,6 +1941,9 @@ document.addEventListener(
             emailOtpVerified =
               false;
 
+            emailOtpSent =
+              true;
+
             emailOtpPanel.classList.add(
               "show"
             );
@@ -1967,7 +1981,9 @@ document.addEventListener(
               false;
 
             sendEmailOtpBtn.textContent =
-              "Send OTP";
+              emailOtpSent
+                ? "Resend OTP"
+                : "Send OTP";
 
           }
 
@@ -2788,6 +2804,12 @@ document.addEventListener(
         false;
 
       emailOtpVerified =
+        false;
+
+      mobileOtpSent =
+        false;
+
+      emailOtpSent =
         false;
 
 
