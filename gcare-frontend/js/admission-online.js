@@ -140,15 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const RESEND_COOLDOWN = 30;
 
-  const resendMobileOtpBtn =
-    document.getElementById(
-      "resendMobileOtpBtn"
-    );
-
-  const resendEmailOtpBtn =
-    document.getElementById(
-      "resendEmailOtpBtn"
-    );
 
   /* =====================================================
      APPLICATION NUMBER
@@ -570,17 +561,17 @@ document.addEventListener("DOMContentLoaded", function () {
       mobileResendTimer = null;
     }
 
-    if (!resendMobileOtpBtn) {
+    if (!sendMobileOtpBtn) {
       return;
     }
 
     let seconds =
       RESEND_COOLDOWN;
 
-    resendMobileOtpBtn.disabled =
+    sendMobileOtpBtn.disabled =
       true;
 
-    resendMobileOtpBtn.textContent =
+    sendMobileOtpBtn.textContent =
       `Resend OTP in ${seconds}s`;
 
     mobileResendTimer =
@@ -588,8 +579,8 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
           seconds--;
 
-          if (resendMobileOtpBtn) {
-            resendMobileOtpBtn.textContent =
+          if (sendMobileOtpBtn) {
+            sendMobileOtpBtn.textContent =
               `Resend OTP in ${seconds}s`;
           }
 
@@ -601,11 +592,11 @@ document.addEventListener("DOMContentLoaded", function () {
             mobileResendTimer =
               null;
 
-            if (resendMobileOtpBtn) {
-              resendMobileOtpBtn.disabled =
+            if (sendMobileOtpBtn) {
+              sendMobileOtpBtn.disabled =
                 false;
 
-              resendMobileOtpBtn.textContent =
+              sendMobileOtpBtn.textContent =
                 "Resend OTP";
             }
           }
@@ -623,17 +614,17 @@ document.addEventListener("DOMContentLoaded", function () {
       emailResendTimer = null;
     }
 
-    if (!resendEmailOtpBtn) {
+    if (!sendEmailOtpBtn) {
       return;
     }
 
     let seconds =
       RESEND_COOLDOWN;
 
-    resendEmailOtpBtn.disabled =
+    sendEmailOtpBtn.disabled =
       true;
 
-    resendEmailOtpBtn.textContent =
+    sendEmailOtpBtn.textContent =
       `Resend OTP in ${seconds}s`;
 
     emailResendTimer =
@@ -641,8 +632,8 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
           seconds--;
 
-          if (resendEmailOtpBtn) {
-            resendEmailOtpBtn.textContent =
+          if (sendEmailOtpBtn) {
+            sendEmailOtpBtn.textContent =
               `Resend OTP in ${seconds}s`;
           }
 
@@ -654,11 +645,11 @@ document.addEventListener("DOMContentLoaded", function () {
             emailResendTimer =
               null;
 
-            if (resendEmailOtpBtn) {
-              resendEmailOtpBtn.disabled =
+            if (sendEmailOtpBtn) {
+              sendEmailOtpBtn.disabled =
                 false;
 
-              resendEmailOtpBtn.textContent =
+              sendEmailOtpBtn.textContent =
                 "Resend OTP";
             }
           }
@@ -712,13 +703,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Verify OTP";
     }
 
-    if (resendMobileOtpBtn) {
-      resendMobileOtpBtn.style.display =
-        "";
 
-      resendMobileOtpBtn.disabled =
-        true;
-    }
   }
 
   function hideMobileOtpControlsAfterVerification() {
@@ -745,10 +730,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "none";
     }
 
-    if (resendMobileOtpBtn) {
-      resendMobileOtpBtn.style.display =
-        "none";
-    }
+
 
     if (mobileResendTimer) {
       clearInterval(
@@ -800,13 +782,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Verify OTP";
     }
 
-    if (resendEmailOtpBtn) {
-      resendEmailOtpBtn.style.display =
-        "";
 
-      resendEmailOtpBtn.disabled =
-        true;
-    }
   }
 
   function hideEmailOtpControlsAfterVerification() {
@@ -833,10 +809,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "none";
     }
 
-    if (resendEmailOtpBtn) {
-      resendEmailOtpBtn.style.display =
-        "none";
-    }
+
 
     if (emailResendTimer) {
       clearInterval(
@@ -952,27 +925,9 @@ document.addEventListener("DOMContentLoaded", function () {
       emailOtpPanel
     );
 
-    if (resendMobileOtpBtn) {
-      resendMobileOtpBtn.style.display =
-        "none";
 
-      resendMobileOtpBtn.disabled =
-        true;
 
-      resendMobileOtpBtn.textContent =
-        "Resend OTP";
-    }
 
-    if (resendEmailOtpBtn) {
-      resendEmailOtpBtn.style.display =
-        "none";
-
-      resendEmailOtpBtn.disabled =
-        true;
-
-      resendEmailOtpBtn.textContent =
-        "Resend OTP";
-    }
 
     if (mobileResendTimer) {
       clearInterval(
@@ -1644,16 +1599,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ""
           );
 
-          if (resendMobileOtpBtn) {
-            resendMobileOtpBtn.style.display =
-              "none";
 
-            resendMobileOtpBtn.disabled =
-              true;
-
-            resendMobileOtpBtn.textContent =
-              "Resend OTP";
-          }
 
           if (mobileResendTimer) {
             clearInterval(
@@ -1703,16 +1649,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ""
         );
 
-        if (resendEmailOtpBtn) {
-          resendEmailOtpBtn.style.display =
-            "none";
 
-          resendEmailOtpBtn.disabled =
-            true;
-
-          resendEmailOtpBtn.textContent =
-            "Resend OTP";
-        }
 
         if (emailResendTimer) {
           clearInterval(
@@ -2220,6 +2157,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .toLowerCase() ||
       "";
 
+    let success = false;
+
     /* -----------------------------
        MOBILE VALIDATION
     ----------------------------- */
@@ -2257,16 +2196,6 @@ document.addEventListener("DOMContentLoaded", function () {
           isResend
             ? "Resending..."
             : "Sending...";
-      }
-
-      if (resendMobileOtpBtn) {
-        resendMobileOtpBtn.disabled =
-          true;
-
-        resendMobileOtpBtn.textContent =
-          isResend
-            ? "Resending..."
-            : `Resend OTP in ${RESEND_COOLDOWN}s`;
       }
 
       setStatus(
@@ -2345,7 +2274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       showMobileOtpControls();
 
-      startMobileResendCooldown();
+      success = true;
 
       if (mobileOtpInput) {
         mobileOtpInput.focus();
@@ -2372,24 +2301,22 @@ document.addEventListener("DOMContentLoaded", function () {
         "error"
       );
 
-      if (resendMobileOtpBtn) {
-        resendMobileOtpBtn.disabled =
-          false;
-
-        resendMobileOtpBtn.textContent =
-          "Resend OTP";
-      }
-
     } finally {
       if (sendMobileOtpBtn) {
-        sendMobileOtpBtn.disabled =
-          false;
+        if (!success) {
+          sendMobileOtpBtn.disabled =
+            false;
 
-        sendMobileOtpBtn.textContent =
-          isMobileOtpSent
-            ? "Resend OTP"
-            : "Send OTP";
+          sendMobileOtpBtn.textContent =
+            isMobileOtpSent
+              ? "Resend OTP"
+              : "Send OTP";
+        }
       }
+    }
+
+    if (success) {
+      startMobileResendCooldown();
     }
   }
 
@@ -2575,6 +2502,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .toLowerCase() ||
       "";
 
+    let success = false;
+
     const emailPattern =
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$/;
 
@@ -2611,16 +2540,6 @@ document.addEventListener("DOMContentLoaded", function () {
           isResend
             ? "Resending..."
             : "Sending...";
-      }
-
-      if (resendEmailOtpBtn) {
-        resendEmailOtpBtn.disabled =
-          true;
-
-        resendEmailOtpBtn.textContent =
-          isResend
-            ? "Resending..."
-            : `Resend OTP in ${RESEND_COOLDOWN}s`;
       }
 
       setStatus(
@@ -2680,7 +2599,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       showEmailOtpControls();
 
-      startEmailResendCooldown();
+      success = true;
 
       if (emailOtpInput) {
         emailOtpInput.focus();
@@ -2707,24 +2626,22 @@ document.addEventListener("DOMContentLoaded", function () {
         "error"
       );
 
-      if (resendEmailOtpBtn) {
-        resendEmailOtpBtn.disabled =
-          false;
-
-        resendEmailOtpBtn.textContent =
-          "Resend OTP";
-      }
-
     } finally {
       if (sendEmailOtpBtn) {
-        sendEmailOtpBtn.disabled =
-          false;
+        if (!success) {
+          sendEmailOtpBtn.disabled =
+            false;
 
-        sendEmailOtpBtn.textContent =
-          isEmailOtpSent
-            ? "Resend OTP"
-            : "Send OTP";
+          sendEmailOtpBtn.textContent =
+            isEmailOtpSent
+              ? "Resend OTP"
+              : "Send OTP";
+        }
       }
+    }
+
+    if (success) {
+      startEmailResendCooldown();
     }
   }
 
@@ -2912,25 +2829,9 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
 
-    if (resendMobileOtpBtn) {
-      resendMobileOtpBtn.type =
-        "button";
 
-      resendMobileOtpBtn.addEventListener(
-        "click",
-        resendMobileOtp
-      );
-    }
 
-    if (resendEmailOtpBtn) {
-      resendEmailOtpBtn.type =
-        "button";
 
-      resendEmailOtpBtn.addEventListener(
-        "click",
-        resendEmailOtp
-      );
-    }
   }
 
   /* =====================================================
