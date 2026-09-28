@@ -158,6 +158,21 @@ document.addEventListener(
     let emailOtpVerified =
       false;
 
+    let mobileOtpSent =
+      false;
+
+    let emailOtpSent =
+      false;
+
+    let mobileResendTimer =
+      null;
+
+    let emailResendTimer =
+      null;
+
+    const RESEND_COOLDOWN =
+      60;
+
 
     /* =====================================================
        ERROR HELPERS
@@ -335,6 +350,121 @@ document.addEventListener(
 
       }
 
+    }
+
+
+    /* =====================================================
+       OTP RESEND COOLDOWN
+    ===================================================== */
+
+    function startMobileResendCooldown() {
+
+      if (mobileResendTimer) {
+        clearInterval(
+          mobileResendTimer
+        );
+
+        mobileResendTimer =
+          null;
+      }
+
+      if (!sendMobileOtpBtn) {
+        return;
+      }
+
+      let seconds =
+        RESEND_COOLDOWN;
+
+      sendMobileOtpBtn.disabled =
+        true;
+
+      sendMobileOtpBtn.textContent =
+        `Resend OTP in ${seconds}s`;
+
+      mobileResendTimer =
+        setInterval(
+          function () {
+            seconds--;
+
+            if (sendMobileOtpBtn) {
+              sendMobileOtpBtn.textContent =
+                `Resend OTP in ${seconds}s`;
+            }
+
+            if (seconds <= 0) {
+              clearInterval(
+                mobileResendTimer
+              );
+
+              mobileResendTimer =
+                null;
+
+              if (sendMobileOtpBtn) {
+                sendMobileOtpBtn.disabled =
+                  false;
+
+                sendMobileOtpBtn.textContent =
+                  "Resend OTP";
+              }
+            }
+          },
+          1000
+        );
+    }
+
+    function startEmailResendCooldown() {
+
+      if (emailResendTimer) {
+        clearInterval(
+          emailResendTimer
+        );
+
+        emailResendTimer =
+          null;
+      }
+
+      if (!sendEmailOtpBtn) {
+        return;
+      }
+
+      let seconds =
+        RESEND_COOLDOWN;
+
+      sendEmailOtpBtn.disabled =
+        true;
+
+      sendEmailOtpBtn.textContent =
+        `Resend OTP in ${seconds}s`;
+
+      emailResendTimer =
+        setInterval(
+          function () {
+            seconds--;
+
+            if (sendEmailOtpBtn) {
+              sendEmailOtpBtn.textContent =
+                `Resend OTP in ${seconds}s`;
+            }
+
+            if (seconds <= 0) {
+              clearInterval(
+                emailResendTimer
+              );
+
+              emailResendTimer =
+                null;
+
+              if (sendEmailOtpBtn) {
+                sendEmailOtpBtn.disabled =
+                  false;
+
+                sendEmailOtpBtn.textContent =
+                  "Resend OTP";
+              }
+            }
+          },
+          1000
+        );
     }
 
 
@@ -880,14 +1010,14 @@ document.addEventListener(
         }
 
         if (
-          value.charAt(0) !==
-          "6"
+          value.charAt(0) ===
+          "0"
         ) {
 
           setError(
             pinCode,
             "pinCodeError",
-            "Tamil Nadu Pin Code must start with 6."
+            "PIN code cannot start with 0."
           );
 
           return;
@@ -938,7 +1068,7 @@ document.addEventListener(
       }
 
       if (
-        !/^6[0-9]{5}$/.test(
+        !/^[1-9][0-9]{5}$/.test(
           value
         )
       ) {
@@ -946,7 +1076,7 @@ document.addEventListener(
         setError(
           pinCode,
           "pinCodeError",
-          "Enter a valid 6-digit Tamil Nadu Pin Code starting with 6."
+          "Enter a valid 6-digit Indian PIN Code."
         );
 
         return false;
@@ -1602,6 +1732,9 @@ document.addEventListener(
             mobile: mobile
           });
 
+          let mobileOtpSendSuccess =
+            false;
+
           try {
 
             sendMobileOtpBtn.disabled =
@@ -1655,6 +1788,9 @@ document.addEventListener(
 
             }
 
+            mobileOtpSendSuccess =
+              true;
+
             mobileOtpVerified =
               false;
 
@@ -1691,11 +1827,20 @@ document.addEventListener(
 
           } finally {
 
-            sendMobileOtpBtn.disabled =
-              false;
+            if (mobileOtpSendSuccess) {
+              mobileOtpSent =
+                true;
 
-            sendMobileOtpBtn.textContent =
-              "Send OTP";
+              startMobileResendCooldown();
+            } else {
+              sendMobileOtpBtn.disabled =
+                false;
+
+              sendMobileOtpBtn.textContent =
+                mobileOtpSent
+                  ? "Resend OTP"
+                  : "Send OTP";
+            }
 
           }
 
@@ -1871,6 +2016,9 @@ document.addEventListener(
           const emailValue =
             email.value.trim();
 
+          let emailOtpSendSuccess =
+            false;
+
           try {
 
             sendEmailOtpBtn.disabled =
@@ -1925,6 +2073,9 @@ document.addEventListener(
 
             }
 
+            emailOtpSendSuccess =
+              true;
+
             emailOtpVerified =
               false;
 
@@ -1961,11 +2112,20 @@ document.addEventListener(
 
           } finally {
 
-            sendEmailOtpBtn.disabled =
-              false;
+            if (emailOtpSendSuccess) {
+              emailOtpSent =
+                true;
 
-            sendEmailOtpBtn.textContent =
-              "Send OTP";
+              startEmailResendCooldown();
+            } else {
+              sendEmailOtpBtn.disabled =
+                false;
+
+              sendEmailOtpBtn.textContent =
+                emailOtpSent
+                  ? "Resend OTP"
+                  : "Send OTP";
+            }
 
           }
 

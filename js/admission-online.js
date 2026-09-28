@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let mobileResendTimer = null;
   let emailResendTimer = null;
 
-  const RESEND_COOLDOWN = 30;
+  const RESEND_COOLDOWN = 60;
 
 
   /* =====================================================
