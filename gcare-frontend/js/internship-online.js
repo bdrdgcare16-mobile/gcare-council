@@ -7,9 +7,7 @@ document.addEventListener(
     ===================================================== */
 
     const API_BASE_URL =
-      ["localhost", "127.0.0.1"].includes(location.hostname)
-        ? "http://localhost:3000"
-        : "https://backend-production-c5cb.up.railway.app";
+     "https://backend-production-c5cb.up.railway.app";
     const INTERNSHIP_API_URL =
       `${API_BASE_URL}/api/internships`;
 
@@ -165,6 +163,15 @@ document.addEventListener(
 
     let emailOtpSent =
       false;
+
+    let mobileResendTimer =
+      null;
+
+    let emailResendTimer =
+      null;
+
+    const RESEND_COOLDOWN =
+      60;
 
 
     /* =====================================================
@@ -343,6 +350,121 @@ document.addEventListener(
 
       }
 
+    }
+
+
+    /* =====================================================
+       OTP RESEND COOLDOWN
+    ===================================================== */
+
+    function startMobileResendCooldown() {
+
+      if (mobileResendTimer) {
+        clearInterval(
+          mobileResendTimer
+        );
+
+        mobileResendTimer =
+          null;
+      }
+
+      if (!sendMobileOtpBtn) {
+        return;
+      }
+
+      let seconds =
+        RESEND_COOLDOWN;
+
+      sendMobileOtpBtn.disabled =
+        true;
+
+      sendMobileOtpBtn.textContent =
+        `Resend OTP in ${seconds}s`;
+
+      mobileResendTimer =
+        setInterval(
+          function () {
+            seconds--;
+
+            if (sendMobileOtpBtn) {
+              sendMobileOtpBtn.textContent =
+                `Resend OTP in ${seconds}s`;
+            }
+
+            if (seconds <= 0) {
+              clearInterval(
+                mobileResendTimer
+              );
+
+              mobileResendTimer =
+                null;
+
+              if (sendMobileOtpBtn) {
+                sendMobileOtpBtn.disabled =
+                  false;
+
+                sendMobileOtpBtn.textContent =
+                  "Resend OTP";
+              }
+            }
+          },
+          1000
+        );
+    }
+
+    function startEmailResendCooldown() {
+
+      if (emailResendTimer) {
+        clearInterval(
+          emailResendTimer
+        );
+
+        emailResendTimer =
+          null;
+      }
+
+      if (!sendEmailOtpBtn) {
+        return;
+      }
+
+      let seconds =
+        RESEND_COOLDOWN;
+
+      sendEmailOtpBtn.disabled =
+        true;
+
+      sendEmailOtpBtn.textContent =
+        `Resend OTP in ${seconds}s`;
+
+      emailResendTimer =
+        setInterval(
+          function () {
+            seconds--;
+
+            if (sendEmailOtpBtn) {
+              sendEmailOtpBtn.textContent =
+                `Resend OTP in ${seconds}s`;
+            }
+
+            if (seconds <= 0) {
+              clearInterval(
+                emailResendTimer
+              );
+
+              emailResendTimer =
+                null;
+
+              if (sendEmailOtpBtn) {
+                sendEmailOtpBtn.disabled =
+                  false;
+
+                sendEmailOtpBtn.textContent =
+                  "Resend OTP";
+              }
+            }
+          },
+          1000
+        );
     }
 
 
@@ -888,14 +1010,14 @@ document.addEventListener(
         }
 
         if (
-          value.charAt(0) !==
-          "6"
+          value.charAt(0) ===
+          "0"
         ) {
 
           setError(
             pinCode,
             "pinCodeError",
-            "Tamil Nadu Pin Code must start with 6."
+            "PIN code cannot start with 0."
           );
 
           return;
@@ -946,7 +1068,7 @@ document.addEventListener(
       }
 
       if (
-        !/^6[0-9]{5}$/.test(
+        !/^[1-9][0-9]{5}$/.test(
           value
         )
       ) {
@@ -954,7 +1076,7 @@ document.addEventListener(
         setError(
           pinCode,
           "pinCodeError",
-          "Enter a valid 6-digit Tamil Nadu Pin Code starting with 6."
+          "Enter a valid 6-digit Indian PIN Code."
         );
 
         return false;
@@ -1610,6 +1732,9 @@ document.addEventListener(
             mobile: mobile
           });
 
+          let mobileOtpSendSuccess =
+            false;
+
           try {
 
             sendMobileOtpBtn.disabled =
@@ -1663,11 +1788,11 @@ document.addEventListener(
 
             }
 
+            mobileOtpSendSuccess =
+              true;
+
             mobileOtpVerified =
               false;
-
-            mobileOtpSent =
-              true;
 
             mobileOtpPanel.classList.add(
               "show"
@@ -1702,13 +1827,20 @@ document.addEventListener(
 
           } finally {
 
-            sendMobileOtpBtn.disabled =
-              false;
+            if (mobileOtpSendSuccess) {
+              mobileOtpSent =
+                true;
 
-            sendMobileOtpBtn.textContent =
-              mobileOtpSent
-                ? "Resend OTP"
-                : "Send OTP";
+              startMobileResendCooldown();
+            } else {
+              sendMobileOtpBtn.disabled =
+                false;
+
+              sendMobileOtpBtn.textContent =
+                mobileOtpSent
+                  ? "Resend OTP"
+                  : "Send OTP";
+            }
 
           }
 
@@ -1884,6 +2016,9 @@ document.addEventListener(
           const emailValue =
             email.value.trim();
 
+          let emailOtpSendSuccess =
+            false;
+
           try {
 
             sendEmailOtpBtn.disabled =
@@ -1938,11 +2073,11 @@ document.addEventListener(
 
             }
 
+            emailOtpSendSuccess =
+              true;
+
             emailOtpVerified =
               false;
-
-            emailOtpSent =
-              true;
 
             emailOtpPanel.classList.add(
               "show"
@@ -1977,13 +2112,20 @@ document.addEventListener(
 
           } finally {
 
-            sendEmailOtpBtn.disabled =
-              false;
+            if (emailOtpSendSuccess) {
+              emailOtpSent =
+                true;
 
-            sendEmailOtpBtn.textContent =
-              emailOtpSent
-                ? "Resend OTP"
-                : "Send OTP";
+              startEmailResendCooldown();
+            } else {
+              sendEmailOtpBtn.disabled =
+                false;
+
+              sendEmailOtpBtn.textContent =
+                emailOtpSent
+                  ? "Resend OTP"
+                  : "Send OTP";
+            }
 
           }
 
@@ -2764,10 +2906,13 @@ document.addEventListener(
             "Unable to submit Internship Application. Please try again.";
 
           if (
-            /^Age must be between 15 and (20|35|40) years\.?$/i.test(displayMessage)
-           ) {
-           displayMessage = "Age must be between 15 and 40 years.";
-            }
+            /^Age must be between 15 and (20|35) years\.?$/i.test(
+              displayMessage
+            )
+          ) {
+            displayMessage =
+              "Age must be between 15 and 40 years.";
+          }
 
           submitBtn.disabled =
             false;
@@ -2804,12 +2949,6 @@ document.addEventListener(
         false;
 
       emailOtpVerified =
-        false;
-
-      mobileOtpSent =
-        false;
-
-      emailOtpSent =
         false;
 
 

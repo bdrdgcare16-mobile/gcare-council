@@ -302,22 +302,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec"
-    ];
-
-
     const day =
       String(
         date.getDate()
@@ -327,15 +311,18 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
     const month =
-      months[
-        date.getMonth()
-      ];
+      String(
+        date.getMonth() + 1
+      ).padStart(
+        2,
+        "0"
+      );
 
     const year =
       date.getFullYear();
 
 
-    return `${day} ${month} ${year}`;
+    return `${day}/${month}/${year}`;
   }
 
 
@@ -3124,9 +3111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const createdAt =
-          getInternshipDate(
-            item
-          );
+          item.created_at || "";
 
 
         const status =
@@ -3510,9 +3495,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       const createdAt =
-        getInternshipDate(
-          item
-        );
+        item.created_at || "";
 
 
       let employmentDisplay =
