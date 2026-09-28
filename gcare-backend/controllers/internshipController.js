@@ -391,7 +391,7 @@ async (
 
 
     if (
-      !/^6[0-9]{5}$/.test(
+      !/^[1-9][0-9]{5}$/.test(
         pin
       )
     ) {
@@ -400,7 +400,7 @@ async (
         .json({
           success: false,
           message:
-            "Enter a valid 6-digit Tamil Nadu Pin Code starting with 6."
+            "Enter a valid 6-digit Indian PIN Code."
         });
     }
 
