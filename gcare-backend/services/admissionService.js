@@ -719,7 +719,7 @@ const saveAdmission = async (
       admissionId,
 
     applicationNo:
-      body.applicationNo,
+      insertResult.applicationNo,
 
     courseName:
       body.courseName,

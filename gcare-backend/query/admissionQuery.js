@@ -7,9 +7,65 @@ const debugLog =
    INSERT ADMISSION
 ===================================================== */
 
-const insertAdmission = (data, callback) => {
+const MAX_APPLICATION_ATTEMPTS = 5;
+
+const generateApplicationNo = (
+  callback
+) => {
+  const sql = `
+    SELECT
+      COALESCE(
+        MAX(
+          CAST(
+            SUBSTRING(application_no, 6)
+            AS UNSIGNED
+          )
+        ),
+        0
+      ) AS max_application_number
+    FROM admissions
+    WHERE application_no REGEXP '^GCARE[0-9]+$'
+  `;
+
+  db.query(sql, (err, rows) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    const max =
+      rows &&
+      rows[0]
+        ? rows[0].max_application_number
+        : 0;
+
+    const next = max + 1;
+
+    if (next > 9999) {
+      callback(
+        new Error(
+          "Application number limit exceeded"
+        )
+      );
+      return;
+    }
+
+    const applicationNo =
+      "GCARE" +
+      String(next).padStart(4, "0");
+
+    callback(null, applicationNo);
+  });
+};
+
+const tryInsertAdmission = (
+  data,
+  applicationNo,
+  attempt,
+  callback
+) => {
   const values = [
-    data.applicationNo || `GCARE${Date.now()}`,
+    applicationNo,
     data.branch_name || null,
     data.courseName || null,
     data.title || null,
@@ -93,10 +149,64 @@ const insertAdmission = (data, callback) => {
     values
   );
 
-  db.query(
-    sql,
-    values,
-    callback
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      const isApplicationNoDuplicate =
+        err.code === "ER_DUP_ENTRY" &&
+        (err.sqlMessage || err.message || "")
+          .includes("application_no");
+
+      if (
+        attempt < MAX_APPLICATION_ATTEMPTS &&
+        isApplicationNoDuplicate
+      ) {
+        console.warn(
+          `Duplicate application number ${applicationNo}, retrying attempt ${attempt + 1}...`
+        );
+
+        generateApplicationNo(
+          (genErr, newApplicationNo) => {
+            if (genErr) {
+              callback(genErr);
+              return;
+            }
+
+            tryInsertAdmission(
+              data,
+              newApplicationNo,
+              attempt + 1,
+              callback
+            );
+          }
+        );
+
+        return;
+      }
+
+      callback(err);
+      return;
+    }
+
+    result.applicationNo = applicationNo;
+    callback(null, result);
+  });
+};
+
+const insertAdmission = (data, callback) => {
+  generateApplicationNo(
+    (err, applicationNo) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+
+      tryInsertAdmission(
+        data,
+        applicationNo,
+        1,
+        callback
+      );
+    }
   );
 };
 
