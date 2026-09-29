@@ -45,7 +45,7 @@ const generateApplicationNo = (
 
     const next = max + 1;
 
-    if (next > 99999) {
+    if (next > 9999) {
       callback(
         new Error(
           "Application number limit exceeded"
@@ -56,7 +56,7 @@ const generateApplicationNo = (
 
     const applicationNo =
       "GCARE" +
-      String(next).padStart(5, "0");
+      String(next).padStart(4, "0");
 
     callback(null, applicationNo);
   });
