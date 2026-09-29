@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function padApplicationNo(num) {
     return (
-      "GCARE" + String(num).padStart(4, "0")
+      "GCARE" + String(num).padStart(5, "0")
     );
   }
 
@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (
           typeof code === "string" &&
           code.startsWith("GCARE") &&
-          code.length === 9 &&
-          /^\d{4}$/.test(code.slice(5))
+          (code.length === 9 || code.length === 10) &&
+          /^\d{4,5}$/.test(code.slice(5))
         ) {
           const n = parseInt(
             code.slice(5),
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (
       !isNaN(stored) &&
       stored >= 1 &&
-      stored <= 9999
+      stored <= 99999
     ) {
       return stored;
     }
@@ -3425,6 +3425,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const submittedApplicationNo =
+        result.data?.applicationNo ||
         formData.get(
           "applicationNo"
         );
