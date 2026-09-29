@@ -10,8 +10,12 @@ const debugLog =
 const MAX_APPLICATION_ATTEMPTS = 5;
 
 const generateApplicationNo = (
+  connection,
   callback
 ) => {
+  const conn =
+    connection || db;
+
   const sql = `
     SELECT
       COALESCE(
@@ -27,7 +31,7 @@ const generateApplicationNo = (
     WHERE application_no REGEXP '^GCARE[0-9]+$'
   `;
 
-  db.query(sql, (err, rows) => {
+  conn.query(sql, (err, rows) => {
     if (err) {
       callback(err);
       return;
@@ -41,7 +45,7 @@ const generateApplicationNo = (
 
     const next = max + 1;
 
-    if (next > 9999) {
+    if (next > 99999) {
       callback(
         new Error(
           "Application number limit exceeded"
@@ -52,18 +56,21 @@ const generateApplicationNo = (
 
     const applicationNo =
       "GCARE" +
-      String(next).padStart(4, "0");
+      String(next).padStart(5, "0");
 
     callback(null, applicationNo);
   });
 };
 
 const tryInsertAdmission = (
+  connection,
   data,
   applicationNo,
   attempt,
   callback
 ) => {
+  const conn =
+    connection || db;
   const values = [
     applicationNo,
     data.branch_name || null,
@@ -149,7 +156,7 @@ const tryInsertAdmission = (
     values
   );
 
-  db.query(sql, values, (err, result) => {
+  conn.query(sql, values, (err, result) => {
     if (err) {
       const isApplicationNoDuplicate =
         err.code === "ER_DUP_ENTRY" &&
@@ -165,6 +172,7 @@ const tryInsertAdmission = (
         );
 
         generateApplicationNo(
+          connection,
           (genErr, newApplicationNo) => {
             if (genErr) {
               callback(genErr);
@@ -172,6 +180,7 @@ const tryInsertAdmission = (
             }
 
             tryInsertAdmission(
+              connection,
               data,
               newApplicationNo,
               attempt + 1,
@@ -193,18 +202,109 @@ const tryInsertAdmission = (
 };
 
 const insertAdmission = (data, callback) => {
-  generateApplicationNo(
-    (err, applicationNo) => {
-      if (err) {
-        callback(err);
+  db.getConnection(
+    (connErr, connection) => {
+      if (connErr) {
+        callback(connErr);
         return;
       }
 
-      tryInsertAdmission(
-        data,
-        applicationNo,
-        1,
-        callback
+      connection.beginTransaction(
+        (beginErr) => {
+          if (beginErr) {
+            connection.release();
+            callback(beginErr);
+            return;
+          }
+
+          connection.query(
+            "SELECT GET_LOCK('admission_application_no', 10) AS lock_result",
+            (lockErr, lockRows) => {
+              if (
+                lockErr ||
+                !lockRows ||
+                !lockRows[0] ||
+                lockRows[0].lock_result !== 1
+              ) {
+                connection.rollback(() => {
+                  connection.release();
+                  callback(
+                    new Error(
+                      "Unable to acquire application number lock"
+                    )
+                  );
+                });
+                return;
+              }
+
+              const releaseAndEnd = (
+                endErr,
+                result
+              ) => {
+                if (endErr) {
+                  connection.rollback(() => {
+                    connection.query(
+                      "SELECT RELEASE_LOCK('admission_application_no')",
+                      () => {
+                        connection.release();
+                        callback(endErr);
+                      }
+                    );
+                  });
+                  return;
+                }
+
+                connection.commit(
+                  (commitErr) => {
+                    if (commitErr) {
+                      connection.rollback(() => {
+                        connection.query(
+                          "SELECT RELEASE_LOCK('admission_application_no')",
+                          () => {
+                            connection.release();
+                            callback(commitErr);
+                          }
+                        );
+                      });
+                      return;
+                    }
+
+                    connection.query(
+                      "SELECT RELEASE_LOCK('admission_application_no')",
+                      () => {
+                        connection.release();
+                        callback(null, result);
+                      }
+                    );
+                  }
+                );
+              };
+
+              generateApplicationNo(
+                connection,
+                (genErr, applicationNo) => {
+                  if (genErr) {
+                    releaseAndEnd(genErr, null);
+                    return;
+                  }
+
+                  tryInsertAdmission(
+                    connection,
+                    data,
+                    applicationNo,
+                    1,
+                    (insertErr, result) => {
+                      releaseAndEnd(
+                        insertErr,
+                        result
+                      );
+                    }
+                  );
+                }
+              );
+            }
+          );
+        }
       );
     }
   );
