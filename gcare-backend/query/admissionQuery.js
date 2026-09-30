@@ -21,7 +21,7 @@ const generateApplicationNo = (
       COALESCE(
         MAX(
           CAST(
-            TRIM(LEADING 'GCARE' FROM application_no)
+            SUBSTRING(application_no, 6)
             AS UNSIGNED
           )
         ),
@@ -40,7 +40,7 @@ const generateApplicationNo = (
     const max =
       rows &&
       rows[0]
-        ? rows[0].max_application_number
+        ? Number(rows[0].max_application_number) || 0
         : 0;
 
     const next = max + 1;
