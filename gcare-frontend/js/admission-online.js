@@ -18,6 +18,97 @@ document.addEventListener("DOMContentLoaded", function () {
   const applicationNo = document.getElementById("applicationNo");
   const submitButton = document.getElementById("submitApplicationBtn");
 
+  const branchCategory =
+    document.getElementById("branch_category");
+
+  const branchName =
+    document.getElementById("branch_name");
+
+  /* =====================================================
+     BRANCH CATEGORY -> BRANCH LOCATION OPTIONS
+  ===================================================== */
+
+  const branchOptionsByCategory = {
+    "Gandhi Community Colleges": [
+      "Thiruvallur",
+      "Salai",
+      "Poonamallee",
+      "Ennore",
+      "Kanchipuram",
+      "Thiruthani",
+      "Nemilicherry",
+      "Pudur",
+      "Nagapattinam"
+    ],
+
+    "G Care Branch": [
+      "Poonamallee",
+      "Thiruvallur",
+      "Thiruthani",
+      "Ennore",
+      "Kancheepuram",
+      "Pudhur",
+      "Salai",
+      "Thirupatur",
+      "Nagapattinam 1",
+      "Vadalur",
+      "Nagapattinam 2"
+    ]
+  };
+
+  function populateBranchLocations(category) {
+    if (!branchName) {
+      return;
+    }
+
+    const branches =
+      branchOptionsByCategory[category] || [];
+
+    branchName.innerHTML = "";
+
+    const placeholder =
+      document.createElement("option");
+
+    placeholder.value = "";
+    placeholder.textContent =
+      "Select Branch Location";
+
+    branchName.appendChild(placeholder);
+
+    branches.forEach(function (branch) {
+      const option =
+        document.createElement("option");
+
+      option.value = branch;
+      option.textContent = branch;
+
+      branchName.appendChild(option);
+    });
+
+    branchName.value = "";
+    branchName.setCustomValidity("");
+  }
+
+  function setupBranchCategory() {
+    if (!branchCategory || !branchName) {
+      return;
+    }
+
+    branchCategory.addEventListener(
+      "change",
+      function () {
+        branchCategory.setCustomValidity("");
+        populateBranchLocations(
+          branchCategory.value
+        );
+      }
+    );
+
+    populateBranchLocations(
+      branchCategory.value
+    );
+  }
+
   const dob = document.getElementById("dob");
   const dobDisplay = document.getElementById("dobDisplay");
   const dobErrorMessage =
@@ -3248,6 +3339,20 @@ document.addEventListener("DOMContentLoaded", function () {
         "branch_name"
       );
 
+    if (branchCategory) {
+      if (
+        !branchCategory.value.trim()
+      ) {
+        branchCategory.setCustomValidity(
+          "Please select a Branch Category"
+        );
+      } else {
+        branchCategory.setCustomValidity(
+          ""
+        );
+      }
+    }
+
     if (branchSelect) {
       if (
         !branchSelect.value.trim()
@@ -3363,6 +3468,11 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.set(
         "branch_name",
         branchName
+      );
+
+      formData.set(
+        "branch_category",
+        branchCategory?.value.trim() || ""
       );
 
       console.log(
@@ -3550,6 +3660,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "";
     }
 
+    populateBranchLocations(
+      branchCategory?.value || ""
+    );
+
     if (applicationNo) {
       sessionStorage.removeItem(
         APP_NO_SESSION_KEY
@@ -3612,6 +3726,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     await setupApplicationNumber();
+
+    setupBranchCategory();
 
     setupCourseDropdown();
 
