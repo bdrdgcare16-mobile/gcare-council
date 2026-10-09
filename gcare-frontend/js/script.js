@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (submenu) submenu.remove();
       }
 
-      lmsLink.setAttribute("href", "faculty-dashboard.html");
+      lmsLink.setAttribute("href", "lms-login.html");
       lmsLink.addEventListener("click", function (e) {
         e.preventDefault();
-        window.location.href = "faculty-dashboard.html";
+        window.location.href = "lms-login.html";
       });
     });
   })();

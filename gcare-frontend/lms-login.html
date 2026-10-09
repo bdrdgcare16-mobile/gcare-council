@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>LMS Login - G Care Council</title>
+
+  <link rel="stylesheet" href="css/lms-login.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <main class="login-page">
+    <div class="login-card">
+      <div class="logo-row">
+        <img src="assets/images/gcare-logo.png" alt="G Care Council Logo" />
+      </div>
+
+      <h1>LMS Login</h1>
+      <p>Sign in to access the G Care Council LMS portal.</p>
+
+      <form id="lmsLoginForm" novalidate>
+        <div class="form-group">
+          <label for="lmsEmail">Email</label>
+          <input
+            type="email"
+            id="lmsEmail"
+            name="lmsEmail"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lmsPassword">Password</label>
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="lmsPassword"
+              name="lmsPassword"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-password" id="toggleLmsPassword" aria-label="Show password" tabindex="-1">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="lmsLoginBtn">Login</button>
+
+        <p class="error-message" id="errorMessage"></p>
+      </form>
+
+      <a href="index.html" class="back-link">Back to G Care Council Website</a>
+    </div>
+  </main>
+
+  <script src="js/lms-login.js"></script>
+</body>
+
+</html>

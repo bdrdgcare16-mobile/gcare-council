@@ -2026,23 +2026,15 @@ function renderProgrammeImages(data) {
 }
 
 function getProgrammeImages(data) {
-  if (data.images && data.images.length >= 3) {
+  if (data.images && data.images.length) {
     return data.images.slice(0, 3);
   }
-  
+
   if (data.image) {
-    return [
-      data.image,
-      data.image.replace('.jpeg', '-2.jpeg'),
-      data.image.replace('.jpeg', '-3.jpeg')
-    ];
+    return [data.image];
   }
 
-  return [
-    "./assets/programmes/default-1.jpeg",
-    "./assets/programmes/default-2.jpeg",
-    "./assets/programmes/default-3.jpeg"
-  ];
+  return [];
 }
 
 function renderProgrammeShowcase(data) {

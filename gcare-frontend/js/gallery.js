@@ -280,7 +280,6 @@ const galleryData = [
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (16).jpeg", title: "Poonamallee Campus View 16", description: "Medical room" },
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (17).jpeg", title: "Poonamallee Campus View 17", description: "Staff room" },
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (18).jpeg", title: "Poonamallee Campus View 18", description: "Exhibition hall" },
-  { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (19).jpeg", title: "Poonamallee Campus View 19", description: "Campus night view" },
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (20).jpeg", title: "Poonamallee Campus View 20", description: "Campus night view" },
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (21).jpeg", title: "Poonamallee Campus View 21", description: "Campus night view" },
   { branch: "poonamallee", image: "assets/images/poonamallee/Poonamallee1  (22).jpeg", title: "Poonamallee Campus View 22", description: "Campus night view" },
