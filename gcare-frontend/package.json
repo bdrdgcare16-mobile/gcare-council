@@ -1,0 +1,14 @@
+{
+  "name": "gcare-council-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "serve": "^14.2.5"
+  },
+  "overrides": {
+    "compression": "1.8.2"
+  }
+}
