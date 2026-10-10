@@ -11,7 +11,16 @@
    exchanges the code itself.
 ===================================================== */
 
-const LMS_API_BASE_URL = "http://localhost:5000";
+// Local development hits the LMS backend on this machine. In production,
+// replace the placeholder with the deployed LMS backend origin (the same
+// origin that serves the LMS Admin SPA, e.g. https://<app>.up.railway.app).
+// NOTE: must be https:// — the login page is served over HTTPS and browsers
+// block http:// (mixed-content) API calls.
+const LMS_API_BASE_URL = ["localhost", "127.0.0.1"].includes(
+  location.hostname
+)
+  ? "http://localhost:5000"
+  : "https://REPLACE_WITH_DEPLOYED_LMS_ORIGIN";
 
 const LMS_ADMIN_ROLES = ["admin", "super_admin"];
 
