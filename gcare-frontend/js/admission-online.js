@@ -129,6 +129,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const place = document.getElementById("place");
   const pinStatus = document.getElementById("pinStatus");
 
+  let placeManuallyEdited = false;
+
   const hasAadhaar = document.getElementById("hasAadhaar");
   const aadhaarNumber =
     document.getElementById("aadhaarNumber");
@@ -1355,6 +1357,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* =====================================================
+     DECLARATION PLACE
+  ===================================================== */
+
+  function setupDeclarationPlace() {
+    if (!place) {
+      return;
+    }
+
+    place.addEventListener(
+      "input",
+      function () {
+        placeManuallyEdited =
+          place.value.trim() !==
+          "";
+      }
+    );
+  }
+
+  /* =====================================================
      SAME ADDRESS
   ===================================================== */
 
@@ -1445,7 +1466,10 @@ document.addEventListener("DOMContentLoaded", function () {
             "";
         }
 
-        if (place) {
+        if (
+          place &&
+          !placeManuallyEdited
+        ) {
           place.value =
             "";
         }
@@ -1539,10 +1563,12 @@ document.addEventListener("DOMContentLoaded", function () {
               "";
           }
 
-          if (place) {
+          if (
+            place &&
+            !placeManuallyEdited
+          ) {
             place.value =
-              postOffice.Name ||
-              postOffice.Block ||
+              district?.value ||
               postOffice.District ||
               "";
           }
@@ -3602,6 +3628,9 @@ document.addEventListener("DOMContentLoaded", function () {
     isEmailOtpVerified =
       false;
 
+    placeManuallyEdited =
+      false;
+
     if (mobileInput) {
       mobileInput.readOnly =
         false;
@@ -3734,6 +3763,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setupAgeValidation();
 
     setupDeclarationDate();
+
+    setupDeclarationPlace();
 
     setupSameAddress();
 
