@@ -132,6 +132,16 @@ document.addEventListener("DOMContentLoaded", function () {
       "searchInput"
     );
 
+  const branchCategoryFilter =
+    document.getElementById(
+      "branchCategoryFilter"
+    );
+
+  const branchNameFilter =
+    document.getElementById(
+      "branchNameFilter"
+    );
+
   const detailsModal =
     document.getElementById(
       "detailsModal"
@@ -187,6 +197,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /*
+    Format a submission timestamp as a single-line
+    value, e.g. "09 Oct 2026, 03:10 PM".
+
+    Uses the viewer's local timezone, the same as the
+    previous en-IN locale formatting — the stored
+    MySQL value itself is never changed.
+  */
   function formatDate(value) {
 
     if (!value) {
@@ -204,16 +222,49 @@ document.addEventListener("DOMContentLoaded", function () {
       return value;
     }
 
-    return date.toLocaleString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
+
+    const day =
+      String(
+        date.getDate()
+      ).padStart(
+        2,
+        "0"
+      );
+
+    const month =
+      date.toLocaleString(
+        "en-IN",
+        { month: "short" }
+      );
+
+    const year =
+      date.getFullYear();
+
+    const rawHours =
+      date.getHours();
+
+    const meridiem =
+      rawHours >= 12
+        ? "PM"
+        : "AM";
+
+    const hours =
+      String(
+        rawHours % 12 || 12
+      ).padStart(
+        2,
+        "0"
+      );
+
+    const minutes =
+      String(
+        date.getMinutes()
+      ).padStart(
+        2,
+        "0"
+      );
+
+    return `${day} ${month} ${year}, ${hours}:${minutes} ${meridiem}`;
   }
 
 
@@ -225,6 +276,46 @@ document.addEventListener("DOMContentLoaded", function () {
       value === ""
     ) {
       return "-";
+    }
+
+    return value;
+  }
+
+
+  /*
+    Records submitted before the branch fields
+    existed have NULL values. Show "Not Provided"
+    instead of a blank or dash.
+  */
+  function notProvidedValue(value) {
+
+    if (
+      value === null ||
+      value === undefined ||
+      String(value).trim() === ""
+    ) {
+      return "Not Provided";
+    }
+
+    return value;
+  }
+
+
+  /*
+    The "G Care Branch" category was renamed to
+    "G Care Branch (CHA's)". Rows stored before the
+    rename still carry the old value; map it to the
+    current label so the table, filter dropdown, and
+    details popup show one consistent category.
+  */
+  function normalizeBranchCategory(value) {
+
+    if (
+      String(
+        value || ""
+      ).trim() === "G Care Branch"
+    ) {
+      return "G Care Branch (CHA's)";
     }
 
     return value;
@@ -696,7 +787,7 @@ document.addEventListener("DOMContentLoaded", function () {
      ADMISSION TABLE
   ===================================================== */
 
-  function renderTable(data) {
+  function renderTable(data, emptyMessage) {
 
     if (!applicationsTableBody) {
       return;
@@ -712,9 +803,12 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="10"
+            colspan="12"
             style="text-align:center;">
-            No admission forms found.
+            ${escapeHtml(
+              emptyMessage ||
+              "No admission forms found."
+            )}
           </td>
         </tr>
       `;
@@ -750,6 +844,22 @@ document.addEventListener("DOMContentLoaded", function () {
           );
 
 
+        const branchCategory =
+          getValue(
+            item,
+            "branchCategory",
+            "branch_category"
+          );
+
+
+        const branchName =
+          getValue(
+            item,
+            "branchName",
+            "branch_name"
+          );
+
+
         const createdAt =
           getValue(
             item,
@@ -762,11 +872,11 @@ document.addEventListener("DOMContentLoaded", function () {
         applicationsTableBody.innerHTML += `
           <tr>
 
-            <td>
+            <td class="col-num">
               ${index + 1}
             </td>
 
-            <td>
+            <td class="col-appno">
               ${escapeHtml(
                 safeValue(
                   applicationNo
@@ -774,7 +884,7 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-name">
               ${escapeHtml(
                 safeValue(
                   item.title
@@ -787,7 +897,25 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-bcat">
+              ${escapeHtml(
+                notProvidedValue(
+                  normalizeBranchCategory(
+                    branchCategory
+                  )
+                )
+              )}
+            </td>
+
+            <td class="col-bname">
+              ${escapeHtml(
+                notProvidedValue(
+                  branchName
+                )
+              )}
+            </td>
+
+            <td class="col-course">
               ${escapeHtml(
                 safeValue(
                   courseName
@@ -795,7 +923,7 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-mobile">
               ${escapeHtml(
                 safeValue(
                   item.mobile
@@ -803,7 +931,7 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-email">
               ${escapeHtml(
                 safeValue(
                   item.email
@@ -811,7 +939,7 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-status">
 
               <span
                 class="status-badge ${getStatusClass(
@@ -827,7 +955,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </td>
 
-            <td>
+            <td class="col-date">
               ${escapeHtml(
                 formatDate(
                   createdAt
@@ -835,7 +963,7 @@ document.addEventListener("DOMContentLoaded", function () {
               )}
             </td>
 
-            <td>
+            <td class="col-action">
 
               <button
                 type="button"
@@ -848,7 +976,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </td>
 
-            <td>
+            <td class="col-delete">
 
               <button
                 type="button"
@@ -898,7 +1026,7 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="10"
+            colspan="12"
             style="text-align:center;">
             Loading admission forms...
           </td>
@@ -941,9 +1069,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       updateStats();
 
-      renderTable(
-        applications
-      );
+      populateBranchFilters();
+
+      applyAdmissionFilters();
 
 
     } catch (error) {
@@ -957,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", function () {
       applicationsTableBody.innerHTML = `
         <tr>
           <td
-            colspan="10"
+            colspan="12"
             style="
               text-align:center;
               color:#c30000;
@@ -1043,7 +1171,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
       updateStats();
-      renderTable(applications);
+      applyAdmissionFilters();
 
       showDashboardMessage(
         result.message ||
@@ -1066,6 +1194,255 @@ document.addEventListener("DOMContentLoaded", function () {
         "error"
       );
     }
+  }
+
+
+  /* =====================================================
+     BRANCH FILTERS
+
+     The Branch Category dropdown always lists every
+     category the admission form supports, merged with
+     any extra categories found in the submitted data
+     (duplicates removed). Selecting a Branch Category
+     narrows the Branch Name options to the names
+     submitted under that category.
+  ===================================================== */
+
+  const SUPPORTED_BRANCH_CATEGORIES = [
+    "Gandhi Community Colleges",
+    "G Care Branch (CHA's)"
+  ];
+
+
+  function getDistinctValues(
+    list,
+    camelCaseKey,
+    snakeCaseKey
+  ) {
+    const values = [];
+
+    list.forEach(function (item) {
+      const raw =
+        item?.[camelCaseKey] ??
+        item?.[snakeCaseKey];
+
+      const value =
+        typeof raw === "string"
+          ? raw.trim()
+          : "";
+
+      if (
+        value &&
+        !values.includes(value)
+      ) {
+        values.push(value);
+      }
+    });
+
+    return values.sort();
+  }
+
+
+  function fillSelectOptions(
+    select,
+    values,
+    allLabel
+  ) {
+    if (!select) {
+      return;
+    }
+
+    const current = select.value;
+
+    select.innerHTML = "";
+
+    const allOption =
+      document.createElement("option");
+    allOption.value = "";
+    allOption.textContent = allLabel;
+    select.appendChild(allOption);
+
+    values.forEach(function (value) {
+      const option =
+        document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+
+    select.value =
+      values.includes(current)
+        ? current
+        : "";
+  }
+
+
+  function populateBranchFilters() {
+    const distinctCategories =
+      [
+        ...new Set(
+          SUPPORTED_BRANCH_CATEGORIES.concat(
+            getDistinctValues(
+              applications,
+              "branchCategory",
+              "branch_category"
+            ).map(
+              normalizeBranchCategory
+            )
+          )
+        )
+      ].sort();
+
+    fillSelectOptions(
+      branchCategoryFilter,
+      distinctCategories,
+      "All Branch Categories"
+    );
+
+    const selectedCategory =
+      branchCategoryFilter
+        ? branchCategoryFilter.value
+        : "";
+
+    const scopedApplications =
+      selectedCategory
+        ? applications.filter(
+            function (item) {
+              return (
+                normalizeBranchCategory(
+                  getValue(
+                    item,
+                    "branchCategory",
+                    "branch_category"
+                  )
+                ) === selectedCategory
+              );
+            }
+          )
+        : applications;
+
+    fillSelectOptions(
+      branchNameFilter,
+      getDistinctValues(
+        scopedApplications,
+        "branchName",
+        "branch_name"
+      ),
+      "All Branch Names"
+    );
+  }
+
+
+  function applyAdmissionFilters() {
+    const searchValue =
+      (
+        (searchInput && searchInput.value) ||
+        ""
+      )
+        .toLowerCase()
+        .trim();
+
+    const categoryValue =
+      branchCategoryFilter
+        ? branchCategoryFilter.value
+        : "";
+
+    const branchValue =
+      branchNameFilter
+        ? branchNameFilter.value
+        : "";
+
+    const filteredApplications =
+      applications.filter(
+        function (item) {
+
+          const applicationNo =
+            getValue(
+              item,
+              "applicationNo",
+              "application_no"
+            );
+
+          const courseName =
+            getValue(
+              item,
+              "courseName",
+              "course_name"
+            );
+
+          const fullName =
+            getValue(
+              item,
+              "fullName",
+              "full_name"
+            );
+
+          const branchCategory =
+            String(
+              normalizeBranchCategory(
+                getValue(
+                  item,
+                  "branchCategory",
+                  "branch_category"
+                )
+              )
+            ).trim();
+
+          const branchName =
+            String(
+              getValue(
+                item,
+                "branchName",
+                "branch_name"
+              )
+            ).trim();
+
+          const matchesCategory =
+            !categoryValue ||
+            branchCategory === categoryValue;
+
+          const matchesBranch =
+            !branchValue ||
+            branchName === branchValue;
+
+          const matchesSearch =
+            !searchValue ||
+            String(fullName || "")
+              .toLowerCase()
+              .includes(searchValue) ||
+            String(item.mobile || "")
+              .toLowerCase()
+              .includes(searchValue) ||
+            String(item.email || "")
+              .toLowerCase()
+              .includes(searchValue) ||
+            String(courseName || "")
+              .toLowerCase()
+              .includes(searchValue) ||
+            String(applicationNo || "")
+              .toLowerCase()
+              .includes(searchValue) ||
+            branchCategory
+              .toLowerCase()
+              .includes(searchValue) ||
+            branchName
+              .toLowerCase()
+              .includes(searchValue);
+
+          return (
+            matchesCategory &&
+            matchesBranch &&
+            matchesSearch
+          );
+        }
+      );
+
+    renderTable(
+      filteredApplications,
+      categoryValue || branchValue
+        ? "No student applications found for the selected category."
+        : undefined
+    );
   }
 
 
@@ -1871,16 +2248,27 @@ document.addEventListener("DOMContentLoaded", function () {
           )}
 
           ${createDetailItem(
-            "Course",
-            courseName
+            "Branch Category",
+            notProvidedValue(
+              normalizeBranchCategory(
+                item?.branch_category ??
+                item?.branchCategory
+              )
+            )
           )}
 
           ${createDetailItem(
-            "Branch",
-            item?.branch_name ||
-            item?.branchName ||
-            item?.branch ||
-            "-"
+            "Branch Name",
+            notProvidedValue(
+              item?.branch_name ??
+              item?.branchName ??
+              item?.branch
+            )
+          )}
+
+          ${createDetailItem(
+            "Course",
+            courseName
           )}
 
           ${createDetailItem(
@@ -4336,7 +4724,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* ---------------------------------------------
-       ADMISSION SEARCH
+       ADMISSION SEARCH + BRANCH FILTERS
     --------------------------------------------- */
 
     if (searchInput) {
@@ -4345,94 +4733,33 @@ document.addEventListener("DOMContentLoaded", function () {
         "input",
         function () {
 
-          const searchValue =
-            this.value
-              .toLowerCase()
-              .trim();
+          applyAdmissionFilters();
+        }
+      );
+    }
 
 
-          const filteredApplications =
-            applications.filter(
-              function (item) {
+    if (branchCategoryFilter) {
 
-                const applicationNo =
-                  getValue(
-                    item,
-                    "applicationNo",
-                    "application_no"
-                  );
+      branchCategoryFilter.addEventListener(
+        "change",
+        function () {
 
+          populateBranchFilters();
 
-                const courseName =
-                  getValue(
-                    item,
-                    "courseName",
-                    "course_name"
-                  );
+          applyAdmissionFilters();
+        }
+      );
+    }
 
 
-                const fullName =
-                  getValue(
-                    item,
-                    "fullName",
-                    "full_name"
-                  );
+    if (branchNameFilter) {
 
+      branchNameFilter.addEventListener(
+        "change",
+        function () {
 
-                return (
-
-                  String(
-                    fullName ||
-                    ""
-                  )
-                    .toLowerCase()
-                    .includes(
-                      searchValue
-                    ) ||
-
-                  String(
-                    item.mobile ||
-                    ""
-                  )
-                    .toLowerCase()
-                    .includes(
-                      searchValue
-                    ) ||
-
-                  String(
-                    item.email ||
-                    ""
-                  )
-                    .toLowerCase()
-                    .includes(
-                      searchValue
-                    ) ||
-
-                  String(
-                    courseName ||
-                    ""
-                  )
-                    .toLowerCase()
-                    .includes(
-                      searchValue
-                    ) ||
-
-                  String(
-                    applicationNo ||
-                    ""
-                  )
-                    .toLowerCase()
-                    .includes(
-                      searchValue
-                    )
-                );
-              }
-            );
-
-
-          renderTable(
-            filteredApplications
-          );
+          applyAdmissionFilters();
         }
       );
     }

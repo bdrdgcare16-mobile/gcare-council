@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "Nagapattinam"
     ],
 
-    "G Care Branch": [
+    "G Care Branch (CHA's)": [
       "Poonamallee",
       "Thiruvallur",
       "Thiruthani",

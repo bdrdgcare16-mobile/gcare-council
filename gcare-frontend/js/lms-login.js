@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json().catch(function () { return {}; });
 
         if (!response.ok) {
-          showError(data.message || "Invalid email or password.");
+          showError(data.message || data.error || "Invalid email or password.");
           return;
         }
 

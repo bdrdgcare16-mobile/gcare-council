@@ -3,6 +3,8 @@
   "directoryListing": false,
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/downloads", "destination": "/downloads.html" }
+    { "source": "/downloads", "destination": "/downloads.html" },
+    { "source": "/admission-online", "destination": "/admission-online.html" },
+    { "source": "/internship-online", "destination": "/internship-online.html" }
   ]
 }

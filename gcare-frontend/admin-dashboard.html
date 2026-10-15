@@ -146,7 +146,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard - G Care Council</title>
-  <link rel="stylesheet" href="css/admin-dashboard.css?v=internship-count-fix-v2" />
+  <link rel="stylesheet" href="css/admin-dashboard.css?v=branch-columns-v1" />
 </head>
 
 <body>
@@ -262,13 +262,31 @@
         </div>
 
 
-        <div class="search-box">
-          <input
-            type="search"
-            id="searchInput"
-            placeholder="Search..."
-            autocomplete="off"
-          />
+        <div class="filter-bar">
+          <select
+            id="branchCategoryFilter"
+            class="filter-select"
+            aria-label="Filter by Branch Category"
+          >
+            <option value="">All Branch Categories</option>
+          </select>
+
+          <select
+            id="branchNameFilter"
+            class="filter-select"
+            aria-label="Filter by Branch Name"
+          >
+            <option value="">All Branch Names</option>
+          </select>
+
+          <div class="search-box">
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search..."
+              autocomplete="off"
+            />
+          </div>
         </div>
 
       </div>
@@ -280,16 +298,18 @@
 
           <thead>
             <tr>
-              <th>S.No</th>
-              <th>Application No.</th>
-              <th>Name</th>
-              <th>Course Name</th>
-              <th>Phone No.</th>
-              <th>Mail ID</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Action</th>
-              <th>Delete</th>
+              <th class="col-num">S.No</th>
+              <th class="col-appno">Application No.</th>
+              <th class="col-name">Name</th>
+              <th class="col-bcat">Branch Category</th>
+              <th class="col-bname">Branch Name</th>
+              <th class="col-course">Course Name</th>
+              <th class="col-mobile">Phone No.</th>
+              <th class="col-email">Mail ID</th>
+              <th class="col-status">Status</th>
+              <th class="col-date">Date</th>
+              <th class="col-action">Action</th>
+              <th class="col-delete">Delete</th>
             </tr>
           </thead>
 
@@ -297,7 +317,7 @@
             <tr>
               <td
                 class="loading-cell"
-                colspan="10">
+                colspan="12">
                 Loading applications...
               </td>
             </tr>
@@ -346,6 +366,6 @@
 
   </div>
 
-  <script src="js/admin-dashboard.js?v=internship-date-fix-v3"></script>
+  <script src="js/admin-dashboard.js?v=branch-category-cha-v2"></script>
 </body>
 </html>
