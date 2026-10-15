@@ -318,16 +318,38 @@ const getAdmissionApplicationNo = (
    BRANCH VALIDATION
 ===================================================== */
 
+const branchCategories = {
+  "Gandhi Community Colleges": [
+    "Thiruvallur",
+    "Salai",
+    "Poonamallee",
+    "Ennore",
+    "Kanchipuram",
+    "Thiruthani",
+    "Nemilicherry",
+    "Pudur",
+    "Nagapattinam"
+  ],
+
+  "G Care Branch (CHA's)": [
+    "Poonamallee",
+    "Thiruvallur",
+    "Thiruthani",
+    "Ennore",
+    "Kancheepuram",
+    "Pudhur",
+    "Salai",
+    "Thirupatur",
+    "Nagapattinam 1",
+    "Vadalur",
+    "Nagapattinam 2"
+  ]
+};
+
 const allowedBranches = [
-  "Thiruvallur",
-  "Salai",
-  "Poonamallee",
-  "Ennore",
-  "Kanchipuram",
-  "Thiruthani",
-  "Nemilicherry",
-  "Pudur",
-  "Nagapattinam"
+  ...new Set(
+    Object.values(branchCategories).flat()
+  )
 ];
 
 
@@ -439,13 +461,51 @@ const saveAdmission = async (
       ? rawBranch.trim()
       : "";
 
+  const rawCategory =
+    body.branch_category ||
+    body.branchCategory;
+
+  const branchCategory =
+    typeof rawCategory === "string"
+      ? rawCategory.trim()
+      : "";
+
   debugLog(
     "Student Admission branch value received:",
     branchName || "NOT RECEIVED"
   );
 
-  if (
-    !branchName ||
+  debugLog(
+    "Student Admission branch category received:",
+    branchCategory || "NOT RECEIVED"
+  );
+
+  if (!branchName) {
+    throw new Error(
+      "Please select a valid Branch Name"
+    );
+  }
+
+  if (branchCategory) {
+    const categoryBranches =
+      branchCategories[branchCategory];
+
+    if (!categoryBranches) {
+      throw new Error(
+        "Please select a valid Branch Category"
+      );
+    }
+
+    if (
+      !categoryBranches.includes(
+        branchName
+      )
+    ) {
+      throw new Error(
+        "Please select a valid Branch Name"
+      );
+    }
+  } else if (
     !allowedBranches.includes(
       branchName
     )
@@ -560,6 +620,9 @@ const saveAdmission = async (
     ...body,
 
     branch_name: branchName,
+
+    branch_category:
+      branchCategory || null,
 
     photoPath:
       `drive:${driveUploads.photoUpload.fileId}`,
@@ -754,7 +817,11 @@ const saveAdmission = async (
     ...body,
 
     branch_name: branchName,
-    branchName: branchName
+    branchName: branchName,
+    branch_category:
+      branchCategory || null,
+    branchCategory:
+      branchCategory || null
   };
 
 

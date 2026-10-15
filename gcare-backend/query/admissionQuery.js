@@ -74,6 +74,7 @@ const tryInsertAdmission = (
   const values = [
     applicationNo,
     data.branch_name || null,
+    data.branch_category || null,
     data.courseName || null,
     data.title || null,
     data.fullName || null,
@@ -115,6 +116,7 @@ const tryInsertAdmission = (
     INSERT INTO admissions (
       application_no,
       branch_name,
+      branch_category,
       course_name,
       title,
       full_name,
@@ -364,6 +366,8 @@ const fetchAdmissions = (
       application_no AS applicationNo,
       branch_name,
       branch_name AS branchName,
+      branch_category,
+      branch_category AS branchCategory,
       course_name AS courseName,
       full_name AS fullName,
       mobile,
@@ -395,6 +399,8 @@ const fetchAdmissionById = (
       application_no AS applicationNo,
       branch_name,
       branch_name AS branchName,
+      branch_category,
+      branch_category AS branchCategory,
       course_name AS courseName,
       title,
       full_name AS fullName,

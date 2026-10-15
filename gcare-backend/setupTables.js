@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS admissions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   application_no VARCHAR(50) NOT NULL UNIQUE,
   branch_name VARCHAR(100) NULL,
+  branch_category VARCHAR(100) NULL,
   course_name VARCHAR(150) NOT NULL,
 
   title VARCHAR(10),

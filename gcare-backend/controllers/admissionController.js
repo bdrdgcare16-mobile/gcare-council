@@ -263,6 +263,10 @@ const createAdmission = async (req, res) => {
 
         error.message.includes(
           "Please select a valid Branch Name"
+        ) ||
+
+        error.message.includes(
+          "Please select a valid Branch Category"
         )
       )
     ) {
