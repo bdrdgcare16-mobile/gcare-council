@@ -94,13 +94,13 @@ const programmesData = {
     subcourses: [
       {
         id: "diploma-nursing",
-        name: "Diploma Nursing",
-        title: "Diploma in Nursing",
+        name: "ADFNA - Advanced Diploma in Female Nursing Assistant",
+        title: "ADFNA - Advanced Diploma in Female Nursing Assistant",
         subtitle: "Advanced Nursing Education for Healthcare Excellence",
         description: "Comprehensive diploma programme in nursing focusing on advanced patient care, clinical practices, medical ethics, and professional healthcare standards. This course prepares students for diverse nursing roles in hospitals, clinics, and healthcare facilities.",
         duration: "3 Years",
         eligibility: "10+2 with Science (PCB)",
-        certification: "Diploma in Nursing",
+        certification: "ADFNA - Advanced Diploma in Female Nursing Assistant",
         highlights: [
           "Advanced clinical training",
           "Comprehensive patient care",
@@ -776,8 +776,8 @@ const programmesData = {
       },
       {
         id: "lab-technician",
-        name: "Dip.in.Lab Technician",
-        title: "Dip.in.Lab Technician",
+        name: "ADMLT - Advanced Diploma in Medical Lab Technician",
+        title: "ADMLT - Advanced Diploma in Medical Lab Technician",
         subtitle: "Clinical Laboratory Excellence",
         description:"The Diploma in Medical Lab Technician (DMLT) is a one-year program designed to train individuals in the essential skills and knowledge required to perform laboratory tests and procedures that assist in the diagnosis and treatment of diseases. This course equips students with expertise in areas such as blood analysis, microbiology, immunology and biochemistry.",
         duration: "1 Year",
@@ -1819,6 +1819,35 @@ const programmesData = {
     ]  
   },
 
+  cha: {
+    id: "cha",
+    name: "Chief Health Ambassador (CHA)",
+    title: "Chief Health Ambassador (CHA)",
+    subtitle: "Community Health Training Programme",
+    description:
+      "Community health training covering public healthcare, telemedicine, human anatomy and physiology, infection prevention and control, first aid and basic life support, laboratory procedures, and biomedical waste management.",
+    duration: "3 Months",
+    eligibility: "10th or 12th Pass",
+    certification: "—",
+    fee: "₹27,500",
+    feeLabel: "Course Fee",
+    highlights: [],
+    syllabus: [
+      "Public Health and Healthcare Delivery System",
+      "Telemedicine and Healthcare Services",
+      "Human Anatomy and Physiology",
+      "Infection Prevention and Control",
+      "First Aid and Basic Life Support",
+      "Laboratory Procedures and Specimen Handling",
+      "Biomedical Waste Management"
+    ],
+    careerOpportunities: [],
+    images: [
+      "./assets/programmes/health.jpeg"
+    ],
+    subcourses: []
+  }
+
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -2156,7 +2185,7 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
         ...programme,
         courseNumber: courseNumber++,
         isMainCourse: true,
-        fee: "₹25,000 - ₹50,000"
+        fee: programme.fee || "₹25,000 - ₹50,000"
       });
 
       if (programme.subcourses && programme.subcourses.length > 0) {
@@ -2193,7 +2222,7 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
           ...programme,
           courseNumber: courseNumber++,
           isMainCourse: true,
-          fee: "₹25,000 - ₹50,000"
+          fee: programme.fee || "₹25,000 - ₹50,000"
         });
       }
       if (programme.subcourses && programme.subcourses.length > 0) {
@@ -2247,7 +2276,7 @@ function renderCourseCard(course) {
           </div>
           
           <div class="course-card-detail">
-            <div class="course-card-detail-label">Annual Fee</div>
+            <div class="course-card-detail-label">${course.feeLabel || "Annual Fee"}</div>
             <div class="course-card-detail-value">${course.fee}</div>
           </div>
         </div>
@@ -2335,7 +2364,9 @@ function openCourseModal(courseId, isMainCourse, parentProgramme) {
   document.getElementById("modalCourseNumber").textContent = `Course ${course.courseNumber || 'N/A'}`;
   document.getElementById("modalDuration").textContent = course.duration;
   document.getElementById("modalEligibility").textContent = course.eligibility;
-  document.getElementById("modalFee").textContent = course.fee || "₹25,000 - ₹50,000";
+  const modalFeeEl = document.getElementById("modalFee");
+  modalFeeEl.textContent = course.fee || "₹25,000 - ₹50,000";
+  modalFeeEl.previousElementSibling.textContent = course.feeLabel || "Annual Fee";
 
   let descriptionContent = course.description;
   if (course.careerProspectsIntro && course.careerProspects && course.careerProspects.length > 0) {
@@ -2408,6 +2439,7 @@ function openSyllabusPage(courseId) {
     "electronics-sector": "electronics-sector-syllabus.html",
     "food-industry": "food-industry-syllabus.html",
     "agriculture-sector": "agriculture-sector-syllabus.html",
+    cha: "cha-syllabus.html",
   };
 
   const page = syllabusPages[courseId];
