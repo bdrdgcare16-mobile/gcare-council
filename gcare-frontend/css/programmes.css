@@ -2928,3 +2928,118 @@ body {
   border-color: #ffd56b;
   background: #ffd56b;
 }
+
+.modal-career-roles,
+.modal-career-subheading,
+.modal-career-pathways {
+  grid-column: 1 / -1;
+}
+
+.modal-career-roles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.modal-career-subheading {
+  margin: 8px 0 0;
+  color: var(--primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.modal-career-pathways {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.modal-career-pathway {
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #dce7f1;
+  box-shadow: 0 8px 24px rgba(12, 93, 165, 0.08);
+  transition: var(--transition);
+}
+
+.modal-career-pathway:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 93, 165, 0.1);
+  border-color: var(--primary);
+}
+
+.modal-career-pathway-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #003b63;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.modal-career-pathway-desc {
+  margin: 0;
+  color: var(--text-medium);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.modal-free-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, var(--primary-light) 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--primary-dark);
+  font-size: 1rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.modal-fees .modal-fee-grid {
+  margin-bottom: 0;
+}
+
+.modal-fee-note {
+  margin: 16px 0 0;
+  color: var(--text-medium);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .modal-free-banner {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    padding: 14px 16px;
+  }
+
+  .modal-career-pathways {
+    grid-template-columns: 1fr;
+  }
+}

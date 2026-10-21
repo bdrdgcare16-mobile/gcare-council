@@ -1829,7 +1829,7 @@ const programmesData = {
     duration: "3 Months",
     eligibility: "10th or 12th Pass",
     certification: "—",
-    fee: "₹27,500",
+    fee: "FREE",
     feeLabel: "Course Fee",
     highlights: [],
     syllabus: [
@@ -1849,6 +1849,274 @@ const programmesData = {
   }
 
 };
+
+const officiallyFreeCourses = [
+  "nursing",
+  "diploma-nursing",
+  "engineering",
+  "civil",
+  "mechanical",
+  "electrical",
+  "paramedical",
+  "xray",
+  "lab-technician",
+  "d-pharm",
+  "computer",
+  "teachers",
+  "science",
+  "skill",
+  "mining-sector",
+  "rubber-chemical-plastic",
+  "media-entertainment",
+  "yoga-wellness",
+  "beauty-wellness",
+  "healthcare-sector",
+  "handicrafts-carpet",
+  "banking-bfsi",
+  "electronics-sector",
+  "food-industry",
+  "agriculture-sector"
+];
+
+function isCourseFree(course) {
+  return !!course && officiallyFreeCourses.includes(course.id);
+}
+
+const careerPathwayCategories = [
+  { key: "entryLevel", icon: "💼", title: "Entry-Level Job Opportunities" },
+  { key: "industry", icon: "🏭", title: "Industry-Based Employment" },
+  { key: "selfEmployment", icon: "🧑‍💼", title: "Self-Employment" },
+  { key: "apprenticeship", icon: "📝", title: "Apprenticeship and Internship" },
+  { key: "higherEducation", icon: "🎓", title: "Higher Education and Skill Development" },
+  { key: "entrepreneurship", icon: "💡", title: "Entrepreneurship" }
+];
+
+const courseCareerPathways = {
+  nursing: {
+    entryLevel: "Nursing Assistant, Ward Aide, Patient Care Attendant and Home Care Aide roles",
+    industry: "Employment in hospitals, nursing homes, clinics, community health centres and home-healthcare agencies",
+    selfEmployment: "Private duty nursing, home patient care and elderly care services",
+    apprenticeship: "Clinical internships and apprenticeships in hospitals, primary health centres and community health programmes",
+    higherEducation: "ANM, GNM, B.Sc Nursing and specialised certificate courses in critical care or midwifery",
+    entrepreneurship: "Home healthcare agency, patient care services and community health awareness services"
+  },
+  "diploma-nursing": {
+    entryLevel: "Staff Nurse, Community Health Nurse, Nursing Assistant and Private Duty Nurse positions",
+    industry: "Multi-speciality hospitals, maternity homes, clinics, diagnostic centres and healthcare NGOs",
+    selfEmployment: "Independent private duty nursing and home-based patient care services",
+    apprenticeship: "Hospital clinical rotations and internships in ICU, emergency and community health departments",
+    higherEducation: "B.Sc Nursing, Post Basic Nursing and advanced nursing specialisation programmes",
+    entrepreneurship: "Nursing care agency, home healthcare services and patient support enterprise"
+  },
+  engineering: {
+    entryLevel: "Junior Engineer, Technical Supervisor, Project Assistant and Quality Control Trainee roles",
+    industry: "Construction companies, manufacturing units, infrastructure projects and plant maintenance departments",
+    selfEmployment: "Contract-based technical services such as drafting, estimation and site supervision",
+    apprenticeship: "Industrial apprenticeships with engineering firms, PSUs and manufacturing establishments",
+    higherEducation: "B.E./B.Tech through lateral entry, AMIE and CAD/CAM or trade certifications",
+    entrepreneurship: "Technical consultancy, fabrication or repair unit and project contracting services"
+  },
+  civil: {
+    entryLevel: "Site Engineer, Draughtsman, Survey Assistant and Construction Supervisor roles",
+    industry: "Construction firms, real estate developers, road and infrastructure projects and government contractors",
+    selfEmployment: "Independent building plan drafting, estimation, surveying and site supervision services",
+    apprenticeship: "Site-based apprenticeships and internships with construction and infrastructure companies",
+    higherEducation: "B.E./B.Tech Civil Engineering (lateral entry), AutoCAD, Revit and quantity surveying certifications",
+    entrepreneurship: "Civil contracting, building material supply, surveying services and construction consultancy"
+  },
+  mechanical: {
+    entryLevel: "Mechanical Technician, Machine Operator, Maintenance Assistant and Quality Inspector roles",
+    industry: "Manufacturing plants, automobile industry, fabrication units, power plants and HVAC services",
+    selfEmployment: "Machine repair, maintenance services and job-work machining for local industries",
+    apprenticeship: "Apprenticeships in manufacturing, automobile and fabrication industries",
+    higherEducation: "B.E./B.Tech Mechanical Engineering (lateral entry), CNC, CAD/CAM and welding certifications",
+    entrepreneurship: "Fabrication workshop, machinery service centre and spare-parts trading business"
+  },
+  electrical: {
+    entryLevel: "Electrical Technician, Wireman, Control Panel Assistant and Maintenance Assistant roles",
+    industry: "Power distribution companies, electrical contractors, manufacturing units and facility maintenance services",
+    selfEmployment: "House wiring, electrical repair and appliance servicing work",
+    apprenticeship: "Apprenticeships with power utilities, electrical contractors and industrial plants",
+    higherEducation: "B.E./B.Tech Electrical Engineering (lateral entry), electrician licence and solar installation certification",
+    entrepreneurship: "Electrical contracting, solar installation services and appliance service centre"
+  },
+  paramedical: {
+    entryLevel: "Lab Technician, X-Ray Technician, Pharmacy Assistant and Diagnostic Centre Support Staff roles",
+    industry: "Hospitals, diagnostic laboratories, clinics, blood banks and retail pharmacies",
+    selfEmployment: "Home sample collection and patient support services",
+    apprenticeship: "Internships in hospital departments and diagnostic centres",
+    higherEducation: "B.Sc MLT, B.Pharm and specialised paramedical diploma programmes",
+    entrepreneurship: "Diagnostic collection centre and allied healthcare support services"
+  },
+  xray: {
+    entryLevel: "X-Ray Technician, Radiology Assistant and Imaging Support Staff roles",
+    industry: "Hospitals, diagnostic imaging centres, orthopaedic and trauma clinics",
+    selfEmployment: "Mobile X-ray and imaging support services in partnership with licensed radiologists",
+    apprenticeship: "Internship in hospital radiology departments and scan centres",
+    higherEducation: "B.Sc Radiography / Imaging Technology and CT, MRI or ultrasound technician courses",
+    entrepreneurship: "Diagnostic imaging centre in partnership and X-ray equipment support services"
+  },
+  "lab-technician": {
+    entryLevel: "Medical Lab Technician, Pathology Assistant and Phlebotomist (sample collection) roles",
+    industry: "Diagnostic laboratories, hospitals, blood banks, research labs and pharmaceutical quality control",
+    selfEmployment: "Home sample collection and freelance phlebotomy services",
+    apprenticeship: "Internship in pathology laboratories and hospital clinical labs",
+    higherEducation: "B.Sc Medical Laboratory Technology and advanced courses in microbiology or biochemistry",
+    entrepreneurship: "Pathology sample collection centre in tie-up with diagnostic chains"
+  },
+  "d-pharm": {
+    entryLevel: "Pharmacy Assistant, Medical Store Executive and Dispensing Assistant roles",
+    industry: "Retail pharmacies, hospital pharmacies, pharmaceutical companies and medicine distributors",
+    selfEmployment: "Registered pharmacist services as per Pharmacy Council norms",
+    apprenticeship: "Internship in retail and hospital pharmacies",
+    higherEducation: "B.Pharm (lateral entry) and pharmaceutical sales or marketing certifications",
+    entrepreneurship: "Retail medical store and medicine distribution business with a valid drug licence"
+  },
+  computer: {
+    entryLevel: "Computer Operator, Data Entry Executive, Office Assistant and IT Support Trainee roles",
+    industry: "Offices, banks, schools, BPO/KPO units, service centres and e-governance centres",
+    selfEmployment: "Freelance data entry, DTP, documentation and computer support services",
+    apprenticeship: "Internships in IT support desks and office administration",
+    higherEducation: "Advanced IT diplomas, programming courses, Tally and digital skill certifications",
+    entrepreneurship: "Computer service centre, e-services centre and computer training institute"
+  },
+  teachers: {
+    entryLevel: "Primary Teacher, Tutor, Learning Facilitator and Academic Coordinator roles",
+    industry: "Schools, pre-schools, tuition centres and education-focused NGOs",
+    selfEmployment: "Private tuition, home tutoring and coaching classes",
+    apprenticeship: "Practice teaching and internship placements in schools",
+    higherEducation: "B.Ed, D.El.Ed, CTET/TET preparation and specialised pedagogy courses",
+    entrepreneurship: "Coaching centre, pre-school and educational consultancy services"
+  },
+  science: {
+    entryLevel: "Nutrition Assistant, Community Worker and Wellness Support Executive roles",
+    industry: "Anganwadi/ICDS projects, NGOs, wellness centres, hospitals (diet support) and food service institutions",
+    selfEmployment: "Diet and nutrition guidance, home-based food services and tailoring or craft work",
+    apprenticeship: "Internships with community nutrition programmes, NGOs and wellness centres",
+    higherEducation: "B.Sc Home Science, dietetics and nutrition diplomas and childcare certifications",
+    entrepreneurship: "Catering or tiffin service, boutique or tailoring unit and day-care centre"
+  },
+  skill: {
+    entryLevel: "Office Assistant, Customer Support Executive, Sales Trainee and Team Support Staff roles",
+    industry: "Retail, offices, service sector establishments and field support operations",
+    selfEmployment: "Freelance support services and commission-based sales work",
+    apprenticeship: "On-the-job training and apprenticeships with local employers",
+    higherEducation: "Sector-specific skill certificates and NSDC-aligned advanced courses",
+    entrepreneurship: "Small service businesses and local enterprises supported by skill training"
+  },
+  "mining-sector": {
+    entryLevel: "Mining Field Assistant, Site Support Staff, Industrial Helper and Operations Trainee roles",
+    industry: "Mining companies, quarrying operations and mineral processing units",
+    selfEmployment: "Equipment support and transport or logistics services for mining areas",
+    apprenticeship: "Mine-site apprenticeships and safety training programmes",
+    higherEducation: "Mining mate and blaster certificate courses and heavy machinery operation training",
+    entrepreneurship: "Earthworks contracting and transport services for mining operations"
+  },
+  "rubber-chemical-plastic": {
+    entryLevel: "Production Assistant, Machine Helper, Packaging Staff and Factory Support Worker roles",
+    industry: "Rubber product units, chemical plants and plastic moulding or processing industries",
+    selfEmployment: "Plastic product trading and small-scale job-work services",
+    apprenticeship: "Factory apprenticeships in rubber, chemical and plastic processing units",
+    higherEducation: "Polymer technology diploma and machine operation or moulding certifications",
+    entrepreneurship: "Small plastic or rubber goods manufacturing unit and recycling ventures"
+  },
+  "media-entertainment": {
+    entryLevel: "Production Assistant, Media Support Staff, Content Assistant and Studio Coordinator roles",
+    industry: "TV channels, production houses, event companies and digital media agencies",
+    selfEmployment: "Freelance videography, content creation and event coverage",
+    apprenticeship: "Internships with production houses, studios and local media channels",
+    higherEducation: "Diplomas in mass media, video editing, photography and sound design",
+    entrepreneurship: "Production unit, digital content or YouTube venture and event management services"
+  },
+  "yoga-wellness": {
+    entryLevel: "Yoga Assistant, Wellness Support Staff, Fitness Centre Assistant and Community Wellness Trainer roles",
+    industry: "Yoga studios, wellness centres, gyms, resorts, schools and corporate wellness programmes",
+    selfEmployment: "Personal yoga training and home-visit wellness sessions",
+    apprenticeship: "Assistantships under certified yoga instructors and wellness centres",
+    higherEducation: "Yoga teacher training certifications and naturopathy or wellness diplomas",
+    entrepreneurship: "Yoga studio, wellness coaching and corporate wellness services"
+  },
+  "beauty-wellness": {
+    entryLevel: "Salon Assistant, Beauty Support Staff, Spa Assistant and Wellness Centre Trainee roles",
+    industry: "Salons, spas, beauty clinics, bridal studios and wellness chains",
+    selfEmployment: "Freelance beautician or makeup artist services and home beauty services",
+    apprenticeship: "Salon apprenticeships and assistantships with senior beauticians",
+    higherEducation: "Advanced cosmetology, spa therapy and beauty therapy certifications",
+    entrepreneurship: "Own salon or parlour, bridal makeup studio and beauty product retail"
+  },
+  "healthcare-sector": {
+    entryLevel: "Healthcare Assistant, Patient Support Staff, Ward Assistant and Clinic Helper roles",
+    industry: "Hospitals, clinics, home healthcare providers and eldercare facilities",
+    selfEmployment: "Home patient care and attendant services",
+    apprenticeship: "Hospital ward internships and community health programme placements",
+    higherEducation: "Nursing and paramedical diplomas and caregiver or phlebotomy certifications",
+    entrepreneurship: "Home care agency and patient support services"
+  },
+  "handicrafts-carpet": {
+    entryLevel: "Craft Assistant, Production Worker, Design Support Staff and Loom Assistant roles",
+    industry: "Handicraft units, carpet weaving clusters, export houses and craft cooperatives",
+    selfEmployment: "Self-employed artisan work and home-based craft production",
+    apprenticeship: "Training under master craftspeople and craft cluster apprenticeships",
+    higherEducation: "Design development workshops and craft technology or merchandising courses",
+    entrepreneurship: "Craft business, carpet or handicraft unit and online craft sales"
+  },
+  "banking-bfsi": {
+    entryLevel: "Office Assistant, Customer Support Executive, Back Office Staff and Financial Service Trainee roles",
+    industry: "Banks, NBFCs, insurance companies, microfinance and fintech institutions",
+    selfEmployment: "Insurance, loan or financial product agency work with required certifications",
+    apprenticeship: "Internships in bank branches, NBFCs and insurance offices",
+    higherEducation: "Banking diplomas, IIBF/NISM certifications and B.Com or BBA programmes",
+    entrepreneurship: "Financial services agency, insurance consultancy and common service centre (CSC)"
+  },
+  "electronics-sector": {
+    entryLevel: "Electronics Assistant, Assembly Line Support, Technical Helper and Production Trainee roles",
+    industry: "Electronics manufacturing units, appliance companies and authorised service centres",
+    selfEmployment: "Mobile and gadget repair services and home appliance servicing",
+    apprenticeship: "Apprenticeships in service centres and electronics assembly units",
+    higherEducation: "Electronics diploma or ITI trades and mobile repair or embedded systems courses",
+    entrepreneurship: "Electronics repair shop, mobile service centre and accessories retail"
+  },
+  "food-industry": {
+    entryLevel: "Food Processing Assistant, Packaging Staff, Production Helper and Quality Support Worker roles",
+    industry: "Food processing units, bakeries, dairy and beverage plants and packaged food companies",
+    selfEmployment: "Home-based food products, catering and tiffin services",
+    apprenticeship: "Internships in food processing, packaging and quality control units",
+    higherEducation: "Food technology diploma and FSSAI-recognised food safety certifications",
+    entrepreneurship: "Small food processing unit, bakery and packaged snacks or pickles brand"
+  },
+  "agriculture-sector": {
+    entryLevel: "Farm Assistant, Agriculture Support Worker, Field Helper and Nursery Assistant roles",
+    industry: "Farms, agri-input companies, nurseries, food supply chains and farmer producer organisations",
+    selfEmployment: "Own farming, nursery raising and organic produce sales",
+    apprenticeship: "Field training with FPOs, agri-clinics and demonstration farms",
+    higherEducation: "Agricultural skill certificates, polytechnic agriculture and organic farming courses",
+    entrepreneurship: "Agri-input shop, nursery business and farm produce trading"
+  },
+  cha: {
+    entryLevel: "Community Health Worker, Health Assistant, Telemedicine Support Assistant and First Aid Responder roles",
+    industry: "Primary health centres, community health programmes, NGOs, telemedicine providers and wellness projects",
+    selfEmployment: "Community health services, health awareness facilitation and first-aid support services",
+    apprenticeship: "Field internships with primary health centres, NGO health missions and telemedicine programmes",
+    higherEducation: "ANM or GNM courses and community health or public health certificate programmes",
+    entrepreneurship: "Health awareness services, community wellness centre and health camp facilitation"
+  },
+  default: {
+    entryLevel: "Entry-level assistant and trainee roles related to the programme field",
+    industry: "Employment in organisations and establishments connected with the programme sector",
+    selfEmployment: "Independent services and freelance work using the skills gained",
+    apprenticeship: "Apprenticeship and internship opportunities with relevant employers",
+    higherEducation: "Advanced diploma, degree and certification courses in the same field",
+    entrepreneurship: "Small business and enterprise opportunities related to the programme skills"
+  }
+};
+
+function getCareerPathways(courseId, parentProgrammeId) {
+  return (
+    courseCareerPathways[courseId] ||
+    courseCareerPathways[parentProgrammeId] ||
+    courseCareerPathways.default
+  );
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   populateProgrammeTabs();
@@ -2185,7 +2453,8 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
         ...programme,
         courseNumber: courseNumber++,
         isMainCourse: true,
-        fee: programme.fee || "₹25,000 - ₹50,000"
+        fee: isCourseFree(programme) ? "Free" : (programme.fee || "₹25,000 - ₹50,000"),
+        feeLabel: isCourseFree(programme) ? "Course Fee" : programme.feeLabel
       });
 
       if (programme.subcourses && programme.subcourses.length > 0) {
@@ -2195,7 +2464,8 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
             courseNumber: courseNumber++,
             isMainCourse: false,
             parentProgramme: key,
-            fee: "₹24,000"
+            fee: isCourseFree(subcourse) ? "Free" : "₹24,000",
+            feeLabel: isCourseFree(subcourse) ? "Course Fee" : subcourse.feeLabel
           });
         });
       }
@@ -2210,7 +2480,8 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
           courseNumber: courseNumber++,
           isMainCourse: false,
           parentProgramme: programmeKey,
-          fee: "₹15,000 - ₹35,000"
+          fee: isCourseFree(subcourse) ? "Free" : "₹15,000 - ₹35,000",
+          feeLabel: isCourseFree(subcourse) ? "Course Fee" : subcourse.feeLabel
         });
       }
     }
@@ -2222,7 +2493,8 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
           ...programme,
           courseNumber: courseNumber++,
           isMainCourse: true,
-          fee: programme.fee || "₹25,000 - ₹50,000"
+          fee: isCourseFree(programme) ? "Free" : (programme.fee || "₹25,000 - ₹50,000"),
+          feeLabel: isCourseFree(programme) ? "Course Fee" : programme.feeLabel
         });
       }
       if (programme.subcourses && programme.subcourses.length > 0) {
@@ -2232,7 +2504,8 @@ function renderFilteredCourses(programmeKey = null, subcourseId = null) {
             courseNumber: courseNumber++,
             isMainCourse: false,
             parentProgramme: programmeKey,
-            fee: "₹27,000"
+            fee: isCourseFree(subcourse) ? "Free" : "₹27,000",
+            feeLabel: isCourseFree(subcourse) ? "Course Fee" : subcourse.feeLabel
           });
         });
       }
@@ -2364,9 +2637,15 @@ function openCourseModal(courseId, isMainCourse, parentProgramme) {
   document.getElementById("modalCourseNumber").textContent = `Course ${course.courseNumber || 'N/A'}`;
   document.getElementById("modalDuration").textContent = course.duration;
   document.getElementById("modalEligibility").textContent = course.eligibility;
+  const courseIsFree = isCourseFree(course);
   const modalFeeEl = document.getElementById("modalFee");
-  modalFeeEl.textContent = course.fee || "₹25,000 - ₹50,000";
-  modalFeeEl.previousElementSibling.textContent = course.feeLabel || "Annual Fee";
+  if (courseIsFree) {
+    modalFeeEl.textContent = "₹0 (Free)";
+    modalFeeEl.previousElementSibling.textContent = "Course Fee";
+  } else {
+    modalFeeEl.textContent = course.fee || "₹25,000 - ₹50,000";
+    modalFeeEl.previousElementSibling.textContent = course.feeLabel || "Annual Fee";
+  }
 
   let descriptionContent = course.description;
   if (course.careerProspectsIntro && course.careerProspects && course.careerProspects.length > 0) {
@@ -2385,15 +2664,65 @@ function openCourseModal(courseId, isMainCourse, parentProgramme) {
     </div>
   `;
   const careerContainer = document.getElementById("modalCareer");
+  let careerHtml = "";
+
   if (course.careerOpportunities && course.careerOpportunities.length > 0) {
-    careerContainer.innerHTML = (course.careerOpportunities || []).map(item => 
+    careerHtml += '<div class="modal-career-roles">' + course.careerOpportunities.map(item =>
       `<div class="modal-career-item unified-career-item">
         <span class="career-icon-box">💼</span>
         <span class="career-text">${item}</span>
       </div>`
-    ).join('');
-  } else {
-    careerContainer.innerHTML = '<p>No career information available.</p>';
+    ).join('') + '</div>';
+  }
+
+  const pathways = getCareerPathways(course.id, parentProgramme);
+  careerHtml += '<h4 class="modal-career-subheading">Career Pathways</h4>';
+  careerHtml += '<div class="modal-career-pathways">' + careerPathwayCategories.map(category =>
+    `<div class="modal-career-pathway">
+      <div class="modal-career-pathway-title">
+        <span class="career-icon-box">${category.icon}</span>
+        <span>${category.title}</span>
+      </div>
+      <p class="modal-career-pathway-desc">${pathways[category.key]}</p>
+    </div>`
+  ).join('') + '</div>';
+
+  careerContainer.innerHTML = careerHtml;
+
+  const modalFeesEl = document.getElementById("modalFees");
+  if (modalFeesEl) {
+    if (courseIsFree) {
+      modalFeesEl.innerHTML = `
+        <div class="modal-free-banner">
+          <span class="modal-free-badge">&#10003;</span>
+          <span>100% FREE COURSE</span>
+        </div>
+        <div class="modal-info-grid modal-fee-grid">
+          <div class="modal-info-item">
+            <span class="modal-info-label">Course Fee</span>
+            <span class="modal-info-value">&#8377;0</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="modal-info-label">Training Fee</span>
+            <span class="modal-info-value">Free</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="modal-info-label">Tuition Fee</span>
+            <span class="modal-info-value">No Tuition Fees</span>
+          </div>
+        </div>
+        <p class="modal-fee-note">This programme is offered completely free of cost by G Care Council. No course fee, training fee or tuition fee is charged to students.</p>
+      `;
+    } else {
+      modalFeesEl.innerHTML = `
+        <div class="modal-info-grid modal-fee-grid">
+          <div class="modal-info-item">
+            <span class="modal-info-label">${course.feeLabel || "Course Fee"}</span>
+            <span class="modal-info-value">${course.fee || "As per council norms"}</span>
+          </div>
+        </div>
+      `;
+    }
   }
 
   const viewSyllabusBtn = document.getElementById("viewSyllabusBtn");
