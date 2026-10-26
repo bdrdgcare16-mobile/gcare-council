@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  const API_BASE_URL = "https://backend-production-c5cb.up.railway.app/api";
+  // const API_BASE_URL = "https://backend-production-c5cb.up.railway.app/api";
+  const API_BASE_URL = "http://localhost:3001";
   const loginButton = adminLoginForm.querySelector('button[type="submit"]');
 
   function setError(message) {
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

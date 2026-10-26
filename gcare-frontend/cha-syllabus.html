@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHA Syllabus - G Care Council</title>
+  <title>Chief Health Ambassador – Course Curriculum - G Care Council</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/programmes.css">
   <link rel="stylesheet" href="css/syllabus.css">
@@ -47,9 +47,10 @@
     <div class="hero-overlay"></div>
     <div class="container hero-grid">
       <div class="hero-text-block">
-        <h1 class="hero-main-title">CHA Syllabus</h1>
+        <h1 class="hero-main-title">Chief Health Ambassador – Course Curriculum</h1>
         <p class="hero-main-text">
-          Complete course curriculum for Chief Health Ambassador (CHA)
+          Explore the complete 76-day, day-wise learning roadmap for the Chief Health
+          Ambassador programme — expand any day to view its full set of topics.
         </p>
       </div>
     </div>
@@ -82,154 +83,1000 @@
         </div>
       </div>
 
-      <div class="syllabus-section">
+      <div class="curriculum-section">
         <div class="module-section-header">
-          <h2 class="section-title-main">SYLLABUS — TOPIC OUTLINE</h2>
+          <h2 class="section-title-main">COURSE CURRICULUM</h2>
           <div class="divider-line"></div>
         </div>
-        <div class="papers-grid">
 
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 1</h4>
-              <p class="paper-subject">Public Health and Healthcare Delivery System</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Levels of healthcare: primary, secondary and tertiary</li>
-                  <li>Public health: concept, goals and principles</li>
-                  <li>Primary healthcare and its components</li>
-                  <li>Village-level and community healthcare services</li>
-                  <li>Anganwadi centres, sub-centres, primary health centres and health centres</li>
-                  <li>Functions of healthcare personnel and health institutions</li>
-                </ul>
-              </div>
-            </div>
+        <p class="curriculum-intro">
+          The Chief Health Ambassador programme is delivered through a structured,
+          day-wise learning plan. Follow the timeline below, jump between curriculum
+          sections, and expand any day to view the complete list of topics covered.
+        </p>
+
+        <div class="curriculum-overview">
+          <div class="overview-card">
+            <span class="overview-value">76</span>
+            <span class="overview-label">Total Training Days</span>
           </div>
-
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 2</h4>
-              <p class="paper-subject">Telemedicine and Healthcare Services</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Telehealth and telemedicine</li>
-                  <li>Telemedicine practice, prescribing and patient consultation</li>
-                  <li>Appointment scheduling and teleconsultation services</li>
-                  <li>Privacy, confidentiality and patient consent</li>
-                  <li>Patient identification, registration and documentation</li>
-                </ul>
-              </div>
-            </div>
+          <div class="overview-card">
+            <span class="overview-value">Day-wise</span>
+            <span class="overview-label">Curriculum</span>
           </div>
-
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 3</h4>
-              <p class="paper-subject">Human Anatomy and Physiology</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Anatomical terminology, body movements and directional terms</li>
-                  <li>Cells: structure, functions and classification</li>
-                  <li>Tissues: epithelial, connective, muscular and nervous</li>
-                  <li>Organs and organ systems</li>
-                  <li>Digestive system and related organs</li>
-                  <li>Liver, kidneys and excretory functions</li>
-                </ul>
-              </div>
-            </div>
+          <div class="overview-card">
+            <span class="overview-value">CHA</span>
+            <span class="overview-label">Chief Health Ambassador</span>
           </div>
+        </div>
 
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 4</h4>
-              <p class="paper-subject">Infection Prevention and Control</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Importance of infection control</li>
-                  <li>Methods to prevent and control infection</li>
-                  <li>Immunisation and vaccination</li>
-                  <li>Hand hygiene and hand-washing procedure</li>
-                  <li>Personal protective equipment and standard precautions</li>
-                </ul>
-              </div>
-            </div>
+        <div class="curriculum-tools">
+          <input
+            type="text"
+            id="chaSearch"
+            class="curriculum-search-input"
+            placeholder="Search topics or days…"
+            aria-label="Search CHA curriculum"
+          >
+          <div class="curriculum-actions">
+            <button type="button" id="chaExpandAll" class="curriculum-tool-btn">Expand All</button>
+            <button type="button" id="chaCollapseAll" class="curriculum-tool-btn outline">Collapse All</button>
           </div>
-
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 5</h4>
-              <p class="paper-subject">First Aid and Basic Life Support</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>First aid principles and emergency response</li>
-                  <li>First aid procedures and assessment</li>
-                  <li>Basic life support (BLS)</li>
-                  <li>Adult cardiac arrest and cardiopulmonary resuscitation</li>
-                  <li>BLS components for adults, children and infants</li>
-                </ul>
-              </div>
-            </div>
+          <div class="curriculum-progress" aria-live="polite">
+            <span id="chaProgressText">0 of 76 topics open</span>
+            <span class="curriculum-progress-track"><span class="curriculum-progress-fill" id="chaProgressFill"></span></span>
           </div>
+        </div>
 
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 6</h4>
-              <p class="paper-subject">Laboratory Procedures and Specimen Handling</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Basic laboratory procedures and safety</li>
-                  <li>Specimen collection and handling</li>
-                  <li>Blood collection and associated equipment</li>
-                  <li>Blood collection tubes and tube additives</li>
-                  <li>Anticoagulants: types and uses</li>
-                  <li>Instructions and precautions for sample collection</li>
-                </ul>
+        <div class="curriculum-layout">
+          <aside class="curriculum-nav">
+            <button type="button" class="curriculum-nav-toggle" id="chaNavToggle" aria-expanded="false">
+              Curriculum Sections
+            </button>
+            <ul class="curriculum-nav-list" id="chaNavList">
+              <li><a href="#cha-sec-1">Section 1<span>Days 1 – 20</span></a></li>
+              <li><a href="#cha-sec-2">Section 2<span>Days 21 – 40</span></a></li>
+              <li><a href="#cha-sec-3">Section 3<span>Days 41 – 60</span></a></li>
+              <li><a href="#cha-sec-4">Section 4<span>Days 61 – 76</span></a></li>
+            </ul>
+          </aside>
+
+          <div class="curriculum-timeline">
+            <section class="curriculum-day-group" id="cha-sec-1">
+              <h3 class="curriculum-day-group-title">Section 1 · Days 1 – 20</h3>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">1</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 1</span>
+                    <span class="day-heading">Healthcare Delivery Systems &amp; Telehealth Services</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Introduction To Healthcare Delivery Systems, Telehealth Services and Role Of Telehealth Services Coordinator – Introduction, Goals Of Health Care Delivery, Objectives Of Health Care Delivery System, Function Of Health Care Delivery System, Levels Of Health Care Delivery System in India.</p></div></div>
               </div>
-            </div>
-          </div>
 
-          <div class="paper-card">
-            <div class="paper-header">
-              <h4 class="paper-title">Topic 7</h4>
-              <p class="paper-subject">Biomedical Waste Management</p>
-            </div>
-            <div class="paper-units">
-              <div class="unit-section">
-                <ul class="topics-list">
-                  <li>Introduction to biomedical waste</li>
-                  <li>Biomedical waste categories</li>
-                  <li>Segregation and colour-coded waste containers</li>
-                  <li>Handling and disposal of biomedical waste</li>
-                  <li>Treatment and disposal of biomedical waste</li>
-                </ul>
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">2</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 2</span>
+                    <span class="day-heading">Private Sector &amp; Indigenous Systems of Medicine</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Private Sector, Indigenous Systems Of Medicine, Ayurveda and Siddha, Unani and Tibbi, Homeopathy.</p></div></div>
               </div>
-            </div>
-          </div>
 
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">3</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 3</span>
+                    <span class="day-heading">Voluntary Health Agencies &amp; National Health Programmes</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Voluntary Health Agencies, Volunteers the Heart Of the Community Functions, National Health Programmes.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">4</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 4</span>
+                    <span class="day-heading">Primary Health Care</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Primary Health Care - Concept of Primary Health Care, Principles of Primary Health Care, Elements of Primary Health Care, Primary Level Health Care.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">5</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 5</span>
+                    <span class="day-heading">Indian Public Health Standards for PHCs</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Indian Public Health Standards for PHCs – Objectives, Functions of Primary Health Centre, Local Dias.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">6</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 6</span>
+                    <span class="day-heading">Anganwadi Workers &amp; ASHA</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Anganwadi Workers – Functions, Accredited Social Health Activist.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">7</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 7</span>
+                    <span class="day-heading">Sub Centre Level Services</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Sub Centre Level – Sub Centre, Functions, Indian Public Health Standards for Subcentre – Service Provided: Maternal Care, Antenatal Care, Intranatal Care, Postnatal Care.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">8</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 8</span>
+                    <span class="day-heading">Community Health Centre</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Community Health Centre, Indian Public Health Standards for Community Health Centres, Rural Hospitals, District Hospital.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">9</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 9</span>
+                    <span class="day-heading">Private, Public &amp; Non-Profit Health Care Delivery</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Difference Between Private, Public, And Non – Profit Health Care Delivery System, ESI, Central Government Health Scheme, Facilities.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">10</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 10</span>
+                    <span class="day-heading">Non-Profit Health Care &amp; Telemedicine Practice</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Difference Between Non – profit Health Care Delivery System to Public Health Care, Difference Between Tee – Medicine, Tele-Education, and Tele Conferencing, Introduction to Tele education &amp; Tele Conferencing, Documentation Required to Practice Telemedicine, also Known as Telehealth, Varies by State.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">11</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 11</span>
+                    <span class="day-heading">Licensure, Malpractice &amp; Prescribing</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Licensure, Malpractice, Prescribing.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">12</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 12</span>
+                    <span class="day-heading">HIPPA Security, Credentialing &amp; Telemedicine Billing</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Health Insurance Portability and Accountability Act (HIPPA) Security, Credentialing, Appointment Schedule System and Billing for Telemedicine.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">13</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 13</span>
+                    <span class="day-heading">Scheduling Patients Effectively</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>How to Schedule Patients Effectively – Schedule From Noon, Implement, Prioritize Appointments, Confirm Appointments With Text and Email, Create a Patient Waiting List.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">14</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 14</span>
+                    <span class="day-heading">Automated Patient Recare &amp; Telehealth Queries</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Use Automated Patient Recare and Recall, Queries of Telehealth Services.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">15</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 15</span>
+                    <span class="day-heading">Renewal &amp; Identity Proof</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Renewal and Identify Proof or Identify Number.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">16</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 16</span>
+                    <span class="day-heading">Structure &amp; Functions of the Human Body</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Structure and Functions of Human Body – Introduction, Physiology, Terminologies Used In Anatomy – Based on Terms of Relationship.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">17</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 17</span>
+                    <span class="day-heading">Terms of Movements</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Based on Terms of Movements.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">18</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 18</span>
+                    <span class="day-heading">Approaches of Anatomy</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Approaches of Anatomy – Regional Anatomy, Systemic Anatomy, Clinical Anatomy, Gross Anatomy, Histological View.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">19</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 19</span>
+                    <span class="day-heading">Classification of Body Structure</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Classification of Structure of Body – General Structure: Primary Tissue, Classification of Primary Tissue in Body, Epithelium, Development of Epithelium Tissue.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">20</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 20</span>
+                    <span class="day-heading">Germ Layers &amp; Classification of Epithelium</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Ectodermal Cells, Endodermal Cells, Mesoderm, Classification of Epithilium, Functions of Epithilium, Simple Squamous Epithilium, Funtions, Cuboidal and Columnar Epithelia.</p></div></div>
+              </div>
+            </section>
+
+            <section class="curriculum-day-group" id="cha-sec-2">
+              <h3 class="curriculum-day-group-title">Section 2 · Days 21 – 40</h3>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">21</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 21</span>
+                    <span class="day-heading">Sites &amp; Classification of Epithelium</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Site of Occurrence, Pseudostratified Epitelium, Sites, Classification, Keratinized Epithelium, Non–Keratinized Epithelium, Stratified Cuboidal.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">22</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 22</span>
+                    <span class="day-heading">Columnar Epithelium &amp; Glands of the Human Body</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Stratified Columnar Epithelium, Transitional Epithelium or Urothelium, Glands in the Human Body, Local Hormones and General Hormones-Examples of Local Hormones Are, General Hormones, Major Endocrine Glands, Other Endocrine Glands, Functions of Endocrine Glands.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">23</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 23</span>
+                    <span class="day-heading">Endocrine Glands &amp; their Secretions</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Different Endocrine Glands and their Secretions, Hypophysis Cerebri or Pituitary, Classification, Adenohypophysis or Anterior Pituitary, Hormones Released, Growth.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">24</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 24</span>
+                    <span class="day-heading">Vital Organs &amp; Structure of Liver</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Brain and Nervous System, Cardiovascular System, Metabolism of Proteins, Carbohydrates &amp; Lipids, Vitamin Metabolism, Basic Functions of Vital Organs, Structure of Liver, Position, Shapes, Lobes.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">25</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 25</span>
+                    <span class="day-heading">Blood &amp; Nerve Supply of Liver</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Functional or Physiological Lobe, Blood &amp; Nerve Supply Liver - Hepatic Artery, Portal Vein, Functions of Liver, Secretion of Bile, Applied Anatomy - Hepatitis, Hepatic Injury, Liver Biopsy.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">26</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 26</span>
+                    <span class="day-heading">Liver Disorders &amp; Composition of Bile</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Hepatomegaly, Liver Cirrhosis, Liver Transplantation, Physiology of Liver, Composition of Bile, Organic Constituents, Inorganic Constituents.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">27</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 27</span>
+                    <span class="day-heading">Hepatic Bile &amp; Gall Bladder Bile</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Difference Between Hepatic (Liver) Bile &amp; Gall Bladder Bile, Bile Salts, Function Of bile, Digestion &amp; Absorption of Fat, Abroption of Fat Soluble Vitamins-A,D,E,K. Regulations of Bile Secretions.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">28</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 28</span>
+                    <span class="day-heading">Infection Control Policies &amp; Procedures</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Infection Control Policies &amp; Procedures-Introduction, Infection, Causative Organisms for Infection.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">29</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 29</span>
+                    <span class="day-heading">Stages &amp; Chains of Infection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Stages of Infection, Incubation Stage, Prodromal Stage, Illness Stage, Convalescent Stage, Chains Of Infection, organisms, Reservoir, Portal of Exit, Transmission, Portal of Entry, Vulnerable Host.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">30</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 30</span>
+                    <span class="day-heading">Healthy Living &amp; Infection Prevention</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Concept of Healthy Living, Importance of Infection Control &amp; Prevention, Strategies for Preventing Transmission of Pathogenic Organisms- Hand Hygiene, Environment Hygiene, Screening &amp; Cohorting the Patient.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">31</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 31</span>
+                    <span class="day-heading">Vaccination, Surveillance &amp; Nosocomial Infection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Vaccination, Surveillance, Appreciating all the Department Which Supports the Infection Prevention Programme, Nosocomial Infection - Definition, Importance of Incident Reporting, Benefits of Incident Reporting.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">32</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 32</span>
+                    <span class="day-heading">Immunization &amp; Hand Hygiene</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Concept of Immunization, Difference Between Vaccination &amp; Immunization - Vaccination, Benefits of Immunization, Hand Hygiene, Steps of Hand Wash, &amp; 7 Steps for Handwashing, Duration of hand wash.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">33</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 33</span>
+                    <span class="day-heading">Hand Rub &amp; Hand Hygiene Steps</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>After Care Of Handwashing, Hand Rub, Steps for Hand Hygiene, Duration of Hand Rub: 20-30Sec (According to WHO).</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">34</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 34</span>
+                    <span class="day-heading">Personal Protective Equipment</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Importance of Using Personal Protective Equipment, Personal Protective Equipment, Types of Personal Protective Equipment's, Guidelines for Wearing PPE - Mask, Gloves, Gown.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">35</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 35</span>
+                    <span class="day-heading">Procedures in Health Care Settings</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Procedure Used in Health Care Settings: Five Main Process in Health Care Settings, Vaccination against common infectious Disease.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">36</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 36</span>
+                    <span class="day-heading">Basic Infection Control Practices</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Apply Good Basic Infection Control Practices, Personal Hygiene, Indications for Hand Hygiene, Reasons for Poor Hand Hygienic Practices Among Health Workers, Hand Hygiene Activities.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">37</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 37</span>
+                    <span class="day-heading">WHO Hand Hygiene Recommendations</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>World Health Organization Recommendation of Hand Hygiene Procedure, Procedure for Hand Rub.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">38</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 38</span>
+                    <span class="day-heading">Standard Precautions &amp; Basic Life Support</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Safety-Universal or Standard Precautions &amp; Body Mechanics, Basic Life Support, Simplified Basic life Support for Adult.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">39</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 39</span>
+                    <span class="day-heading">Jaw Thrust &amp; BLS Components</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Jaw Thrust, Adult Cardiac Arrest, BLS Components for Adults, Children &amp; Infants.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">40</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 40</span>
+                    <span class="day-heading">Medication Awareness &amp; Administration</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Medication Awareness, Medication Administration.</p></div></div>
+              </div>
+            </section>
+
+            <section class="curriculum-day-group" id="cha-sec-3">
+              <h3 class="curriculum-day-group-title">Section 3 · Days 41 – 60</h3>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">41</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 41</span>
+                    <span class="day-heading">Oral Drug Administration</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Abbreviation &amp; Description - Drug Administration: Oral Drug Administration.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">42</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 42</span>
+                    <span class="day-heading">Parenteral Drug Administration</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Parenteral Drug Administrations, Subcutaneous Injections, Intramuscular Injections, Intravascular Injection.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">43</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 43</span>
+                    <span class="day-heading">Intravenous &amp; Rectal Drug Administration</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Intravenous Medications: Continuous Drip, Rectal Drug Administration, Conclusion.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">44</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 44</span>
+                    <span class="day-heading">Vital Signs &amp; Temperature</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Vital Signs (Cardinal Signs) are the TPR &amp; BP, Temperature, Normal &amp; Abnormal Temperature, Types Of Fever.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">45</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 45</span>
+                    <span class="day-heading">Clinical Thermometers</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>The Clinical Thermometer, Care of Thermometers, Sites for Taking Temperature.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">46</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 46</span>
+                    <span class="day-heading">Temperature Taking &amp; Recording</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Temperature Taking &amp; Recording, To Take the Temperature by Rectum.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">47</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 47</span>
+                    <span class="day-heading">Pulse Sites &amp; Recording</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Pulse-Sites where Pulse Can be Felt, Observations on the Pulse, Taking &amp; Recording the Pulse.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">48</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 48</span>
+                    <span class="day-heading">Respiration Rate &amp; Abnormalities</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Respiration - Respiration Rate, Counting Respiration's, Abnormalities in Respiration.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">49</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 49</span>
+                    <span class="day-heading">Blood Pressure Measurement</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Blood Pressure, Variations in Blood Pressure, The BP Apparatus, Method of Taking the Blood Pressure.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">50</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 50</span>
+                    <span class="day-heading">Weight &amp; Height Measurement</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Weight &amp; Height - Variations in Weight, Weighing the Patient, Taking Height.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">51</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 51</span>
+                    <span class="day-heading">History Taking &amp; Recording</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>History Taking, Method of Taking History, Recording.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">52</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 52</span>
+                    <span class="day-heading">Collection of Blood</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Collection of Blood - Introduction, Arterial Blood Collection, Capillary Blood Collection.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">53</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 53</span>
+                    <span class="day-heading">Venous Blood Collection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Venous Blood Collection (Venous Puncture), Needle, Syringe, Tourniquet.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">54</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 54</span>
+                    <span class="day-heading">Blood Collection Equipment &amp; Procedure</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Disinfectant, Water Bath or Water Tray, Collection Bottle/Tubes, Procedure.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">55</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 55</span>
+                    <span class="day-heading">Specimen Labeling &amp; Vacuum Collection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Specimen Labeling, Use Of Evacuated Tube for Vein Punctures (Vacuum Blood Collection System), Needle, Holder, Vacuum Collection Tubes, Procedure.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">56</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 56</span>
+                    <span class="day-heading">Failure in Blood Collection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Possibilities of Failure in Blood Collection, Rejection of Sample.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">57</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 57</span>
+                    <span class="day-heading">Anticoagulants</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Anticoagulants – Introduction, Chemical Anticoagulants, Biological Anticoagulant Heparine.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">58</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 58</span>
+                    <span class="day-heading">GDM, GTT &amp; Glucose Tests</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>GDM &amp; GTT, Special Instructions, Fasting Glucose, Insulin, C peptide.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">59</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 59</span>
+                    <span class="day-heading">Post Prandial &amp; Random Glucose</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Post Prandial Glucose, Insulin, C peptide, Instruction for Random Glucose, Instruction of Post Glucose.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">60</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 60</span>
+                    <span class="day-heading">Glucose Challenge, Lipid Profile &amp; Thyroid Tests</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Instruction for Glucose Challenge Test, Instruction for Lipid Profile Test, Thyroid Test.</p></div></div>
+              </div>
+            </section>
+
+            <section class="curriculum-day-group" id="cha-sec-4">
+              <h3 class="curriculum-day-group-title">Section 4 · Days 61 – 76</h3>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">61</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 61</span>
+                    <span class="day-heading">Stool Analysis &amp; Stool Culture</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Instruction for Stool Analysis, Instruction for Stool Culture.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">62</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 62</span>
+                    <span class="day-heading">Urine Examination &amp; Sputum Tests</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Urine Routine Examination, Urine Culture, Instruction Slip for Sputum/Culture/Gram Stain/AFB.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">63</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 63</span>
+                    <span class="day-heading">Swabs for Culture &amp; Mantoux Test</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Special Instructions, Swabs for Culture, Mantoux Instruction Slips.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">64</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 64</span>
+                    <span class="day-heading">24 Hours Urine Analysis</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Instruction for 24 Hours Urine Analysis, VMA/Metanephrines.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">65</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 65</span>
+                    <span class="day-heading">Lipoprotein A, Microalbumin &amp; Drug Level</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Lipoprotein A, Urine Microalbumin, Drug Level.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">66</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 66</span>
+                    <span class="day-heading">Semen Analysis &amp; Master Health Checkup</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Semen Analysis, Master Health Checkup.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">67</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 67</span>
+                    <span class="day-heading">Biomedical Waste Management – Introduction</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Biomedical Waste Management – Biomedical Waste, Biomedical Waste Management, Purpose of Biomedical Waste Management, Importance of Biomedical Waste Management.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">68</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 68</span>
+                    <span class="day-heading">Categories of Biomedical Waste</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Category of Biomedical Waste Management, Medical Waste in the USA, General Waste, Infectious Waste, Hazardous Waste.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">69</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 69</span>
+                    <span class="day-heading">Sharp Objects &amp; Healthcare Waste</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Sharp Objects, Surgicals Used For Invasive Procedures, Surgical Instruments, Chemotherapy Drugs, Healthcare Waste in the UK.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">70</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 70</span>
+                    <span class="day-heading">WHO Medical Waste Classifications</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>World Health Organization (WHO) Medical Waste Classifications.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">71</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 71</span>
+                    <span class="day-heading">Colour Coded Bins</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Types of Colour Coded Bin, Black Colour Bin.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">72</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 72</span>
+                    <span class="day-heading">Biomedical Waste Regulations</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>According to Directorate of General of Health Service &amp; Ministry of Health &amp; Family Welfare &amp; Central Pollution Control Board.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">73</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 73</span>
+                    <span class="day-heading">Transportation of Biomedical Waste</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Transportation of Biomedical Waste Management, Criteria for Way of Transportation.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">74</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 74</span>
+                    <span class="day-heading">Disposal Protocol – Yellow &amp; Red Waste</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Treatment Protocol for Disposal of Biomedical Waste – Yellow Category Waste, Red Category of Waste.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">75</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 75</span>
+                    <span class="day-heading">White Category Waste &amp; Disinfection</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>White Category – Segregation, Type of Bag &amp; Container, Treatment &amp; Disposal, Method of Disinfection.</p></div></div>
+              </div>
+
+              <div class="day-card">
+                <button type="button" class="day-card-head" aria-expanded="false">
+                  <span class="day-marker">76</span>
+                  <span class="day-head-text">
+                    <span class="day-label">Day 76</span>
+                    <span class="day-heading">Blue Category &amp; Waste Management Guidelines</span>
+                  </span>
+                  <span class="day-toggle-text">View Topics</span>
+                </button>
+                <div class="day-body"><div class="day-body-inner"><p>Blue Category, Important Guidelines of Biomedical Waste Management.</p></div></div>
+              </div>
+            </section>
+
+            <p class="curriculum-no-results" id="chaNoResults" hidden>No matching topics found. Try a different keyword or day.</p>
+          </div>
         </div>
       </div>
 
+
       <div class="modal-syllabus-center" style="gap: 16px; flex-wrap: wrap;">
-        <a
-          href="assets/pdf/GCare_Syllabus_Without_Page_Numbers.pdf"
-          download="CHA-Syllabus.pdf"
-          class="view-syllabus-btn"
-          style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"
-        >
-          Download Syllabus
-        </a>
         <a
           href="programmes.html#cha"
           class="view-syllabus-btn"
@@ -307,5 +1154,6 @@
   <script src="js/script.js"></script>
   <script src="js/programmes.js"></script>
   <script src="js/syllabus.js"></script>
+  <script src="js/cha-syllabus.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.hostname === "127.0.0.1" ||
     window.location.protocol === "file:"
       ? "http://localhost:3000/api"
-      : "https://backend-production-c5cb.up.railway.app/api";
+      : "http://localhost:3001";;
 
   const socialButtons = document.querySelectorAll(".social-btn");
 

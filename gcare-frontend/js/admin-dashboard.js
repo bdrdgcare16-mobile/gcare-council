@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
   ===================================================== */
 
   const API_BASE_URL =
-    "https://backend-production-c5cb.up.railway.app/api";
+    // "https://backend-production-c5cb.up.railway.app/api";
+  "http://localhost:3001";
 
   const BASE_URL =
     API_BASE_URL.replace("/api", "");
@@ -1036,7 +1037,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/admissions`
+          `${API_BASE_URL}/api/admissions`
         );
 
 
@@ -1119,7 +1120,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/admissions/${id}`,
+          `${API_BASE_URL}/api/admissions/${id}`,
           {
             method: "DELETE"
           }
@@ -1209,7 +1210,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ===================================================== */
 
   const SUPPORTED_BRANCH_CATEGORIES = [
-    "Gandhi Community Colleges",
+    "Gandhi Community College",
     "G Care Branch (CHA's)"
   ];
 
@@ -1799,7 +1800,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const fileUrl =
       isProtected
-        ? `${API_BASE_URL}/admissions/documents/${encodeURIComponent(
+        ? `${API_BASE_URL}/api/admissions/documents/${encodeURIComponent(
             fileData.documentId
           )}/file`
         : normalizeFileUrl(
@@ -2033,7 +2034,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/admissions/${id}`
+          `${API_BASE_URL}/api/admissions/${id}`
         );
 
 
@@ -2534,7 +2535,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/admissions/${id}/status`,
+          `${API_BASE_URL}/api/admissions/${id}/status`,
           {
             method: "PUT",
 
@@ -3211,7 +3212,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/internships`
+          `${API_BASE_URL}/api/internships`
         );
 
 
@@ -3670,7 +3671,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/internships/${id}`,
+          `${API_BASE_URL}/api/internships/${id}`,
           {
             method: "DELETE"
           }
@@ -3759,7 +3760,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/internships/${id}`
+          `${API_BASE_URL}/api/internships/${id}`
         );
 
 
@@ -3916,7 +3917,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const signatureUrl =
         candidateSignature
-          ? `${API_BASE_URL}/internships/${encodeURIComponent(
+          ? `${API_BASE_URL}/api/internships/${encodeURIComponent(
               item.id
             )}/signature`
           : "";
@@ -4185,7 +4186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const response =
         await adminFetch(
-          `${API_BASE_URL}/internships/${id}/status`,
+          `${API_BASE_URL}/api/internships/${id}/status`,
           {
             method: "PUT",
 

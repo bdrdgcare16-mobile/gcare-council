@@ -7,7 +7,8 @@ document.addEventListener(
     ===================================================== */
 
     const API_BASE_URL =
-     "https://backend-production-c5cb.up.railway.app";
+    //  "https://backend-production-c5cb.up.railway.app";
+    "http://localhost:3001";
     const INTERNSHIP_API_URL =
       `${API_BASE_URL}/api/internships`;
 

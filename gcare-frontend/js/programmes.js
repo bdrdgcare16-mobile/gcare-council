@@ -1846,6 +1846,80 @@ const programmesData = {
       "./assets/programmes/health.jpeg"
     ],
     subcourses: []
+  },
+
+  gda: {
+    id: "gda",
+    name: "General Duty Assistant (GDA)",
+    title: "General Duty Assistant (GDA)",
+    subtitle: "Healthcare Support Training Programme",
+    description:
+      "The official course overview for the General Duty Assistant (GDA) programme will be published here once the approved curriculum details are provided.",
+    duration: "6 Months",
+    eligibility: "10th or 12th Pass",
+    certification: "—",
+    fee: "₹27,500",
+    feeLabel: "Course Fee",
+    highlights: [],
+    syllabus: [
+      "Human Anatomy and Physiology",
+      "Fundamentals of Healthcare and Patient Care",
+      "Personal Hygiene and Grooming",
+      "Patient Mobility and Positioning",
+      "Vital Signs Measurement",
+      "Basic Nursing Care and Bedside Assistance",
+      "Infection Prevention and Control",
+      "Nutrition, Feeding and Elimination Care",
+      "First Aid and Emergency Response",
+      "Patient Communication, Safety and Documentation"
+    ],
+    careerOpportunities: [],
+    images: [
+      "./assets/programmes/health.jpeg"
+    ],
+    subcourses: []
+  },
+
+  "telemedicine-technician": {
+    id: "telemedicine-technician",
+    name: "Telehealth Services Coordinator",
+    title: "Telehealth Services Coordinator",
+    subtitle: "Remote Healthcare and Digital Health Support",
+    description:
+      "Professional training for delivering remote healthcare support through telemedicine platforms. Students learn to set up and manage virtual consultations, operate telehealth equipment, assist doctors during online consultations, handle remote patient monitoring devices, and maintain digital health records with confidentiality.",
+    duration: "6 Months",
+    eligibility: "10th or 12th Pass",
+    certification: "Telehealth Services Coordinator Certificate",
+    fee: "₹25,960",
+    feeLabel: "Course Fee",
+    highlights: [
+      "Telemedicine platform operation",
+      "Remote consultation support",
+      "Digital health records management",
+      "Patient data confidentiality"
+    ],
+    syllabus: [
+      "Human Anatomy and Physiology",
+      "Basic Healthcare and Medical Terminology",
+      "Computer Fundamentals and Digital Literacy",
+      "Telemedicine Technology and Telecommunication",
+      "Medical Equipment Operation and Maintenance",
+      "Vital Signs Measurement",
+      "Teleconsultation and Patient Management",
+      "Electronic Medical Records and Healthcare Documentation",
+      "Patient Safety, Infection Control and Data Privacy",
+      "Practical Training and Employability Skills"
+    ],
+    careerOpportunities: [
+      "Telemedicine Technician",
+      "Telehealth Support Staff",
+      "Remote Patient Monitoring Assistant",
+      "Telemedicine Centre Coordinator"
+    ],
+    images: [
+      "./assets/programmes/health.jpeg"
+    ],
+    subcourses: []
   }
 
 };
@@ -1971,6 +2045,14 @@ const courseCareerPathways = {
     apprenticeship: "Internship in retail and hospital pharmacies",
     higherEducation: "B.Pharm (lateral entry) and pharmaceutical sales or marketing certifications",
     entrepreneurship: "Retail medical store and medicine distribution business with a valid drug licence"
+  },
+  "telemedicine-technician": {
+    entryLevel: "Telemedicine Technician, Telehealth Support Staff, Remote Patient Monitoring Assistant and Telemedicine Centre Coordinator roles",
+    industry: "Hospitals, telemedicine centres, e-health clinics, diagnostic centres and digital health service providers",
+    selfEmployment: "Teleconsultation assistance and remote patient monitoring support services",
+    apprenticeship: "Internships in hospital telemedicine units, e-health kiosks and telehealth programmes",
+    higherEducation: "B.Sc in allied health sciences and advanced diplomas in digital health or health informatics",
+    entrepreneurship: "Telemedicine facilitation centre and digital health support services"
   },
   computer: {
     entryLevel: "Computer Operator, Data Entry Executive, Office Assistant and IT Support Trainee roles",
@@ -2753,6 +2835,7 @@ function openSyllabusPage(courseId) {
     xray: "xray-syllabus.html",
     "lab-technician": "lab-technician-syllabus.html",
     "d-pharm": "dpharm-syllabus.html",
+    "telemedicine-technician": "telemedicine-technician-syllabus.html",
     computer: "computer-syllabus.html",
     teachers: "teachers-syllabus.html",
     science: "home-science-syllabus.html",
@@ -2769,6 +2852,7 @@ function openSyllabusPage(courseId) {
     "food-industry": "food-industry-syllabus.html",
     "agriculture-sector": "agriculture-sector-syllabus.html",
     cha: "cha-syllabus.html",
+    gda: "gda-syllabus.html",
   };
 
   const page = syllabusPages[courseId];
