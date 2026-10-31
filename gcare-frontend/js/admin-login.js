@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // const API_BASE_URL = "https://backend-production-c5cb.up.railway.app/api";
-  const API_BASE_URL = "http://localhost:3001";
+  const API_BASE_URL = "https://backend-production-c5cb.up.railway.app/api";
+  // const API_BASE_URL = "http://localhost:3001";
   const loginButton = adminLoginForm.querySelector('button[type="submit"]');
 
   function setError(message) {

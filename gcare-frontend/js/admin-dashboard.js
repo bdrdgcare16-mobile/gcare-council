@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
   ===================================================== */
 
   const API_BASE_URL =
-    // "https://backend-production-c5cb.up.railway.app/api";
-  "http://localhost:3001";
+    "https://backend-production-c5cb.up.railway.app/api";
+  // "http://localhost:3001";
 
   const BASE_URL =
     API_BASE_URL.replace("/api", "");

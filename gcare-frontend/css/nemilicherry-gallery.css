@@ -1,0 +1,8 @@
+/* ==========================================
+   Nemilicherry Gallery - Page Specific Styles
+   Reuses shared gallery.css for banner,
+   buttons, grid, items, and empty state.
+   Adds full-screen lightbox preview.
+========================================== */
+
+/* Lightbox styles are shared via .gallery-lightbox in gallery.css */

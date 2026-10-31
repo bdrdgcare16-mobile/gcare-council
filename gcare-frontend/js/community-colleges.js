@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const communityCollegeData = [
     {
@@ -47,20 +48,102 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  const rowsContainer = document.getElementById("communityCollegeRows");
+  const rowsContainer = document.getElementById(
+    "communityCollegeRows"
+  );
+
+  // Existing gallery routes plus new Tiruthani route.
+  const galleryRoutes = {
+    Thiruvallur: "thiruvallur-gallery.html",
+    Tiruthani: "tiruthani-gallery.html",
+    Kanchipuram: "kanchipuram-gallery.html",
+    Ennore: "ennore-gallery.html",
+    Nemilicherry: "nemilicherry-gallery.html",
+    Poonamallee: "poonamallee-gallery.html",
+    Nagapattinam: "nagapattinam-gallery.html",
+    Salai: "salai-gallery.html",
+    Pudur: "pudur-gallery.html"
+  };
+
+  function createGalleryButtons(branch) {
+    const galleryPage = galleryRoutes[branch];
+
+    if (!galleryPage) {
+      return "";
+    }
+
+    // Keep existing Pudur Classroom-only behavior.
+    if (branch === "Pudur") {
+      return `
+        <div class="branch-gallery-buttons">
+          <a href="${galleryPage}"
+             class="gallery-link-btn">
+            <span class="gallery-icon" aria-hidden="true">
+              📚
+            </span>
+            <span>Classroom</span>
+          </a>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="branch-gallery-buttons">
+
+        <a href="${galleryPage}?type=classroom"
+           class="gallery-link-btn">
+          <span class="gallery-icon" aria-hidden="true">
+            📚
+          </span>
+          <span>Classroom</span>
+        </a>
+
+        <a href="${galleryPage}?type=lab"
+           class="gallery-link-btn">
+          <span class="gallery-icon" aria-hidden="true">
+            🔬
+          </span>
+          <span>Lab</span>
+        </a>
+
+      </div>
+    `;
+  }
 
   if (rowsContainer) {
     rowsContainer.innerHTML = communityCollegeData
       .map((item, index) => {
+        const galleryButtons = createGalleryButtons(
+          item.branch
+        );
+
         return `
-          <div class="community-row" data-index="${index}">
-            <div class="college-card" data-index="${index}">
+          <div class="community-row"
+               data-index="${index}">
+
+            <div class="college-card"
+                 data-index="${index}">
+
               <div class="college-content">
-                <h3 class="branch-title">${item.branch}</h3>
+
+                <h3 class="branch-title">
+                  ${item.branch}
+                </h3>
+
                 <div class="branch-address-box">
-                  <div class="branch-icon">📍</div>
-                  <p class="branch-address">${item.address}</p>
+
+                  <div class="branch-icon">
+                    📍
+                  </div>
+
+                  <p class="branch-address">
+                    ${item.address}
+                  </p>
+
                 </div>
+
+                ${galleryButtons}
+
               </div>
             </div>
           </div>
@@ -68,45 +151,67 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .join("");
 
-    const cards = document.querySelectorAll(".college-card");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const card = entry.target;
-            const delay = Number(card.dataset.index || 0) * 70;
-
-            setTimeout(() => {
-              card.classList.add("is-visible");
-            }, delay);
-
-            observer.unobserve(card);
-          }
-        });
-      },
-      {
-        threshold: 0.12
-      }
+    const cards = document.querySelectorAll(
+      ".college-card"
     );
 
-    cards.forEach((card) => observer.observe(card));
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const card = entry.target;
+
+              const delay =
+                Number(card.dataset.index || 0) * 70;
+
+              setTimeout(() => {
+                card.classList.add("is-visible");
+              }, delay);
+
+              observer.unobserve(card);
+            }
+          });
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+      cards.forEach((card) => observer.observe(card));
+    } else {
+      cards.forEach((card) => {
+        card.classList.add("is-visible");
+      });
+    }
   }
 
-  const socialButtons = document.querySelectorAll(".social-btn");
+  // Preserve social button functionality.
+  const socialButtons = document.querySelectorAll(
+    ".social-btn"
+  );
 
   socialButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    socialButtons.forEach((btn) => btn.classList.remove("active-social"));
-    this.classList.add("active-social");
-  });
-});
+    button.addEventListener("click", function () {
+      socialButtons.forEach((btn) => {
+        btn.classList.remove("active-social");
+      });
 
-  const footerTextLinks = document.querySelectorAll(".footer-text-link");
+      this.classList.add("active-social");
+    });
+  });
+
+  // Preserve footer link functionality.
+  const footerTextLinks = document.querySelectorAll(
+    ".footer-text-link"
+  );
 
   footerTextLinks.forEach((link) => {
     link.addEventListener("click", function () {
-      footerTextLinks.forEach((item) => item.classList.remove("active-footer-link"));
+      footerTextLinks.forEach((item) => {
+        item.classList.remove("active-footer-link");
+      });
+
       this.classList.add("active-footer-link");
     });
   });
