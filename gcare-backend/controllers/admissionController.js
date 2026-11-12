@@ -611,6 +611,25 @@ const streamAdmissionDocument = async (
       const driveFile =
         await getDriveFileStream(fileId);
 
+      /*
+        Some historical Drive uploads committed a
+        file record without any content (0 bytes).
+        Streaming it would produce an empty PDF
+        viewer, so report a clear error instead.
+      */
+      if (
+        driveFile.size !== undefined &&
+        Number(driveFile.size) === 0
+      ) {
+        return res.status(410).json({
+          success: false,
+          message:
+            "This file was not stored correctly " +
+            "(empty upload). Please ask the student " +
+            "to submit the document again."
+        });
+      }
+
       res.setHeader(
         "Content-Type",
         document.mimeType ||
@@ -676,6 +695,18 @@ const streamAdmissionDocument = async (
         success: false,
         message:
           "File is no longer available on the server."
+      });
+    }
+
+    if (
+      fs.statSync(localPath).size === 0
+    ) {
+      return res.status(410).json({
+        success: false,
+        message:
+          "This file was not stored correctly " +
+          "(empty upload). Please ask the student " +
+          "to submit the document again."
       });
     }
 

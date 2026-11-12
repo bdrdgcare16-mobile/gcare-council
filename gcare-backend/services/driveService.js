@@ -29,6 +29,13 @@ const uploadFileToDrive = async (file) => {
     );
   }
 
+  if (file.buffer.length === 0) {
+    throw new Error(
+      `"${file.originalname}" is empty. ` +
+        "Please choose a valid file and submit again."
+    );
+  }
+
   console.log(
     "[GOOGLE DRIVE] Uploading:",
     file.originalname
@@ -44,8 +51,29 @@ const uploadFileToDrive = async (file) => {
         mimeType: file.mimetype,
         body: Readable.from(file.buffer),
       },
-      fields: "id,name,mimeType,webViewLink",
+      fields: "id,name,mimeType,size,webViewLink",
     });
+
+    /*
+      Drive can commit a file record even when the
+      media transfer failed, leaving a 0-byte file
+      behind. Verify the stored size matches the
+      uploaded buffer so empty files are never
+      recorded as successful uploads.
+    */
+    if (
+      response.data.size !== undefined &&
+      Number(response.data.size) === 0
+    ) {
+      await drive.files
+        .delete({ fileId: response.data.id })
+        .catch(() => {});
+
+      throw new Error(
+        `"${file.originalname}" could not be stored ` +
+          "correctly. Please try uploading again."
+      );
+    }
 
     console.log(
       "[GOOGLE DRIVE] Upload successful:",
@@ -58,6 +86,7 @@ const uploadFileToDrive = async (file) => {
       fileId: response.data.id,
       fileName: response.data.name,
       mimeType: response.data.mimeType,
+      size: response.data.size,
       webViewLink:
         response.data.webViewLink || null,
     };
@@ -76,7 +105,7 @@ const uploadFileToDrive = async (file) => {
 const getDriveFileStream = async (fileId) => {
   const metadata = await drive.files.get({
     fileId,
-    fields: "id,name,mimeType",
+    fields: "id,name,mimeType,size",
   });
 
   const response = await drive.files.get(
@@ -88,6 +117,7 @@ const getDriveFileStream = async (fileId) => {
     stream: response.data,
     name: metadata.data.name,
     mimeType: metadata.data.mimeType,
+    size: metadata.data.size,
   };
 };
 

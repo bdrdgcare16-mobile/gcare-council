@@ -72,19 +72,320 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /*
+    Fetch a protected file with the admin token and
+    return it as a Blob.
+  */
+  async function fetchProtectedBlob(url) {
+    const response = await adminFetch(url);
+
+    if (!response.ok) {
+      let message =
+        "File could not be loaded.";
+
+      try {
+        const result =
+          await response.json();
+
+        if (result && result.message) {
+          message = result.message;
+        }
+      } catch (parseError) {
+        /* keep default message */
+      }
+
+      throw new Error(message);
+    }
+
+    return await response.blob();
+  }
+
+  /*
     Fetch a protected file as a blob and return an
     object URL that can be used for <img>, viewing,
     or downloading.
   */
   async function fetchProtectedBlobUrl(url) {
-    const response = await adminFetch(url);
+    const blob = await fetchProtectedBlob(url);
+    return window.URL.createObjectURL(blob);
+  }
 
-    if (!response.ok) {
-      throw new Error("File could not be loaded.");
+
+  /* =====================================================
+     PROTECTED DOCUMENT PREVIEW
+
+     Protected files are served by an authenticated
+     endpoint, so they can only be displayed through a
+     blob URL fetched with the admin token.
+
+     When the dashboard page runs under an opaque
+     origin (file:// or an embedded/sandboxed preview),
+     URL.createObjectURL() produces "blob:null/<id>"
+     URLs. Those cannot be resolved by a NEW top-level
+     tab — Chrome opens an empty PDF viewer showing
+     "Failed to load PDF document." Rendering the blob
+     inside THIS document resolves it correctly on
+     every origin, so previews work everywhere.
+  ===================================================== */
+
+  let docPreviewObjectUrl = null;
+
+  function closeDocPreview() {
+    const overlay =
+      document.getElementById(
+        "docPreviewOverlay"
+      );
+
+    if (overlay) {
+      overlay.style.display = "none";
     }
 
-    const blob = await response.blob();
-    return window.URL.createObjectURL(blob);
+    const body =
+      document.getElementById(
+        "docPreviewBody"
+      );
+
+    if (body) {
+      body.innerHTML = "";
+    }
+
+    if (docPreviewObjectUrl) {
+      window.URL.revokeObjectURL(
+        docPreviewObjectUrl
+      );
+      docPreviewObjectUrl = null;
+    }
+  }
+
+  function getDocPreviewOverlay() {
+    let overlay =
+      document.getElementById(
+        "docPreviewOverlay"
+      );
+
+    if (overlay) {
+      return overlay;
+    }
+
+    overlay =
+      document.createElement("div");
+
+    overlay.id = "docPreviewOverlay";
+
+    overlay.style.cssText = `
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.65);
+      z-index:9999;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    `;
+
+    const dialog =
+      document.createElement("div");
+
+    dialog.style.cssText = `
+      background:#ffffff;
+      border-radius:12px;
+      width:min(1100px,96vw);
+      height:min(86vh,900px);
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,0.35);
+    `;
+
+    const header =
+      document.createElement("div");
+
+    header.style.cssText = `
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 16px;
+      border-bottom:1px solid #e2e8f0;
+    `;
+
+    const titleEl =
+      document.createElement("span");
+
+    titleEl.id = "docPreviewTitle";
+
+    titleEl.style.cssText = `
+      font-weight:700;
+      color:#063b5b;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-family:Arial,sans-serif;
+    `;
+
+    const closeBtn =
+      document.createElement("button");
+
+    closeBtn.type = "button";
+    closeBtn.textContent = "Close";
+
+    closeBtn.style.cssText = `
+      padding:8px 16px;
+      border:0;
+      border-radius:8px;
+      background:#0084bd;
+      color:#ffffff;
+      font-weight:700;
+      cursor:pointer;
+      flex-shrink:0;
+    `;
+
+    closeBtn.addEventListener(
+      "click",
+      closeDocPreview
+    );
+
+    header.appendChild(titleEl);
+    header.appendChild(closeBtn);
+
+    const body =
+      document.createElement("div");
+
+    body.id = "docPreviewBody";
+
+    body.style.cssText = `
+      flex:1;
+      overflow:auto;
+      background:#525659;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    `;
+
+    dialog.appendChild(header);
+    dialog.appendChild(body);
+    overlay.appendChild(dialog);
+
+    overlay.addEventListener(
+      "click",
+      function (event) {
+        if (event.target === overlay) {
+          closeDocPreview();
+        }
+      }
+    );
+
+    document.body.appendChild(overlay);
+
+    return overlay;
+  }
+
+  async function openProtectedDocumentPreview(
+    fileUrl,
+    fileName
+  ) {
+    const overlay = getDocPreviewOverlay();
+
+    const body =
+      document.getElementById(
+        "docPreviewBody"
+      );
+
+    const titleEl =
+      document.getElementById(
+        "docPreviewTitle"
+      );
+
+    if (titleEl) {
+      titleEl.textContent =
+        fileName || "Document Preview";
+    }
+
+    body.innerHTML =
+      `<p style="color:#ffffff;font-family:Arial,sans-serif;">
+        Loading document...
+      </p>`;
+
+    overlay.style.display = "flex";
+
+    try {
+      const blob =
+        await fetchProtectedBlob(fileUrl);
+
+      if (blob.size === 0) {
+        throw new Error(
+          "This file was not stored correctly " +
+            "(empty upload). Please ask the student " +
+            "to submit the document again."
+        );
+      }
+
+      if (docPreviewObjectUrl) {
+        window.URL.revokeObjectURL(
+          docPreviewObjectUrl
+        );
+      }
+
+      docPreviewObjectUrl =
+        window.URL.createObjectURL(blob);
+
+      const mimeType =
+        String(blob.type || "").toLowerCase();
+
+      body.innerHTML = "";
+
+      if (mimeType.startsWith("image/")) {
+        const img =
+          document.createElement("img");
+
+        img.src = docPreviewObjectUrl;
+        img.alt = fileName || "Document";
+
+        img.style.cssText = `
+          max-width:100%;
+          max-height:100%;
+          object-fit:contain;
+          background:#ffffff;
+        `;
+
+        body.appendChild(img);
+      } else {
+        const frame =
+          document.createElement("iframe");
+
+        frame.src = docPreviewObjectUrl;
+        frame.title =
+          fileName || "Document Preview";
+
+        frame.style.cssText = `
+          width:100%;
+          height:100%;
+          border:0;
+          background:#ffffff;
+        `;
+
+        body.appendChild(frame);
+      }
+    } catch (error) {
+      console.error(
+        "Document preview error:",
+        error
+      );
+
+      body.innerHTML = `
+        <p style="
+          color:#ffffff;
+          font-family:Arial,sans-serif;
+          font-weight:700;
+          padding:20px;
+          text-align:center;
+        ">
+          ${escapeHtml(
+            error.message ||
+            "Unable to open the file."
+          )}
+        </p>
+      `;
+    }
   }
 
   /*
@@ -1879,6 +2180,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   class="view-file-btn"
                   data-protected-url="${escapeHtml(
                     fileUrl
+                  )}"
+                  data-file-name="${escapeHtml(
+                    fileName
                   )}">
                   View
                 </a>
@@ -1947,14 +2251,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!response.ok) {
 
-        throw new Error(
-          "File download failed."
-        );
+        let message =
+          "File download failed.";
+
+        try {
+          const result =
+            await response.json();
+
+          if (result && result.message) {
+            message = result.message;
+          }
+        } catch (parseError) {
+          /* keep default message */
+        }
+
+        throw new Error(message);
       }
 
 
       const blob =
         await response.blob();
+
+
+      if (blob.size === 0) {
+
+        throw new Error(
+          "This file was not stored correctly " +
+            "(empty upload). Please ask the student " +
+            "to submit the document again."
+        );
+      }
 
 
       const blobUrl =
@@ -2007,6 +2333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       alert(
+        error.message ||
         "Unable to download the file. Please try again."
       );
     }
@@ -4067,6 +4394,7 @@ document.addEventListener("DOMContentLoaded", function () {
                           data-protected-url="${escapeHtml(
                             signatureUrl
                           )}"
+                          data-file-name="Candidate Signature"
                           style="
                             display:inline-block;
                             margin-top:10px;
@@ -4545,7 +4873,12 @@ document.addEventListener("DOMContentLoaded", function () {
          Drive-backed files cannot be opened with a
          plain link because the backend requires an
          Authorization header. Fetch the file with
-         the admin token, then open the blob URL.
+         the admin token and render it inside the
+         same document — a "blob:null" URL created
+         under an opaque origin (file:// or a
+         sandboxed preview) cannot be resolved by
+         a new browser tab and shows an empty PDF
+         viewer.
       ------------------------------------------- */
 
       detailsContent.addEventListener(
@@ -4572,27 +4905,17 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-          try {
-            const blobUrl =
-              await fetchProtectedBlobUrl(
-                fileUrl
-              );
+          const fileName =
+            viewBtn.getAttribute(
+              "data-file-name"
+            ) ||
+            "Document Preview";
 
-            window.open(
-              blobUrl,
-              "_blank",
-              "noopener"
-            );
-          } catch (error) {
-            console.error(
-              "Protected view error:",
-              error
-            );
 
-            alert(
-              "Unable to open the file. Please log in again."
-            );
-          }
+          openProtectedDocumentPreview(
+            fileUrl,
+            fileName
+          );
         }
       );
 
